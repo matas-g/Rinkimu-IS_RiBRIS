@@ -3,7 +3,6 @@ package lt.javainiai.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,11 +36,6 @@ public class ConstituencyRepository implements RepositoryInterface<ConstituencyE
 
     @Override
     public ConstituencyEntity findById(Long id) {
-//        Query q = em.createQuery("SELECT c FROM ConstituencyEntity c WHERE c.id = :id");
-//        q.setParameter("id", id);
-//        return (ConstituencyEntity) q.getSingleResult();
-
-        // TODO - nebandziau, bet turetu veikt tokia trumpesne metodo realizacija.
          return em.find(ConstituencyEntity.class, id);
     }
 

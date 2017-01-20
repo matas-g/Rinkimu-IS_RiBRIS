@@ -36,13 +36,6 @@ public class PollingDistrictRepository implements RepositoryInterface<PollingDis
 
     @Override
     public PollingDistrictEntity findById(Long id) {
-        // Query q = em.createQuery("SELECT p FROM PollingDistrictEntity p WHERE
-        // p.id = :id");
-        // q.setParameter("id", id);
-        // return (PollingDistrictEntity) q.getSingleResult();
-
-        // TODO - nebandziau, bet turetu veikt tokia trumpesne metodo
-        // realizacija.
         return em.find(PollingDistrictEntity.class, id);
     }
 
