@@ -21,23 +21,6 @@ public class ConstituencyService {
     public List<ConstituencyEntity> findAll() {
         return this.constituencyRepository.findAll();
     }
-    
-    /*
-     * TODO
-     * Pavelo pvz. - Reports naudojimas Enticiu atvaizdavimui 
-     */
-//    public List<ConstituencyReport> findAll() {
-//         List<ConstituencyEntity> apygardsos = this.constituencyRepository.findAll();
-//         List<ConstituencyReport> listas = apygardsos.stream()
-//         .map(apygarda -> {
-//             ConstituencyReport rep = new ConstituencyReport();
-//             rep.setName(apygarda.getName());
-//             rep.setId(apygarda.getId());
-//             rep.setPollingDistrictName(apygarda.getPollingDistrict().iterator().next().getName());
-//             return rep;
-//         }).collect(Collectors.toList());
-//         return listas;
-//    }
 
     public ConstituencyEntity findById(Long id) {
         return this.constituencyRepository.findById(id);

@@ -2,7 +2,6 @@ package lt.javainiai.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +12,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Constituencies")
@@ -27,11 +28,12 @@ public class ConstituencyEntity {
     @Column(name = "Constituency_Name")
     private String name;
 
-    // TODO ?
-    @OneToMany(mappedBy = "constituency", cascade = CascadeType.ALL)
+    // Bidirectional OneToMany
+    @OneToMany(mappedBy = "constituency")
+    @JsonManagedReference
     private List<PollingDistrictEntity> pollingDistrict;
 
-    // Constructors
+    // Constructor
     public ConstituencyEntity() {
     }
 
@@ -51,7 +53,7 @@ public class ConstituencyEntity {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     public List<PollingDistrictEntity> getPollingDistrict() {
         return pollingDistrict;
     }

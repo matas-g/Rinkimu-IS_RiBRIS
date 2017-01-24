@@ -36,7 +36,7 @@ public class ConstituencyRepository implements RepositoryInterface<ConstituencyE
 
     @Override
     public ConstituencyEntity findById(Long id) {
-         return em.find(ConstituencyEntity.class, id);
+        return em.find(ConstituencyEntity.class, id);
     }
 
     @Transactional

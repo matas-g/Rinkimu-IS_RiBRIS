@@ -18,7 +18,7 @@ import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.service.ConstituencyService;
 
 @RestController
-@RequestMapping("/constituency")
+@RequestMapping("/constituencies")
 public class ConstituencyController {
 
     private ConstituencyService constituencyService;
@@ -28,37 +28,28 @@ public class ConstituencyController {
         this.constituencyService = constituencyService;
     }
 
-    // Register new (or update existing) Constituency
+    // Register new (or update existing)
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ConstituencyEntity saveOrUpdate(@Valid @RequestBody ConstituencyEntity constituency) {
         return this.constituencyService.saveOrUpdate(constituency);
     }
 
-    // TODO - kol kas sujungus Apygarda su Apylinke duoda stack overflow - zr.
-    // Pavelo pvz.
-    // Find all Constituency
+    // Find all
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<ConstituencyEntity> findAll() {
         return this.constituencyService.findAll();
     }
 
-    // TODO - Pavelo pvz. - sitas variantas naudojant Reports
-    // @RequestMapping(method = RequestMethod.GET)
-    // @ResponseStatus(HttpStatus.OK)
-    // public List<ConstituencyReport> findAll() {
-    // return this.constituencyService.findAll();
-    // }
-
-    // Find one Constituency
+    // Find one
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public ConstituencyEntity findById(@Valid @PathVariable("id") Long id) {
         return this.constituencyService.findById(id);
     }
 
-    // Delete one Constituency
+    // Delete one
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@Valid @PathVariable("id") Long id) {

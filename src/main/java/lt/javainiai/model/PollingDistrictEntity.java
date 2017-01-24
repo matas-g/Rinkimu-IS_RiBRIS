@@ -12,6 +12,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "Polling_Districts")
 public class PollingDistrictEntity {
@@ -30,14 +32,16 @@ public class PollingDistrictEntity {
     private String address;
 
     @NotNull
+    @Column(name = "Number_of_Voters")
     private Long numOfVoters;
 
-    // TODO ?
+    // Bidirectional ManyToOne
     @ManyToOne
     @JoinColumn(name = "Constituency_Id")
+    @JsonBackReference
     private ConstituencyEntity constituency;
 
-    // Constructors
+    // Constructor
     public PollingDistrictEntity() {
     }
 

@@ -14,46 +14,46 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import lt.javainiai.model.PollingDistrictEntity;
-import lt.javainiai.service.PollingDistrictService;
+import lt.javainiai.model.RepresentativeEntity;
+import lt.javainiai.service.RepresentativeService;
 
 @RestController
-@RequestMapping("/polling-districts")
-public class PollingDistrictController {
+@RequestMapping("/representatives")
+public class RepresentativeController {
 
-    private PollingDistrictService pollingDistrictService;
+    private RepresentativeService representativeService;
 
     @Autowired
-    public PollingDistrictController(PollingDistrictService pollingDistrictService) {
-        this.pollingDistrictService = pollingDistrictService;
+    public RepresentativeController(RepresentativeService representativeService) {
+        this.representativeService = representativeService;
     }
 
     // Register new (or update existing)
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public PollingDistrictEntity saveOrUpdate(@Valid @RequestBody PollingDistrictEntity pollingDistrict) {
-        return this.pollingDistrictService.saveOrUpdate(pollingDistrict);
+    public RepresentativeEntity saveOrUpdate(@Valid @RequestBody RepresentativeEntity representative) {
+        return this.representativeService.saveOrUpdate(representative);
     }
 
     // Find all
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<PollingDistrictEntity> findAll() {
-        return this.pollingDistrictService.findAll();
+    public List<RepresentativeEntity> findAll() {
+        return this.representativeService.findAll();
     }
 
     // Find one
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public PollingDistrictEntity findById(@Valid @PathVariable("id") Long id) {
-        return this.pollingDistrictService.findById(id);
+    public RepresentativeEntity findById(@Valid @PathVariable("id") Long id) {
+        return this.representativeService.findById(id);
     }
 
     // Delete one
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@Valid @PathVariable("id") Long id) {
-        this.pollingDistrictService.deleteById(id);
+        this.representativeService.deleteById(id);
     }
 
 }
