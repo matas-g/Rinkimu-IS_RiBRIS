@@ -29,6 +29,7 @@ public class PartyEntity {
     @Column(name = "Party_Number")
     private String partyNo;
 
+    // Bidirectional OneToMany
     @OneToMany(mappedBy = "party")
     @JsonManagedReference(value = "candidate-party")
     private List<CandidateEntity> candidates;

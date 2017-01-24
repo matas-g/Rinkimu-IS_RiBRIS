@@ -36,6 +36,7 @@ public class CandidateEntity {
     @Column(name = "Date_of_Birth")
     private Date birth_date;
 
+    // Bidirectional ManyToOne
     @ManyToOne
     @JsonBackReference(value = "candidate-party")
     @JoinColumn(name = "Party_Id")
@@ -43,6 +44,7 @@ public class CandidateEntity {
 
     private String biography;
 
+    // Bidirectional ManyToOne
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "Constituency_Id")
