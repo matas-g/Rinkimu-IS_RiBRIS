@@ -1,5 +1,7 @@
 package lt.javainiai.model;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,33 +17,39 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table(name = "Polling_Districts")
-public class PollingDistrictEntity {
+@Table(name = "Candidates")
+public class CandidateEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
-    @Length(min = 1, max = 100)
-    @Column(name = "Polling_District_Name")
+    @Length(min = 1, max = 40)
     private String name;
 
     @NotNull
-    @Length(min = 1, max = 100)
-    private String address;
+    @Length(min = 1, max = 40)
+    private String surname;
 
-    @Column(name = "Number_of_Voters")
-    private Long numOfVoters;
+    @NotNull
+    @Column(name = "Date_of_Birth")
+    private Date birth_date;
 
-    // Bidirectional ManyToOne
+    @ManyToOne
+    @JsonBackReference(value = "candidate-party")
+    @JoinColumn(name = "Party_Id")
+    private PartyEntity party;
+
+    private String biography;
+
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "Constituency_Id")
     private ConstituencyEntity constituency;
 
     // Constructor
-    public PollingDistrictEntity() {
+    public CandidateEntity() {
     }
 
     // Getters and Setters
@@ -61,20 +69,36 @@ public class PollingDistrictEntity {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    public Long getNumOfVoters() {
-        return numOfVoters;
+    public Date getBirth_date() {
+        return birth_date;
     }
 
-    public void setNumOfVoters(Long numOfVoters) {
-        this.numOfVoters = numOfVoters;
+    public void setBirth_date(Date birth_date) {
+        this.birth_date = birth_date;
+    }
+
+    public PartyEntity getParty() {
+        return party;
+    }
+
+    public void setParty(PartyEntity party) {
+        this.party = party;
+    }
+
+    public String getBiography() {
+        return biography;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
     }
 
     public ConstituencyEntity getConstituency() {
@@ -87,8 +111,8 @@ public class PollingDistrictEntity {
 
     @Override
     public String toString() {
-        return "PollingDistrictEntity [id=" + id + ", name=" + name + ", address=" + address + ", numOfVoters="
-                + numOfVoters + ", constituency=" + constituency + "]";
+        return "CandidateEntity [id=" + id + ", name=" + name + ", surname=" + surname + ", birth_date=" + birth_date
+                + ", party=" + party + ", biography=" + biography + ", constituency=" + constituency + "]";
     }
 
 }

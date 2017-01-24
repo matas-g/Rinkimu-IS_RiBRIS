@@ -7,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -19,11 +18,9 @@ public class RepresentativeEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
-    @Length(min = 1, max = 30)
+    @Length(min = 1, max = 40)
     private String name;
 
-    @NotNull
     @Length(min = 1, max = 40)
     private String surname;
 
@@ -74,6 +71,7 @@ public class RepresentativeEntity {
         this.pollingDistrict = pollingDistrict;
     }
 
+    // TODO - jeigu slaptazodi siusim el. pastu
     // public String getEmail() {
     // return email;
     // }

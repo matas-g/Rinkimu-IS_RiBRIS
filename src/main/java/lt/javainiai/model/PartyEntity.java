@@ -15,29 +15,26 @@ import org.hibernate.validator.constraints.Length;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "Constituencies")
-public class ConstituencyEntity {
+@Table(name = "Parties")
+public class PartyEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Length(min = 1, max = 100)
-    @Column(name = "Constituency_Name")
+    @Length(min = 1, max = 200)
     private String name;
 
-    // Bidirectional OneToMany
-    @OneToMany(mappedBy = "constituency")
-    @JsonManagedReference
-    private List<PollingDistrictEntity> pollingDistricts;
+    @Length(min = 1, max = 5)
+    @Column(name = "Party_Number")
+    private String partyNo;
 
-    // Bidirectional OneToMany
-    @OneToMany(mappedBy = "constituency")
-    @JsonManagedReference
+    @OneToMany(mappedBy = "party")
+    @JsonManagedReference(value = "candidate-party")
     private List<CandidateEntity> candidates;
 
-    // Constructor
-    public ConstituencyEntity() {
+    // Controller
+    public PartyEntity() {
     }
 
     // Getters and Setters
@@ -57,12 +54,12 @@ public class ConstituencyEntity {
         this.name = name;
     }
 
-    public List<PollingDistrictEntity> getPollingDistricts() {
-        return pollingDistricts;
+    public String getPartyNo() {
+        return partyNo;
     }
 
-    public void setPollingDistricts(List<PollingDistrictEntity> pollingDistricts) {
-        this.pollingDistricts = pollingDistricts;
+    public void setPartyNo(String partyNo) {
+        this.partyNo = partyNo;
     }
 
     public List<CandidateEntity> getCandidates() {
@@ -75,8 +72,7 @@ public class ConstituencyEntity {
 
     @Override
     public String toString() {
-        return "ConstituencyEntity [id=" + id + ", name=" + name + ", pollingDistricts=" + pollingDistricts
-                + ", candidates=" + candidates + "]";
+        return "PartyEntity [id=" + id + ", name=" + name + ", partyNo=" + partyNo + ", candidates=" + candidates + "]";
     }
 
 }

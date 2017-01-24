@@ -31,7 +31,7 @@ public class RepresentativeRepository implements RepositoryInterface<Representat
 
     @Override
     public List<RepresentativeEntity> findAll() {
-        return em.createQuery("SELECT p FROM RepresentativeEntity p").getResultList();
+        return em.createQuery("SELECT r FROM RepresentativeEntity r").getResultList();
     }
 
     @Override
@@ -42,8 +42,8 @@ public class RepresentativeRepository implements RepositoryInterface<Representat
     @Transactional
     @Override
     public void deleteById(Long id) {
-        RepresentativeEntity pollingDistrictToRemove = em.find(RepresentativeEntity.class, id);
-        em.remove(pollingDistrictToRemove);
+        RepresentativeEntity representativeToRemove = em.find(RepresentativeEntity.class, id);
+        em.remove(representativeToRemove);
     }
 
 }
