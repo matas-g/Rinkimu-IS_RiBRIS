@@ -18,7 +18,7 @@ import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.service.ConstituencyService;
 
 @RestController
-@RequestMapping("/constituencies")
+@RequestMapping("/constituencies/")
 public class ConstituencyController {
 
     private ConstituencyService constituencyService;
