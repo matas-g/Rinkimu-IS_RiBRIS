@@ -15,6 +15,7 @@ var ConstituenciesListContainer = React.createClass({
     });
 },
 
+
 handleAddConstituency() {
     this.context.router.push('/apygardos/prideti');
 },
@@ -26,6 +27,24 @@ handleConstituencyEdit: function(constituency) {
     }
 },
 
+ handleConstituencyRemove: function(constituency) { 
+        var self = this; 
+        return function() { 
+          axios.delete('/constituencies/'+ constituency.id).then(function(response) { 
+              console.log('Apygarda ištrinta'); 
+              axios.get('/constituencies/') 
+              .then(function (response) { 
+                  self.setState({  
+                      constituencies: response.data  
+                  }); 
+              }); 
+          }); 
+        };
+
+    
+      },
+
+
 
     render: function() {
         return (
@@ -33,6 +52,7 @@ handleConstituencyEdit: function(constituency) {
                 constituencies={this.state.constituencies} 
                 onAddClick={this.handleAddConstituency} 
                 onEditItem={this.handleConstituencyEdit}
+                onRemoveItem={this.handleConstituencyRemove} 
             />
         );
     }
