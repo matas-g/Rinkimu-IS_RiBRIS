@@ -18,6 +18,10 @@ public class ConstituencyService {
         return this.constituencyRepository.saveOrUpdate(constituency);
     }
 
+    public ConstituencyEntity update(Long id, ConstituencyEntity constituency) {
+        return this.constituencyRepository.update(id, constituency);
+    }
+
     public List<ConstituencyEntity> findAll() {
         return this.constituencyRepository.findAll();
     }
