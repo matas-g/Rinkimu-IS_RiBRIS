@@ -3,10 +3,17 @@ package lt.javainiai.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import lt.javainiai.model.PollingDistrictEntity;
 
@@ -27,6 +34,13 @@ public class PollingDistrictRepository implements RepositoryInterface<PollingDis
             em.persist(merged);
             return merged;
         }
+    }
+
+    // Update (stub) - TODO
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public PollingDistrictEntity update(@Valid @RequestBody PollingDistrictEntity pollingDistrict) {
+        return pollingDistrict;
     }
 
     @Override

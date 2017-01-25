@@ -10,37 +10,40 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lt.javainiai.model.ConstituencyEntity;
 
+// TODO - jei veiks, atgal pridet: "implements RepositoryInterface<ConstituencyEntity>" ir nuimt komentarus nuo @Override
 @Repository
-public class ConstituencyRepository implements RepositoryInterface<ConstituencyEntity> {
+public class ConstituencyRepository {
 
     @Autowired
     private EntityManager em;
 
     @Transactional
-    @Override
+    // @Override
     public ConstituencyEntity saveOrUpdate(ConstituencyEntity constituency) {
-        if (constituency.getId() == null) {
-            em.persist(constituency);
-            return constituency;
-        } else {
-            ConstituencyEntity merged = em.merge(constituency);
-            em.persist(merged);
-            return merged;
-        }
+        em.persist(constituency);
+        return constituency;
     }
 
-    @Override
+    @Transactional
+    // @Override
+    public ConstituencyEntity update(Long id, ConstituencyEntity constituency) {
+        ConstituencyEntity constituencyToUpdate = findById(id);
+        constituencyToUpdate.setName(constituency.getName());
+        return constituencyToUpdate;
+    }
+
+    // @Override
     public List<ConstituencyEntity> findAll() {
         return em.createQuery("SELECT c FROM ConstituencyEntity c").getResultList();
     }
 
-    @Override
+    // @Override
     public ConstituencyEntity findById(Long id) {
         return em.find(ConstituencyEntity.class, id);
     }
 
     @Transactional
-    @Override
+    // @Override
     public void deleteById(Long id) {
         ConstituencyEntity constituancyToRemove = em.find(ConstituencyEntity.class, id);
         em.remove(constituancyToRemove);
