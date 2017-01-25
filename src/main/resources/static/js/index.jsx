@@ -79,6 +79,7 @@ ReactDOM.render((
       <Route path="/apygardos" component={ConstituenciesListContainer} />
         <Route path="/apygardos/prideti" component={AddConstituencyContainer} />
         <Route path="/apygardos/redaguoti/:constituencyId" component={EditConstituencyContainer} />
+        <Route path="/apygardos/trinti/:constituencyId" component={ConstituenciesListContainer} />
      <Route path="/apylinkes" component={DistrictListContainer} />
         <Route path="/apylinkes/prideti" component={AddDistrictContainer} />
         <Route path="/apylinkes/redaguoti/:districtId" component={EditDistrictContainer} />

@@ -15,7 +15,7 @@ var ConstituenciesListComponent = React.createClass({
                         <td><button className="btn btn-success btn-sm" onClick={self.props.onEditItem(constituency)}>
                             <i className="fa fa-pencil" aria-hidden="true"></i>
                         </button>
-                        <button className="btn btn-danger btn-sm" onClick={self.props.onEditItem(constituency)}>
+                        <button className="btn btn-danger btn-sm" onClick={self.props.onRemoveItem(constituency)}>
                             <i className="fa fa-times" aria-hidden="true"></i>
                         </button></td>
                 </tr>
@@ -51,7 +51,8 @@ var ConstituenciesListComponent = React.createClass({
 
 ConstituenciesListComponent.propTypes = {
         constituencies: React.PropTypes.array.isRequired,
-        onAddClick: React.PropTypes.func.isRequired
+        onAddClick: React.PropTypes.func.isRequired,
+        onRemoveItem: React.PropTypes.func.isRequired,
 };
 
 window.ConstituenciesListComponent = ConstituenciesListComponent;
