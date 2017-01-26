@@ -18,7 +18,7 @@ import lt.javainiai.model.CandidateEntity;
 import lt.javainiai.service.CandidateService;
 
 @RestController
-@RequestMapping("/candidates")
+@RequestMapping("/candidates/")
 public class CandidateController {
 
     private CandidateService candidateService;
@@ -28,11 +28,18 @@ public class CandidateController {
         this.candidateService = candidateService;
     }
 
-    // Register new (or update existing)
+    // Register
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public CandidateEntity saveOrUpdate(@Valid @RequestBody CandidateEntity constituency) {
-        return this.candidateService.saveOrUpdate(constituency);
+    public CandidateEntity save(@Valid @RequestBody CandidateEntity candidate) {
+        return this.candidateService.save(candidate);
+    }
+
+    // Update
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public CandidateEntity update(@Valid @PathVariable("id") Long id, @Valid @RequestBody CandidateEntity candidate) {
+        return this.candidateService.update(id, candidate);
     }
 
     // Find all
@@ -43,14 +50,14 @@ public class CandidateController {
     }
 
     // Find one
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public CandidateEntity findById(@Valid @PathVariable("id") Long id) {
         return this.candidateService.findById(id);
     }
 
     // Delete one
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@Valid @PathVariable("id") Long id) {
         this.candidateService.deleteById(id);

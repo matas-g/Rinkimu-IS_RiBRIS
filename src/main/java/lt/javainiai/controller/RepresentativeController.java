@@ -18,7 +18,7 @@ import lt.javainiai.model.RepresentativeEntity;
 import lt.javainiai.service.RepresentativeService;
 
 @RestController
-@RequestMapping("/representatives")
+@RequestMapping("/representatives/")
 public class RepresentativeController {
 
     private RepresentativeService representativeService;
@@ -28,11 +28,19 @@ public class RepresentativeController {
         this.representativeService = representativeService;
     }
 
-    // Register new (or update existing)
+    // Register
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public RepresentativeEntity saveOrUpdate(@Valid @RequestBody RepresentativeEntity representative) {
-        return this.representativeService.saveOrUpdate(representative);
+    public RepresentativeEntity save(@Valid @RequestBody RepresentativeEntity representative) {
+        return this.representativeService.save(representative);
+    }
+
+    // Update
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public RepresentativeEntity update(@Valid @PathVariable("id") Long id,
+            @Valid @RequestBody RepresentativeEntity representative) {
+        return this.representativeService.update(id, representative);
     }
 
     // Find all
@@ -43,14 +51,14 @@ public class RepresentativeController {
     }
 
     // Find one
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public RepresentativeEntity findById(@Valid @PathVariable("id") Long id) {
         return this.representativeService.findById(id);
     }
 
     // Delete one
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@Valid @PathVariable("id") Long id) {
         this.representativeService.deleteById(id);

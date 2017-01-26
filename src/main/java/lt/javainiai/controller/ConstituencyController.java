@@ -28,16 +28,15 @@ public class ConstituencyController {
         this.constituencyService = constituencyService;
     }
 
-    // TODO - perdaryti is saveOrUpdate i save
     // Register
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ConstituencyEntity saveOrUpdate(@Valid @RequestBody ConstituencyEntity constituency) {
-        return this.constituencyService.saveOrUpdate(constituency);
+    public ConstituencyEntity save(@Valid @RequestBody ConstituencyEntity constituency) {
+        return this.constituencyService.save(constituency);
     }
 
     // Update
-    @RequestMapping(value = "{id}/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ConstituencyEntity update(@Valid @PathVariable("id") Long id, @Valid @RequestBody ConstituencyEntity constituency) {
         return this.constituencyService.update(id, constituency);
@@ -51,14 +50,14 @@ public class ConstituencyController {
     }
 
     // Find one
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public ConstituencyEntity findById(@Valid @PathVariable("id") Long id) {
         return this.constituencyService.findById(id);
     }
 
     // Delete one
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@Valid @PathVariable("id") Long id) {
         this.constituencyService.deleteById(id);
