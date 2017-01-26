@@ -13,7 +13,7 @@ var DistrictListComponent = React.createClass({
                     <td><button className="btn btn-success btn-sm" onClick={self.props.onEditItem(district)}>
                         <i className="fa fa-pencil" aria-hidden="true"></i>
                     </button>
-                     <button className="btn btn-danger btn-sm" onClick={self.props.onEditItem(district)}>
+                     <button className="btn btn-danger btn-sm" onClick={self.props.onRemoveItem(district)}>
                         <i className="fa fa-times" aria-hidden="true"></i>
                     </button></td>
                 </tr>

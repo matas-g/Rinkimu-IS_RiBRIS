@@ -40,8 +40,13 @@ handleConstituencyEdit: function(constituency) {
               }); 
           }); 
         };
+      },
 
-    
+      handleDistrictsList: function(constituency) {
+        var self = this;
+        return function() {
+          self.context.router.push('/apygarda/' + constituency.id + '/apylinkes');
+        }
       },
 
 
@@ -52,7 +57,8 @@ handleConstituencyEdit: function(constituency) {
                 constituencies={this.state.constituencies} 
                 onAddClick={this.handleAddConstituency} 
                 onEditItem={this.handleConstituencyEdit}
-                onRemoveItem={this.handleConstituencyRemove} 
+                onRemoveItem={this.handleConstituencyRemove}
+                onDistrictsList={this.handleDistrictsList} 
             />
         );
     }

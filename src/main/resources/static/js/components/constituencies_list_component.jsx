@@ -7,7 +7,7 @@ var ConstituenciesListComponent = React.createClass({
                     <td>{constituency.id}</td>
                     <td>{constituency.name}</td>
                     <td>
-                        <button className="btn btn-info btn-sm">
+                        <button className="btn btn-info btn-sm" onClick={self.props.onDistrictsList(constituency)}>
                             <i className="fa fa-list" aria-hidden="true"></i>
                             &nbsp; Priskirtos apylinkės
                         </button>
