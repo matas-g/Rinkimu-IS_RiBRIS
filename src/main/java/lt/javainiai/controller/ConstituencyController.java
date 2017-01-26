@@ -37,7 +37,7 @@ public class ConstituencyController {
     }
 
     // Update
-    @RequestMapping(value = "{id}/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public ConstituencyEntity update(@Valid @PathVariable("id") Long id, @Valid @RequestBody ConstituencyEntity constituency) {
         return this.constituencyService.update(id, constituency);

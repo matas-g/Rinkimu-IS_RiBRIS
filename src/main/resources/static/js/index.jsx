@@ -9,6 +9,16 @@ var App = React.createClass({
     }
 });
 
+var DistrictRowContainer = React.createClass({
+    render: function() {
+        return (
+            <h4>Greitai čia bus apylinkių sąrašas priskirtas konkrečiai apygardai</h4>
+        );
+    }
+});
+
+window.DistrictRowContainer = DistrictRowContainer;
+
 
 var NavBar = React.createClass({
     render: function() {
@@ -81,6 +91,7 @@ ReactDOM.render((
         <Route path="/apygardos/redaguoti/:constituencyId" component={EditConstituencyContainer} />
         <Route path="/apygardos/trinti/:constituencyId" component={ConstituenciesListContainer} />
      <Route path="/apylinkes" component={DistrictListContainer} />
+        <Route path="/apygarda/:constituencyId/apylinkes" component={DistrictRowContainer} />
         <Route path="/apylinkes/prideti" component={AddDistrictContainer} />
         <Route path="/apylinkes/redaguoti/:districtId" component={EditDistrictContainer} />
       <Route path="*" component={NoMatch}/>

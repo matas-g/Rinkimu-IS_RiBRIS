@@ -26,6 +26,21 @@ handleDistrictEdit: function(district) {
     }
 },
 
+handleDistrictRemove: function(district) { 
+        var self = this; 
+        return function() { 
+          axios.delete('/polling-districts/'+ district.id).then(function(response) { 
+              console.log('Apylinkė ištrinta'); 
+              axios.get('/polling-districts/') 
+              .then(function (response) { 
+                  self.setState({  
+                      districts: response.data  
+                  }); 
+              }); 
+          }); 
+        };
+      },
+
 
     render: function() {
         return (
@@ -33,6 +48,7 @@ handleDistrictEdit: function(district) {
                 districts={this.state.districts} 
                 onAddClick={this.handleAddDistrict} 
                 onEditItem={this.handleDistrictEdit}
+                onRemoveItem={this.handleDistrictRemove}
             />
 
         );

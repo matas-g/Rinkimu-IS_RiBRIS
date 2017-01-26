@@ -1,14 +1,19 @@
 var AddDistrictComponent = React.createClass({
     render: function() {
 
+        var constituenciesList = this.props.constituencies.map(function(constituency, index) {
+            return (
+                <option key={index} value={constituency.id}>{constituency.name}</option>
+            );
+        });
+
         return (
             <form>
                 <h4>Registruoti naują apylinkę</h4><br />
                  <div className="form-group">
                     <label>Pasirinkite apygrdą</label>
-                    <select className="form-control" value={this.props.constituency}>
-                            <option>Vilnius(pavyzdys)</option>
-                            <option>Kaunas(pavyzdys)</option>
+                    <select className="form-control" value={this.props.constituency}  onChange={this.props.onHandleConstituencyChange}>
+                            {constituenciesList}
                      </select>
 
                 </div>
@@ -40,6 +45,7 @@ var AddDistrictComponent = React.createClass({
 });
 
 AddDistrictComponent.propTypes = {
+    constituencies: React.PropTypes.array.isRequired,
     district: React.PropTypes.object.isRequired,
     onFieldChange: React.PropTypes.func.isRequired,
     onSaveClick: React.PropTypes.func.isRequired
