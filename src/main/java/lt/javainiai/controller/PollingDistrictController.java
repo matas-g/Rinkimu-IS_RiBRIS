@@ -28,7 +28,7 @@ public class PollingDistrictController {
         this.pollingDistrictService = pollingDistrictService;
     }
 
-    // Register new (or update existing)
+    // Register
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public PollingDistrictEntity save(@Valid @RequestBody PollingDistrictEntity pollingDistrict) {
