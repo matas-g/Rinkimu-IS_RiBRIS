@@ -17,7 +17,6 @@ var postRequest = {
                 name: '',
                 address: '',
                 numOfVoters: '',
-                representative: ''
             },
             constituency: 1,
             constituencies: []
@@ -34,7 +33,7 @@ componentWillMount: function() {
    });
 },
  
- onHandleConstituencyChange : function(event){
+ HandleConstituencyChange : function(event){
     var constituencyId = parseInt(event.target.value);
     this.setState({constituency : constituencyId});
     console.log(this.state);
