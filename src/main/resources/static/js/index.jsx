@@ -31,7 +31,7 @@ var NavBar = React.createClass({
                     <Link to="/apygardos" activeClassName="active">Apygardos</Link>
                 </li>
                 <li role="presentation">
-                    <Link to="/atstovas" activeClassName="active">Atstovai</Link>
+                    <Link to="/atstovai" activeClassName="active">Atstovai</Link>
                 </li>
                 <li role="presentation">
                     <Link to="/apylinkes" activeClassName="active">Apylinkės</Link>
@@ -94,6 +94,7 @@ ReactDOM.render((
         <Route path="/apygarda/:constituencyId/apylinkes" component={DistrictRowContainer} />
         <Route path="/apylinkes/prideti" component={AddDistrictContainer} />
         <Route path="/apylinkes/redaguoti/:districtId" component={EditDistrictContainer} />
+     <Route path="/atsovai" component={RepresentativesListContainer} />
       <Route path="*" component={NoMatch}/>
     </Route>
   </Router>
