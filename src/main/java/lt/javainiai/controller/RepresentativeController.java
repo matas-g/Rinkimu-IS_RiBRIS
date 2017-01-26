@@ -18,7 +18,7 @@ import lt.javainiai.model.RepresentativeEntity;
 import lt.javainiai.service.RepresentativeService;
 
 @RestController
-@RequestMapping("/representatives")
+@RequestMapping("/representatives/")
 public class RepresentativeController {
 
     private RepresentativeService representativeService;
