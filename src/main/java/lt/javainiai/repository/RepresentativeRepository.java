@@ -3,17 +3,10 @@ package lt.javainiai.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import lt.javainiai.model.RepresentativeEntity;
 
@@ -25,22 +18,17 @@ public class RepresentativeRepository implements RepositoryInterface<Representat
 
     @Transactional
     @Override
-    public RepresentativeEntity saveOrUpdate(RepresentativeEntity representative) {
-        if (representative.getId() == null) {
-            em.persist(representative);
-            return representative;
-        } else {
-            RepresentativeEntity merged = em.merge(representative);
-            em.persist(merged);
-            return merged;
-        }
-    }
-    
- // Update (stub) - TODO
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public RepresentativeEntity update(@Valid @RequestBody RepresentativeEntity representative) {
+    public RepresentativeEntity save(RepresentativeEntity representative) {
+        em.persist(representative);
         return representative;
+    }
+
+    @Transactional
+    @Override
+    public RepresentativeEntity update(Long id, RepresentativeEntity representative) {
+        RepresentativeEntity representativeToUpdate = findById(id);
+        representativeToUpdate.setName(representative.getName());
+        return representativeToUpdate;
     }
 
     @Override

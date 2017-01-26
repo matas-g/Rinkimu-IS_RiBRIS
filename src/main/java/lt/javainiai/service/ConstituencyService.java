@@ -14,8 +14,8 @@ public class ConstituencyService {
     @Autowired
     private ConstituencyRepository constituencyRepository;
 
-    public ConstituencyEntity saveOrUpdate(ConstituencyEntity constituency) {
-        return this.constituencyRepository.saveOrUpdate(constituency);
+    public ConstituencyEntity save(ConstituencyEntity constituency) {
+        return this.constituencyRepository.save(constituency);
     }
 
     public ConstituencyEntity update(Long id, ConstituencyEntity constituency) {

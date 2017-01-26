@@ -18,7 +18,7 @@ import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.service.PollingDistrictService;
 
 @RestController
-@RequestMapping("/polling-districts")
+@RequestMapping("/polling-districts/")
 public class PollingDistrictController {
 
     private PollingDistrictService pollingDistrictService;
@@ -31,8 +31,16 @@ public class PollingDistrictController {
     // Register new (or update existing)
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public PollingDistrictEntity saveOrUpdate(@Valid @RequestBody PollingDistrictEntity pollingDistrict) {
-        return this.pollingDistrictService.saveOrUpdate(pollingDistrict);
+    public PollingDistrictEntity save(@Valid @RequestBody PollingDistrictEntity pollingDistrict) {
+        return this.pollingDistrictService.save(pollingDistrict);
+    }
+
+    // Update
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public PollingDistrictEntity update(@Valid @PathVariable("id") Long id,
+            @Valid @RequestBody PollingDistrictEntity pollingDistrict) {
+        return this.pollingDistrictService.update(id, pollingDistrict);
     }
 
     // Find all
@@ -43,14 +51,14 @@ public class PollingDistrictController {
     }
 
     // Find one
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public PollingDistrictEntity findById(@Valid @PathVariable("id") Long id) {
         return this.pollingDistrictService.findById(id);
     }
 
     // Delete one
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@Valid @PathVariable("id") Long id) {
         this.pollingDistrictService.deleteById(id);

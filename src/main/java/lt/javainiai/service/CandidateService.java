@@ -14,8 +14,12 @@ public class CandidateService {
     @Autowired
     private CandidateRepository candidateRepository;
 
-    public CandidateEntity saveOrUpdate(CandidateEntity constituency) {
-        return this.candidateRepository.saveOrUpdate(constituency);
+    public CandidateEntity save(CandidateEntity candidate) {
+        return this.candidateRepository.save(candidate);
+    }
+
+    public CandidateEntity update(Long id, CandidateEntity candidate) {
+        return this.candidateRepository.update(id, candidate);
     }
 
     public List<CandidateEntity> findAll() {

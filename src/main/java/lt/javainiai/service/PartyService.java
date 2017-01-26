@@ -14,8 +14,12 @@ public class PartyService {
     @Autowired
     private PartyRepository partyRepository;
 
-    public PartyEntity saveOrUpdate(PartyEntity constituency) {
-        return this.partyRepository.saveOrUpdate(constituency);
+    public PartyEntity save(PartyEntity party) {
+        return this.partyRepository.save(party);
+    }
+
+    public PartyEntity update(Long id, PartyEntity party) {
+        return this.partyRepository.update(id, party);
     }
 
     public List<PartyEntity> findAll() {

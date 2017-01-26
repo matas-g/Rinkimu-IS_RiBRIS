@@ -18,7 +18,7 @@ import lt.javainiai.model.PartyEntity;
 import lt.javainiai.service.PartyService;
 
 @RestController
-@RequestMapping("/parties")
+@RequestMapping("/parties/")
 public class PartyController {
 
     private PartyService partyService;
@@ -28,11 +28,18 @@ public class PartyController {
         this.partyService = partyService;
     }
 
-    // Register new (or update existing)
+    // Register
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public PartyEntity saveOrUpdate(@Valid @RequestBody PartyEntity constituency) {
-        return this.partyService.saveOrUpdate(constituency);
+    public PartyEntity save(@Valid @RequestBody PartyEntity party) {
+        return this.partyService.save(party);
+    }
+
+    // Update
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public PartyEntity update(@Valid @PathVariable("id") Long id, @Valid @RequestBody PartyEntity party) {
+        return this.partyService.update(id, party);
     }
 
     // Find all
@@ -43,14 +50,14 @@ public class PartyController {
     }
 
     // Find one
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public PartyEntity findById(@Valid @PathVariable("id") Long id) {
         return this.partyService.findById(id);
     }
 
     // Delete one
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@Valid @PathVariable("id") Long id) {
         this.partyService.deleteById(id);

@@ -3,17 +3,10 @@ package lt.javainiai.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import lt.javainiai.model.CandidateEntity;
 
@@ -25,22 +18,17 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
 
     @Transactional
     @Override
-    public CandidateEntity saveOrUpdate(CandidateEntity candidate) {
-        if (candidate.getId() == null) {
-            em.persist(candidate);
-            return candidate;
-        } else {
-            CandidateEntity merged = em.merge(candidate);
-            em.persist(merged);
-            return merged;
-        }
+    public CandidateEntity save(CandidateEntity candidate) {
+        em.persist(candidate);
+        return candidate;
     }
 
-    // Update (stub) - TODO
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public CandidateEntity update(@Valid @RequestBody CandidateEntity candidate) {
-        return candidate;
+    @Transactional
+    @Override
+    public CandidateEntity update(Long id, CandidateEntity candidate) {
+        CandidateEntity candidateToUpdate = findById(id);
+        candidateToUpdate.setName(candidate.getName());
+        return candidateToUpdate;
     }
 
     @Override

@@ -7,9 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface RepositoryInterface<T> {
 
-    public T saveOrUpdate(T entity);
+    public T save(T entity);
     
-    public T update(T entity);
+    public T update(Long id, T entity);
 
     public List<T> findAll();
 

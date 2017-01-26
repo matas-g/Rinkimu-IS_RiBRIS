@@ -3,17 +3,10 @@ package lt.javainiai.repository;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import lt.javainiai.model.PartyEntity;
 
@@ -25,22 +18,17 @@ public class PartyRepository implements RepositoryInterface<PartyEntity> {
 
     @Transactional
     @Override
-    public PartyEntity saveOrUpdate(PartyEntity party) {
-        if (party.getId() == null) {
-            em.persist(party);
-            return party;
-        } else {
-            PartyEntity merged = em.merge(party);
-            em.persist(merged);
-            return merged;
-        }
+    public PartyEntity save(PartyEntity party) {
+        em.persist(party);
+        return party;
     }
 
-    // Update (stub) - TODO
-    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public PartyEntity update(@Valid @RequestBody PartyEntity party) {
-        return party;
+    @Transactional
+    @Override
+    public PartyEntity update(Long id, PartyEntity party) {
+        PartyEntity partyToUpdate = findById(id);
+        partyToUpdate.setName(party.getName());
+        return partyToUpdate;
     }
 
     @Override
