@@ -17,18 +17,15 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
     private EntityManager em;
 
     @Transactional
-    @Override
-    public CandidateEntity save(CandidateEntity candidate) {
-        em.persist(candidate);
-        return candidate;
-    }
-
-    @Transactional
-    @Override
-    public CandidateEntity update(Long id, CandidateEntity candidate) {
-        CandidateEntity candidateToUpdate = findById(id);
-        candidateToUpdate.setName(candidate.getName());
-        return candidateToUpdate;
+    public CandidateEntity saveOrUpdate(CandidateEntity candidate) {
+        if (candidate.getId() == null) {
+            em.persist(candidate);
+            return candidate;
+        } else {
+            CandidateEntity merged = em.merge(candidate);
+            em.persist(merged);
+            return merged;
+        }
     }
 
     @Override

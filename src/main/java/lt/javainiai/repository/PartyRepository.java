@@ -17,18 +17,15 @@ public class PartyRepository implements RepositoryInterface<PartyEntity> {
     private EntityManager em;
 
     @Transactional
-    @Override
-    public PartyEntity save(PartyEntity party) {
-        em.persist(party);
-        return party;
-    }
-
-    @Transactional
-    @Override
-    public PartyEntity update(Long id, PartyEntity party) {
-        PartyEntity partyToUpdate = findById(id);
-        partyToUpdate.setName(party.getName());
-        return partyToUpdate;
+    public PartyEntity saveOrUpdate(PartyEntity party) {
+        if (party.getId() == null) {
+            em.persist(party);
+            return party;
+        } else {
+            PartyEntity merged = em.merge(party);
+            em.persist(merged);
+            return merged;
+        }
     }
 
     @Override
