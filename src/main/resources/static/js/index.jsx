@@ -17,7 +17,6 @@ var DistrictRowContainer = React.createClass({
     }
 });
 
-window.DistrictRowContainer = DistrictRowContainer;
 
 
 var NavBar = React.createClass({
@@ -30,11 +29,11 @@ var NavBar = React.createClass({
                 <li role="presentation">
                     <Link to="/apygardos" activeClassName="active">Apygardos</Link>
                 </li>
-                <li role="presentation">
-                    <Link to="/atstovai" activeClassName="active">Atstovai</Link>
+                 <li role="presentation">
+                    <Link to="/apylinkes" activeClassName="active">Apylinkės</Link>
                 </li>
                 <li role="presentation">
-                    <Link to="/apylinkes" activeClassName="active">Apylinkės</Link>
+                    <Link to="/atstovai" activeClassName="active">Atstovai</Link>
                 </li>
                 <li role="presentation">
                     <Link to="/partijos" activeClassName="active">Partijos</Link>
@@ -94,7 +93,11 @@ ReactDOM.render((
         <Route path="/apygarda/:constituencyId/apylinkes" component={DistrictRowContainer} />
         <Route path="/apylinkes/prideti" component={AddDistrictContainer} />
         <Route path="/apylinkes/redaguoti/:districtId" component={EditDistrictContainer} />
-     <Route path="/atsovai" component={RepresentativesListContainer} />
+        <Route path="/apylinkes/trinti/:districtId" component={ConstituenciesListContainer} />
+     <Route path="/atstovai" component={RepresentativesListContainer} />
+        <Route path="/atstovai/prideti" component={AddRepresentativeContainer} />
+        <Route path="/atstovai/redaguoti/:representativeId" component={EditRepresentativeContainer} />
+        <Route path="/atstovai/trinti/:representativeId" component={RepresentativesListContainer} />
       <Route path="*" component={NoMatch}/>
     </Route>
   </Router>

@@ -31,7 +31,7 @@ handleRepresentativeEdit: function(representative) {
         var self = this; 
         return function() { 
           axios.delete('/representatives/'+ representative.id).then(function(response) { 
-              console.log('Atsovas ištrintas'); 
+              console.log('Atstovas ištrintas'); 
               axios.get('/representatives/') 
               .then(function (response) { 
                   self.setState({  

@@ -21,10 +21,6 @@ var EditDistrictComponent = React.createClass({
                     <label>Balsuotojų skaičius</label>
                     <input className="form-control" type="number" value={this.props.district.numOfVoters} onChange={this.props.onFieldChange('numOfVoters')} /><br />
                 </div>
-                <div className="form-group">
-                    <label>Apylinkės atstovas</label>
-                    <input className="form-control" type="number" value={this.props.district.representative} onChange={this.props.onFieldChange('representative')} /><br />
-                </div>
                 <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onSaveClick}>Redaguoti</button>
                 <button className="btn btn-danger btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onCancelClick}>Atšaukti</button>
             </form>
@@ -33,8 +29,6 @@ var EditDistrictComponent = React.createClass({
 });
 
 EditDistrictComponent.propTypes = {
-    district: React.PropTypes.object.isRequired,
-    onFieldChange: React.PropTypes.func.isRequired,
     onSaveClick: React.PropTypes.func.isRequired
 };
 

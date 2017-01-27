@@ -1,6 +1,7 @@
 package lt.javainiai.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 

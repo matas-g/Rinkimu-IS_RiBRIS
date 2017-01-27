@@ -1,4 +1,4 @@
-var RepresentativeListComponent = React.createClass({
+var RepresentativesListComponent = React.createClass({
     render: function() {
         var self = this;
         var representativesList = this.props.representatives.map(function(representative, index) {
@@ -7,6 +7,7 @@ var RepresentativeListComponent = React.createClass({
                     <td>{representative.id}</td>
                     <td>{representative.name}</td>
                     <td>{representative.surname}</td>
+                    <td>{representative.district}</td>
                    
 
                     <td><button className="btn btn-success btn-sm" onClick={self.props.onEditItem(representative)}>
@@ -47,9 +48,9 @@ var RepresentativeListComponent = React.createClass({
     }
 });
 
-RepresentativeListComponent.propTypes = {
+RepresentativesListComponent.propTypes = {
     representatives: React.PropTypes.array.isRequired,
     onAddClick: React.PropTypes.func.isRequired
 }
 
-window.RepresentativeListComponent = RepresentativeListComponent;
+window.RepresentativesListComponent = RepresentativesListComponent;
