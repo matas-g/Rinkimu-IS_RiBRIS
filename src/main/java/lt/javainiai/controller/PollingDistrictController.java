@@ -28,21 +28,12 @@ public class PollingDistrictController {
         this.pollingDistrictService = pollingDistrictService;
     }
 
-    // Register
+    // Register or update
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public PollingDistrictEntity save(@Valid @RequestBody PollingDistrictEntity pollingDistrict) {
-        return this.pollingDistrictService.save(pollingDistrict);
+    public PollingDistrictEntity saveOrUpdate(@Valid @RequestBody PollingDistrictEntity pollingDistrict) {
+        return this.pollingDistrictService.saveOrUpdate(pollingDistrict);
     }
-
-    // // Update
-    // @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes =
-    // MediaType.APPLICATION_JSON_VALUE)
-    // @ResponseStatus(HttpStatus.CREATED)
-    // public PollingDistrictEntity update(@Valid @PathVariable("id") Long id,
-    // @Valid @RequestBody PollingDistrictEntity pollingDistrict) {
-    // return this.pollingDistrictService.update(id, pollingDistrict);
-    // }
 
     // Find all
     @RequestMapping(method = RequestMethod.GET)

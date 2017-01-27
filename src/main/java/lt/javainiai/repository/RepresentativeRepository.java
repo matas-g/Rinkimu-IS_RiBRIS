@@ -17,18 +17,15 @@ public class RepresentativeRepository implements RepositoryInterface<Representat
     private EntityManager em;
 
     @Transactional
-    @Override
-    public RepresentativeEntity save(RepresentativeEntity representative) {
-        em.persist(representative);
-        return representative;
-    }
-
-    @Transactional
-    @Override
-    public RepresentativeEntity update(Long id, RepresentativeEntity representative) {
-        RepresentativeEntity representativeToUpdate = findById(id);
-        representativeToUpdate.setName(representative.getName());
-        return representativeToUpdate;
+    public RepresentativeEntity saveOrUpdate(RepresentativeEntity representative) {
+        if (representative.getId() == null) {
+            em.persist(representative);
+            return representative;
+        } else {
+            RepresentativeEntity merged = em.merge(representative);
+            em.persist(merged);
+            return merged;
+        }
     }
 
     @Override

@@ -28,18 +28,11 @@ public class CandidateController {
         this.candidateService = candidateService;
     }
 
-    // Register
+    // Register or update
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public CandidateEntity save(@Valid @RequestBody CandidateEntity candidate) {
-        return this.candidateService.save(candidate);
-    }
-
-    // Update
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public CandidateEntity update(@Valid @PathVariable("id") Long id, @Valid @RequestBody CandidateEntity candidate) {
-        return this.candidateService.update(id, candidate);
+    public CandidateEntity saveOrUpdate(@Valid @RequestBody CandidateEntity candidate) {
+        return this.candidateService.saveOrUpdate(candidate);
     }
 
     // Find all

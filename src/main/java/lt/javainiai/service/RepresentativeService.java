@@ -14,12 +14,8 @@ public class RepresentativeService {
     @Autowired
     private RepresentativeRepository representativeRepository;
 
-    public RepresentativeEntity save(RepresentativeEntity representative) {
-        return this.representativeRepository.save(representative);
-    }
-
-    public RepresentativeEntity update(Long id, RepresentativeEntity representative) {
-        return this.representativeRepository.update(id, representative);
+    public RepresentativeEntity saveOrUpdate(RepresentativeEntity representative) {
+        return this.representativeRepository.saveOrUpdate(representative);
     }
 
     public List<RepresentativeEntity> findAll() {
