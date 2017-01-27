@@ -18,9 +18,10 @@ public class PollingDistrictService {
         return this.pollingDistrictRepository.save(pollingDistrict);
     }
 
-    public PollingDistrictEntity update(Long id, PollingDistrictEntity pollingDistrict) {
-        return this.pollingDistrictRepository.update(id, pollingDistrict);
-    }
+    // public PollingDistrictEntity update(Long id, PollingDistrictEntity
+    // pollingDistrict) {
+    // return this.pollingDistrictRepository.update(id, pollingDistrict);
+    // }
 
     public List<PollingDistrictEntity> findAll() {
         return this.pollingDistrictRepository.findAll();
