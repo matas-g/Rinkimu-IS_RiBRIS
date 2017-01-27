@@ -1,7 +1,6 @@
 package lt.javainiai.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -22,47 +21,39 @@ import lt.javainiai.service.PollingDistrictService;
 @RequestMapping("/polling-districts/")
 public class PollingDistrictController {
 
-	private PollingDistrictService pollingDistrictService;
+    private PollingDistrictService pollingDistrictService;
 
-	@Autowired
-	public PollingDistrictController(PollingDistrictService pollingDistrictService) {
-		this.pollingDistrictService = pollingDistrictService;
-	}
+    @Autowired
+    public PollingDistrictController(PollingDistrictService pollingDistrictService) {
+        this.pollingDistrictService = pollingDistrictService;
+    }
 
-	// Register
-	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(HttpStatus.CREATED)
-	public PollingDistrictEntity save(@Valid @RequestBody PollingDistrictEntity pollingDistrict) {
-		return this.pollingDistrictService.save(pollingDistrict);
-	}
+    // Register or update
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public PollingDistrictEntity saveOrUpdate(@Valid @RequestBody PollingDistrictEntity pollingDistrict) {
+        return this.pollingDistrictService.saveOrUpdate(pollingDistrict);
+    }
 
-	// Update
-//	@RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-//	@ResponseStatus(HttpStatus.CREATED)
-//	public PollingDistrictEntity update(@Valid @PathVariable("id") Long id,
-//			@Valid @RequestBody PollingDistrictEntity pollingDistrict) {
-//		return this.pollingDistrictService.update(id, pollingDistrict);
-//	}
+    // Find all
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<PollingDistrictEntity> findAll() {
+        return this.pollingDistrictService.findAll();
+    }
 
-	// Find all
-	@RequestMapping(method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
-	public List<PollingDistrictEntity> findAll() {
-		return this.pollingDistrictService.findAll();
-	}
+    // Find one
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public PollingDistrictEntity findById(@Valid @PathVariable("id") Long id) {
+        return this.pollingDistrictService.findById(id);
+    }
 
-	// Find one
-	@RequestMapping(value = "{id}", method = RequestMethod.GET)
-	@ResponseStatus(HttpStatus.OK)
-	public PollingDistrictEntity findById(@Valid @PathVariable("id") Long id) {
-		return this.pollingDistrictService.findById(id);
-	}
-
-	// Delete one
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteById(@Valid @PathVariable("id") Long id) {
-		this.pollingDistrictService.deleteById(id);
-	}
+    // Delete one
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@Valid @PathVariable("id") Long id) {
+        this.pollingDistrictService.deleteById(id);
+    }
 
 }

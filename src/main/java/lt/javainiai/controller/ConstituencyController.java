@@ -28,18 +28,11 @@ public class ConstituencyController {
         this.constituencyService = constituencyService;
     }
 
-    // Register
+    // Register or update
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ConstituencyEntity save(@Valid @RequestBody ConstituencyEntity constituency) {
-        return this.constituencyService.save(constituency);
-    }
-
-    // Update
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public ConstituencyEntity update(@Valid @PathVariable("id") Long id, @Valid @RequestBody ConstituencyEntity constituency) {
-        return this.constituencyService.update(id, constituency);
+    public ConstituencyEntity saveOrUpdate(@Valid @RequestBody ConstituencyEntity constituency) {
+        return this.constituencyService.saveOrUpdate(constituency);
     }
 
     // Find all

@@ -28,18 +28,11 @@ public class PartyController {
         this.partyService = partyService;
     }
 
-    // Register
+    // Register or update
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public PartyEntity save(@Valid @RequestBody PartyEntity party) {
-        return this.partyService.save(party);
-    }
-
-    // Update
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public PartyEntity update(@Valid @PathVariable("id") Long id, @Valid @RequestBody PartyEntity party) {
-        return this.partyService.update(id, party);
+    public PartyEntity saveOrUpdate(@Valid @RequestBody PartyEntity party) {
+        return this.partyService.saveOrUpdate(party);
     }
 
     // Find all

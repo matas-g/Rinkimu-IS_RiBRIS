@@ -1,7 +1,6 @@
 package lt.javainiai.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -29,19 +28,11 @@ public class RepresentativeController {
         this.representativeService = representativeService;
     }
 
-    // Register
+    // Register or update
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public RepresentativeEntity save(@Valid @RequestBody RepresentativeEntity representative) {
-        return this.representativeService.save(representative);
-    }
-
-    // Update
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public RepresentativeEntity update(@Valid @PathVariable("id") Long id,
-            @Valid @RequestBody RepresentativeEntity representative) {
-        return this.representativeService.update(id, representative);
+    public RepresentativeEntity saveOrUpdate(@Valid @RequestBody RepresentativeEntity representative) {
+        return this.representativeService.saveOrUpdate(representative);
     }
 
     // Find all

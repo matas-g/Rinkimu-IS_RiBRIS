@@ -17,18 +17,15 @@ public class ConstituencyRepository implements RepositoryInterface<ConstituencyE
     private EntityManager em;
 
     @Transactional
-    @Override
-    public ConstituencyEntity save(ConstituencyEntity constituency) {
-        em.persist(constituency);
-        return constituency;
-    }
-
-    @Transactional
-    @Override
-    public ConstituencyEntity update(Long id, ConstituencyEntity constituency) {
-        ConstituencyEntity constituencyToUpdate = findById(id);
-        constituencyToUpdate.setName(constituency.getName());
-        return constituencyToUpdate;
+    public ConstituencyEntity saveOrUpdate(ConstituencyEntity constituency) {
+        if (constituency.getId() == null) {
+            em.persist(constituency);
+            return constituency;
+        } else {
+            ConstituencyEntity merged = em.merge(constituency);
+            em.persist(merged);
+            return merged;
+        }
     }
 
     @Override

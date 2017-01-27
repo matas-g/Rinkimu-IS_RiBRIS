@@ -14,13 +14,9 @@ public class PollingDistrictService {
     @Autowired
     private PollingDistrictRepository pollingDistrictRepository;
 
-    public PollingDistrictEntity save(PollingDistrictEntity pollingDistrict) {
-        return this.pollingDistrictRepository.save(pollingDistrict);
+    public PollingDistrictEntity saveOrUpdate(PollingDistrictEntity pollingDistrict) {
+        return this.pollingDistrictRepository.saveOrUpdate(pollingDistrict);
     }
-
-//    public PollingDistrictEntity update(Long id, PollingDistrictEntity pollingDistrict) {
-//        return this.pollingDistrictRepository.update(id, pollingDistrict);
-//    }
 
     public List<PollingDistrictEntity> findAll() {
         return this.pollingDistrictRepository.findAll();

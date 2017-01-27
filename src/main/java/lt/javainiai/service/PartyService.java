@@ -14,12 +14,8 @@ public class PartyService {
     @Autowired
     private PartyRepository partyRepository;
 
-    public PartyEntity save(PartyEntity party) {
-        return this.partyRepository.save(party);
-    }
-
-    public PartyEntity update(Long id, PartyEntity party) {
-        return this.partyRepository.update(id, party);
+    public PartyEntity saveOrUpdate(PartyEntity party) {
+        return this.partyRepository.saveOrUpdate(party);
     }
 
     public List<PartyEntity> findAll() {
