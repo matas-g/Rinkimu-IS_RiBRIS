@@ -35,13 +35,14 @@ public class PollingDistrictController {
         return this.pollingDistrictService.save(pollingDistrict);
     }
 
-    // Update
-    @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
-    public PollingDistrictEntity update(@Valid @PathVariable("id") Long id,
-            @Valid @RequestBody PollingDistrictEntity pollingDistrict) {
-        return this.pollingDistrictService.update(id, pollingDistrict);
-    }
+    // // Update
+    // @RequestMapping(value = "{id}", method = RequestMethod.PUT, consumes =
+    // MediaType.APPLICATION_JSON_VALUE)
+    // @ResponseStatus(HttpStatus.CREATED)
+    // public PollingDistrictEntity update(@Valid @PathVariable("id") Long id,
+    // @Valid @RequestBody PollingDistrictEntity pollingDistrict) {
+    // return this.pollingDistrictService.update(id, pollingDistrict);
+    // }
 
     // Find all
     @RequestMapping(method = RequestMethod.GET)
