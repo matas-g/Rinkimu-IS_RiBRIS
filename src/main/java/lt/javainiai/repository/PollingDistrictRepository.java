@@ -10,9 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lt.javainiai.model.PollingDistrictEntity;
 
-// TODO
-// Jei veiks update - pridet atgal: implements RepositoryInterface<PollingDistrictEntity>
-
 @Repository
 public class PollingDistrictRepository {
 
@@ -30,23 +27,6 @@ public class PollingDistrictRepository {
             return merged;
         }
     }
-
-    // @Transactional
-    // @Override
-    // public PollingDistrictEntity save(PollingDistrictEntity pollingDistrict)
-    // {
-    // em.persist(pollingDistrict);
-    // return pollingDistrict;
-    // }
-    //
-    // @Transactional
-    // @Override
-    // public PollingDistrictEntity update(Long id, PollingDistrictEntity
-    // pollingDistrict) {
-    // PollingDistrictEntity pollingDistrictToUpdate = findById(id);
-    // pollingDistrictToUpdate.setName(pollingDistrict.getName());
-    // return pollingDistrictToUpdate;
-    // }
 
     // @Override
     public List<PollingDistrictEntity> findAll() {

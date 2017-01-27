@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -18,77 +19,78 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Table(name = "Polling_Districts")
 public class PollingDistrictEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 
-    @NotNull
-    @Length(min = 1, max = 100)
-    @Column(name = "Polling_District_Name")
-    private String name;
+	@NotNull
+	@Length(min = 1, max = 100)
+	@Column(name = "Polling_District_Name")
+	private String name;
 
-    @NotNull
-    @Length(min = 1, max = 100)
-    private String address;
+	@NotNull
+	@Length(min = 1, max = 100)
+	private String address;
 
-    @Column(name = "Number_of_Voters")
-    private Long numOfVoters;
+	@Column(name = "Number_of_Voters")
+	private Long numOfVoters;
 
-    // Bidirectional ManyToOne
-    @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "Constituency_Id")
-    private ConstituencyEntity constituency;
+	// Bidirectional ManyToOne
+	@ManyToOne
+	@JsonBackReference
+	@JoinColumn(name = "Constituency_Id")
+	private ConstituencyEntity constituency;
 
-    // Constructor
-    public PollingDistrictEntity() {
-    }
+	// Constructor
+	public PollingDistrictEntity() {
+	}
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
+	// Getters and Setters
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public Long getNumOfVoters() {
-        return numOfVoters;
-    }
+	public Long getNumOfVoters() {
+		return numOfVoters;
+	}
 
-    public void setNumOfVoters(Long numOfVoters) {
-        this.numOfVoters = numOfVoters;
-    }
+	public void setNumOfVoters(Long numOfVoters) {
+		this.numOfVoters = numOfVoters;
+	}
 
-    public ConstituencyEntity getConstituency() {
-        return constituency;
-    }
+	public ConstituencyEntity getConstituency() {
+		return constituency;
+	}
 
-    public void setConstituency(ConstituencyEntity constituency) {
-        this.constituency = constituency;
-    }
+	public void setConstituency(ConstituencyEntity constituency) {
+		this.constituency = constituency;
+	}
 
-    @Override
-    public String toString() {
-        return "PollingDistrictEntity [id=" + id + ", name=" + name + ", address=" + address + ", numOfVoters="
-                + numOfVoters + ", constituency=" + constituency + "]";
-    }
+
+	@Override
+	public String toString() {
+		return "PollingDistrictEntity [id=" + id + ", name=" + name + ", address=" + address + ", numOfVoters="
+				+ numOfVoters + ", constituency=" + constituency + "]";
+	}
 
 }
