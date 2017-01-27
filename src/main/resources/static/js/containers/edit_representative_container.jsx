@@ -11,7 +11,8 @@ var EditRepresentativeContainer = React.createClass({
 handleSaveClick: function(e) {
     e.preventDefault();
     var self = this;
-    axios.put('/representatives/' + this.state.representative.id, this.state.representative).then(function () {
+    console.log(this.state.representative);
+    axios.post('/representatives/', this.state.representative).then(function () {
         console.log('Atstovas atnaujintas');
         self.context.router.push('/atstovai');
       });

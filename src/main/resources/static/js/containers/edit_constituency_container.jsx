@@ -10,7 +10,8 @@ var EditConstituencyContainer = React.createClass({
 handleSaveClick: function(e) {
     e.preventDefault();
     var self = this;
-    axios.put('/constituencies/' + this.state.constituency.id, this.state.constituency).then(function () {
+    console.log(this.state.constituency);
+    axios.post('/constituencies/', this.state.constituency).then(function () {
         console.log('Apygarda atnaujinta');
         self.context.router.push('/apygardos');
       });
