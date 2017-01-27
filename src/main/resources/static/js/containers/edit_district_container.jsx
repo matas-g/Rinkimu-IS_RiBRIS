@@ -4,8 +4,7 @@ var EditDistrictContainer = React.createClass({
             district: {
                 name: '',
                 address: '',
-                numOfVoters: '',
-                representative: ''
+                numOfVoters: ''
             }
         }
     },
@@ -13,7 +12,8 @@ var EditDistrictContainer = React.createClass({
 handleSaveClick: function(e) {
     e.preventDefault();
     var self = this;
-        axios.put('/polling-districts/' + this.state.district.id, this.state.district).then(function () {
+    console.log(this.state.district)
+        axios.post('/polling-districts/', this.state.district).then(function () {
             console.log('Apylinkė atnaujinta');
             self.context.router.push('/apylinkes');
         });
