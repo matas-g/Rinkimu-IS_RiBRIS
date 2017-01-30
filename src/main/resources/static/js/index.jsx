@@ -49,6 +49,11 @@ ReactDOM.render((
         <Route path="/atstovai/prideti" component={AddRepresentativeContainer} />
         <Route path="/atstovai/redaguoti/:representativeId" component={EditRepresentativeContainer} />
         <Route path="/atstovai/trinti/:representativeId" component={RepresentativesListContainer} />
+      <Route path="/partijos" component={PartiesListContainer} />
+        <Route path="/partijos/prideti" component={AddPartyContainer} />
+        <Route path="/partijos/redaguoti/:partyId" component={EditPartyContainer} />
+        <Route path="/partijos/trinti/:partyId" component={PartiesListContainer} />
+      <Route path="/kandidatai" component={AddCandidateListContainer} />
       <Route path="*" component={NoMatch}/>
     </Route>
   </Router>

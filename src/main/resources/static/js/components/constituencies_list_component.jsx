@@ -1,10 +1,11 @@
 var ConstituenciesListComponent = React.createClass({
     render: function() {
         var self = this;
+        var nr = 1;
         var constituenciesList = this.props.constituencies.map(function(constituency, index) {
             return (
                 <tr key={index}>
-                    <td>{constituency.id}</td>
+                    <td>{nr++}</td>
                     <td>{constituency.name}</td>
                     <td>
                         <button className="btn btn-info btn-sm" onClick={self.props.onDistrictsList(constituency)}>
@@ -33,7 +34,7 @@ var ConstituenciesListComponent = React.createClass({
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Nr</th>
                                 <th>Pavadinimas</th>
                                 <th>Apylinkių sąrašas</th>
                                 <th>Redaguoti</th>

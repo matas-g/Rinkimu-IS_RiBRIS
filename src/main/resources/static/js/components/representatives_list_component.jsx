@@ -1,10 +1,11 @@
 var RepresentativesListComponent = React.createClass({
     render: function() {
+     	var nr = 1;
         var self = this;
         var representativesList = this.props.representatives.map(function(representative, index) {
             return (
                 <tr key={index}>
-                    <td>{representative.id}</td>
+                    <td>{nr++}</td>
                     <td>{representative.name}</td>
                     <td>{representative.surname}</td>
                     <td>{representative.district}</td>
@@ -31,7 +32,7 @@ var RepresentativesListComponent = React.createClass({
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Nr</th>
                                 <th>Vardas</th>
                                 <th>Pavardė</th>
                                 <th>Atstovaujama apylinkė</th>

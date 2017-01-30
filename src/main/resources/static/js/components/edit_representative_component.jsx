@@ -6,11 +6,11 @@ var EditRepresentativeComponent = React.createClass({
                
                 <div className="form-group">
                     <label>Vardas</label>
-                    <input className="form-control" type="text" value={this.props.representative.name} onChange={this.props.onFieldChange('name')} /><br />
+                    <input className="form-control" type="text" required value={this.props.representative.name} onChange={this.props.onFieldChange('name')} /><br />
                 </div>
                 <div className="form-group">
                     <label>Pavardė</label>
-                    <input className="form-control" type="text" value={this.props.representative.surname} onChange={this.props.onFieldChange('surname')} /><br />
+                    <input className="form-control" type="text" required value={this.props.representative.surname} onChange={this.props.onFieldChange('surname')} /><br />
                 </div>
                 <div className="form-group">
                     <select className="form-control">
