@@ -17,7 +17,7 @@ handleSaveClick: function(e) {
         surname: this.state.surname,
         district: districtId
     };
-
+    console.log(elementsList);
     axios.post('/representatives/', elementsList).then(function () {
         console.log('Atstovas pridėtas');
         self.context.router.push('/atstovai');

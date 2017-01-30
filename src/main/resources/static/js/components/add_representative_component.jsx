@@ -12,15 +12,15 @@ var AddRepresentativeComponent = React.createClass({
                 <h4>Registruoti naują atstovą</h4><br />
                 <div className="form-group">
                     <label>Vardas</label>
-                    <input className="form-control" type="text" value={this.props.name} onChange={this.props.onNameChange} /><br />
+                    <input className="form-control" type="text" required value={this.props.name} onChange={this.props.onNameChange} /><br />
                 </div>
                 <div className="form-group">
                     <label>Pavardė</label>
-                    <input className="form-control" type="text" value={this.props.surname} onChange={this.props.onSurnameChange} /><br />
+                    <input className="form-control" type="text" required value={this.props.surname} onChange={this.props.onSurnameChange} /><br />
                 </div>
                 <div className="form-group">
                     <label>Priskirti atstovui apylinkę</label>
-                    <select className="form-control" value={this.props.district} onChange={this.props.onDistrictChange}>
+                    <select className="form-control" required value={this.props.district} onChange={this.props.onDistrictChange}>
                        {districtsList}
                     </select>
                 </div>

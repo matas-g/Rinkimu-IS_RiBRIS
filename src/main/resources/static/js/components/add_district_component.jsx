@@ -13,19 +13,19 @@ var AddDistrictComponent = React.createClass({
               
                 <div className="form-group">
                     <label>Pavadinimas</label>
-                    <input className="form-control" type="text" value={this.props.name} onChange={this.props.onNameChange} /><br />
+                    <input className="form-control" type="text" required value={this.props.name} onChange={this.props.onNameChange} /><br />
                 </div>
                 <div className="form-group">
                     <label>Adresas</label>
-                    <input className="form-control" type="text" value={this.props.address} onChange={this.props.onAddressChange} /><br />
+                    <input className="form-control" type="text" required value={this.props.address} onChange={this.props.onAddressChange} /><br />
                 </div>
                 <div className="form-group">
                     <label>Balsuotojų skaičius</label>
-                    <input className="form-control" type="number" value={this.props.numOfVoters} onChange={this.props.onVotersChange} /><br />
+                    <input className="form-control" type="number" required value={this.props.numOfVoters} onChange={this.props.onVotersChange} /><br />
                 </div>
                    <div className="form-group">
                     <label>Priskirti apylinkę apygardai</label>
-                    <select className="form-control" value={this.props.constituency}  onChange={this.props.HandleConstituencyChange}>
+                    <select className="form-control" required value={this.props.constituency}  onChange={this.props.HandleConstituencyChange}>
                             {constituenciesList}
                      </select>
                 </div>

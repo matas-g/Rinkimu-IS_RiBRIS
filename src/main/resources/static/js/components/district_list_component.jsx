@@ -1,14 +1,16 @@
 var DistrictListComponent = React.createClass({
     render: function() {
         var self = this;
+        var nr = 1;
         var districtsList = this.props.districts.map(function(district, index) {
             return (
                 <tr key={index}>
-                    <td>{district.id}</td>
+                    <td>{nr++}</td>
                     <td>{district.name}</td>
                     <td>{district.address}</td>
                     <td>{district.numOfVoters}</td>
-                    <td>{district.representative}</td>
+                    <td>Apygardos Pavdinimas</td>
+                    <td>Atstovo Vardas</td>
 
                     <td><button className="btn btn-success btn-sm" onClick={self.props.onEditItem(district)}>
                         <i className="fa fa-pencil" aria-hidden="true"></i>
@@ -19,7 +21,7 @@ var DistrictListComponent = React.createClass({
                 </tr>
             );
         });
-
+	
         return (
             <div className="container"><br />
                 <button className="btn btn-success" onClick={this.props.onAddClick}>
@@ -31,10 +33,11 @@ var DistrictListComponent = React.createClass({
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Nr</th>
                                 <th>Pavadinimas</th>
                                 <th>Adresas</th>
                                 <th>Balsuotojų skaičius</th>
+                                <th>Priskirta apygarda</th>
                                 <th>Apylinkės atstovas</th>
                                 <th>Redaguoti</th>
                             </tr>
@@ -48,6 +51,7 @@ var DistrictListComponent = React.createClass({
         );
     }
 });
+
 
 DistrictListComponent.propTypes = {
     districts: React.PropTypes.array.isRequired,

@@ -19,7 +19,7 @@ handleSaveClick: function(e) {
         numOfVoters: this.state.numOfVoters,
         constituency: constituencyId
     };
-
+	console.log(dataList);
     axios.post('/polling-districts/', dataList).then(function (response) {
         console.log('Apylinke prideta');
         self.context.router.push('/apylinkes');
