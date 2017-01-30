@@ -10,6 +10,8 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "Polling_District_Representatives")
 public class RepresentativeEntity {
@@ -24,8 +26,9 @@ public class RepresentativeEntity {
     @Length(min = 1, max = 40)
     private String surname;
 
-    // Unidirectional OneToOne
+    // Bidirectional OneToOne
     @OneToOne
+    @JsonBackReference(value = "pollingDistrict-representative")
     @JoinColumn(name = "Polling_District_Id")
     private PollingDistrictEntity pollingDistrict;
 
