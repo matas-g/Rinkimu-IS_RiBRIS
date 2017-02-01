@@ -30,7 +30,7 @@ public class ConstituencyController {
 
     // Register or update
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.CREATED )
     public ConstituencyEntity saveOrUpdate(@Valid @RequestBody ConstituencyEntity constituency) {
         return this.constituencyService.saveOrUpdate(constituency);
     }

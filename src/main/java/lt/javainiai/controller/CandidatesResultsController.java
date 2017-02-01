@@ -34,11 +34,6 @@ public class CandidatesResultsController {
         return this.candidatesResultsService.saveOrUpdate(candidatesResults);
     }
     
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public CandidatesResultsEntity update(@Valid @PathVariable("id") Long id, @Valid @RequestBody CandidatesResultsEntity candidatesResults){
-//        return this.candidatesResultsService.update(id, candidatesResults);
-//    }
-    
     @RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public List<CandidatesResultsEntity> findAll() {
