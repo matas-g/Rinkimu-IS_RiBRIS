@@ -1,6 +1,7 @@
 package lt.javainiai.model;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,12 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Candidates")
@@ -40,6 +43,10 @@ public class CandidateEntity {
     @JsonBackReference(value = "candidate-party")
     @JoinColumn(name = "Party_Id")
     private PartyEntity party;
+    
+    @OneToMany(mappedBy = "candidate")
+    @JsonManagedReference(value = "candidate-results")
+    private List<CandidatesResultsEntity> candidatesResults;
 
     private String biography;
 
@@ -107,6 +114,14 @@ public class CandidateEntity {
 
     public void setConstituency(ConstituencyEntity constituency) {
         this.constituency = constituency;
+    }
+   
+    public List<CandidatesResultsEntity> getCandidatesResults() {
+        return candidatesResults;
+    }
+
+    public void setCandidatesResults(List<CandidatesResultsEntity> candidatesResults) {
+        this.candidatesResults = candidatesResults;
     }
 
     @Override
