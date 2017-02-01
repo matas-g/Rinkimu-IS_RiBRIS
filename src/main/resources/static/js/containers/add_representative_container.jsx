@@ -36,7 +36,7 @@ componentWillMount: function() {
 
 HandleDistrictChange : function(e){
     var districtId = parseInt(e.target.value);
-    this.setState({districts : districtId}); 
+    this.setState({district : districtId}); 
 },
 
 HandleNameChange: function(e) {
