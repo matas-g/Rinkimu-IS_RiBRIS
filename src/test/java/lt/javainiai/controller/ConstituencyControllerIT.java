@@ -84,7 +84,7 @@ public class ConstituencyControllerIT {
         
 //        ResponseEntity<String> response2 = template.postForEntity("http://localhost:" + port + "/constituencies/", createConstituency2, String.class);
         
-        Long constituencyId = 2L;
+        Long constituencyId = 1L;
         
         ResponseEntity<String> getConstituencyResponse = template.getForEntity(String.format("%s/%s", base.toString(), constituencyId), String.class);
         Assert.assertThat(getConstituencyResponse.getStatusCode(), equalTo(HttpStatus.OK));
@@ -124,55 +124,60 @@ public class ConstituencyControllerIT {
     
     }
     
-//    @Test
-//    public void deleteConstituencyById() throws Exception {
-//        
-//        ConstituencyEntity createConstituency1 = new ConstituencyEntity();
-//        createConstituency1.setName("Vilniaus");
-//        
-//        ConstituencyEntity createConstituency2 = new ConstituencyEntity();
-//        createConstituency2.setName("Alytaus");
-//        
-//        template.postForEntity("http://localhost:" + port + "/constituencies/", createConstituency1, String.class);
-//        
-//        template.postForEntity("http://localhost:" + port + "/constituencies/", createConstituency2, String.class);
-//        
-//        
-//        Long id = 3L;
-//        ResponseEntity<String> response1 = template.getForEntity(String.format("%s/%s", base.toString(), id), String.class);
-//      
-//        Assert.assertThat(response1.getStatusCode(), equalTo(HttpStatus.OK));
-//        Assert.assertThat(response1.getHeaders().getContentType().toString(), equalTo(JSON_CONTENT_TYPE));
-//        
-//        ConstituencyEntity constituency1 = convertJsonToConstituency(response1.getBody());
-//        Assert.assertThat(constituency1.getName(), equalTo("Vilniaus"));
-//        
-//        ResponseEntity<String> response2 = template.getForEntity(String.format("%s/%s", base.toString(), 2), String.class);
-//        
-//        ConstituencyEntity constituency2 = convertJsonToConstituency(response2.getBody());
-//        Assert.assertThat(constituency2.getName(), equalTo("Alytaus"));
-//        
-//        /*Delete constituency */
-//        
-//        template.delete(String.format("%s/%s", base.toString(), 1), String.class);
-//        
-//        
-//        /*attempt to get Constituency and ensure we got a 404 */
-//        
-//        ResponseEntity<String> firstCallResponse = template.getForEntity(String.format("%s/%s", base.toString(), 1), String.class);
-//        Assert.assertThat(firstCallResponse.getBody(), nullValue());
-//        
-//        ResponseEntity<String> secondCallResponse = template.getForEntity(String.format("%s/%s", base.toString(), 2), String.class);
-//        
-//        ConstituencyEntity returnedConstituency2 = convertJsonToConstituency(secondCallResponse.getBody());
-//        
-//        System.out.println("Vilniaus:" + firstCallResponse.getBody());
-//        System.out.println("Alytaus: " + secondCallResponse.getBody());
-//        
-//        
-//        Assert.assertThat(constituency2.getName(), equalTo(returnedConstituency2.getName()));
-//        
-//    }
+    @Test
+    public void deleteConstituencyById() throws Exception {
+        
+        template = new TestRestTemplate();
+        
+        ConstituencyEntity createConstituency1 = new ConstituencyEntity();
+        createConstituency1.setName("Vilniaus");
+        
+        ConstituencyEntity createConstituency2 = new ConstituencyEntity();
+        createConstituency2.setName("Alytaus");
+        
+        template.postForEntity("http://localhost:" + port + "/constituencies/", createConstituency1, String.class);
+        
+        template.postForEntity("http://localhost:" + port + "/constituencies/", createConstituency2, String.class);
+        
+        
+        Long id = 1L;
+        ResponseEntity<String> response1 = template.getForEntity(String.format("%s/%s", base.toString(), id), String.class);
+      
+        Assert.assertThat(response1.getStatusCode(), equalTo(HttpStatus.OK));
+        Assert.assertThat(response1.getHeaders().getContentType().toString(), equalTo(JSON_CONTENT_TYPE));
+        
+        ConstituencyEntity constituency1 = convertJsonToConstituency(response1.getBody());
+        Assert.assertThat(constituency1.getName(), equalTo("Vilniaus"));
+        System.out.println(response1.getBody());
+        
+        ResponseEntity<String> response2 = template.getForEntity(String.format("%s/%s", base.toString(), 2), String.class);
+        
+        ConstituencyEntity constituency2 = convertJsonToConstituency(response2.getBody());
+        Assert.assertThat(constituency2.getName(), equalTo("Alytaus"));
+        System.out.println(response2.getBody());
+        /*Delete constituency */
+        
+        template.delete(String.format("%s/%s", base.toString(), id));
+        
+       
+        
+        
+        /*attempt to get Constituency and ensure we got a 404 */
+        
+        ResponseEntity<String> firstCallResponse = template.getForEntity(String.format("%s/%s", base.toString(), 1), String.class);
+        Assert.assertThat(firstCallResponse.getBody(), equalTo(null));
+        System.out.println("firstCall:" + firstCallResponse.getBody());
+        ResponseEntity<String> secondCallResponse = template.getForEntity(String.format("%s/%s", base.toString(), 2), String.class);
+        System.out.println("secondCall:" + secondCallResponse.getBody());
+        ConstituencyEntity returnedConstituency2 = convertJsonToConstituency(secondCallResponse.getBody());
+        
+        System.out.println("Vilniaus:" + firstCallResponse.getBody());
+        System.out.println("Alytaus: " + secondCallResponse.getBody());
+        
+        
+        Assert.assertThat(constituency2.getName(), equalTo(returnedConstituency2.getName()));
+        
+    }
     
 
     

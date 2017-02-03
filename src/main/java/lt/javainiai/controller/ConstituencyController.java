@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.service.ConstituencyService;
 
+
 @RestController
 @RequestMapping("/constituencies/")
 public class ConstituencyController {
@@ -37,14 +38,14 @@ public class ConstituencyController {
 
     // Find all
     @RequestMapping(method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
+    //@ResponseStatus(HttpStatus.OK)
     public List<ConstituencyEntity> findAll() {
         return this.constituencyService.findAll();
     }
 
     // Find one
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
+    //@ResponseStatus(HttpStatus.OK)
     public ConstituencyEntity findById(@Valid @PathVariable("id") Long id) {
         return this.constituencyService.findById(id);
     }
