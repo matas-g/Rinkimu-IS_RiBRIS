@@ -1,7 +1,6 @@
 package lt.javainiai.model;
 
 import java.sql.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -44,9 +43,9 @@ public class CandidateEntity {
     @JoinColumn(name = "Party_Id")
     private PartyEntity party;
     
-    @OneToMany(mappedBy = "candidate")
+    @OneToOne(mappedBy = "candidate")
     @JsonManagedReference(value = "candidate-results")
-    private List<CandidatesResultsEntity> candidatesResults;
+    private CandidatesResultsEntity candidatesResultsEntity;
 
     private String biography;
 
@@ -116,14 +115,6 @@ public class CandidateEntity {
         this.constituency = constituency;
     }
    
-    public List<CandidatesResultsEntity> getCandidatesResults() {
-        return candidatesResults;
-    }
-
-    public void setCandidatesResults(List<CandidatesResultsEntity> candidatesResults) {
-        this.candidatesResults = candidatesResults;
-    }
-
     @Override
     public String toString() {
         return "CandidateEntity [id=" + id + ", name=" + name + ", surname=" + surname + ", birth_date=" + birth_date
