@@ -7,12 +7,13 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.repository.CrudRepository;
 
 import lt.javainiai.model.ConstituencyEntity;
 
 @Repository
-public class ConstituencyRepository implements RepositoryInterface<ConstituencyEntity> {
-
+public class ConstituencyRepository  implements RepositoryInterface<ConstituencyEntity> {
+//implements RepositoryInterface<ConstituencyEntity>
     @Autowired
     private EntityManager em;
 

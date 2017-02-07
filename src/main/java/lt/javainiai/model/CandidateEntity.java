@@ -9,12 +9,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Candidates")
@@ -40,6 +42,10 @@ public class CandidateEntity {
     @JsonBackReference(value = "candidate-party")
     @JoinColumn(name = "Party_Id")
     private PartyEntity party;
+    
+    @OneToOne(mappedBy = "candidate")
+    @JsonManagedReference(value = "candidate-results")
+    private CandidatesResultsEntity candidatesResultsEntity;
 
     private String biography;
 
@@ -108,7 +114,7 @@ public class CandidateEntity {
     public void setConstituency(ConstituencyEntity constituency) {
         this.constituency = constituency;
     }
-
+   
     @Override
     public String toString() {
         return "CandidateEntity [id=" + id + ", name=" + name + ", surname=" + surname + ", birth_date=" + birth_date

@@ -2,6 +2,7 @@ package lt.javainiai.repository;
 
 import java.util.List;
 
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = true)
