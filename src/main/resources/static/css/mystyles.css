@@ -1,0 +1,8 @@
+.hop {
+	transition: all .4s ease-in-out;
+}
+
+.hop:hover {
+	transform: scale(1.06);
+	z-index: 1;
+}
