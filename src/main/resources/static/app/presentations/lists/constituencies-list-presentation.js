@@ -15,12 +15,14 @@ var ConstituenciesListComponent = React.createClass({
               &nbsp; Priskirtos apylinkės
             </button>
           </td>
-          <td><button className="btn btn-success btn-sm" onClick={self.props.onEditItem(constituency)}>
-            <i className="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-          <button className="btn btn-danger btn-sm" onClick={self.props.onRemoveItem(constituency)}>
-            <i className="fa fa-times" aria-hidden="true"></i>
-          </button></td>
+          <td>
+            <button className="btn btn-success btn-sm" onClick={self.props.onEditItem(constituency)}>
+              <i className="fa fa-pencil" aria-hidden="true"></i>
+            </button>
+            <button className="btn btn-danger btn-sm" onClick={self.props.onRemoveItem(constituency)}>
+              <i className="fa fa-times" aria-hidden="true"></i>
+            </button>
+          </td>
         </tr>
       );
     });

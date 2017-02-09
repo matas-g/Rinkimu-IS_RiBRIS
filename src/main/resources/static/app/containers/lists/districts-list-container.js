@@ -24,7 +24,7 @@ var DistrictListContainer = React.createClass({
   },
 
   handleAddDistrict() {
-    this.context.router.push('/districts/add');
+    this.context.router.push('districts/add');
   },
 
   handleDistrictEdit: function(district) {

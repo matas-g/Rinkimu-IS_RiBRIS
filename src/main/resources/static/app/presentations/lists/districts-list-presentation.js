@@ -32,7 +32,7 @@ var DistrictListComponent = React.createClass({
             Atšaukti
           </button>
           <button className="btn btn-success" onClick={this.props.onAddClick}>
-            <i className="fa fa-plus" aria-hidden="true"></i> Registruoti naują apygardą
+            <i className="fa fa-plus" aria-hidden="true"></i> Registruoti naują aplinkę
           </button>
         </div>
         <br />

@@ -1,11 +1,11 @@
 const React = require('react');
 const axios = require('axios');
-const NavListPresentation = require('../presentations/nav-cards-list-presentation');
-const ConstituenciesOptions = require('../util/options-for-menu/constituency-options');
-const DistrictOptions = require('../util/options-for-menu/district-options');
-const CandidatesOptions = require('../util/options-for-menu/candidates-options');
-const PartiesOptions = require('../util/options-for-menu/parties-options');
-const ResultsOptions = require('../util/options-for-menu/results-options');
+const NavListPresentation = require('../../presentations/navigation/nav-cards-list-presentation');
+const ConstituenciesOptions = require('../../util/options-for-menu/constituency-options');
+const DistrictOptions = require('../../util/options-for-menu/district-options');
+const CandidatesOptions = require('../../util/options-for-menu/candidates-options');
+const PartiesOptions = require('../../util/options-for-menu/parties-options');
+const ResultsOptions = require('../../util/options-for-menu/results-options');
 
 var NavListContainer = React.createClass({
 

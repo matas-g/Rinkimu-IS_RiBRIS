@@ -15,19 +15,23 @@ public class ConstituencyService {
     private ConstituencyRepository constituencyRepository;
 
     public ConstituencyEntity saveOrUpdate(ConstituencyEntity constituency) {
-        return this.constituencyRepository.saveOrUpdate(constituency);
+        return constituencyRepository.saveOrUpdate(constituency);
     }
 
     public List<ConstituencyEntity> findAll() {
-        return this.constituencyRepository.findAll();
+        return constituencyRepository.findAll();
     }
 
     public ConstituencyEntity findById(Long id) {
-        return this.constituencyRepository.findById(id);
+        return constituencyRepository.findById(id);
+    }
+    
+    public ConstituencyEntity findByName(String name) {
+        return constituencyRepository.findByName(name);
     }
 
     public void deleteById(Long id) {
-        this.constituencyRepository.deleteById(id);
+        constituencyRepository.deleteById(id);
     }
 
 }

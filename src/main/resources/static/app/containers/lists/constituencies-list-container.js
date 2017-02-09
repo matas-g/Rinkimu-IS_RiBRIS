@@ -56,8 +56,6 @@ var ConstituenciesListContainer = React.createClass({
     }
   },
 
-
-
   render: function() {
     return (
       <ConstituenciesListComponent

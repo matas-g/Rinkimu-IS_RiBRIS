@@ -33,28 +33,35 @@ public class ConstituencyController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED )
     public ConstituencyEntity saveOrUpdate(@Valid @RequestBody ConstituencyEntity constituency) {
-        return this.constituencyService.saveOrUpdate(constituency);
+        return constituencyService.saveOrUpdate(constituency);
     }
 
     // Find all
     @RequestMapping(method = RequestMethod.GET)
-    //@ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
     public List<ConstituencyEntity> findAll() {
-        return this.constituencyService.findAll();
+        return constituencyService.findAll();
     }
 
     // Find one
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    //@ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
     public ConstituencyEntity findById(@Valid @PathVariable("id") Long id) {
-        return this.constituencyService.findById(id);
+        return constituencyService.findById(id);
+    }
+    
+    // Find one by name
+    @RequestMapping(value = "/by-name/{name}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public ConstituencyEntity findByName(@Valid @PathVariable("name") String name) {
+        return constituencyService.findByName(name);
     }
 
     // Delete one
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@Valid @PathVariable("id") Long id) {
-        this.constituencyService.deleteById(id);
+        constituencyService.deleteById(id);
     }
 
 }

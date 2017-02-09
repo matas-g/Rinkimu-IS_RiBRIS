@@ -32,28 +32,28 @@ public class PollingDistrictController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public PollingDistrictEntity saveOrUpdate(@Valid @RequestBody PollingDistrictEntity pollingDistrict) {
-        return this.pollingDistrictService.saveOrUpdate(pollingDistrict);
+        return pollingDistrictService.saveOrUpdate(pollingDistrict);
     }
 
     // Find all
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<PollingDistrictEntity> findAll() {
-        return this.pollingDistrictService.findAll();
+        return pollingDistrictService.findAll();
     }
 
     // Find one
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public PollingDistrictEntity findById(@Valid @PathVariable("id") Long id) {
-        return this.pollingDistrictService.findById(id);
+        return pollingDistrictService.findById(id);
     }
 
     // Delete one
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@Valid @PathVariable("id") Long id) {
-        this.pollingDistrictService.deleteById(id);
+        pollingDistrictService.deleteById(id);
     }
 
 }

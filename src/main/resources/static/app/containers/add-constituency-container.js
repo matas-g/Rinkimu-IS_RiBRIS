@@ -7,15 +7,17 @@ var AddConstituencyContainer = React.createClass({
         return {
             constituency: {
                 name: ''
-            }
+            },
+            constituencyId: 0
         }
     },
     handleSaveClick: function(e) {
         e.preventDefault();
         var self = this;
-        axios.post('/constituencies/', this.state.constituency).then(function () {
-            console.log('Apygarda pridėta');
-            self.context.router.push('/constituencies');
+        axios.post('/constituencies/', self.state.constituency).then(function() {
+            axios.get('/constituencies/by-name/' + self.state.constituency.name).then(function(resp) {
+              self.context.router.push('/districts/add/' + resp.data.id);
+            });
         });
     },
 
