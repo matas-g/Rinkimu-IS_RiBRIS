@@ -17,6 +17,7 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
     private EntityManager em;
 
     @Transactional
+    @Override
     public CandidateEntity saveOrUpdate(CandidateEntity candidate) {
         if (candidate.getId() == null) {
             em.persist(candidate);
@@ -28,7 +29,8 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<CandidateEntity> findAll() {
         return em.createQuery("SELECT c FROM CandidateEntity c").getResultList();
     }

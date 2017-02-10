@@ -17,6 +17,7 @@ public class PartyRepository implements RepositoryInterface<PartyEntity> {
     private EntityManager em;
 
     @Transactional
+    @Override
     public PartyEntity saveOrUpdate(PartyEntity party) {
         if (party.getId() == null) {
             em.persist(party);
@@ -28,7 +29,8 @@ public class PartyRepository implements RepositoryInterface<PartyEntity> {
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<PartyEntity> findAll() {
         return em.createQuery("SELECT p FROM PartyEntity p").getResultList();
     }

@@ -7,11 +7,11 @@ const CandidatesOptions = require('../../util/options-for-menu/candidates-option
 const PartiesOptions = require('../../util/options-for-menu/parties-options');
 const ResultsOptions = require('../../util/options-for-menu/results-options');
 
-var NavListContainer = React.createClass({
+var NavContainer = React.createClass({
 
   getInitialState: function() {
     return {
-      details: []
+      options: ConstituenciesOptions
     };
   },
 
@@ -19,27 +19,27 @@ var NavListContainer = React.createClass({
     var self = this;
     if (self.props.location.pathname == "/constituencies") {
       self.setState({
-        details: ConstituenciesOptions
+        options: ConstituenciesOptions
       });
       self.forceUpdate();
     } else if (self.props.location.pathname == "/districts") {
       self.setState({
-        details: DistrictOptions
+        options: DistrictsOptions
       });
       self.forceUpdate();
     } else if (self.props.location.pathname == "/parties") {
       self.setState({
-        details: PartiesOptions
+        options: PartiesOptions
       });
       self.forceUpdate();
     } else if (self.props.location.pathname == "/candidates") {
       self.setState({
-        details: CandidatesOptions
+        options: CandidatesOptions
       });
       self.forceUpdate();
     } else if (self.props.location.pathname == "/results") {
       self.setState({
-        details: ResultsOptions
+        options: ResultsOptions
       });
       self.forceUpdate();
     }
@@ -48,13 +48,15 @@ var NavListContainer = React.createClass({
   render: function() {
     return (
       <NavPresentation
-        details={this.state.details}
-      />);
+        options={this.state.options}
+        childs={this.props.children}
+      />
+    );
   }
 });
 
-NavListContainer.contextTypes = {
+NavContainer.contextTypes = {
   router: React.PropTypes.object.isRequired,
 };
 
-module.exports = NavListContainer;
+module.exports = NavContainer;

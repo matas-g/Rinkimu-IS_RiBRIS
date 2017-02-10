@@ -1,6 +1,6 @@
 const React = require('react');
 const axios = require('axios');
-const ConstituenciesListComponent = require('../../presentations/lists/constituencies-list-presentation');
+const ConstituenciesListPresentation = require('../../presentations/lists/constituencies-list-presentation');
 
 var ConstituenciesListContainer = React.createClass({
   getInitialState: function() {
@@ -17,14 +17,6 @@ var ConstituenciesListContainer = React.createClass({
         constituencies: response.data
       });
     });
-  },
-
-  handleCancelClick() {
-    this.context.router.push('/constituencies');
-  },
-
-  handleAddConstituency() {
-    this.context.router.push('/constituencies/add');
   },
 
   handleConstituencyEdit: function(constituency) {
@@ -52,14 +44,13 @@ var ConstituenciesListContainer = React.createClass({
   handleDistrictsList: function(constituency) {
     var self = this;
     return function() {
-      self.context.router.push('/constituencies/' + constituency.id + '/district');
-    }
+      self.context.router.push('/districts/list/' + constituency.id);
+    };
   },
 
   render: function() {
     return (
-      <ConstituenciesListComponent
-        onCancelClick={this.handleCancelClick}
+      <ConstituenciesListPresentation
         constituencies={this.state.constituencies}
         onAddClick={this.handleAddConstituency}
         onEditItem={this.handleConstituencyEdit}

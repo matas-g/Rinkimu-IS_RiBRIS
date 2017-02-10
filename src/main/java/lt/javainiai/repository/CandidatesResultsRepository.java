@@ -29,7 +29,8 @@ public class CandidatesResultsRepository implements RepositoryInterface<Candidat
     
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<CandidatesResultsEntity> findAll() {
         return em.createQuery("SELECT c FROM CandidatesResultsEntity c").getResultList();
     }

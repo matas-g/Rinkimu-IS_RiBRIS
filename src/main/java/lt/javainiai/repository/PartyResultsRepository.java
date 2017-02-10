@@ -28,7 +28,8 @@ public class PartyResultsRepository implements RepositoryInterface<PartyResultsE
        }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<PartyResultsEntity> findAll() {
         return em.createQuery("SELECT  c FROM PartyResultsEntity c").getResultList();
     }

@@ -1,17 +1,10 @@
 var servedDetails = [
   {
-    img: '../../img/results.png',
-    title: 'Kandidatai',
-    pathTo: '/candidates/list'
-  },
-  {
-    img: '../../img/add.png',
-    title: 'Pridėti kandidatą',
+    text: 'Pridėti vieną',
     pathTo: '/candidates/add'
   },
   {
-    img: '../../img/add.png',
-    title: 'Pridėti kandidatų sarašą',
+    text: 'Pridėti sąrašą',
     pathTo: '/candidates/add-list'
   }
 ];

@@ -11,20 +11,22 @@ var DistrictListContainer = React.createClass({
 
   componentWillMount: function() {
     var self = this;
-    axios.get('/polling-districts/')
-    .then(function (response) {
-      self.setState({
-          districts: response.data,
+    console.log(self.props.params.constituencyId);
+    if (self.props.params.constituencyId == undefined) {
+      axios.get('/polling-districts/')
+      .then(function (response) {
+        self.setState({
+            districts: response.data,
+        });
       });
-    });
-  },
-
-  handleCancelClick() {
-    this.context.router.push('/constituencies');
-  },
-
-  handleAddDistrict() {
-    this.context.router.push('districts/add');
+    } else {
+      axios.get('/constituencies/' + self.props.params.constituencyId)
+      .then(function (response) {
+        self.setState({
+            districts: response.data.pollingDistricts,
+        });
+      });
+    }
   },
 
   handleDistrictEdit: function(district) {
@@ -52,7 +54,6 @@ var DistrictListContainer = React.createClass({
   render: function() {
     return (
       <DistrictListComponent
-        onCancelClick={this.handleCancelClick}
         districts={this.state.districts}
         onAddClick={this.handleAddDistrict}
         onEditItem={this.handleDistrictEdit}
