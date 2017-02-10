@@ -13565,7 +13565,7 @@ var AddDistrictContainer = React.createClass({
       }
     };
     axios.post('/polling-districts/', dataList).then(function (response) {
-      self.context.router.push('/district');
+      self.context.router.push('/districts/');
     });
   },
 
@@ -13582,7 +13582,7 @@ var AddDistrictContainer = React.createClass({
   },
 
   handleCancelClick() {
-    this.context.router.push('/districts/add');
+    this.context.router.push('/districts/');
   },
 
   render: function () {
@@ -13663,7 +13663,6 @@ var ConstituenciesListContainer = React.createClass({
 
   render: function () {
     return React.createElement(ConstituenciesListPresentation, {
-      onCancelClick: this.handleCancelClick,
       constituencies: this.state.constituencies,
       onAddClick: this.handleAddConstituency,
       onEditItem: this.handleConstituencyEdit,
@@ -13737,7 +13736,6 @@ var DistrictListContainer = React.createClass({
 
   render: function () {
     return React.createElement(DistrictListComponent, {
-      onCancelClick: this.handleCancelClick,
       districts: this.state.districts,
       onAddClick: this.handleAddDistrict,
       onEditItem: this.handleDistrictEdit,
@@ -13957,7 +13955,7 @@ var AddDistrictComponent = React.createClass({
       { className: "container-fluid" },
       React.createElement(
         "div",
-        { className: "col-sm-8 col-sm-offset-2" },
+        { className: "col-sm-offset-1 col-sm-10" },
         React.createElement(
           "form",
           null,
@@ -14154,7 +14152,6 @@ var ConstituenciesListComponent = React.createClass({
 });
 
 ConstituenciesListComponent.propTypes = {
-  onCancelClick: React.PropTypes.func.isRequired,
   constituencies: React.PropTypes.array.isRequired,
   onAddClick: React.PropTypes.func.isRequired,
   onRemoveItem: React.PropTypes.func.isRequired
@@ -14288,9 +14285,9 @@ var DistrictListComponent = React.createClass({
 });
 
 DistrictListComponent.propTypes = {
-  onCancelClick: React.PropTypes.func.isRequired,
+  onRemoveItem: React.PropTypes.func.isRequired,
   districts: React.PropTypes.array.isRequired,
-  onAddClick: React.PropTypes.func.isRequired
+  onEditItem: React.PropTypes.func.isRequired
 };
 
 module.exports = DistrictListComponent;
