@@ -47,9 +47,8 @@ var AddDistrictContainer = React.createClass({
         id : this.state.constituency.id
       }
     };
-    console.log(dataList);
     axios.post('/polling-districts/', dataList).then(function (response) {
-      self.context.router.push('/district');
+      self.context.router.push('/districts/');
     });
   },
 
@@ -66,7 +65,7 @@ var AddDistrictContainer = React.createClass({
   },
 
   handleCancelClick() {
-      this.context.router.push('/districts/add');
+      this.context.router.push('/districts/');
   },
 
   render: function() {

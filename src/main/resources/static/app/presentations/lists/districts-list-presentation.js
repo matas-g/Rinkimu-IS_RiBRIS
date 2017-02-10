@@ -26,17 +26,6 @@ var DistrictListComponent = React.createClass({
 
     return (
       <div className="container-fluid">
-        <br />
-        <div className="col-sm-offset-2">
-          <button className="btn btn-danger" onClick={this.props.onCancelClick}>
-            Atšaukti
-          </button>
-          <button className="btn btn-success" onClick={this.props.onAddClick}>
-            <i className="fa fa-plus" aria-hidden="true"></i> Registruoti naują aplinkę
-          </button>
-        </div>
-        <br />
-        <br />
         <div className="panel panel-default">
         <div className="panel-heading"><strong>Apylinkių sąrašas</strong></div>
           <table className="table">
@@ -61,9 +50,9 @@ var DistrictListComponent = React.createClass({
 });
 
 DistrictListComponent.propTypes = {
-  onCancelClick: React.PropTypes.func.isRequired,
+  onRemoveItem: React.PropTypes.func.isRequired,
   districts: React.PropTypes.array.isRequired,
-  onAddClick: React.PropTypes.func.isRequired
+  onEditItem: React.PropTypes.func.isRequired
 }
 
 module.exports = DistrictListComponent;

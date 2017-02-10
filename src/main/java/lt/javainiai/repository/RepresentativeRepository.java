@@ -17,6 +17,7 @@ public class RepresentativeRepository implements RepositoryInterface<Representat
     private EntityManager em;
 
     @Transactional
+    @Override
     public RepresentativeEntity saveOrUpdate(RepresentativeEntity representative) {
         if (representative.getId() == null) {
             em.persist(representative);
@@ -28,7 +29,8 @@ public class RepresentativeRepository implements RepositoryInterface<Representat
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<RepresentativeEntity> findAll() {
         return em.createQuery("SELECT r FROM RepresentativeEntity r").getResultList();
     }

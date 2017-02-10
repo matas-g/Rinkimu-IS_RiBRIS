@@ -4,9 +4,9 @@ var AddDistrictComponent = React.createClass({
   render: function() {
     return (
       <div className="container-fluid">
-        <div className="col-sm-8 col-sm-offset-2">
+        <div className="col-sm-offset-1 col-sm-10">
           <form>
-            <h4>Registruoti naują apylinkę</h4>
+            <h4>Registruoti naują apylinkę {this.props.constituency.name} apygardai</h4>
             <br />
             <div className="form-group">
                 <label>Pavadinimas</label>

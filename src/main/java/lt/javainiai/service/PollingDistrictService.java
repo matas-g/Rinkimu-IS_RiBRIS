@@ -15,19 +15,23 @@ public class PollingDistrictService {
     private PollingDistrictRepository pollingDistrictRepository;
 
     public PollingDistrictEntity saveOrUpdate(PollingDistrictEntity pollingDistrict) {
-        return this.pollingDistrictRepository.saveOrUpdate(pollingDistrict);
+        return pollingDistrictRepository.saveOrUpdate(pollingDistrict);
     }
 
     public List<PollingDistrictEntity> findAll() {
-        return this.pollingDistrictRepository.findAll();
+        return pollingDistrictRepository.findAll();
     }
+    
+//    public List<PollingDistrictEntity> findAllForConstituency() {
+//        return pollingDistrictRepository.findAll();
+//    }
 
     public PollingDistrictEntity findById(Long id) {
-        return this.pollingDistrictRepository.findById(id);
+        return pollingDistrictRepository.findById(id);
     }
 
     public void deleteById(Long id) {
-        this.pollingDistrictRepository.deleteById(id);
+        pollingDistrictRepository.deleteById(id);
     }
 
 }
