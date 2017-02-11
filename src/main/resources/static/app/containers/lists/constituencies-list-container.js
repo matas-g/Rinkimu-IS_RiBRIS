@@ -52,10 +52,9 @@ var ConstituenciesListContainer = React.createClass({
     return (
       <ConstituenciesListPresentation
         constituencies={this.state.constituencies}
-        onAddClick={this.handleAddConstituency}
         onEditItem={this.handleConstituencyEdit}
         onRemoveItem={this.handleConstituencyRemove}
-        onDistrictsList={this.handleDistrictsList}
+        onDistrictsListClick={this.handleDistrictsList}
       />
     );
   }

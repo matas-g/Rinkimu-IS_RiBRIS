@@ -27,15 +27,6 @@ var AddDistrictContainer = React.createClass({
     });
   },
 
-  /*handleConstituencyChange : function(e){
-    var constituencyId = parseInt(e.target.value);
-    this.setState({
-      constituency: {
-        id: constituencyId
-      }
-    });
-  },*/
-
   handleSaveClick: function(e) {
     e.preventDefault();
     var self = this;
