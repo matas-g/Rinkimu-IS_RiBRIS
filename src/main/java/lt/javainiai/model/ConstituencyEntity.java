@@ -2,6 +2,7 @@ package lt.javainiai.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class ConstituencyEntity {
     private String name;
 
     // Bidirectional OneToMany
-    @OneToMany(mappedBy = "constituency")
+    @OneToMany(mappedBy = "constituency",cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<PollingDistrictEntity> pollingDistricts;
 
