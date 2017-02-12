@@ -5,24 +5,21 @@ const AddDistrictComponent = require('../presentations/add-district-presentation
 var AddDistrictContainer = React.createClass({
   getInitialState: function() {
     return {
-       districtName: '',
-       address: '',
-       numOfVoters: '',
-       constituency: {
-         id: 0,
-         name: ''
-       }
+      name: '',
+      address: '',
+      numOfVoters: '',
+      constituencies: [],
+      constituency: {
+        id: 1,
+      }
     };
   },
 
   componentWillMount: function() {
     var self = this;
-    axios.get('/constituencies/' + self.props.params.constituencyId).then(function(response) {
+    axios.get('http://localhost:8090/constituencies/').then(function(response) {
       self.setState({
-        constituency: {
-          id: response.data.id,
-          name: response.data.name
-        }
+        constituencies: response.data
       });
     });
   },
@@ -31,29 +28,45 @@ var AddDistrictContainer = React.createClass({
     e.preventDefault();
     var self = this;
     var dataList = {
-      name: this.state.districtName.trim(),
+      name: this.state.name.trim(),
       address: this.state.address,
       numOfVoters: this.state.numOfVoters,
       constituency: {
         id : this.state.constituency.id
       }
     };
-    axios.post('/polling-districts/', dataList).then(function (response) {
+    axios.post('http://localhost:8090/polling-districts/', dataList).then(function (response) {
+      console.log(response);
       self.context.router.push('/districts/');
     });
   },
 
   handleNameChange: function(e) {
-    this.setState({districtName: e.target.value});
+    this.setState({
+      name: e.target.value
+    });
   },
 
   handleAddressChange: function(e) {
-    this.setState({address: e.target.value});
+    this.setState({
+      address: e.target.value
+    });
   },
 
   handleVotersChange: function(e) {
-    this.setState({numOfVoters: e.target.value});
+    this.setState({
+      numOfVoters: e.target.value
+    });
   },
+
+  handleConstituencyChange: function(e){
+    var constituencyId = parseInt(e.target.value);
+    this.setState({
+      constituency: {
+        id: constituencyId
+      }
+    });
+},
 
   handleCancelClick() {
       this.context.router.push('/districts/');
@@ -62,16 +75,15 @@ var AddDistrictContainer = React.createClass({
   render: function() {
     return (
       <AddDistrictComponent
-        numOfVoters={this.state.numOfVoters}
-        constituency={this.state.constituency}
-        districtName={this.state.districtName}
-        address={this.state.address}
-
-        onNameChange={this.handleNameChange}
-        onAddressChange={this.handleAddressChange}
         onVotersChange={this.handleVotersChange}
+        onAddressChange={this.handleAddressChange}
+        onNameChange={this.handleNameChange}
+        onConstituencyChange={this.handleConstituencyChange}
+        constituency={this.state.constituency}
+        constituencies={this.state.constituencies}
         onSaveClick={this.handleSaveClick}
         onCancelClick={this.handleCancelClick}
+        district={this.state.district}
       />
     );
   }

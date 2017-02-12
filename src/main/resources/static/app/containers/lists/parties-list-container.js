@@ -11,7 +11,7 @@ var PartiesListContainer = React.createClass({
 
   componentWillMount: function() {
     var self = this;
-    axios.get('/parties/')
+    axios.get('http://localhost:8090/parties/')
     .then(function (response) {
       self.setState({
         parties: response.data
@@ -29,9 +29,8 @@ var PartiesListContainer = React.createClass({
   handlePartyRemove: function(party) {
     var self = this;
     return function() {
-      axios.delete('/parties/'+ party.id).then(function(response) {
-        console.log('Apygarda ištrinta');
-        axios.get('/parties/')
+      axios.delete('http://localhost:8090/parties/'+ party.id).then(function(response) {
+        axios.get('http://localhost:8090/parties/')
         .then(function (response) {
           self.setState({
             parties: response.data

@@ -1,11 +1,11 @@
 var servedDetails = [
   {
     text: 'Pridėti vieną',
-    pathTo: '/'
+    pathTo: '/parties/add'
   },
   {
     text: 'Priskirti kandidatą',
-    pathTo: '/'
+    pathTo: '/candidates/add'
   }
 ];
 

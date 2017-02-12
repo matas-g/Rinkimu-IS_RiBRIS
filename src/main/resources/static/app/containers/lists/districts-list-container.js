@@ -11,9 +11,8 @@ var DistrictListContainer = React.createClass({
 
   componentWillMount: function() {
     var self = this;
-    console.log(self.props.params.constituencyId);
     if (self.props.params.constituencyId == undefined) {
-      axios.get('/polling-districts/')
+      axios.get('http://localhost:8090/polling-districts/')
       .then(function (response) {
         self.setState({
             districts: response.data,
@@ -39,9 +38,9 @@ var DistrictListContainer = React.createClass({
   handleDistrictRemove: function(district) {
     var self = this;
     return function() {
-      axios.delete('/polling-districts/'+ district.id).then(function(response) {
+      axios.delete('http://localhost:8090/polling-districts/'+ district.id).then(function(response) {
         console.log('Apylinkė ištrinta');
-        axios.get('/polling-districts/')
+        axios.get('http://localhost:8090/polling-districts/')
         .then(function (response) {
           self.setState({
             districts: response.data
@@ -58,6 +57,7 @@ var DistrictListContainer = React.createClass({
         onAddClick={this.handleAddDistrict}
         onEditItem={this.handleDistrictEdit}
         onRemoveItem={this.handleDistrictRemove}
+        constituency={this.state.constituency}
       />
     );
   }
