@@ -11,6 +11,7 @@ var DistrictListComponent = React.createClass({
           <td>{district.name}</td>
           <td>{district.address}</td>
           <td>{district.numOfVoters}</td>
+          <td>{district.constituencyName}</td>
           <td>{district.representative}</td>
           <td>
             <button className="btn btn-success btn-sm" onClick={self.props.onEditItem(district)}>
@@ -35,6 +36,7 @@ var DistrictListComponent = React.createClass({
                 <th>Pavadinimas</th>
                 <th>Adresas</th>
                 <th>Balsuotojų skaičius</th>
+                <th>Apygarda</th>
                 <th>Apylinkės atstovas</th>
                 <th>Redaguoti</th>
               </tr>
