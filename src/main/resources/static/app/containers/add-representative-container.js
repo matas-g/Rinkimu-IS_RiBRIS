@@ -21,16 +21,14 @@ var AddRepresentativeContainer = React.createClass({
       surname: this.state.surname,
       district: districtId
     };
-    console.log(elementsList);
-    axios.post('/representatives/', elementsList).then(function () {
-      console.log('Atstovas pridėtas');
+    axios.post('http://localhost:8090/representatives/', elementsList).then(function () {
       self.context.router.push('/atstovai');
     });
   },
 
   componentWillMount: function() {
     var self = this;
-    axios.get('/polling-districts/').then(function(response) {
+    axios.get('http://localhost:8090/polling-districts/').then(function(response) {
       self.setState({
         districts: response.data,
         district:  response.data[0].id
