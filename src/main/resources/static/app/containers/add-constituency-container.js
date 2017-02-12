@@ -1,6 +1,6 @@
 const React = require('react');
 const axios = require('axios');
-const AddConstituencies = require('../presentations/add-constituencies-presentation');
+const AddConstituencies = require('../presentations/add-constituency-presentation');
 
 var AddConstituencyContainer = React.createClass({
     getInitialState: function() {
@@ -14,10 +14,8 @@ var AddConstituencyContainer = React.createClass({
     handleSaveClick: function(e) {
         e.preventDefault();
         var self = this;
-        axios.post('/constituencies/', self.state.constituency).then(function() {
-            axios.get('/constituencies/by-name/' + self.state.constituency.name).then(function(resp) {
-              self.context.router.push('/districts/add/' + resp.data.id);
-            });
+        axios.post('http://localhost:8090/constituencies/', self.state.constituency).then(function() {
+            self.context.router.push('/constituencies');
         });
     },
 
@@ -26,7 +24,9 @@ var AddConstituencyContainer = React.createClass({
             return function(e) {
               var constituency = self.state.constituency;
               constituency[fieldName] = e.target.value;
-              self.setState({ constituency: constituency });
+              self.setState({
+                constituency: constituency
+              });
         };
     },
 

@@ -15,6 +15,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "Polling_Districts")
@@ -41,6 +42,11 @@ public class PollingDistrictEntity {
     @JsonBackReference
     @JoinColumn(name = "Constituency_Id")
     private ConstituencyEntity constituency;
+    
+    @JsonProperty
+    public String getConstituencyName() {
+        return constituency == null ? null : constituency.getName();
+    }
 
     // Bidirectional OneToOne
     @OneToOne(mappedBy = "pollingDistrict")

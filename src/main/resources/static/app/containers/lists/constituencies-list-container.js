@@ -11,7 +11,7 @@ var ConstituenciesListContainer = React.createClass({
 
   componentWillMount: function() {
     var self = this;
-    axios.get('/constituencies/')
+    axios.get('http://localhost:8090/constituencies/')
     .then(function (response) {
       self.setState({
         constituencies: response.data
@@ -29,9 +29,9 @@ var ConstituenciesListContainer = React.createClass({
   handleConstituencyRemove: function(constituency) {
     var self = this;
     return function() {
-      axios.delete('/constituencies/'+ constituency.id).then(function(response) {
+      axios.delete('http://localhost:8090/constituencies/'+ constituency.id).then(function(response) {
         console.log('Apygarda ištrinta');
-        axios.get('/constituencies/')
+        axios.get('http://localhost:8090/constituencies/')
         .then(function (response) {
           self.setState({
             constituencies: response.data
@@ -52,10 +52,9 @@ var ConstituenciesListContainer = React.createClass({
     return (
       <ConstituenciesListPresentation
         constituencies={this.state.constituencies}
-        onAddClick={this.handleAddConstituency}
         onEditItem={this.handleConstituencyEdit}
         onRemoveItem={this.handleConstituencyRemove}
-        onDistrictsList={this.handleDistrictsList}
+        onDistrictsListClick={this.handleDistrictsList}
       />
     );
   }

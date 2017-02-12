@@ -10,7 +10,8 @@ var AddConstituencies = React.createClass({
             <div className="form-group">
               <label>Pavadinimas</label>
               <input id="pavadinimas" className="form-control" type="text" value={this.props.constituency.name}
-                onChange={this.props.onFieldChange('name')} /><br />
+                onChange={this.props.onFieldChange('name')} />
+              <br />
             </div>
             <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }}
               onClick={this.props.onSaveClick}>Registruoti

@@ -9,9 +9,11 @@ const NavListContainer = require('../containers/navigation/nav-cards-list-contai
 
 const AddConstituency = require('../containers/add-constituency-container');
 const AddDistrict = require('../containers/add-district-container');
+const AddParty = require('../containers/add-party-container');
 
 const ConstituenciesList = require('../containers/lists/constituencies-list-container');
 const DistrictsList = require('../containers/lists/districts-list-container');
+const PartiesList = require('../containers/lists/parties-list-container');
 
 const routes = (
   <Router history={hashHistory}>
@@ -23,10 +25,10 @@ const routes = (
       <Route path="/districts" component={DistrictsList} />
         <Route path="/districts/list/:constituencyId" component={DistrictsList} />
         <Route path="/districts/add" component={AddDistrict} />
-        <Route path="/districts/add/:constituencyId" component={AddDistrict} />
+        <Route path="/districts/edit/:districtId" component={AddDistrict} />
 
-      <Route path="/parties" component={NavListContainer} />
-        <Route path="/parties/add" component={AddConstituency} />
+      <Route path="/parties" component={PartiesList} />
+        <Route path="/parties/add" component={AddParty} />
         <Route path="/parties/add-list" component={AddConstituency} />
 
       <Route path="/candidates" component={NavListContainer} />
