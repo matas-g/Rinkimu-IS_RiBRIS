@@ -1,13 +1,15 @@
 const React = require('react');
 const axios = require('axios');
-const AddDistrictComponent = require('../presentations/add-district-presentation');
+const AddRepresentative = require('../presentations/add-representative-presentation');
 
 var AddRepresentativeContainer = React.createClass({
   getInitialState: function() {
     return {
       name: '',
       surname: '',
-      district: 1,
+      district: {
+        id: 1
+      },
       districts: []
     };
   },
@@ -15,14 +17,13 @@ var AddRepresentativeContainer = React.createClass({
   handleSaveClick: function(e) {
     e.preventDefault();
     var self = this;
-    var districtId = {id : this.state.district};
     var elementsList = {
       name: this.state.name,
       surname: this.state.surname,
-      district: districtId
+      district: this.state.district
     };
     axios.post('http://localhost:8090/representatives/', elementsList).then(function () {
-      self.context.router.push('/atstovai');
+      self.context.router.push('/districts');
     });
   },
 
@@ -36,33 +37,41 @@ var AddRepresentativeContainer = React.createClass({
     });
   },
 
-  HandleDistrictChange : function(e){
+  handleDistrictChange : function(e){
     var districtId = parseInt(e.target.value);
-    this.setState({district : districtId});
+    this.setState({
+      district: {
+        id: districtId
+      }
+    });
   },
 
-  HandleNameChange: function(e) {
-    this.setState({name: e.target.value});
+  handleNameChange: function(e) {
+    this.setState({
+      name: e.target.value
+    });
   },
 
-  HandleSurnameChange: function(e) {
-    this.setState({surname: e.target.value});
+  handleSurnameChange: function(e) {
+    this.setState({
+      surname: e.target.value
+    });
   },
 
   handleCancelClick() {
-    this.context.router.push('/atstovai');
+    this.context.router.push('/districts');
   },
 
   render: function() {
     return (
-      <AddRepresentativeComponent
-        onNameChange={this.HandleNameChange}
+      <AddRepresentative
+        onNameChange={this.handleNameChange}
         name={this.state.name}
-        onSurnameChange={this.HandleSurnameChange}
+        onSurnameChange={this.handleSurnameChange}
         surname={this.state.surname}
         district={this.state.district}
         districts={this.state.districts}
-        onDistrictChange={this.HandleDistrictChange}
+        onDistrictChange={this.handleDistrictChange}
         onSaveClick={this.handleSaveClick}
         onCancelClick={this.handleCancelClick}
       />
@@ -73,3 +82,5 @@ var AddRepresentativeContainer = React.createClass({
 AddRepresentativeContainer.contextTypes = {
     router: React.PropTypes.object.isRequired,
 };
+
+module.exports = AddRepresentativeContainer;

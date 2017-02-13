@@ -36,7 +36,6 @@ var AddDistrictContainer = React.createClass({
       }
     };
     axios.post('http://localhost:8090/polling-districts/', dataList).then(function (response) {
-      console.log(response);
       self.context.router.push('/districts/');
     });
   },
