@@ -19,7 +19,7 @@ var DistrictListContainer = React.createClass({
         });
       });
     } else {
-      axios.get('/constituencies/' + self.props.params.constituencyId)
+      axios.get('http://localhost:8090/constituencies/' + self.props.params.constituencyId)
       .then(function (response) {
         self.setState({
             districts: response.data.pollingDistricts,
