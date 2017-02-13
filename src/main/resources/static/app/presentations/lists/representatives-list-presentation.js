@@ -44,10 +44,10 @@ var RepresentativeListComponent = React.createClass({
   }
 });
 
-RepresentativeListComponent.propTypes = {
+/*RepresentativeListComponent.propTypes = {
   onRemoveItem: React.PropTypes.func.isRequired,
   districts: React.PropTypes.array.isRequired,
   onEditItem: React.PropTypes.func.isRequired
-}
+}*/
 
 module.exports = RepresentativeListComponent;

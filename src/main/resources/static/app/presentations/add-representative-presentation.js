@@ -2,11 +2,11 @@ const React = require('react');
 
 var AddRepresentativePresentation = React.createClass({
   render: function() {
-
-   var districtsList = this.props.districts.map(function(district, index) {
-    return (
-      <option key={index} value={district.id}>{district.name}</option>
-    );
+    var self = this;
+    var districtsList = this.props.districts.map(function(district, index) {
+      return (
+        <option key={index} value={district.id}>{district.name}</option>
+      );
   });
 
   return (
@@ -22,7 +22,7 @@ var AddRepresentativePresentation = React.createClass({
       </div>
       <div className="form-group">
         <label>Priskirti atstovui apylinkę</label>
-        <select className="form-control" required value={this.props.district.id} onChange={this.props.onDistrictChange}>
+        <select className="form-control" required value={this.props.pollingDistrict.id} onChange={this.props.onDistrictChange}>
          {districtsList}
         </select>
       </div>

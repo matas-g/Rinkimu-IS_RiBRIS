@@ -43,11 +43,10 @@ var RepresentativesContainer = React.createClass({
   render: function() {
     return (
       <RepresentativesList
-        representatives={this.state.districts}
+        representatives={this.state.representatives}
         onAddClick={this.handleAddDistrict}
         onEditItem={this.handleDistrictEdit}
         onRemoveItem={this.handleDistrictRemove}
-        constituency={this.state.constituency}
       />
     );
   }

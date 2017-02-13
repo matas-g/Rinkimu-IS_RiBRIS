@@ -30,7 +30,7 @@ const routes = (
         <Route path="/districts/edit/:districtId" component={AddDistrict} />
 
       <Route path="/representatives" component={RepresentativesList} />
-        <Route path="/representatives/add" component={RepresentativesList} />
+        <Route path="/representatives/add" component={AddRepresentative} />
 
       <Route path="/parties" component={PartiesList} />
         <Route path="/parties/add" component={AddParty} />
