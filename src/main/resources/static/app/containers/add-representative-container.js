@@ -10,7 +10,7 @@ var AddRepresentativeContainer = React.createClass({
       pollingDistrict: {
         id: 1
       },
-      districts: []
+      district: {}
     };
   },
 
@@ -21,7 +21,7 @@ var AddRepresentativeContainer = React.createClass({
       name: this.state.name,
       surname: this.state.surname,
       pollingDistrict: {
-        id: this.state.pollingDistrict.id
+        id: this.state.district.id
       }
     };
     axios.post('http://localhost:8090/representatives/', elementsList).then(function () {
@@ -31,21 +31,15 @@ var AddRepresentativeContainer = React.createClass({
 
   componentWillMount: function() {
     var self = this;
-    axios.get('http://localhost:8090/polling-districts/').then(function(response) {
+    axios.get('http://localhost:8090/polling-districts/' + this.props.params.districtId).then(function(response) {
       self.setState({
-        districts: response.data,
+        district: response.data,
       });
     });
   },
 
   handleDistrictChange : function(e){
-    var districtId = parseInt(e.target.value);
-    this.setState({
-      pollingDistrict: {
-        id: districtId
-      }
-    });
-    console.log(this.state.pollingDistrict.id);
+    e.target.value = district.name
   },
 
   handleNameChange: function(e) {
@@ -72,7 +66,7 @@ var AddRepresentativeContainer = React.createClass({
         onSurnameChange={this.handleSurnameChange}
         surname={this.state.surname}
         pollingDistrict={this.state.pollingDistrict}
-        districts={this.state.districts}
+        district={this.state.district}
         onDistrictChange={this.handleDistrictChange}
         onSaveClick={this.handleSaveClick}
         onCancelClick={this.handleCancelClick}

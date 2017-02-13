@@ -13,7 +13,7 @@ var DistrictListComponent = React.createClass({
           <td>{district.address}</td>
           <td>{district.numOfVoters}</td>
           <td>{district.constituencyName}</td>
-          <td><Button representative={district.representative} /></td>
+          <td><Button representative={district.representative} id={district.id}/></td>
           <td>
             <button className="btn btn-success btn-sm" onClick={self.props.onEditItem(district)}>
               <i className="fa fa-pencil" aria-hidden="true"></i>

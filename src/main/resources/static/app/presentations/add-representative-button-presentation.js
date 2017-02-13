@@ -6,7 +6,7 @@ var Button = React.createClass({
       var component;
     	if (this.props.representative == null) {
         component =
-        	<Link to="/representatives/add">
+        	<Link to={'/representatives/add/' + this.props.id}>
             <div className="btn btn-success">Pridėti</div>
           </Link>;
       } else {
