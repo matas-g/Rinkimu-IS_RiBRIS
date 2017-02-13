@@ -2,11 +2,18 @@ package lt.javainiai;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.runners.Suite;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+import lt.javainiai.controller.ConstituencyControllerTest;
+import lt.javainiai.repository.ConstituencyRepositoryTest;
+
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+        ConstituencyControllerTest.class,
+        ConstituencyRepositoryTest.class,
+})
+
 public class RinkimuIsRiBrisApplicationTests {
 
 	@Test
