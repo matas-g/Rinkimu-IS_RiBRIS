@@ -57,7 +57,6 @@ var DistrictListContainer = React.createClass({
         onAddClick={this.handleAddDistrict}
         onEditItem={this.handleDistrictEdit}
         onRemoveItem={this.handleDistrictRemove}
-        constituency={this.state.constituency}
       />
     );
   }
