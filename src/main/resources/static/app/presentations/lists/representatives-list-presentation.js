@@ -11,10 +11,10 @@ var RepresentativeListComponent = React.createClass({
           <td>{representative.name}</td>
           <td>{representative.surname}</td>
           <td>
-            <button className="btn btn-success btn-sm" onClick={self.props.onEditItem(district)}>
+            <button className="btn btn-success btn-sm" onClick={self.props.onEditItem(representative)}>
               <i className="fa fa-pencil" aria-hidden="true"></i>
             </button>
-             <button className="btn btn-danger btn-sm" onClick={self.props.onRemoveItem(district)}>
+             <button className="btn btn-danger btn-sm" onClick={self.props.onRemoveItem(representative)}>
               <i className="fa fa-times" aria-hidden="true"></i>
             </button>
           </td>
