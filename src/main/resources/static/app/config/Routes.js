@@ -15,6 +15,7 @@ const AddRepresentative = require('../containers/add-representative-container');
 const ConstituenciesList = require('../containers/lists/constituencies-list-container');
 const DistrictsList = require('../containers/lists/districts-list-container');
 const PartiesList = require('../containers/lists/parties-list-container');
+const RepresentativesList = require('../containers/lists/representatives-list-container');
 
 const routes = (
   <Router history={hashHistory}>
@@ -28,7 +29,9 @@ const routes = (
         <Route path="/districts/add" component={AddDistrict} />
         <Route path="/districts/edit/:districtId" component={AddDistrict} />
 
-    <Route path="/representatives/add" component={AddRepresentative} />
+      <Route path="/representatives" component={RepresentativesList} />
+        <Route path="/representatives/add" component={AddRepresentative} />
+        <Route path="/representatives/add/:districtId" component={AddRepresentative} />
 
       <Route path="/parties" component={PartiesList} />
         <Route path="/parties/add" component={AddParty} />

@@ -39,7 +39,6 @@ var DistrictListContainer = React.createClass({
     var self = this;
     return function() {
       axios.delete('http://localhost:8090/polling-districts/'+ district.id).then(function(response) {
-        console.log('Apylinkė ištrinta');
         axios.get('http://localhost:8090/polling-districts/')
         .then(function (response) {
           self.setState({
@@ -57,7 +56,6 @@ var DistrictListContainer = React.createClass({
         onAddClick={this.handleAddDistrict}
         onEditItem={this.handleDistrictEdit}
         onRemoveItem={this.handleDistrictRemove}
-        constituency={this.state.constituency}
       />
     );
   }

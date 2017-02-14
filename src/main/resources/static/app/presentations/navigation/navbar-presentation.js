@@ -21,6 +21,7 @@ var Navigation = React.createClass({
                 <li><NavLink to="/districts">Apylinkes</NavLink></li>
                 <li><NavLink to="/parties">Partijos</NavLink></li>
                 <li><NavLink to="/candidates">Kandidatai</NavLink></li>
+                <li><NavLink to="/representatives">Atstovai</NavLink></li>
                 <li><NavLink to="/results">Rezultatai</NavLink></li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
