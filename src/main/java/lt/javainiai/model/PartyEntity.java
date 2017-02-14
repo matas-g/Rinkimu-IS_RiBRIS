@@ -2,6 +2,7 @@ package lt.javainiai.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -30,11 +31,11 @@ public class PartyEntity {
     @Column(name = "Party_Number")
     private String partyNo;
 
-    @OneToMany(mappedBy = "party")
+    @OneToMany(mappedBy = "party", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "candidate-party")
     private List<CandidateEntity> candidates;
     
-    @OneToOne(mappedBy = "party")
+    @OneToOne(mappedBy = "party", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "party-results")
     private PartyResultsEntity partyResults;
 

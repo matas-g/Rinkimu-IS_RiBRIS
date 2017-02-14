@@ -1,5 +1,6 @@
 package lt.javainiai.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,12 +45,13 @@ public class PollingDistrictEntity {
     private ConstituencyEntity constituency;
     
     @JsonProperty
-    public String getConstituencyName() {
+    private String getConstituencyName() {
+
         return constituency == null ? null : constituency.getName();
     }
 
     // Bidirectional OneToOne
-    @OneToOne(mappedBy = "pollingDistrict")
+    @OneToOne(mappedBy = "pollingDistrict", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "pollingDistrict-representative")
     private RepresentativeEntity representative;
 

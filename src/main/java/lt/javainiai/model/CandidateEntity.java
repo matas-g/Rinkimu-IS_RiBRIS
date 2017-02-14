@@ -2,6 +2,7 @@ package lt.javainiai.model;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "Candidates")
@@ -43,7 +45,12 @@ public class CandidateEntity {
     @JoinColumn(name = "Party_Id")
     private PartyEntity party;
     
-    @OneToOne(mappedBy = "candidate")
+    @JsonProperty
+    public String getPartyName() {
+        return party == null ? null : party.getName();
+    }
+    
+    @OneToOne(mappedBy = "candidate", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "candidate-results")
     private CandidatesResultsEntity candidatesResultsEntity;
 
