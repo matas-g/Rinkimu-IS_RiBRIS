@@ -6,6 +6,7 @@ const DistrictsOptions = require('../../util/options-for-menu/districts-options'
 const CandidatesOptions = require('../../util/options-for-menu/candidates-options');
 const PartiesOptions = require('../../util/options-for-menu/parties-options');
 const ResultsOptions = require('../../util/options-for-menu/results-options');
+const RepresentativesOptions = require('../../util/options-for-menu/representatives-options');
 
 var NavContainer = React.createClass({
 
@@ -40,6 +41,11 @@ var NavContainer = React.createClass({
     } else if (self.props.location.pathname == "/results") {
       self.setState({
         options: ResultsOptions
+      });
+      self.forceUpdate();
+    } else if (self.props.location.pathname == "/representatives") {
+      self.setState({
+        options: RepresentativesOptions
       });
       self.forceUpdate();
     }
