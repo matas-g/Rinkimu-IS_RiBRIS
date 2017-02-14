@@ -14,6 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -55,7 +56,7 @@ public class ConstituencyControllerTest {
 //    }
     
     @Test
-    public void findAllConstituencies() throws Exception {
+    public void testfindAllConstituencies() throws Exception {
         ConstituencyEntity constituency1 = new ConstituencyEntity();
         constituency1.setId(1L);
         constituency1.setName("Kauno");
@@ -122,7 +123,7 @@ public class ConstituencyControllerTest {
         assertEquals(HttpStatus.CREATED.value(), response.getStatus());
         
         JSONAssert.assertEquals(constituencyJson, result.getResponse().getContentAsString(), false);
-        
+         
     }
     
     @Test
@@ -152,7 +153,7 @@ public class ConstituencyControllerTest {
        MockHttpServletResponse response = result.getResponse();
        assertEquals(HttpStatus.CREATED.value(), response.getStatus());
        
-       JSONAssert.assertEquals(constituencyJson, result.getResponse().getContentAsString(), false);
+       JSONAssert.assertEquals(constituencyJson, result.getResponse().getContentAsString(), false); 
     }
     
     @Test
@@ -188,12 +189,14 @@ public class ConstituencyControllerTest {
 
         mockMvc.perform(get("/constituencies/by-name/{name}", "Alytaus"))
         .andExpect(status().isOk())
-        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)) 
         .andExpect(jsonPath("$.id", is(2)))
         .andExpect(jsonPath("$.name", is("Alytaus")));
 //        verify(constituencyServiceMock, times(1)).findById(2L);
 //        verifyNoMoreInteractions(constituencyServiceMock);
     }
+    
+    
     
     
     

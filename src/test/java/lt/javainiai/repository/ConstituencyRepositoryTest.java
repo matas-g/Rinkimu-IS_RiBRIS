@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import lt.javainiai.RiBRIS_Application;
@@ -21,6 +22,7 @@ import lt.javainiai.model.PollingDistrictEntity;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=RiBRIS_Application.class)
+@DirtiesContext(classMode =  ClassMode.AFTER_EACH_TEST_METHOD)
 @Transactional
 public class ConstituencyRepositoryTest  {
 
@@ -34,14 +36,14 @@ public class ConstituencyRepositoryTest  {
     CandidateRepository candidateRepository;
     
    
-    @DirtiesContext
+ 
     @Test
     public void saveConstituency(){
         repository.saveOrUpdate(getSampleConstituency("Dzūkijos"));
         Assert.assertEquals(1, repository.findAll().size());
     }
     
-    @DirtiesContext
+   
     @Test
     public void updateConstituency(){
         repository.saveOrUpdate(getSampleConstituency("Dzūkijos"));
@@ -57,7 +59,7 @@ public class ConstituencyRepositoryTest  {
         Assert.assertEquals("Panevėžio",(repository.findById(1L)).getName());
     }
     
-    @DirtiesContext
+    
     @Test // Wrong method? 
     public void tryToUpdateWithInvalidIdGetNewConstituency() throws NullPointerException{
         repository.saveOrUpdate(getSampleConstituency("Dzūkijos"));
@@ -70,14 +72,14 @@ public class ConstituencyRepositoryTest  {
         Assert.assertEquals(2,repository.findAll().size());
     }
     
-    @DirtiesContext
+    
     @Test
     public void findConstituencyById(){
         repository.saveOrUpdate(getSampleConstituency("Dzūkijos"));
         Assert.assertNotNull(repository.findById(1L));
     }
     
-    @DirtiesContext
+  
     @Test
     public void findAllConstituencies(){
         repository.saveOrUpdate(getSampleConstituency("Dzūkijos"));
@@ -85,7 +87,7 @@ public class ConstituencyRepositoryTest  {
         Assert.assertEquals(2, repository.findAll().size());
     }
     
-    @DirtiesContext
+   
     @Test
     public void deleteConstituencyById(){
         repository.saveOrUpdate(getSampleConstituency("Dzūkijos"));
@@ -93,7 +95,7 @@ public class ConstituencyRepositoryTest  {
         Assert.assertEquals(0,repository.findAll().size());
     }
     
-    @DirtiesContext
+    
     @Test
     public void getPollingDistrictsAssignedToConstituency(){
        
@@ -137,7 +139,7 @@ public class ConstituencyRepositoryTest  {
     }
     
     
-    @DirtiesContext
+   
     @Test
     public void getCandidateAssignedToConstituency(){
        CandidateEntity candidate1 = new CandidateEntity();
@@ -169,7 +171,7 @@ public class ConstituencyRepositoryTest  {
    
        Assert.assertNotNull(dbConstituency.getCandidates());
        Assert.assertEquals(2, dbConstituency.getCandidates().size());
-       Assert.assertEquals(candidate1.getName(), dbConstituency.getCandidates().get(0).getName());
+       Assert.assertEquals(candidate1.getName(), dbConstituency.getCandidates().get(0).getName()); 
        Assert.assertEquals(candidate1.getSurname(), dbConstituency.getCandidates().get(0).getSurname());
        
        Assert.assertEquals(candidate2.getName(), dbConstituency.getCandidates().get(1).getName());

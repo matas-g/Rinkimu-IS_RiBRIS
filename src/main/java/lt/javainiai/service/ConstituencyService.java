@@ -20,7 +20,7 @@ public class ConstituencyService {
 
     public List<ConstituencyEntity> findAll() {
         return constituencyRepository.findAll();
-    }
+    } 
 
     public ConstituencyEntity findById(Long id) {
         return constituencyRepository.findById(id);
