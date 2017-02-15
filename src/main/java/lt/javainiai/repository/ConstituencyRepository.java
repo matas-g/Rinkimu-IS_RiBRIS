@@ -24,7 +24,7 @@ public class ConstituencyRepository  implements RepositoryInterface<Constituency
         } else {
             ConstituencyEntity merged = em.merge(constituency);
             em.persist(merged);
-            return merged;
+            return merged; 
         }
     }
 

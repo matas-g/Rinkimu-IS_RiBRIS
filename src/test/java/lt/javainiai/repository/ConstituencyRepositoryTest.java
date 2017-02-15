@@ -22,8 +22,8 @@ import lt.javainiai.model.PollingDistrictEntity;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes=RiBRIS_Application.class)
-@DirtiesContext(classMode =  ClassMode.AFTER_EACH_TEST_METHOD)
 @Transactional
+@DirtiesContext(classMode =  ClassMode.AFTER_EACH_TEST_METHOD)
 public class ConstituencyRepositoryTest  {
 
     @Autowired
@@ -180,7 +180,7 @@ public class ConstituencyRepositoryTest  {
        
     }
     
-
+ 
     
     
     
