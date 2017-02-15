@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class RiBRIS_Application {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(RiBRIS_Application.class, args);
 	}
 	
@@ -19,7 +20,8 @@ public class RiBRIS_Application {
 	    return new WebMvcConfigurerAdapter() {
 	        @Override
 	        public void addCorsMappings(CorsRegistry registry) {
-	            registry.addMapping("/**").allowedOrigins("*");
+	            registry.addMapping("/**")
+	            	.allowedOrigins("*");
 	        }
 	    };
 	}

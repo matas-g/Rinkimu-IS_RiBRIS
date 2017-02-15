@@ -6,7 +6,7 @@ var AddPartyPresentation = React.createClass({
       <div className="container-fluid">
         <div className="col-sm-offset-1 col-sm-10">
           <form>
-            <h4>Registruoti naują apartijų</h4>
+            <h4>Registruoti naują partiją</h4>
             <br />
             <div className="form-group">
                 <label>Pavadinimas</label>
