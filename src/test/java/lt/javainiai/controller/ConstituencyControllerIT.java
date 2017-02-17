@@ -11,8 +11,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -28,6 +30,7 @@ import lt.javainiai.RiBRIS_Application;
 import lt.javainiai.model.ConstituencyEntity;
 
 @RunWith(SpringRunner.class)
+@ConfigurationProperties("application-test.properties")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {RiBRIS_Application.class })
 @DirtiesContext(classMode =  ClassMode.BEFORE_EACH_TEST_METHOD)
 public class ConstituencyControllerIT {

@@ -52,7 +52,7 @@ public class CandidateControllerIT {
         CandidateEntity candidate = new CandidateEntity();
         candidate.setName("Andrius");
         candidate.setSurname("Kubilius");
-        candidate.setBirth_date(new Date(1992-12-13));
+        candidate.setBirthDate("1992-12-12");
         
         createCandidate(candidate);
         
@@ -146,7 +146,7 @@ public class CandidateControllerIT {
 
         
         Assert.assertThat(response.getStatusCode(), is(HttpStatus.OK));
-        return response.getBody();
+        return response.getBody(); 
       }
 
     private void deleteCandidateById(Long id){

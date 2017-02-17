@@ -19,17 +19,17 @@ var RepresentativesContainer = React.createClass({
     });
   },
 
-  handleRepresentativesEdit: function(representative) {
+  handleRepresentativeEdit: function(representative) {
     var self = this;
     return function() {
-      self.context.router.push('/districts/edit/' + district.id);
+      self.context.router.push('/districts/edit/' + representative.id);
     }
   },
 
-  handleRepresentativesRemove: function(representative) {
+  handleRepresentativeRemove: function(representative) {
     var self = this;
     return function() {
-      axios.delete('http://localhost:8090/representatives/'+ district.id).then(function(response) {
+      axios.delete('http://localhost:8090/representatives/'+ representative.id).then(function(response) {
         axios.get('http://localhost:8090/representatives/')
         .then(function (response) {
           self.setState({
@@ -44,9 +44,9 @@ var RepresentativesContainer = React.createClass({
     return (
       <RepresentativesList
         representatives={this.state.representatives}
-        onAddClick={this.handleAddDistrict}
-        onEditItem={this.handleDistrictEdit}
-        onRemoveItem={this.handleDistrictRemove}
+        onAddClick={this.handleAddRepresentative}
+        onEditItem={this.handleRepresentativeEdit}
+        onRemoveItem={this.handleRepresentativeRemove}
       />
     );
   }

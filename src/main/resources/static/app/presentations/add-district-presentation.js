@@ -34,10 +34,10 @@ var AddDistrictPresentation = React.createClass({
             </div>
               <div className="form-group">
               <label>Priskirti apylinkę apygardai</label>
-                <select className="form-control" value={this.props.constituency.id}
-                  onChange={this.props.onConstituencyChange}>
-                    {ConstituenciesList}
-                </select>
+              <select className="form-control" value={this.props.constituency.id}
+                onChange={this.props.onConstituencyChange}>
+                  {ConstituenciesList}
+              </select>
             </div>
             <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onSaveClick}>Registruoti</button>
             <button className="btn btn-danger btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onCancelClick}>Atšaukti</button>

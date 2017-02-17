@@ -28,12 +28,13 @@ public class ConstituencyEntity {
     private String name;
 
     // Bidirectional OneToMany
-    @OneToMany(mappedBy = "constituency",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "constituency", cascade=CascadeType.ALL)
+
     @JsonManagedReference
     private List<PollingDistrictEntity> pollingDistricts;
 
     // Bidirectional OneToMany
-    @OneToMany(mappedBy = "constituency")
+    @OneToMany(mappedBy = "constituency", cascade=CascadeType.ALL)
     @JsonManagedReference
     private List<CandidateEntity> candidates;
 

@@ -2,6 +2,7 @@ package lt.javainiai.model;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "Candidates")
@@ -36,14 +38,19 @@ public class CandidateEntity {
 
     @NotNull
     @Column(name = "Date_of_Birth")
-    private Date birth_date;
+    private Date birthDate;
 
     @ManyToOne
     @JsonBackReference(value = "candidate-party")
     @JoinColumn(name = "Party_Id")
     private PartyEntity party;
     
-    @OneToOne(mappedBy = "candidate")
+    @JsonProperty
+    public String getPartyName() {
+        return party == null ? null : party.getName();
+    }
+    
+    @OneToOne(mappedBy = "candidate", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "candidate-results")
     private CandidatesResultsEntity candidatesResultsEntity;
 
@@ -83,12 +90,12 @@ public class CandidateEntity {
         this.surname = surname;
     }
 
-    public Date getBirth_date() {
-        return birth_date;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setBirth_date(Date birth_date) {
-        this.birth_date = birth_date;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     public PartyEntity getParty() {
@@ -117,7 +124,7 @@ public class CandidateEntity {
    
     @Override
     public String toString() {
-        return "CandidateEntity [id=" + id + ", name=" + name + ", surname=" + surname + ", birth_date=" + birth_date
+        return "CandidateEntity [id=" + id + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate
                 + ", party=" + party + ", biography=" + biography + ", constituency=" + constituency + "]";
     }
 
