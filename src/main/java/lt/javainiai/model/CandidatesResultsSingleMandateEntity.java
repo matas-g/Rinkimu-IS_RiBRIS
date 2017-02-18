@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class CandidatesResultsMultiMandateEntity {
+public class CandidatesResultsSingleMandateEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,16 +19,25 @@ public class CandidatesResultsMultiMandateEntity {
     
     private Long numberOfVotes;
     
+    private Long spoiledVotes;
     
     @OneToOne
-    @JsonBackReference(value = "candidate-resultsMulti")
+    @JsonBackReference(value = "candidate-resultsSingle")
     private CandidateEntity candidate;
     
-    public CandidatesResultsMultiMandateEntity(){
+    public CandidatesResultsSingleMandateEntity(){
         
     }
 
-    public Long getId() {
+    public Long getSpoiledVotes() {
+		return spoiledVotes;
+	}
+
+	public void setSpoiledVotes(Long spoiledVotes) {
+		this.spoiledVotes = spoiledVotes;
+	}
+
+	public Long getId() {
         return id;
     }
 
@@ -54,9 +63,10 @@ public class CandidatesResultsMultiMandateEntity {
     }
 
     @Override
-    public String toString() {
-        return "CandidatesResultsEntity [id=" + id + ", numberOfVotes=" + numberOfVotes + "]";
-    }
+	public String toString() {
+		return "CandidatesResultsEntity [id=" + id + ", numberOfVotes=" + numberOfVotes + ", spoiledVotes="
+				+ spoiledVotes + "]";
+	}
     
     
 
