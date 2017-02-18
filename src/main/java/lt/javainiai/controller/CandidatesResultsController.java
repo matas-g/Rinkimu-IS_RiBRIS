@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import lt.javainiai.model.CandidatesResultsEntity;
+import lt.javainiai.model.CandidatesResultsMultiMandateEntity;
 import lt.javainiai.service.CandidatesResultsService;
 
 @RestController
@@ -30,19 +30,19 @@ public class CandidatesResultsController {
     
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public CandidatesResultsEntity save(@Valid @RequestBody CandidatesResultsEntity candidatesResults){
+    public CandidatesResultsMultiMandateEntity save(@Valid @RequestBody CandidatesResultsMultiMandateEntity candidatesResults){
         return this.candidatesResultsService.saveOrUpdate(candidatesResults);
     }
     
     @RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<CandidatesResultsEntity> findAll() {
+    public List<CandidatesResultsMultiMandateEntity> findAll() {
         return this.candidatesResultsService.findAll();
     }
     
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public CandidatesResultsEntity findById(@Valid @PathVariable("id") Long id){
+    public CandidatesResultsMultiMandateEntity findById(@Valid @PathVariable("id") Long id){
         return this.candidatesResultsService.findById(id);
     }
     
