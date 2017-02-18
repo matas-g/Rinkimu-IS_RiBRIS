@@ -52,7 +52,7 @@ public class CandidateEntity {
     
     @OneToOne(mappedBy = "candidate", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "candidate-results")
-    private CandidatesResultsMultiMandateEntity candidatesResultsEntity;
+    private CandidatesResultsEntity candidatesResultsEntity;
 
     private String biography;
 

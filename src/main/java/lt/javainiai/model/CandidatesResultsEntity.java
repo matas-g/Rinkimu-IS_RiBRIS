@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class CandidatesResultsMultiMandateEntity {
+public class CandidatesResultsEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,7 +25,7 @@ public class CandidatesResultsMultiMandateEntity {
     @JsonBackReference(value = "candidate-results")
     private CandidateEntity candidate;
     
-    public CandidatesResultsMultiMandateEntity(){
+    public CandidatesResultsEntity(){
         
     }
 

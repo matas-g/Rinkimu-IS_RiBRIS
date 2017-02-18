@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lt.javainiai.model.CandidatesResultsMultiMandateEntity;
+import lt.javainiai.model.CandidatesResultsEntity;
 import lt.javainiai.repository.CandidatesResultsRepository;
 
 @Service
@@ -14,15 +14,15 @@ public class CandidatesResultsService {
     @Autowired
     private CandidatesResultsRepository candidatesResultsRepository;
 
-    public CandidatesResultsMultiMandateEntity saveOrUpdate(CandidatesResultsMultiMandateEntity candidatesResults){
+    public CandidatesResultsEntity saveOrUpdate(CandidatesResultsEntity candidatesResults){
         return this.candidatesResultsRepository.saveOrUpdate(candidatesResults);
     }
     
-    public List<CandidatesResultsMultiMandateEntity> findAll() {
+    public List<CandidatesResultsEntity> findAll() {
         return this.candidatesResultsRepository.findAll();
     }
     
-    public CandidatesResultsMultiMandateEntity findById(Long id){
+    public CandidatesResultsEntity findById(Long id){
         return this.candidatesResultsRepository.findById(id);
     }
     

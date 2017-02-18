@@ -8,22 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import lt.javainiai.model.CandidatesResultsMultiMandateEntity;
+import lt.javainiai.model.CandidatesResultsEntity;
 
 @Repository
-public class CandidatesResultsRepository implements RepositoryInterface<CandidatesResultsMultiMandateEntity>{
+public class CandidatesResultsRepository implements RepositoryInterface<CandidatesResultsEntity>{
 
     @Autowired
     private EntityManager em;
 
     @Override
     @Transactional
-    public CandidatesResultsMultiMandateEntity saveOrUpdate(CandidatesResultsMultiMandateEntity candidatesResults) {
+    public CandidatesResultsEntity saveOrUpdate(CandidatesResultsEntity candidatesResults) {
         if (candidatesResults.getId() == null) {
             em.persist(candidatesResults);
             return candidatesResults;
         } else {
-            CandidatesResultsMultiMandateEntity merged = em.merge(candidatesResults);
+            CandidatesResultsEntity merged = em.merge(candidatesResults);
             return merged;
         }
     
@@ -31,18 +31,18 @@ public class CandidatesResultsRepository implements RepositoryInterface<Candidat
 
     @SuppressWarnings("unchecked")
 	@Override
-    public List<CandidatesResultsMultiMandateEntity> findAll() {
+    public List<CandidatesResultsEntity> findAll() {
         return em.createQuery("SELECT c FROM CandidatesResultsEntity c").getResultList();
     }
 
     @Override
-    public CandidatesResultsMultiMandateEntity findById(Long id) {
-        return em.find(CandidatesResultsMultiMandateEntity.class, id);
+    public CandidatesResultsEntity findById(Long id) {
+        return em.find(CandidatesResultsEntity.class, id);
     }
 
     @Override
     public void deleteById(Long id) {
-        CandidatesResultsMultiMandateEntity candidateResultsToRemove = em.find(CandidatesResultsMultiMandateEntity.class, id);
+        CandidatesResultsEntity candidateResultsToRemove = em.find(CandidatesResultsEntity.class, id);
         em.remove(candidateResultsToRemove);
     }
 
