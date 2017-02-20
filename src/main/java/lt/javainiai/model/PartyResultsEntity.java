@@ -23,7 +23,7 @@ public class PartyResultsEntity {
     @JoinColumn(name = "Party_Id")
     private PartyEntity party;
     
-    private PartyResultsEntity(){
+    public PartyResultsEntity(){
         
     }
 

@@ -25,7 +25,6 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import lt.javainiai.RiBRIS_Application;
-import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.model.RepresentativeEntity;
 
 @RunWith(SpringRunner.class)
