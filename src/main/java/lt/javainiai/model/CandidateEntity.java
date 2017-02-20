@@ -51,8 +51,16 @@ public class CandidateEntity {
     }
     
     @OneToOne(mappedBy = "candidate", cascade=CascadeType.ALL)
-    @JsonManagedReference(value = "candidate-results")
-    private CandidatesResultsMultiMandateEntity candidatesResultsEntity;
+    @JsonManagedReference(value = "candidate-resultsRating")
+    private CandidatesResultsRatingEntity candidatesResultsRating;
+    
+    @OneToOne(mappedBy = "candidate", cascade=CascadeType.ALL)
+    @JsonManagedReference(value = "candidate-resultsSingleMandate")
+    private CandidatesResultsSingleMandateEntity candidatesResultsSingleMandate;
+    
+    private Boolean singleMandate;
+    
+    private Boolean multiMandate;
 
     private String biography;
 
@@ -114,7 +122,23 @@ public class CandidateEntity {
         this.biography = biography;
     }
 
-    public ConstituencyEntity getConstituency() {
+    public Boolean getMultiMandate() {
+		return multiMandate;
+	}
+
+	public void setMultiMandate(Boolean multiMandate) {
+		this.multiMandate = multiMandate;
+	}
+
+	public Boolean getSingleMandate() {
+		return singleMandate;
+	}
+
+	public void setSingleMandate(Boolean singleMandate) {
+		this.singleMandate = singleMandate;
+	}
+
+	public ConstituencyEntity getConstituency() {
         return constituency;
     }
 

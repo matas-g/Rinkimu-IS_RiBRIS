@@ -14,35 +14,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import lt.javainiai.model.CandidatesResultsMultiMandateEntity;
-import lt.javainiai.service.CandidatesResultsService;
+import lt.javainiai.model.CandidatesResultsRatingEntity;
+import lt.javainiai.service.CandidatesResultsRatingService;
 
 @RestController
-@RequestMapping("/candidates-results/")
-public class CandidatesResultsController {
+@RequestMapping("/candidates-results/rating")
+public class CandidatesResultsRatingController {
 
-    private CandidatesResultsService candidatesResultsService;
+    private CandidatesResultsRatingService candidatesResultsService;
     
     @Autowired
-    public CandidatesResultsController(CandidatesResultsService candidatesResultsService){
+    public CandidatesResultsRatingController(CandidatesResultsRatingService candidatesResultsService){
         this.candidatesResultsService = candidatesResultsService;
     }
     
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public CandidatesResultsMultiMandateEntity save(@Valid @RequestBody CandidatesResultsMultiMandateEntity candidatesResults){
+    public CandidatesResultsRatingEntity save(@Valid @RequestBody CandidatesResultsRatingEntity candidatesResults){
         return this.candidatesResultsService.saveOrUpdate(candidatesResults);
     }
     
     @RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<CandidatesResultsMultiMandateEntity> findAll() {
+    public List<CandidatesResultsRatingEntity> findAll() {
         return this.candidatesResultsService.findAll();
     }
     
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public CandidatesResultsMultiMandateEntity findById(@Valid @PathVariable("id") Long id){
+    public CandidatesResultsRatingEntity findById(@Valid @PathVariable("id") Long id){
         return this.candidatesResultsService.findById(id);
     }
     

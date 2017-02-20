@@ -18,8 +18,6 @@ public class PartyResultsEntity {
     
     private Long numberOfVotes;
     
-    private Long validVotes;
-    
     @OneToOne
     @JsonBackReference(value = "party-results")
     @JoinColumn(name = "Party_Id")
@@ -28,14 +26,6 @@ public class PartyResultsEntity {
     private PartyResultsEntity(){
         
     }
-
-    public Long getValidVotes() {
-		return validVotes;
-	}
-
-	public void setValidVotes(Long validVotes) {
-		this.validVotes = validVotes;
-	}
 
 	public Long getId() {
         return id;
@@ -55,7 +45,7 @@ public class PartyResultsEntity {
 
     @Override
 	public String toString() {
-		return "PartyResultsEntity [id=" + id + ", numberOfVotes=" + numberOfVotes + ", validVotes=" + validVotes + "]";
+		return "PartyResultsEntity [id=" + id + ", numberOfVotes=" + numberOfVotes + "]";
 	}
     
     

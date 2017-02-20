@@ -37,6 +37,9 @@ public class PollingDistrictEntity {
 
     @Column(name = "Number_of_Voters")
     private Long numOfVoters;
+    
+    @Column(name = "Spoiled_Ballots")
+    private Long spoiledBallots;
 
     // Bidirectional ManyToOne
     @ManyToOne
@@ -46,7 +49,6 @@ public class PollingDistrictEntity {
     
     @JsonProperty
     private String getConstituencyName() {
-
         return constituency == null ? null : constituency.getName();
     }
 
@@ -100,7 +102,15 @@ public class PollingDistrictEntity {
         this.constituency = constituency;
     }
 
-    public RepresentativeEntity getRepresentative() {
+    public Long getSpoiledBallots() {
+		return spoiledBallots;
+	}
+
+	public void setSpoiledBallots(Long spoiledBallots) {
+		this.spoiledBallots = spoiledBallots;
+	}
+
+	public RepresentativeEntity getRepresentative() {
         return representative;
     }
 

@@ -6,12 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class CandidatesResultsMultiMandateEntity {
+@Table(name = "Candidate_rating_results")
+public class CandidatesResultsRatingEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,7 +24,7 @@ public class CandidatesResultsMultiMandateEntity {
     @JsonBackReference(value = "candidate-resultsMulti")
     private CandidateEntity candidate;
     
-    public CandidatesResultsMultiMandateEntity(){
+    public CandidatesResultsRatingEntity(){
         
     }
 
