@@ -6,18 +6,20 @@ import org.junit.runners.Suite;
 
 import lt.javainiai.controller.CandidateControllerIT;
 import lt.javainiai.controller.ConstituencyControllerIT;
-import lt.javainiai.controller.ConstituencyControllerTest;
-import lt.javainiai.controller.PollingDistrictController;
+
+import lt.javainiai.controller.PartyControllerIT;
 import lt.javainiai.controller.PollingDistrictControllerIT;
-import lt.javainiai.controller.PollingDistrictControllerTest;
-import lt.javainiai.repository.ConstituencyRepositoryTest;
+import lt.javainiai.controller.RepresentativeControllerIT;
+
 
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         ConstituencyControllerIT.class,
         PollingDistrictControllerIT.class,
-        CandidateControllerIT.class
+        CandidateControllerIT.class,
+        PartyControllerIT.class,
+        RepresentativeControllerIT.class
 })
 
 public class RinkimuIsRiBrisApplicationTests {

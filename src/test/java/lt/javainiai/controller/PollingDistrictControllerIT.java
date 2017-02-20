@@ -1,7 +1,7 @@
 package lt.javainiai.controller;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +26,6 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import lt.javainiai.RiBRIS_Application;
-import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.model.PollingDistrictEntity;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {RiBRIS_Application.class })
@@ -45,26 +44,24 @@ public class PollingDistrictControllerIT {
     public static void onlyOnce() {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
      }
-    
+     
     @Test
     public void createPollingDistrictAndCheckIfExist(){
         PollingDistrictEntity pollingDistrict = new PollingDistrictEntity();
         pollingDistrict.setName("Senamiescio apl.");
         pollingDistrict.setNumOfVoters(5000L);
         pollingDistrict.setAddress("Gedimino pr. 45-20");
-        createPollingDistrict(pollingDistrict);
+        createOrUpdatePollingDistrict(pollingDistrict);
         
         
         List<PollingDistrictEntity> pollingDistricts = getPollingDistricts();
         Assert.assertThat(pollingDistricts.size(), is(1));
-         
-        
+       
     }
     
     
     @Test
     public void findPollingDistrictsById(){
-        
         PollingDistrictEntity pollingDistrict1 = new PollingDistrictEntity();
         pollingDistrict1.setName("Senamiescio apl.");
         pollingDistrict1.setNumOfVoters(5000L);
@@ -75,40 +72,38 @@ public class PollingDistrictControllerIT {
         pollingDistrict2.setNumOfVoters(3300L);
         pollingDistrict2.setAddress("Savanoriu pr. 23-69");
         
-        createPollingDistrict(pollingDistrict1);
-        createPollingDistrict(pollingDistrict2);
-      
-        
+        createOrUpdatePollingDistrict(pollingDistrict1);
+        createOrUpdatePollingDistrict(pollingDistrict2);
+             
         Assert.assertThat((findPollingDistrictById(2L)).getName(), is("Naujamiescio apl."));
         Assert.assertThat((findPollingDistrictById(1L)).getName(), is("Senamiescio apl."));
         
     }
     
     @Test
-    public void updatePollingDistrict() {
-        
+    public void updatePollingDistrict() {     
         PollingDistrictEntity pollingDistrict1 = new PollingDistrictEntity();
         pollingDistrict1.setName("Senamiescio apl.");
         pollingDistrict1.setNumOfVoters(5000L);
         pollingDistrict1.setAddress("Gedimino pr. 45-20");
         
-        createPollingDistrict(pollingDistrict1);
+        createOrUpdatePollingDistrict(pollingDistrict1);
         
-        //Metodas veikia tik kai uzrasoma ant virsaus visi duomenys naujai
         pollingDistrict1.setId(1L);
         pollingDistrict1.setAddress("Gerosios Vilties g. 45-1");
         pollingDistrict1.setNumOfVoters(3000L);
         
-        createPollingDistrict(pollingDistrict1);
-        
-        
-        Assert.assertEquals("Senamiescio apl.", (findPollingDistrictById(1L)).getName());
-        Assert.assertEquals("Gerosios Vilties g. 45-1", (findPollingDistrictById(1L)).getAddress());
-        Assert.assertEquals(pollingDistrict1.getNumOfVoters(), (findPollingDistrictById(1L)).getNumOfVoters());
+        createOrUpdatePollingDistrict(pollingDistrict1);
+          
+        Assert.assertEquals("Senamiescio apl.", 
+                (findPollingDistrictById(1L)).getName());
+        Assert.assertEquals("Gerosios Vilties g. 45-1", 
+                (findPollingDistrictById(1L)).getAddress());
+        Assert.assertEquals(pollingDistrict1.getNumOfVoters(), 
+                (findPollingDistrictById(1L)).getNumOfVoters());
         
         List<PollingDistrictEntity> pollingDistricts = getPollingDistricts();
-        Assert.assertThat(pollingDistricts.size(), is(1));
-        
+        Assert.assertThat(pollingDistricts.size(), is(1));    
               
     }
     
@@ -119,7 +114,7 @@ public class PollingDistrictControllerIT {
         pollingDistrict1.setNumOfVoters(5000L);
         pollingDistrict1.setAddress("Gedimino pr. 45-20");
         
-        createPollingDistrict(pollingDistrict1);
+        createOrUpdatePollingDistrict(pollingDistrict1);
     
     
         List<PollingDistrictEntity> pollingDistricts = getPollingDistricts();
@@ -132,21 +127,23 @@ public class PollingDistrictControllerIT {
     
     
     
-    private void createPollingDistrict(final PollingDistrictEntity pollingDistrict){
-        HttpEntity<PollingDistrictEntity> entity =  new HttpEntity<PollingDistrictEntity>(pollingDistrict, headers);
-        ResponseEntity<String> response = restTemplate.exchange(URI, HttpMethod.POST, entity, String.class);
+    private void createOrUpdatePollingDistrict(final PollingDistrictEntity pollingDistrict){
+        HttpEntity<PollingDistrictEntity> entity =
+                new HttpEntity<PollingDistrictEntity>(pollingDistrict, headers);
+        ResponseEntity<String> response = 
+                restTemplate.exchange(URI, HttpMethod.POST, entity, String.class);
         
-        Assert.assertThat("Create PollingDistrict:",response.getStatusCode(), CoreMatchers.is(HttpStatus.CREATED));
+        Assert.assertThat("Create PollingDistrict:",response.getStatusCode(),
+                CoreMatchers.is(HttpStatus.CREATED));
      }
     
     private List<PollingDistrictEntity> getPollingDistricts(){
         
-        ParameterizedTypeReference<List<PollingDistrictEntity>> pollingDistricts = new ParameterizedTypeReference<List<PollingDistrictEntity>>() {
-        };
+        ParameterizedTypeReference<List<PollingDistrictEntity>> pollingDistricts = 
+                new ParameterizedTypeReference<List<PollingDistrictEntity>>() {};
 
-        
-        ResponseEntity<List<PollingDistrictEntity>> response = restTemplate.exchange(URI, HttpMethod.GET, null, pollingDistricts);
-
+        ResponseEntity<List<PollingDistrictEntity>> response =
+                restTemplate.exchange(URI, HttpMethod.GET, null, pollingDistricts);
         
         Assert.assertThat(response.getStatusCode(), is(HttpStatus.OK));
         return response.getBody();
@@ -154,20 +151,21 @@ public class PollingDistrictControllerIT {
     
     private void deletePollingDistrictById(Long id){
         
-        ResponseEntity<Void> response = restTemplate.exchange(URI  + id, HttpMethod.DELETE, null, Void.class);
+        ResponseEntity<Void> response = restTemplate.exchange(URI  + id,
+                HttpMethod.DELETE, null, Void.class);
        
         Assert.assertThat(response.getStatusCode(), is(HttpStatus.NO_CONTENT));
         
     }
     
     private PollingDistrictEntity findPollingDistrictById(Long id){
-        ResponseEntity<PollingDistrictEntity> response = restTemplate.exchange(URI + id, HttpMethod.GET, null, PollingDistrictEntity.class);
+        ResponseEntity<PollingDistrictEntity> response =
+                restTemplate.exchange(URI + id, HttpMethod.GET, null,
+                        PollingDistrictEntity.class);
    
         Assert.assertThat(response.getStatusCode(), is(HttpStatus.OK));
         return response.getBody();
     
     }
-    
-   
     
 }

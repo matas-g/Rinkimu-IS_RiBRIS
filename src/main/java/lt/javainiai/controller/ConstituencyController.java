@@ -39,7 +39,7 @@ public class ConstituencyController {
     // Find all
     @RequestMapping(method = RequestMethod.GET) 
     @ResponseStatus(HttpStatus.OK)
-    public List<ConstituencyEntity> findAll() {
+    public List<ConstituencyEntity> findAll() { 
         return constituencyService.findAll();
     }
 

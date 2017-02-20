@@ -27,7 +27,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import lt.javainiai.RiBRIS_Application;
 import lt.javainiai.model.CandidateEntity;
-import lt.javainiai.model.ConstituencyEntity;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {RiBRIS_Application.class })
@@ -43,7 +43,7 @@ public class CandidateControllerIT {
     
     @BeforeClass 
     public static void onlyOnce() {
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8));
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON_UTF8)); 
      }
     
     
@@ -54,10 +54,11 @@ public class CandidateControllerIT {
         candidate.setSurname("Kubilius");
         candidate.setBirthDate(new Date(1992-12-12));
         
-        createCandidate(candidate);
+        createOrUpdateCandidate(candidate);
         
         List<CandidateEntity> candidates = getCandidates();
         Assert.assertThat(candidates.size(), is(1));
+        
     }
     
     
@@ -73,14 +74,13 @@ public class CandidateControllerIT {
         candidate2.setSurname("Paksis");
         candidate2.setBirthDate(new Date(1945-12-18));
         
-        createCandidate(candidate1);
-        createCandidate(candidate2);
+        createOrUpdateCandidate(candidate1);
+        createOrUpdateCandidate(candidate2);
         
         
         Assert.assertThat((findCandidateById(2L)).getName(), is("Rolis"));
-        
         Assert.assertThat((findCandidateById(1L)).getName(), is("Andrius"));
-        
+    
     }
     
     @Test
@@ -90,13 +90,13 @@ public class CandidateControllerIT {
         candidate1.setSurname("Kubilius");
         candidate1.setBirthDate(new Date(1992-12-13));
         
-        createCandidate(candidate1);
+        createOrUpdateCandidate(candidate1);
         
         candidate1.setId(1L);
         candidate1.setName("Anatolijus");
         candidate1.setSurname("Kibartas");
         
-        createCandidate(candidate1);
+        createOrUpdateCandidate(candidate1);
         
         Assert.assertEquals("Anatolijus", (findCandidateById(1L)).getName());
         Assert.assertEquals("Kibartas", (findCandidateById(1L)).getSurname());
@@ -114,7 +114,7 @@ public class CandidateControllerIT {
         candidate1.setSurname("Kubilius");
         candidate1.setBirthDate(new Date(1992-12-13));
         
-        createCandidate(candidate1);
+        createOrUpdateCandidate(candidate1);
         
         List<CandidateEntity> candidates = getCandidates();
         Assert.assertThat(candidates.size(), is(1));
@@ -122,36 +122,38 @@ public class CandidateControllerIT {
         
         candidates = getCandidates();
         Assert.assertThat(candidates.size(), is(0));
-        
-        
+            
     }
     
     
-    private void createCandidate(final CandidateEntity candidate){
+    private void createOrUpdateCandidate(final CandidateEntity candidate){
         
         
         HttpEntity<CandidateEntity> entity =  new HttpEntity<CandidateEntity>(candidate, headers);
-        ResponseEntity<String> response = restTemplate.exchange(URI, HttpMethod.POST, entity, String.class);
+        ResponseEntity<String> response =
+                restTemplate.exchange(URI, HttpMethod.POST, entity, String.class);
         
         Assert.assertThat(response.getStatusCode(), CoreMatchers.is(HttpStatus.CREATED));
-     }
+     
+    }
     
     private List<CandidateEntity> getCandidates(){
         
-        ParameterizedTypeReference<List<CandidateEntity>> candidates = new ParameterizedTypeReference<List<CandidateEntity>>() {
-        };
+        ParameterizedTypeReference<List<CandidateEntity>> candidates =
+                new ParameterizedTypeReference<List<CandidateEntity>>() {};
 
-        
-        ResponseEntity<List<CandidateEntity>> response = restTemplate.exchange(URI, HttpMethod.GET, null, candidates);
+        ResponseEntity<List<CandidateEntity>> response = 
+                restTemplate.exchange(URI, HttpMethod.GET, null, candidates);
 
-        
         Assert.assertThat(response.getStatusCode(), is(HttpStatus.OK));
         return response.getBody(); 
-      }
+      
+    }
 
     private void deleteCandidateById(Long id){
         
-        ResponseEntity<Void> response = restTemplate.exchange(URI  + id, HttpMethod.DELETE, null, Void.class);
+        ResponseEntity<Void> response = 
+                restTemplate.exchange(URI  + id, HttpMethod.DELETE, null, Void.class);
        
         Assert.assertThat(response.getStatusCode(), is(HttpStatus.NO_CONTENT));
         
@@ -159,9 +161,11 @@ public class CandidateControllerIT {
     
     private CandidateEntity findCandidateById(Long id){
         
-        ResponseEntity<CandidateEntity> response = restTemplate.exchange(URI  + id, HttpMethod.GET, null, CandidateEntity.class);
+        ResponseEntity<CandidateEntity> response =
+                restTemplate.exchange(URI  + id, HttpMethod.GET, null, CandidateEntity.class);
         
         Assert.assertThat(response.getStatusCode(), is(HttpStatus.OK));
         return response.getBody();
+        
     }
 }
