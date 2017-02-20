@@ -1,6 +1,5 @@
 const React = require('react');
 const NavLink = require('./nav-link');
-const LoginModal = require('../../containers/login-modal-container');
 const Modal = require('react-bootstrap').Modal;
 const Button = require('react-bootstrap').Button;
 

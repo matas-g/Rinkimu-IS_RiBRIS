@@ -19,8 +19,6 @@ public class CandidatesResultsSingleMandateEntity {
     
     private Long numberOfVotes;
     
-    private Long spoiledVotes;
-    
     @OneToOne
     @JsonBackReference(value = "candidate-resultsSingle")
     private CandidateEntity candidate;
@@ -28,14 +26,6 @@ public class CandidatesResultsSingleMandateEntity {
     public CandidatesResultsSingleMandateEntity(){
         
     }
-
-    public Long getSpoiledVotes() {
-		return spoiledVotes;
-	}
-
-	public void setSpoiledVotes(Long spoiledVotes) {
-		this.spoiledVotes = spoiledVotes;
-	}
 
 	public Long getId() {
         return id;
@@ -64,8 +54,7 @@ public class CandidatesResultsSingleMandateEntity {
 
     @Override
 	public String toString() {
-		return "CandidatesResultsEntity [id=" + id + ", numberOfVotes=" + numberOfVotes + ", spoiledVotes="
-				+ spoiledVotes + "]";
+		return "CandidatesResultsEntity [id=" + id + ", numberOfVotes=" + numberOfVotes + "]";
 	}
     
     
