@@ -52,7 +52,7 @@ public class CandidateControllerIT {
         CandidateEntity candidate = new CandidateEntity();
         candidate.setName("Andrius");
         candidate.setSurname("Kubilius");
-        candidate.setBirthDate("1992-12-12");
+        candidate.setBirthDate(new Date(1992-12-12));
         
         createCandidate(candidate);
         
@@ -66,12 +66,12 @@ public class CandidateControllerIT {
         CandidateEntity candidate1 = new CandidateEntity();
         candidate1.setName("Andrius");
         candidate1.setSurname("Kubilius");
-        candidate1.setBirth_date(new Date(1992-12-13));
+        candidate1.setBirthDate(new Date(1992-12-13));
         
         CandidateEntity candidate2 = new CandidateEntity();
         candidate2.setName("Rolis");
         candidate2.setSurname("Paksis");
-        candidate2.setBirth_date(new Date(1945-12-18));
+        candidate2.setBirthDate(new Date(1945-12-18));
         
         createCandidate(candidate1);
         createCandidate(candidate2);
@@ -88,7 +88,7 @@ public class CandidateControllerIT {
         CandidateEntity candidate1 = new CandidateEntity();
         candidate1.setName("Andrius");
         candidate1.setSurname("Kubilius");
-        candidate1.setBirth_date(new Date(1992-12-13));
+        candidate1.setBirthDate(new Date(1992-12-13));
         
         createCandidate(candidate1);
         
@@ -112,7 +112,7 @@ public class CandidateControllerIT {
         CandidateEntity candidate1 = new CandidateEntity();
         candidate1.setName("Andrius");
         candidate1.setSurname("Kubilius");
-        candidate1.setBirth_date(new Date(1992-12-13));
+        candidate1.setBirthDate(new Date(1992-12-13));
         
         createCandidate(candidate1);
         
