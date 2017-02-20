@@ -48,7 +48,7 @@ public class PartyControllerIT {
     public void createPartyAndCheckIfExist(){
         PartyEntity party = new PartyEntity();
         party.setName("Darbo partija");
-        party.setPartyNo("88");
+        party.setPartyNo(88L);
         
         createOrUpdateParty(party);
         
@@ -60,11 +60,11 @@ public class PartyControllerIT {
     public void findPartyById(){
         PartyEntity party1 = new PartyEntity();
         party1.setName("Darbo partija");
-        party1.setPartyNo("88");
+        party1.setPartyNo(88L);
         
         PartyEntity party2 = new PartyEntity();
         party2.setName("Liberalu partija");
-        party2.setPartyNo("07");
+        party2.setPartyNo(07L);
         
         createOrUpdateParty(party1);
         createOrUpdateParty(party2);
@@ -79,7 +79,7 @@ public class PartyControllerIT {
     public void updateParty(){
         PartyEntity party1 = new PartyEntity();
         party1.setName("Darbo partija");
-        party1.setPartyNo("88");
+        party1.setPartyNo(88L);
         
         createOrUpdateParty(party1);
         
@@ -100,7 +100,7 @@ public class PartyControllerIT {
     public void createPartyAndCheckIfDeleteWorks(){
         PartyEntity party1 = new PartyEntity();
         party1.setName("Darbo partija");
-        party1.setPartyNo("88");
+        party1.setPartyNo(88L);
         
         createOrUpdateParty(party1);
         

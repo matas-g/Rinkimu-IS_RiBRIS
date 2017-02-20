@@ -44,13 +44,13 @@ public class CandidateEntity {
     @JsonBackReference(value = "candidate-party")
     @JoinColumn(name = "Party_Id")
     private PartyEntity party;
-    
+
     @JsonProperty
     public String getPartyName() {
         return party == null ? null : party.getName();
     }
-    
-    @OneToOne(mappedBy = "candidate", cascade=CascadeType.ALL)
+
+    @OneToOne(mappedBy = "candidate", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "candidate-results")
     private CandidatesResultsEntity candidatesResultsEntity;
 
@@ -121,11 +121,20 @@ public class CandidateEntity {
     public void setConstituency(ConstituencyEntity constituency) {
         this.constituency = constituency;
     }
-   
+
+    public CandidatesResultsEntity getCandidatesResultsEntity() {
+        return candidatesResultsEntity;
+    }
+
+    public void setCandidatesResultsEntity(CandidatesResultsEntity candidatesResultsEntity) {
+        this.candidatesResultsEntity = candidatesResultsEntity;
+    }
+
     @Override
     public String toString() {
         return "CandidateEntity [id=" + id + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate
-                + ", party=" + party + ", biography=" + biography + ", constituency=" + constituency + "]";
+                + ", party=" + party + ", candidatesResultsEntity=" + candidatesResultsEntity + ", biography="
+                + biography + ", constituency=" + constituency + "]";
     }
 
 }
