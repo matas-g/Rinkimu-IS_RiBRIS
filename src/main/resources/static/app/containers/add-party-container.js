@@ -28,14 +28,27 @@ var AddPartyContainer = React.createClass({
         };
         data.append( 'name', self.state.party.name );
         data.append( 'partyNo', self.state.party.partyNo );
-        data.append( 'file', self.state.multiCandidateFile );
         
-        axios.post('http://localhost:8090/parties/', data, config).then(function (response) {
-        	console.log("multi-candidate party list added.");
-        	self.context.router.push('/parties/');
-        }).catch( function( error ) {
-        	console.error( error );
-        });
+        // Creating party with CSV candidate list
+        if (self.state.multiCandidateFile) {
+        	data.append( 'file', self.state.multiCandidateFile );
+        	
+        	axios.post('http://localhost:8090/parties/csv/', data, config).then(function (response) {
+            	console.log("Party and CSV added.");
+            	self.context.router.push('/parties/');
+            }).catch( function( error ) {
+            	console.error( error );
+            });
+        	
+        } else {
+        	// Creating party without CSV candidate list        	
+        	axios.post('http://localhost:8090/parties/', data, config).then(function (response) {
+            	console.log("Party added (no CSV).");
+            	self.context.router.push('/parties/');
+            }).catch( function( error ) {
+            	console.error( error );
+            });
+        }
     },
     
 //    Original code (before CSV import):
