@@ -19,7 +19,7 @@ public class CandidatesResultsRatingEntity {
     private Long numberOfVotes;
 
     @OneToOne
-    @JsonBackReference(value = "candidate-resultsMulti")
+    @JsonBackReference(value = "candidate-resultsRating")
     private CandidateEntity candidate;
     
 	//Constructor

@@ -21,7 +21,7 @@ public class CandidatesResultsSingleMandateEntity {
     private Long numberOfVotes;
     
     @OneToOne
-    @JsonBackReference(value = "candidate-resultsSingle")
+    @JsonBackReference(value = "candidate-resultsSingleMandate")
     private CandidateEntity candidate;
     
     public CandidatesResultsSingleMandateEntity(){
