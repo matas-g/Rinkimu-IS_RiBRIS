@@ -1,6 +1,5 @@
 package lt.javainiai.model;
 
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,22 +12,23 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "Candidate_rating_results")
 public class CandidatesResultsRatingEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
     private Long numberOfVotes;
-    
+
     @OneToOne
     @JsonBackReference(value = "candidate-resultsMulti")
     private CandidateEntity candidate;
     
+	//Constructor
     public CandidatesResultsRatingEntity(){
         
     }
 
-	public Long getId() {
+    // Getters and Setters
+    public Long getId() {
         return id;
     }
 
@@ -43,8 +43,7 @@ public class CandidatesResultsRatingEntity {
     public void setNumberOfVotes(Long numberOfVotes) {
         this.numberOfVotes = numberOfVotes;
     }
-    
-    
+
     public CandidateEntity getCandidate() {
         return candidate;
     }
@@ -54,11 +53,7 @@ public class CandidatesResultsRatingEntity {
     }
 
     @Override
-	public String toString() {
-		return "CandidatesResultsEntity [id=" + id + ", numberOfVotes=" + numberOfVotes + "]";
-	}
-    
-    
-
-    
+    public String toString() {
+        return "CandidatesResultsEntity [id=" + id + ", numberOfVotes=" + numberOfVotes + "]";
+    }
 }

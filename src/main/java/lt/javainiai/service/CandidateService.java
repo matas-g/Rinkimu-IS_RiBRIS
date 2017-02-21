@@ -15,15 +15,19 @@ public class CandidateService {
     private CandidateRepository candidateRepository;
 
     public CandidateEntity saveOrUpdate(CandidateEntity candidate) {
-        return this.candidateRepository.saveOrUpdate(candidate);
+        return candidateRepository.saveOrUpdate(candidate);
     }
 
     public List<CandidateEntity> findAll() {
-        return this.candidateRepository.findAll();
+        return candidateRepository.findAll();
+    }
+    
+    public List<CandidateEntity> findAllFromConstituency(Long id) {
+        return candidateRepository.findAllFromConstituency(id);
     }
 
     public CandidateEntity findById(Long id) {
-        return this.candidateRepository.findById(id);
+        return candidateRepository.findById(id);
     }
 
     public void deleteById(Long id) {

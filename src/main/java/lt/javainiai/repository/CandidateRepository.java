@@ -34,6 +34,13 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
     public List<CandidateEntity> findAll() {
         return em.createQuery("SELECT c FROM CandidateEntity c").getResultList();
     }
+    
+    @SuppressWarnings("unchecked")
+    public List<CandidateEntity> findAllFromConstituency(Long id) {
+        return em.createQuery("SELECT c FROM CandidateEntity c WHERE c.Constituency_Id LIKE :id")
+    		    .setParameter("id", id)
+    		    .getResultList();
+    }
 
     @Override
     public CandidateEntity findById(Long id) {

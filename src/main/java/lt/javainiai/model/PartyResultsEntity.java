@@ -15,19 +15,19 @@ public class PartyResultsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
     private Long numberOfVotes;
-    
+
     @OneToOne
     @JsonBackReference(value = "party-results")
     @JoinColumn(name = "Party_Id")
     private PartyEntity party;
-    
-    private PartyResultsEntity(){
-        
+
+    // Constructor
+    public PartyResultsEntity() {
     }
 
-	public Long getId() {
+    // Getters and Setters
+    public Long getId() {
         return id;
     }
 
@@ -43,11 +43,16 @@ public class PartyResultsEntity {
         this.numberOfVotes = numberOfVotes;
     }
 
+    public PartyEntity getParty() {
+        return party;
+    }
+
+    public void setParty(PartyEntity party) {
+        this.party = party;
+    }
+
     @Override
-	public String toString() {
-		return "PartyResultsEntity [id=" + id + ", numberOfVotes=" + numberOfVotes + "]";
-	}
-    
-    
-   
+    public String toString() {
+        return "PartyResultsEntity [id=" + id + ", numberOfVotes=" + numberOfVotes + ", party=" + party + "]";
+    }
 }

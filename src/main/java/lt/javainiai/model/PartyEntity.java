@@ -27,9 +27,8 @@ public class PartyEntity {
     @Length(min = 1, max = 200)
     private String name;
 
-    @Length(min = 1, max = 5)
     @Column(name = "Party_Number")
-    private String partyNo;
+    private Long partyNo;
 
     @OneToMany(mappedBy = "party", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "candidate-party")
@@ -60,11 +59,11 @@ public class PartyEntity {
         this.name = name;
     }
 
-    public String getPartyNo() {
+    public Long getPartyNo() {
         return partyNo;
     }
 
-    public void setPartyNo(String partyNo) {
+    public void setPartyNo(Long partyNo) {
         this.partyNo = partyNo;
     }
 
