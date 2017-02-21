@@ -33,6 +33,7 @@ public class PartyService {
     // Path to store multi-candidate CSV files
     private final Path csvMultiLocation = Paths.get("csv-multi-files");
 
+    // Save or update party (with CSV candidate list)
     public PartyEntity saveOrUpdate(String partyName, Long partyNo, MultipartFile csvFile) {
 
         PartyEntity party = new PartyEntity();
@@ -76,6 +77,16 @@ public class PartyService {
             candidateService.saveOrUpdate(candidate);
         }
         return partyResponse;
+    }
+    
+    // Save or update party (no CSV candidate list)
+    public PartyEntity saveOrUpdate(String partyName, Long partyNo) {
+
+        PartyEntity party = new PartyEntity();
+        party.setName(partyName);
+        party.setPartyNo(partyNo);
+        // save party to Database and get response from repository;
+        return partyRepository.saveOrUpdate(party);
     }
 
     public List<PartyEntity> findAll() {
