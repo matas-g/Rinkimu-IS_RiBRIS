@@ -49,10 +49,18 @@ public class CandidateEntity {
     public String getPartyName() {
         return party == null ? null : party.getName();
     }
-
-    @OneToOne(mappedBy = "candidate", cascade = CascadeType.ALL)
-    @JsonManagedReference(value = "candidate-results")
-    private CandidatesResultsEntity candidatesResultsEntity;
+    
+    @OneToOne(mappedBy = "candidate", cascade=CascadeType.ALL)
+    @JsonManagedReference(value = "candidate-resultsRating")
+    private CandidatesResultsRatingEntity candidatesResultsRating;
+    
+    @OneToOne(mappedBy = "candidate", cascade=CascadeType.ALL)
+    @JsonManagedReference(value = "candidate-resultsSingleMandate")
+    private CandidatesResultsSingleMandateEntity candidatesResultsSingleMandate;
+    
+    private Boolean singleMandate;
+    
+    private Boolean multiMandate;
 
     private String biography;
 
@@ -114,7 +122,39 @@ public class CandidateEntity {
         this.biography = biography;
     }
 
-    public ConstituencyEntity getConstituency() {
+    public CandidatesResultsRatingEntity getCandidatesResultsRating() {
+		return candidatesResultsRating;
+	}
+
+	public void setCandidatesResultsRating(CandidatesResultsRatingEntity candidatesResultsRating) {
+		this.candidatesResultsRating = candidatesResultsRating;
+	}
+
+	public CandidatesResultsSingleMandateEntity getCandidatesResultsSingleMandate() {
+		return candidatesResultsSingleMandate;
+	}
+
+	public void setCandidatesResultsSingleMandate(CandidatesResultsSingleMandateEntity candidatesResultsSingleMandate) {
+		this.candidatesResultsSingleMandate = candidatesResultsSingleMandate;
+	}
+
+	public Boolean getMultiMandate() {
+		return multiMandate;
+	}
+
+	public void setMultiMandate(Boolean multiMandate) {
+		this.multiMandate = multiMandate;
+	}
+
+	public Boolean getSingleMandate() {
+		return singleMandate;
+	}
+
+	public void setSingleMandate(Boolean singleMandate) {
+		this.singleMandate = singleMandate;
+	}
+
+	public ConstituencyEntity getConstituency() {
         return constituency;
     }
 
@@ -122,19 +162,10 @@ public class CandidateEntity {
         this.constituency = constituency;
     }
 
-    public CandidatesResultsEntity getCandidatesResultsEntity() {
-        return candidatesResultsEntity;
-    }
-
-    public void setCandidatesResultsEntity(CandidatesResultsEntity candidatesResultsEntity) {
-        this.candidatesResultsEntity = candidatesResultsEntity;
-    }
-
     @Override
     public String toString() {
         return "CandidateEntity [id=" + id + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate
-                + ", party=" + party + ", candidatesResultsEntity=" + candidatesResultsEntity + ", biography="
-                + biography + ", constituency=" + constituency + "]";
+                + ", party=" + party + ", biography=" + biography + ", constituency=" + constituency + "]";
     }
 
 }

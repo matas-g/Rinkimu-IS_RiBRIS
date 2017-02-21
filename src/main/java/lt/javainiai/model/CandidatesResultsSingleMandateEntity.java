@@ -1,33 +1,34 @@
 package lt.javainiai.model;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class PartyResultsEntity {
-
+@Table(name = "Candidate_single_mandate_results")
+public class CandidatesResultsSingleMandateEntity {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
     private Long numberOfVotes;
-
+    
     @OneToOne
-    @JsonBackReference(value = "party-results")
-    @JoinColumn(name = "Party_Id")
-    private PartyEntity party;
-
-    // Constructor
-    public PartyResultsEntity() {
+    @JsonBackReference(value = "candidate-resultsSingleMandate")
+    private CandidateEntity candidate;
+    
+    public CandidatesResultsSingleMandateEntity(){
+        
     }
 
-    // Getters and Setters
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
@@ -42,17 +43,22 @@ public class PartyResultsEntity {
     public void setNumberOfVotes(Long numberOfVotes) {
         this.numberOfVotes = numberOfVotes;
     }
-
-    public PartyEntity getParty() {
-        return party;
+    
+    
+    public CandidateEntity getCandidate() {
+        return candidate;
     }
 
-    public void setParty(PartyEntity party) {
-        this.party = party;
+    public void setCandidate(CandidateEntity candidate) {
+        this.candidate = candidate;
     }
 
     @Override
-    public String toString() {
-        return "PartyResultsEntity [id=" + id + ", numberOfVotes=" + numberOfVotes + ", party=" + party + "]";
-    }
+	public String toString() {
+		return "CandidatesResultsEntity [id=" + id + ", numberOfVotes=" + numberOfVotes + "]";
+	}
+    
+    
+
+    
 }

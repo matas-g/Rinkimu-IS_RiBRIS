@@ -41,6 +41,13 @@ public class CandidateController {
     public List<CandidateEntity> findAll() {
         return candidateService.findAll();
     }
+    
+ // Find one by name
+    @RequestMapping(value = "/by-constituency/{id}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<CandidateEntity> findByName(@Valid @PathVariable("id") Long id) {
+        return candidateService.findAllFromConstituency(id);
+    }
 
     // Find one
     @RequestMapping(value = "{id}", method = RequestMethod.GET)

@@ -29,7 +29,6 @@ public class ConstituencyEntity {
 
     // Bidirectional OneToMany
     @OneToMany(mappedBy = "constituency", cascade=CascadeType.ALL)
-
     @JsonManagedReference
     private List<PollingDistrictEntity> pollingDistricts;
 

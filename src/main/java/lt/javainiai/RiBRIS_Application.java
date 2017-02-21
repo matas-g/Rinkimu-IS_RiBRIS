@@ -28,7 +28,8 @@ public class RiBRIS_Application implements CommandLineRunner {
 	        @Override
 	        public void addCorsMappings(CorsRegistry registry) {
 	            registry.addMapping("/**")
-	            	.allowedOrigins("*");
+	            	.allowedOrigins("*")
+	            	.allowedMethods("*");
 	        }
 	    };
 	}

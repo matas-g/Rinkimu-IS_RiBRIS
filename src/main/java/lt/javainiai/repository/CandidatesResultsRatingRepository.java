@@ -8,22 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import lt.javainiai.model.CandidatesResultsEntity;
+import lt.javainiai.model.CandidatesResultsRatingEntity;
 
 @Repository
-public class CandidatesResultsRepository implements RepositoryInterface<CandidatesResultsEntity>{
+public class CandidatesResultsRatingRepository implements RepositoryInterface<CandidatesResultsRatingEntity>{
 
     @Autowired
     private EntityManager em;
 
     @Override
     @Transactional
-    public CandidatesResultsEntity saveOrUpdate(CandidatesResultsEntity candidatesResults) {
+    public CandidatesResultsRatingEntity saveOrUpdate(CandidatesResultsRatingEntity candidatesResults) {
         if (candidatesResults.getId() == null) {
             em.persist(candidatesResults);
             return candidatesResults;
         } else {
-            CandidatesResultsEntity merged = em.merge(candidatesResults);
+            CandidatesResultsRatingEntity merged = em.merge(candidatesResults);
             return merged;
         }
     
@@ -31,18 +31,18 @@ public class CandidatesResultsRepository implements RepositoryInterface<Candidat
 
     @SuppressWarnings("unchecked")
 	@Override
-    public List<CandidatesResultsEntity> findAll() {
-        return em.createQuery("SELECT c FROM CandidatesResultsEntity c").getResultList();
+    public List<CandidatesResultsRatingEntity> findAll() {
+        return em.createQuery("SELECT c FROM CandidatesResultsRatingEntity c").getResultList();
     }
 
     @Override
-    public CandidatesResultsEntity findById(Long id) {
-        return em.find(CandidatesResultsEntity.class, id);
+    public CandidatesResultsRatingEntity findById(Long id) {
+        return em.find(CandidatesResultsRatingEntity.class, id);
     }
 
     @Override
     public void deleteById(Long id) {
-        CandidatesResultsEntity candidateResultsToRemove = em.find(CandidatesResultsEntity.class, id);
+        CandidatesResultsRatingEntity candidateResultsToRemove = em.find(CandidatesResultsRatingEntity.class, id);
         em.remove(candidateResultsToRemove);
     }
 

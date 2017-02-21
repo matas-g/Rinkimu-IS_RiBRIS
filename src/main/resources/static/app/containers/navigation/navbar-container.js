@@ -1,5 +1,6 @@
 const React = require('react');
 const axios = require('axios');
+const Modal = require('react-bootstrap');
 const NavPresentation = require('../../presentations/navigation/navbar-presentation');
 const ConstituenciesOptions = require('../../util/options-for-menu/constituencies-options');
 const DistrictsOptions = require('../../util/options-for-menu/districts-options');
@@ -12,8 +13,17 @@ var NavContainer = React.createClass({
 
   getInitialState: function() {
     return {
-      options: ConstituenciesOptions
+      options: ConstituenciesOptions,
+      showModal: false
     };
+  },
+
+  handleCloseClick() {
+    this.setState({ showModal: false });
+  },
+
+  handleOpenClick() {
+    this.setState({ showModal: true });
   },
 
   componentWillReceiveProps(nextProps) {
@@ -53,10 +63,15 @@ var NavContainer = React.createClass({
 
   render: function() {
     return (
-      <NavPresentation
-        options={this.state.options}
-        childs={this.props.children}
-      />
+      <div>
+        <NavPresentation
+          options={this.state.options}
+          childs={this.props.children}
+          showModal={this.state.showModal}
+          openClick={this.handleOpenClick}
+          closeClick={this.handleCloseClick}
+        />
+      </div>
     );
   }
 });

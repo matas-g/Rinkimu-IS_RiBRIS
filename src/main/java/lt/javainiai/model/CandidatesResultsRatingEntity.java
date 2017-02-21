@@ -5,11 +5,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-public class CandidatesResultsEntity {
+@Table(name = "Candidate_rating_results")
+public class CandidatesResultsRatingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,11 +19,12 @@ public class CandidatesResultsEntity {
     private Long numberOfVotes;
 
     @OneToOne
-    @JsonBackReference(value = "candidate-results")
+    @JsonBackReference(value = "candidate-resultsRating")
     private CandidateEntity candidate;
-
-    // Constructor
-    public CandidatesResultsEntity() {
+    
+	//Constructor
+    public CandidatesResultsRatingEntity(){
+        
     }
 
     // Getters and Setters
@@ -53,5 +56,4 @@ public class CandidatesResultsEntity {
     public String toString() {
         return "CandidatesResultsEntity [id=" + id + ", numberOfVotes=" + numberOfVotes + "]";
     }
-
 }
