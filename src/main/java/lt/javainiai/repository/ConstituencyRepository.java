@@ -18,7 +18,7 @@ public class ConstituencyRepository  implements RepositoryInterface<Constituency
 
     @Transactional
     public ConstituencyEntity saveOrUpdate(ConstituencyEntity constituency) {
-        if (constituency.getName() == null) {
+        if (constituency.getId() == null) {
             em.persist(constituency);
             return constituency;
         } else {
