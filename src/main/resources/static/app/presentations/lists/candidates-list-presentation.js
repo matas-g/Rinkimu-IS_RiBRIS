@@ -8,8 +8,8 @@ var CandidatesList = React.createClass({
       return (
         <tr key={index}>
           <td>{nr++}</td>
-          <td>{candidate.name}</td>
-          <td>{candidate.surname}</td>
+          <td>{candidate.name.replace(/'/g,"")}</td>
+          <td>{candidate.surname.replace(/'/g,"")}</td>
           <td>{candidate.birthDate}</td>
           <td>{candidate.partyName}</td>
           <td>
