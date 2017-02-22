@@ -1,6 +1,12 @@
 var React = require('react');
 
 var AddConstituencies = React.createClass({
+
+  // Added for CSV import
+  onUploadMultiCandidateFile: function() {
+    this.props.onUploadMultiCandidateFile( this.refs.file.files[0] );
+  },
+
   render: function() {
     return (
       <div className="container-fluid">
@@ -12,6 +18,10 @@ var AddConstituencies = React.createClass({
               <input id="pavadinimas" className="form-control" type="text" value={this.props.constituency.name}
                 onChange={this.props.onFieldChange('name')} />
               <br />
+            </div>
+            <div className="form-group">
+            	<label>Prisegti apygardos kandidatų sąrašą <span className="bg-danger">CSV</span> formatu:</label>
+            	<input type="file" ref='file' onChange={this.onUploadMultiCandidateFile} />
             </div>
             <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }}
               onClick={this.props.onSaveClick}>Registruoti

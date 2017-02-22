@@ -19,12 +19,22 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
     @Transactional
     @Override
     public CandidateEntity saveOrUpdate(CandidateEntity candidate) {
-        if (candidate.getId() == null) {
+    	List<CandidateEntity> candidates = findAll();
+    	boolean candidateExists = false;
+    	for (CandidateEntity candidateInList : candidates) {
+	        if (candidateInList.equals(candidate)) {
+	            candidateExists = true;
+	        }
+    	}
+    	System.out.println("exists: " + candidateExists);
+    	if (!candidateExists) {
             em.persist(candidate);
+            System.out.println("persisted");
             return candidate;
         } else {
             CandidateEntity merged = em.merge(candidate);
             em.persist(merged);
+            System.out.println("merged");
             return merged;
         }
     }

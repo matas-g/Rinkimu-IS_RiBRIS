@@ -33,28 +33,28 @@ public class PartyController {
     @ResponseStatus(HttpStatus.CREATED)
     public PartyEntity saveOrUpdate(@RequestParam("name") String partyName, @RequestParam("partyNo") Long partyNo,
             @RequestParam("file") MultipartFile csvFile) {
-        return this.partyService.saveOrUpdate(partyName, partyNo, csvFile);
+        return partyService.saveOrUpdate(partyName, partyNo, csvFile);
     }
 
     // Register or update (no CSV file)
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public PartyEntity saveOrUpdate(@RequestParam("name") String partyName, @RequestParam("partyNo") Long partyNo) {
-        return this.partyService.saveOrUpdate(partyName, partyNo);
+        return partyService.saveOrUpdate(partyName, partyNo);
     }
 
     // Find all
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<PartyEntity> findAll() {
-        return this.partyService.findAll();
+        return partyService.findAll();
     }
 
     // Find one
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public PartyEntity findById(@Valid @PathVariable("id") Long id) {
-        return this.partyService.findById(id);
+        return partyService.findById(id);
     }
 
     // Delete one

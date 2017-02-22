@@ -62,11 +62,14 @@ public class PartyService {
                 values = data.split(",", -1);
 
                 CandidateEntity candidate = new CandidateEntity();
-                candidate.setName(values[0]);
-                candidate.setSurname(values[1]);
-                candidate.setBirthDate(formatDate(values[2]));
-                candidate.setBiography(values[3]);
+                candidate.setPersonsId(Long.valueOf(values[0]));
+                candidate.setName(values[1]);
+                candidate.setSurname(values[2]);
+                candidate.setBirthDate(formatDate(values[3]));
                 candidate.setParty(partyResponse);
+                candidate.setMultiMandate(Boolean.valueOf(values[4]));
+                candidate.setBiography(values[5]);
+                
                 candidateList.add(candidate);
             }
         } catch (IOException e) {

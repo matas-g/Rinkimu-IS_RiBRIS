@@ -16,7 +16,7 @@ var AddPartyContainer = React.createClass({
     handleUploadMultiCandidateFile: function( file ) {
         this.setState( { multiCandidateFile: file });
     },
-    
+
     handleSaveClick: function(e) {
         e.preventDefault();
         var self = this;
@@ -28,20 +28,20 @@ var AddPartyContainer = React.createClass({
         };
         data.append( 'name', self.state.party.name );
         data.append( 'partyNo', self.state.party.partyNo );
-        
+
         // Creating party with CSV candidate list
         if (self.state.multiCandidateFile) {
         	data.append( 'file', self.state.multiCandidateFile );
-        	
+
         	axios.post('http://localhost:8090/parties/csv/', data, config).then(function (response) {
             	console.log("Party and CSV added.");
             	self.context.router.push('/parties/');
             }).catch( function( error ) {
             	console.error( error );
             });
-        	
+
         } else {
-        	// Creating party without CSV candidate list        	
+        	// Creating party without CSV candidate list
         	axios.post('http://localhost:8090/parties/', data, config).then(function (response) {
             	console.log("Party added (no CSV).");
             	self.context.router.push('/parties/');
@@ -50,7 +50,7 @@ var AddPartyContainer = React.createClass({
             });
         }
     },
-    
+
 //    Original code (before CSV import):
 //    handleSaveClick: function(e) {
 //      e.preventDefault();
@@ -80,7 +80,7 @@ var AddPartyContainer = React.createClass({
         return (
             <AddParty
                 party={this.state.party}
-            	onUploadMultiCandidateFile={this.handleUploadMultiCandidateFile}
+            	  onUploadMultiCandidateFile={this.handleUploadMultiCandidateFile}
                 onSaveClick={this.handleSaveClick}
                 onCancelClick={this.handleCancelClick}
                 onFieldChange={this.handleFieldChange}

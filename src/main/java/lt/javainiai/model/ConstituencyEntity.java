@@ -34,7 +34,7 @@ public class ConstituencyEntity {
 
     // Bidirectional OneToMany
     @OneToMany(mappedBy = "constituency", cascade=CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference(value = "candidate-constituency")
     private List<CandidateEntity> candidates;
 
     // Constructor
