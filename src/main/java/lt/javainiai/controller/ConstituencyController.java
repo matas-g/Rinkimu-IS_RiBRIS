@@ -6,13 +6,13 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.service.ConstituencyService;
@@ -28,12 +28,20 @@ public class ConstituencyController {
     public ConstituencyController(ConstituencyService constituencyService) {
         this.constituencyService = constituencyService;
     }
+    
+ // Register or update
+    @RequestMapping(value = "csv/", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public ConstituencyEntity saveOrUpdate(@RequestParam("name") String constituencyName,
+            @RequestParam("file") MultipartFile csvFile) {
+        return constituencyService.saveOrUpdate(constituencyName, csvFile);
+    }
 
-    // Register or update
-    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED )
-    public ConstituencyEntity saveOrUpdate(@Valid @RequestBody ConstituencyEntity constituency) {
-        return constituencyService.saveOrUpdate(constituency);
+    // Register or update (no CSV file)
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public ConstituencyEntity saveOrUpdate(@RequestParam("name") String constituencyName) {
+        return constituencyService.saveOrUpdate(constituencyName);
     }
 
     // Find all

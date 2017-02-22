@@ -11,12 +11,43 @@ var AddConstituencyContainer = React.createClass({
             constituencyId: 0
         }
     },
+
+    // Added for CSV import
+    handleUploadMultiCandidateFile: function( file ) {
+        this.setState( { multiCandidateFile: file });
+    },
+
     handleSaveClick: function(e) {
         e.preventDefault();
         var self = this;
-        axios.post('http://localhost:8090/constituencies/', self.state.constituency).then(function() {
-            self.context.router.push('/constituencies');
-        });
+        var data = new FormData();
+        var config = {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        };
+        data.append( 'name', self.state.constituency.name );
+
+        // Creating party with CSV candidate list
+        if (self.state.multiCandidateFile) {
+          data.append( 'file', self.state.multiCandidateFile );
+
+          axios.post('http://localhost:8090/constituencies/csv/', data, config).then(function (response) {
+              console.log("Constituency and CSV added.");
+              self.context.router.push('/constituencies/');
+            }).catch( function( error ) {
+              console.error( error );
+            });
+
+        } else {
+          // Creating party without CSV candidate list
+          axios.post('http://localhost:8090/constituencies/', data, config).then(function (response) {
+              console.log("Constituency added (no CSV).");
+              self.context.router.push('/constituencies/');
+            }).catch( function( error ) {
+              console.error( error );
+            });
+        }
     },
 
     handleFieldChange: function(fieldName) {
@@ -41,6 +72,7 @@ var AddConstituencyContainer = React.createClass({
                 onSaveClick={this.handleSaveClick}
                 onCancelClick={this.handleCancelClick}
                 onFieldChange={this.handleFieldChange}
+                onUploadMultiCandidateFile={this.handleUploadMultiCandidateFile}
             />
         );
     }
