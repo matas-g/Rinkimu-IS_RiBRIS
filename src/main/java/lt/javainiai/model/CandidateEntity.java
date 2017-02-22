@@ -27,6 +27,8 @@ public class CandidateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    private Long personsId;
 
     @NotNull
     @Length(min = 1, max = 40)
@@ -50,6 +52,11 @@ public class CandidateEntity {
         return party == null ? null : party.getName();
     }
     
+    @JsonProperty
+    public Long getConstituencyId() {
+        return constituency == null ? null : constituency.getId();
+    }
+    
     @OneToOne(mappedBy = "candidate", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "candidate-resultsRating")
     private CandidatesResultsRatingEntity candidatesResultsRating;
@@ -58,14 +65,12 @@ public class CandidateEntity {
     @JsonManagedReference(value = "candidate-resultsSingleMandate")
     private CandidatesResultsSingleMandateEntity candidatesResultsSingleMandate;
     
-    private Boolean singleMandate;
-    
     private Boolean multiMandate;
 
     private String biography;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "candidate-constituency")
     @JoinColumn(name = "Constituency_Id")
     private ConstituencyEntity constituency;
 
@@ -82,7 +87,15 @@ public class CandidateEntity {
         this.id = id;
     }
 
-    public String getName() {
+    public Long getPersonsId() {
+		return personsId;
+	}
+
+	public void setPersonsId(Long personsId) {
+		this.personsId = personsId;
+	}
+
+	public String getName() {
         return name;
     }
 
@@ -146,14 +159,6 @@ public class CandidateEntity {
 		this.multiMandate = multiMandate;
 	}
 
-	public Boolean getSingleMandate() {
-		return singleMandate;
-	}
-
-	public void setSingleMandate(Boolean singleMandate) {
-		this.singleMandate = singleMandate;
-	}
-
 	public ConstituencyEntity getConstituency() {
         return constituency;
     }
@@ -161,8 +166,25 @@ public class CandidateEntity {
     public void setConstituency(ConstituencyEntity constituency) {
         this.constituency = constituency;
     }
-
+    
     @Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CandidateEntity other = (CandidateEntity) obj;
+		if (personsId == null) {
+			if (other.personsId != null)
+				return false;
+		} else if (!personsId.equals(other.personsId))
+			return false;
+		return true;
+	}
+
+	@Override
     public String toString() {
         return "CandidateEntity [id=" + id + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate
                 + ", party=" + party + ", biography=" + biography + ", constituency=" + constituency + "]";
