@@ -32,16 +32,16 @@ public class ConstituencyController {
  // Register or update
     @RequestMapping(value = "csv/", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public ConstituencyEntity saveOrUpdate(@RequestParam("name") String constituencyName,
+    public ConstituencyEntity saveOrUpdate(@RequestParam(value="id", required=false) Long id, @RequestParam("name") String constituencyName,
             @RequestParam("file") MultipartFile csvFile) {
-        return constituencyService.saveOrUpdate(constituencyName, csvFile);
+        return constituencyService.saveOrUpdate(id, constituencyName, csvFile);
     }
 
     // Register or update (no CSV file)
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public ConstituencyEntity saveOrUpdate(@RequestParam("name") String constituencyName) {
-        return constituencyService.saveOrUpdate(constituencyName);
+    public ConstituencyEntity saveOrUpdate(@RequestParam("id") Long id, @RequestParam("name") String constituencyName) {
+        return constituencyService.saveOrUpdate(id, constituencyName);
     }
 
     // Find all

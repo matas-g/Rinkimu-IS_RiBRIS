@@ -47,6 +47,13 @@ var ConstituenciesListContainer = React.createClass({
     };
   },
 
+  handleCandidatesList: function(constituency) {
+    var self = this;
+    return function() {
+      self.context.router.push('/candidates/list/' + constituency.id);
+    };
+  },
+
   render: function() {
     return (
       <ConstituenciesListPresentation
@@ -54,6 +61,7 @@ var ConstituenciesListContainer = React.createClass({
         onEditItem={this.handleConstituencyEdit}
         onRemoveItem={this.handleConstituencyRemove}
         onDistrictsListClick={this.handleDistrictsList}
+        onCandidatesListClick={this.handleCandidatesList}
       />
     );
   }

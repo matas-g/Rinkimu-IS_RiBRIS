@@ -12,6 +12,7 @@ const AddDistrict = require('../containers/add-district-container');
 const AddParty = require('../containers/add-party-container');
 const AddRepresentative = require('../containers/add-representative-container');
 const AddCandidate = require('../containers/add-candidate-container');
+const AddSingleMandateResults = require('../containers/add-single-mandate-results-container');
 
 const ConstituenciesList = require('../containers/lists/constituencies-list-container');
 const DistrictsList = require('../containers/lists/districts-list-container');
@@ -25,6 +26,7 @@ const routes = (
       <IndexRoute component={ConstituenciesList} />
       <Route path="/constituencies" component={ConstituenciesList} />
         <Route path="/constituencies/add" component={AddConstituency} />
+        <Route path="/constituencies/edit/:constituencyId" component={AddConstituency} />
 
       <Route path="/districts" component={DistrictsList} />
         <Route path="/districts/list/:constituencyId" component={DistrictsList} />
@@ -41,9 +43,10 @@ const routes = (
 
       <Route path="/candidates" component={CandidatesList} />
         <Route path="/candidates/add" component={AddCandidate} />
+        <Route path="candidates/list/:constituencyId" component={CandidatesList} />
         <Route path="/candidates/add-list" component={AddConstituency} />
 
-      <Route path="/results" component={NavListContainer} />
+      <Route path="/results" component={AddSingleMandateResults} />
         <Route path="/results/add-list" component={AddConstituency} />
         <Route path="/results/edit" component={AddConstituency} />
         <Route path="/results/delete" component={AddConstituency} />

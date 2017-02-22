@@ -51,6 +51,11 @@ public class PollingDistrictEntity {
     private String getConstituencyName() {
         return constituency == null ? null : constituency.getName();
     }
+    
+    @JsonProperty
+    private Long getConstituencyId() {
+        return constituency == null ? null : constituency.getId();
+    }
 
     // Bidirectional OneToOne
     @OneToOne(mappedBy = "pollingDistrict", cascade=CascadeType.ALL)

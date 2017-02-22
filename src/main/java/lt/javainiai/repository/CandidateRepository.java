@@ -19,22 +19,26 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
     @Transactional
     @Override
     public CandidateEntity saveOrUpdate(CandidateEntity candidate) {
+    	
     	List<CandidateEntity> candidates = findAll();
     	boolean candidateExists = false;
+    	CandidateEntity newCandidate = new CandidateEntity();
+    	
     	for (CandidateEntity candidateInList : candidates) {
 	        if (candidateInList.equals(candidate)) {
 	            candidateExists = true;
+	            newCandidate = candidateInList;
+	            if (candidate.getParty() != null) {
+	            	newCandidate.setParty(candidate.getParty());
+	            }
 	        }
     	}
-    	System.out.println("exists: " + candidateExists);
     	if (!candidateExists) {
             em.persist(candidate);
-            System.out.println("persisted");
             return candidate;
         } else {
-            CandidateEntity merged = em.merge(candidate);
+            CandidateEntity merged = em.merge(newCandidate);
             em.persist(merged);
-            System.out.println("merged");
             return merged;
         }
     }
@@ -47,8 +51,8 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
     
     @SuppressWarnings("unchecked")
     public List<CandidateEntity> findAllFromConstituency(Long id) {
-        return em.createQuery("SELECT c FROM CandidateEntity c WHERE c.Constituency_Id LIKE :id")
-    		    .setParameter("id", id)
+        return em.createNativeQuery("SELECT * FROM CANDIDATES c WHERE c.constituency_id = ?", CandidateEntity.class)
+        		.setParameter(1, id)
     		    .getResultList();
     }
 
