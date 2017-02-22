@@ -6,15 +6,28 @@ var AddConstituencyContainer = React.createClass({
     getInitialState: function() {
         return {
             constituency: {
-                name: ''
+              id: '',
+              name: ''
             },
             constituencyId: 0
         }
     },
 
+    componentDidMount: function() {
+      var self = this;
+      var constituencyId = this.props.params.constituencyId;
+      axios.get('http://localhost:8090/constituencies/' + constituencyId).then(function (response) {
+        self.setState({
+          constituency: response.data
+        });
+      });
+    },
+
     // Added for CSV import
     handleUploadMultiCandidateFile: function( file ) {
-        this.setState( { multiCandidateFile: file });
+      this.setState({
+        multiCandidateFile: file
+      });
     },
 
     handleSaveClick: function(e) {
@@ -26,6 +39,7 @@ var AddConstituencyContainer = React.createClass({
             'Content-Type': 'multipart/form-data'
           }
         };
+        data.append( 'id', self.state.constituency.id );
         data.append( 'name', self.state.constituency.name );
 
         // Creating party with CSV candidate list
@@ -38,6 +52,7 @@ var AddConstituencyContainer = React.createClass({
             });
 
         } else {
+          console.log(data);
           // Creating party without CSV candidate list
           axios.post('http://localhost:8090/constituencies/', data, config).then(function (response) {
               self.context.router.push('/constituencies/');

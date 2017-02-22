@@ -34,9 +34,10 @@ public class ConstituencyService {
     // Path to store multi-candidate CSV files
     private final Path csvMultiLocation = Paths.get("csv-multi-files");
     
-    public ConstituencyEntity saveOrUpdate(String constituencyName, MultipartFile csvFile) {
+    public ConstituencyEntity saveOrUpdate(Long id, String constituencyName, MultipartFile csvFile) {
 
     	ConstituencyEntity constituency = new ConstituencyEntity();
+    	constituency.setId(id);
         constituency.setName(constituencyName);
         // save party to Database and get response from repository;
         ConstituencyEntity constituencyResponse = constituencyRepository.saveOrUpdate(constituency);
@@ -81,9 +82,10 @@ public class ConstituencyService {
         return constituencyResponse;
     }
 
-    public ConstituencyEntity saveOrUpdate(String constituencyName) {
+    public ConstituencyEntity saveOrUpdate(Long id, String constituencyName) {
 
         ConstituencyEntity constituency = new ConstituencyEntity();
+        constituency.setId(id);
         constituency.setName(constituencyName);
         // save party to Database and get response from repository;
         return constituencyRepository.saveOrUpdate(constituency);

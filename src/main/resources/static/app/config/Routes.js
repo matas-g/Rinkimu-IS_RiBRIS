@@ -26,6 +26,7 @@ const routes = (
       <IndexRoute component={ConstituenciesList} />
       <Route path="/constituencies" component={ConstituenciesList} />
         <Route path="/constituencies/add" component={AddConstituency} />
+        <Route path="/constituencies/edit/:constituencyId" component={AddConstituency} />
 
       <Route path="/districts" component={DistrictsList} />
         <Route path="/districts/list/:constituencyId" component={DistrictsList} />
