@@ -55,6 +55,13 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
         		.setParameter(1, id)
     		    .getResultList();
     }
+    
+    @SuppressWarnings("unchecked")
+    public List<CandidateEntity> findAllFromParty(Long id) {
+        return em.createNativeQuery("SELECT * FROM CANDIDATES c WHERE c.party_id = ?", CandidateEntity.class)
+        		.setParameter(1, id)
+    		    .getResultList();
+    }
 
     @Override
     public CandidateEntity findById(Long id) {

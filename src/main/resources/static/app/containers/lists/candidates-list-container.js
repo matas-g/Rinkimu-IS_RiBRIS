@@ -11,15 +11,22 @@ var PartiesListContainer = React.createClass({
 
   componentWillMount: function() {
     var self = this;
-    if (self.props.params.constituencyId == undefined) {
+    if (self.props.location.pathname == "/candidates") {
       axios.get('http://localhost:8090/candidates/')
       .then(function (response) {
         self.setState({
             candidates: response.data,
         });
       });
-    } else {
+    } else if (self.props.location.pathname.includes("constituency")) {
       axios.get('http://localhost:8090/candidates/by-constituency/' + self.props.params.constituencyId)
+      .then(function (response) {
+        self.setState({
+            candidates: response.data,
+        });
+      });
+    } else {
+      axios.get('http://localhost:8090/candidates/by-party/' + self.props.params.partyId)
       .then(function (response) {
         self.setState({
             candidates: response.data,

@@ -43,7 +43,7 @@ var PartiesListContainer = React.createClass({
   handleCandidatesListClick: function(party) {
     var self = this;
     return function() {
-      self.context.router.push('/candidates/list/' + party.id);
+      self.context.router.push('/candidates/party/' + party.id);
     };
   },
 

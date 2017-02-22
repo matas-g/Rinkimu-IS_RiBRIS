@@ -15,12 +15,13 @@ var AddConstituencyContainer = React.createClass({
 
     componentDidMount: function() {
       var self = this;
-      var constituencyId = this.props.params.constituencyId;
-      axios.get('http://localhost:8090/constituencies/' + constituencyId).then(function (response) {
-        self.setState({
-          constituency: response.data
+      if (this.props.params.constituencyId != undefined) {
+        axios.get('http://localhost:8090/constituencies/').then(function (response) {
+          self.setState({
+            constituency: response.data
+          });
         });
-      });
+      }
     },
 
     // Added for CSV import
