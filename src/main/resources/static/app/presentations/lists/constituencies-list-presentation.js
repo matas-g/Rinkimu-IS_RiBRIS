@@ -16,6 +16,12 @@ var ConstituenciesListComponent = React.createClass({
             </button>
           </td>
           <td>
+            <button className="btn btn-info btn-sm" onClick={self.props.onCandidatesListClick(constituency)}>
+              <i className="fa fa-list" aria-hidden="true"></i>
+              &nbsp; Priskirti kandidatai
+            </button>
+          </td>
+          <td>
             <button className="btn btn-success btn-sm" onClick={self.props.onEditItem(constituency)}>
               <i className="fa fa-pencil" aria-hidden="true"></i>
             </button>
@@ -37,6 +43,7 @@ var ConstituenciesListComponent = React.createClass({
                 <th>Nr</th>
                 <th>Pavadinimas</th>
                 <th>Apylinkių sąrašas</th>
+                <th>Kandidatų sąrašas</th>
                 <th>Redaguoti</th>
               </tr>
             </thead>

@@ -11,12 +11,21 @@ var PartiesListContainer = React.createClass({
 
   componentWillMount: function() {
     var self = this;
-    axios.get('http://localhost:8090/candidates/')
-    .then(function (response) {
-      self.setState({
-        candidates: response.data
+    if (self.props.params.constituencyId == undefined) {
+      axios.get('http://localhost:8090/candidates/')
+      .then(function (response) {
+        self.setState({
+            candidates: response.data,
+        });
       });
-    });
+    } else {
+      axios.get('http://localhost:8090/candidates/by-constituency/' + self.props.params.constituencyId)
+      .then(function (response) {
+        self.setState({
+            candidates: response.data,
+        });
+      });
+    }
   },
 
   handleCandidateEdit: function(candidate) {
@@ -29,13 +38,22 @@ var PartiesListContainer = React.createClass({
   handleCandidateRemove: function(candidate) {
     var self = this;
     return function() {
-      axios.delete('http://localhost:8090/candidate/'+ party.id).then(function(response) {
-        axios.get('http://localhost:8090/candidate/')
-        .then(function (response) {
-          self.setState({
-            candidates: response.data
+      axios.delete('http://localhost:8090/candidates/'+ candidate.id).then(function() {
+        if (self.props.params.constituencyId == undefined) {
+          axios.get('http://localhost:8090/candidates/')
+          .then(function (response) {
+            self.setState({
+                candidates: response.data,
+            });
           });
-        });
+        } else {
+          axios.get('http://localhost:8090/candidates/by-constituency/' + self.props.params.constituencyId)
+          .then(function (response) {
+            self.setState({
+                candidates: response.data,
+            });
+          });
+        }
       });
     };
   },
