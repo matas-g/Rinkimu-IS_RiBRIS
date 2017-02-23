@@ -34,7 +34,7 @@ public class CandidatesResultsSingleMandateController {
         return candidatesResultsService.saveOrUpdate(candidatesResults);
     }
     
-    @RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<CandidatesResultsSingleMandateEntity> findAll() {
         return candidatesResultsService.findAll();

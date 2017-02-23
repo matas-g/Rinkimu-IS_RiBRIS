@@ -9,6 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "Candidate_single_mandate_results")
@@ -23,6 +24,11 @@ public class CandidatesResultsSingleMandateEntity {
     @OneToOne
     @JsonBackReference(value = "candidate-resultsSingleMandate")
     private CandidateEntity candidate;
+    
+    @JsonProperty
+    private Long getCandidateId() {
+        return candidate == null ? null : candidate.getId();
+    }
     
     public CandidatesResultsSingleMandateEntity(){
         
@@ -54,11 +60,25 @@ public class CandidatesResultsSingleMandateEntity {
     }
 
     @Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CandidatesResultsSingleMandateEntity other = (CandidatesResultsSingleMandateEntity) obj;
+		if (candidate.getId() == null) {
+			if (other.getCandidate().getId() != null)
+				return false;
+		} else if (!candidate.getId().equals(other.getCandidate().getId()))
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		return "CandidatesResultsEntity [id=" + id + ", numberOfVotes=" + numberOfVotes + "]";
 	}
-    
-    
-
     
 }
