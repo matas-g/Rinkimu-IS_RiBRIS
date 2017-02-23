@@ -10,36 +10,34 @@ var AddRepresentativeContainer = React.createClass({
       pollingDistrict: {
         id: 1
       },
-      district: {}
+      district: {},
+      districts: [],
+      route: this.props.params.districtId
     };
-  },
-
-  handleSaveClick: function(e) {
-    e.preventDefault();
-    var self = this;
-    var elementsList = {
-      name: this.state.name,
-      surname: this.state.surname,
-      pollingDistrict: {
-        id: this.state.district.id
-      }
-    };
-    axios.post('http://localhost:8090/representatives/', elementsList).then(function () {
-      self.context.router.push('/districts');
-    });
   },
 
   componentWillMount: function() {
     var self = this;
-    axios.get('http://localhost:8090/polling-districts/' + this.props.params.districtId).then(function(response) {
-      self.setState({
-        district: response.data,
+    if (this.props.params.districtId != undefined) {
+      axios.get('http://localhost:8090/polling-districts/' + this.props.params.districtId).then(function(response) {
+        self.setState({
+          district: response.data,
+        });
       });
-    });
+    } else {
+      axios.get('http://localhost:8090/polling-districts/').then(function(response) {
+        self.setState({
+          districts: response.data,
+        });
+      });
+    }
   },
 
   handleDistrictChange : function(e){
-    e.target.value = district.name
+    var districtId = e.target.value;
+    pollingDistrict: {
+      id: districtId
+    }
   },
 
   handleNameChange: function(e) {
@@ -54,19 +52,44 @@ var AddRepresentativeContainer = React.createClass({
     });
   },
 
+  handleSaveClick: function(e) {
+    e.preventDefault();
+    var self = this;
+    var elementsList = {
+      name: this.state.name,
+      surname: this.state.surname,
+      pollingDistrict: {
+        id: this.state.district.id
+      }
+    };
+    axios.post('http://localhost:8090/representatives/', elementsList).then(function () {
+      if (this.props.params.districtId != undefined) {
+        this.context.router.push('/representatives');
+      } else {
+        this.context.router.push('/districts');
+      }
+    });
+  },
+
   handleCancelClick() {
-    this.context.router.push('/districts');
+    if (this.props.params.districtId == undefined) {
+      this.context.router.push('/representatives');
+    } else {
+      this.context.router.push('/districts');
+    }
   },
 
   render: function() {
     return (
       <AddRepresentative
+        route={this.state.route}
         onNameChange={this.handleNameChange}
         name={this.state.name}
         onSurnameChange={this.handleSurnameChange}
         surname={this.state.surname}
         pollingDistrict={this.state.pollingDistrict}
         district={this.state.district}
+        districts={this.state.districts}
         onDistrictChange={this.handleDistrictChange}
         onSaveClick={this.handleSaveClick}
         onCancelClick={this.handleCancelClick}
