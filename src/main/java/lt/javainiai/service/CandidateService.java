@@ -25,6 +25,10 @@ public class CandidateService {
     public List<CandidateEntity> findAllFromConstituency(Long id) {
         return candidateRepository.findAllFromConstituency(id);
     }
+    
+    public List<CandidateEntity> findAllFromParty(Long id) {
+        return candidateRepository.findAllFromParty(id);
+    }
 
     public CandidateEntity findById(Long id) {
         return candidateRepository.findById(id);

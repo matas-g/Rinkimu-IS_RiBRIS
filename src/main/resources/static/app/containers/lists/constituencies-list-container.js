@@ -50,7 +50,7 @@ var ConstituenciesListContainer = React.createClass({
   handleCandidatesList: function(constituency) {
     var self = this;
     return function() {
-      self.context.router.push('/candidates/list/' + constituency.id);
+      self.context.router.push('/candidates/constituency/' + constituency.id);
     };
   },
 

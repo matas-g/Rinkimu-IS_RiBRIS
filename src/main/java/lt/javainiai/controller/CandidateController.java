@@ -48,6 +48,13 @@ public class CandidateController {
     public List<CandidateEntity> findByConstituencyId(@Valid @PathVariable("id") Long id) {
         return candidateService.findAllFromConstituency(id);
     }
+    
+    // Find all by constituency
+    @RequestMapping(value = "/by-party/{id}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<CandidateEntity> findByPartyId(@Valid @PathVariable("id") Long id) {
+        return candidateService.findAllFromParty(id);
+    }
 
     // Find one
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
