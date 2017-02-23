@@ -10,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import lt.javainiai.service.ConstituencyService;
 import lt.javainiai.service.PartyService;
 
 @SpringBootApplication
@@ -17,6 +18,9 @@ public class RiBRIS_Application implements CommandLineRunner {
 
     @Resource
     PartyService partyService;
+    
+    @Resource
+    ConstituencyService constituencyService;
     
 	public static void main(String[] args) {
 		SpringApplication.run(RiBRIS_Application.class, args);
@@ -40,5 +44,7 @@ public class RiBRIS_Application implements CommandLineRunner {
     public void run(String... args) throws Exception {
         partyService.deleteAll();
         partyService.init();
+        constituencyService.deleteAll();
+        constituencyService.init();
     }
 }
