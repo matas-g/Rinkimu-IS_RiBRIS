@@ -31,6 +31,9 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
 	            if (candidate.getParty() != null) {
 	            	newCandidate.setParty(candidate.getParty());
 	            }
+	            if (candidate.getConstituency() != null) {
+	            	newCandidate.setParty(candidate.getParty());
+	            }
 	        }
     	}
     	if (!candidateExists) {
