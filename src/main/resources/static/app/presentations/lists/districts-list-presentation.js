@@ -1,5 +1,5 @@
 const React = require('react');
-const Button = require('../add-representative-button-presentation');
+const Button = require('../add-button-presentation');
 
 var DistrictListComponent = React.createClass({
   render: function() {

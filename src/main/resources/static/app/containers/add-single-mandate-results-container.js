@@ -11,7 +11,8 @@ var AddSingleMandateResults = React.createClass({
       constituencyId: 1,
       districts: [],
       candidatesList: [],
-      voteCount: []
+      voteCount: [],
+      votesEntered: false
     };
   },
 
