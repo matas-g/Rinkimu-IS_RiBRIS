@@ -16,7 +16,7 @@ var AddConstituencyContainer = React.createClass({
     componentDidMount: function() {
       var self = this;
       if (this.props.params.constituencyId != undefined) {
-        axios.get('http://localhost:8090/constituencies/').then(function (response) {
+        axios.get('http://localhost:8090/constituencies/' + this.props.params.constituencyId).then(function (response) {
           self.setState({
             constituency: response.data
           });
