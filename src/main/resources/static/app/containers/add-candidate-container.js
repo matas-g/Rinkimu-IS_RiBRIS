@@ -20,7 +20,7 @@ var AddCandidateContainer = React.createClass({
     var self = this;
     axios.get('http://localhost:8090/parties/').then(function(response) {
       self.setState({
-        parties: response.data,
+        parties: response.data
       });
     });
   },

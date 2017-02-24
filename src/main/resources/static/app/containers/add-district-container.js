@@ -10,7 +10,7 @@ var AddDistrictContainer = React.createClass({
       numOfVoters: '',
       constituencies: [],
       constituency: {
-        id: 1,
+        id: 1
       }
     };
   },
@@ -19,7 +19,10 @@ var AddDistrictContainer = React.createClass({
     var self = this;
     axios.get('http://localhost:8090/constituencies/').then(function(response) {
       self.setState({
-        constituencies: response.data
+        constituencies: response.data,
+        constituency: {
+          id: response.data[0].id
+        }
       });
     });
   },
