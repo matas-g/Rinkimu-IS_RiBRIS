@@ -1,4 +1,5 @@
 const React = require('react');
+const TextValidator = require('../util/validation/text-validator-container');
 
 var AddCandidatePresentation = React.createClass({
   render: function() {
@@ -10,18 +11,20 @@ var AddCandidatePresentation = React.createClass({
   });
 
   return (
-    <form>
+    <form autoComplete="off">
       <h4>Registruoti naują kandidatą</h4>
       <br />
       <div className="form-group">
         <label>Vardas</label>
-        <input className="form-control" type="text" required value={this.props.name} onChange={this.props.onNameChange} />
-        <br />
+        <TextValidator>
+          <input className="form-control" type="text" required value={this.props.name} onChange={this.props.onNameChange} />
+        </TextValidator>
       </div>
       <div className="form-group">
         <label>Pavardė</label>
-        <input className="form-control" type="text" required value={this.props.surname} onChange={this.props.onSurnameChange} />
-        <br />
+        <TextValidator>
+          <input className="form-control" type="text" required value={this.props.surname} onChange={this.props.onSurnameChange} />
+        </TextValidator>
       </div>
       <div className="form-group">
         <label>Gimimo data</label>

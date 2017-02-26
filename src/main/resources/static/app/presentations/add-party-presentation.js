@@ -1,4 +1,6 @@
 const React = require('react');
+const TextValidator = require('../util/validation/text-validator-container');
+const NumberValidator = require('../util/validation/number-validator-container');
 
 var AddPartyPresentation = React.createClass({
 
@@ -11,20 +13,22 @@ var AddPartyPresentation = React.createClass({
     return (
       <div className="container-fluid">
         <div className="col-sm-offset-1 col-sm-10">
-          <form>
+          <form autoComplete="off">
             <h4>Registruoti naują partiją</h4>
             <br />
             <div className="form-group">
-                <label>Pavadinimas</label>
+              <label>Pavadinimas</label>
+              <TextValidator>
                 <input id="pavadinimas" className="form-control" type="text" value={this.props.party.name}
-                   onChange={this.props.onFieldChange('name')} />
-                <br />
+                  onChange={this.props.onFieldChange('name')} />
+              </TextValidator>
             </div>
             <div className="form-group">
-                <label>Partijos numeris</label>
+              <label>Partijos numeris</label>
+              <NumberValidator>
                 <input id="adresas" className="form-control" type="number" value={this.props.party.partyNo}
                   onChange={this.props.onFieldChange('partyNo')} />
-                <br />
+              </NumberValidator>
             </div>
             <div className="form-group">
             	<label>Prisegti partijos kandidatų sąrašą <span className="bg-danger">CSV</span> formatu:</label>
@@ -38,12 +42,5 @@ var AddPartyPresentation = React.createClass({
     );
   }
 });
-
-// AddPartyPresentation.contextTypes = {
-// party: React.PropTypes.object.isRequired,
-// onFieldChange: React.PropTypes.func.isRequired,
-// onSaveClick: React.PropTypes.func.isRequired,
-// onCancelClick: React.PropTypes.func.isRequired
-// };
 
 module.exports = AddPartyPresentation;
