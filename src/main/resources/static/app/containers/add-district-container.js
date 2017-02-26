@@ -78,14 +78,16 @@ var AddDistrictContainer = React.createClass({
     return (
       <AddDistrictComponent
         onVotersChange={this.handleVotersChange}
+        numOfVoters={this.state.numOfVoters}
         onAddressChange={this.handleAddressChange}
+        address={this.state.address}
         onNameChange={this.handleNameChange}
+        name={this.state.name}
         onConstituencyChange={this.handleConstituencyChange}
         constituency={this.state.constituency}
         constituencies={this.state.constituencies}
         onSaveClick={this.handleSaveClick}
         onCancelClick={this.handleCancelClick}
-        district={this.state.district}
       />
     );
   }
