@@ -11,8 +11,7 @@ var AddRepresentativeContainer = React.createClass({
         id: 1
       },
       district: {},
-      districts: [],
-      route: this.props.params.districtId
+      districts: []
     };
   },
 
