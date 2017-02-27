@@ -1,7 +1,7 @@
-var React = require('react');
+const React = require('react');
+const TextValidator = require('../util/validation/text-validator-container');
 
-var AddConstituencies = React.createClass({
-
+const AddConstituencies = React.createClass({
   // Added for CSV import
   onUploadMultiCandidateFile: function() {
     this.props.onUploadMultiCandidateFile( this.refs.file.files[0] );
@@ -11,13 +11,14 @@ var AddConstituencies = React.createClass({
     return (
       <div className="container-fluid">
         <div className="col-sm-offset-1 col-sm-10">
-          <form>
+          <form autoComplete="off">
             <h4>Registruoti naują apygardą</h4><br />
             <div className="form-group">
               <label>Pavadinimas</label>
-              <input id="pavadinimas" className="form-control" type="text" value={this.props.constituency.name}
-                onChange={this.props.onFieldChange('name')} />
-              <br />
+              <TextValidator>
+                <input id="pavadinimas" className="form-control" type="text" value={this.props.constituency.name}
+                  onChange={this.props.onFieldChange('name')} />
+              </TextValidator>
             </div>
             <div className="form-group">
             	<label>Prisegti apygardos kandidatų sąrašą <span className="bg-danger">CSV</span> formatu:</label>

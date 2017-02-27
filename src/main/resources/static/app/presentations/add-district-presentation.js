@@ -1,4 +1,6 @@
 const React = require('react');
+const TextValidator = require('../util/validation/text-validator-container');
+const NumberValidator = require('../util/validation/number-validator-container');
 
 var AddDistrictPresentation = React.createClass({
   render: function() {
@@ -11,28 +13,29 @@ var AddDistrictPresentation = React.createClass({
     return (
       <div className="container-fluid">
         <div className="col-sm-offset-1 col-sm-10">
-          <form>
+          <form autoComplete="off">
             <h4>Registruoti naują apylinkę</h4>
             <br />
             <div className="form-group">
-                <label>Pavadinimas</label>
+              <label>Pavadinimas</label>
+              <TextValidator>
                 <input id="pavadinimas" className="form-control" type="text" value={this.props.name}
                   onChange={this.props.onNameChange} />
-                <br />
+              </TextValidator>
             </div>
             <div className="form-group">
-                <label>Adresas</label>
-                <input id="adresas" className="form-control" type="text" value={this.props.address}
-                  onChange={this.props.onAddressChange} />
-                <br />
+              <label>Adresas</label>
+              <input id="adresas" className="form-control" type="text" value={this.props.address}
+                onChange={this.props.onAddressChange} />
             </div>
             <div className="form-group">
               <label>Balsuotojų skaičius</label>
-              <input id="skaicius" className="form-control" type="number" value={this.props.numOfVoters}
-                onChange={this.props.onVotersChange} />
-              <br />
+              <NumberValidator>
+                <input id="skaicius" className="form-control" type="number" value={this.props.numOfVoters}
+                  onChange={this.props.onVotersChange} />
+              </NumberValidator>
             </div>
-              <div className="form-group">
+            <div className="form-group">
               <label>Priskirti apylinkę apygardai</label>
               <select className="form-control" value={this.props.constituency.id}
                 onChange={this.props.onConstituencyChange}>
@@ -47,21 +50,5 @@ var AddDistrictPresentation = React.createClass({
     );
   }
 });
-
-/*AddDistrictPresentation.contextTypes = {
-    constituency: React.PropTypes.object.isRequired,
-    constituencies: React.PropTypes.object.isRequired,
-
-    onConstituencyChange: React.PropTypes.func.isRequired,
-    onNameChange: React.PropTypes.func.isRequired,
-    onAddressChange: React.PropTypes.func.isRequired,
-    onVotersChange: React.PropTypes.func.isRequired,
-    onSaveClick: React.PropTypes.func.isRequired,
-    onCancelClick: React.PropTypes.func.isRequired,
-
-    numOfVoters: React.PropTypes.number.isRequired,
-    name: React.PropTypes.string.isRequired,
-    address: React.PropTypes.string.isRequired
-};*/
 
 module.exports = AddDistrictPresentation;

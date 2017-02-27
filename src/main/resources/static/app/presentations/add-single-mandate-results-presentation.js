@@ -1,37 +1,51 @@
 const React = require('react');
+const NumberValidator = require('../util/validation/number-validator-container');
 
 var SingleMandateResultsInputPresentation = React.createClass({
   render: function() {
   var self = this;
-  var InputsList = this.props.candidatesList.map(function(candidate, index) {
+  var CandidateRows = this.props.candidatesList.map(function(candidate, index) {
     return (
       <div className="form-group col-sm-6" key={index}>
         <label>{candidate.name.replace(/'/g,"") + " " + candidate.surname.replace(/'/g,"")}</label>
-        <input className="form-control" type="number" value={self.props.voteCount[index]}
-          onChange={self.props.onResultsChange(index)} />
-        <br />
+        <NumberValidator>
+          <input className="form-control" type="number" value={self.props.voteCount[index]}
+            onChange={self.props.onResultsChange(index)} />
+        </NumberValidator>
+      </div>
+    );
+  }).reduce(function(r, element, index) {
+    index % 2 === 0 && r.push([]);
+    r[r.length - 1].push(element);
+    return r;
+  }, []).map(function(rowContent, index) {
+    return (
+      <div key={index} className="row">
+        {rowContent}
       </div>
     );
   });
-  var DistrictsList = this.props.districts.map(function(district, index) {
-      return (
-          <option key={index} value={district.id}>{district.name}</option>
-      );
-  });
 
+  var DistrictsList = this.props.districts.map(function(district, index) {
+    return (
+      <option key={index} value={district.id}>{district.name}</option>
+    );
+  });
   return (
-    <form>
+    <form className="col-sm-offset-1 col-sm-10 container-fluid" autoComplete="off">
       <h4>Pasirinkite apylinkę</h4>
       <br />
       <select className="form-control" value={this.props.district.id} onChange={this.props.onDistrictChange}>
-          {DistrictsList}
+        {DistrictsList}
       </select>
       <br />
-      <div className="row">
-        {InputsList}
+      <div>
+        {CandidateRows}
       </div>
-      <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onSaveClick}>Registruoti</button>
-      <button className="btn btn-danger btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onCancelClick}>Atšaukti</button>
+      <div>
+        <button className="btn btn-success btn-sm" style={{ marginRight: '20px'}} onClick={this.props.onSaveClick}>Registruoti</button>
+        <button className="btn btn-danger btn-sm" onClick={this.props.onCancelClick}>Atšaukti</button>
+      </div>
     </form>
     );
   }
