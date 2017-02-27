@@ -67,8 +67,8 @@ public class PartyService {
                 candidate.setSurname(values[2]);
                 candidate.setBirthDate(formatDate(values[3]));
                 candidate.setParty(partyResponse);
-                candidate.setMultiMandate(Boolean.valueOf(values[4]));
-                candidate.setBiography(values[5]);
+                candidate.setMultiMandate(Boolean.valueOf(values[5]));
+                candidate.setBiography(values[6]);
                 
                 candidateList.add(candidate);
             }
