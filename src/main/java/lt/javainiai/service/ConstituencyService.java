@@ -74,7 +74,11 @@ public class ConstituencyService {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+        	deleteAll();
         }
+        
+        
 
         for (CandidateEntity candidate : candidateList) {
             candidateService.saveOrUpdate(candidate);

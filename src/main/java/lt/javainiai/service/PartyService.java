@@ -74,6 +74,8 @@ public class PartyService {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+        	deleteAll();
         }
 
         for (CandidateEntity candidate : candidateList) {
