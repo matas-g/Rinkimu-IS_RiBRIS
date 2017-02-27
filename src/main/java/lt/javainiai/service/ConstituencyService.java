@@ -67,14 +67,18 @@ public class ConstituencyService {
                 candidate.setSurname(values[2]);
                 candidate.setBirthDate(formatDate(values[3]));
                 candidate.setConstituency(constituencyResponse);
-                candidate.setMultiMandate(Boolean.valueOf(values[5]));
-                candidate.setBiography(values[6]);
+                candidate.setMultiMandate(Boolean.valueOf(values[4]));
+                candidate.setBiography(values[5]);
                 
                 candidateList.add(candidate);
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+        	deleteAll();
         }
+        
+        
 
         for (CandidateEntity candidate : candidateList) {
             candidateService.saveOrUpdate(candidate);
