@@ -1,5 +1,7 @@
 package lt.javainiai.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -27,7 +30,7 @@ public class PollingDistrictEntity {
     private Long id;
 
     @NotNull
-    @Length(min = 1, max = 100)
+    @Length(min = 4, max = 100)
     @Column(name = "Polling_District_Name")
     private String name;
 
@@ -47,7 +50,15 @@ public class PollingDistrictEntity {
     @JoinColumn(name = "Constituency_Id")
     private ConstituencyEntity constituency;
     
-    @JsonProperty
+    @OneToMany(mappedBy = "district", cascade=CascadeType.ALL)
+    @JsonManagedReference(value = "district-singleMandateResults")
+    private List<CandidatesResultsSingleMandateEntity> singleMandateResult;
+    
+    @OneToMany(mappedBy = "district", cascade=CascadeType.ALL)
+    @JsonManagedReference(value = "district-ratingResults")
+    private List<CandidatesResultsRatingEntity> ratingResult;
+
+	@JsonProperty
     private String getConstituencyName() {
         return constituency == null ? null : constituency.getName();
     }
@@ -68,46 +79,38 @@ public class PollingDistrictEntity {
 
     // Getters and Setters
     public Long getId() {
-        return id;
-    }
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-    public Long getNumOfVoters() {
-        return numOfVoters;
-    }
+	public Long getNumOfVoters() {
+		return numOfVoters;
+	}
 
-    public void setNumOfVoters(Long numOfVoters) {
-        this.numOfVoters = numOfVoters;
-    }
+	public void setNumOfVoters(Long numOfVoters) {
+		this.numOfVoters = numOfVoters;
+	}
 
-    public ConstituencyEntity getConstituency() {
-        return constituency;
-    }
-
-    public void setConstituency(ConstituencyEntity constituency) {
-        this.constituency = constituency;
-    }
-
-    public Long getSpoiledBallots() {
+	public Long getSpoiledBallots() {
 		return spoiledBallots;
 	}
 
@@ -115,15 +118,39 @@ public class PollingDistrictEntity {
 		this.spoiledBallots = spoiledBallots;
 	}
 
+	public ConstituencyEntity getConstituency() {
+		return constituency;
+	}
+
+	public void setConstituency(ConstituencyEntity constituency) {
+		this.constituency = constituency;
+	}
+
+	public List<CandidatesResultsSingleMandateEntity> getSingleMandateResult() {
+		return singleMandateResult;
+	}
+
+	public void setSingleMandateResult(List<CandidatesResultsSingleMandateEntity> singleMandateResult) {
+		this.singleMandateResult = singleMandateResult;
+	}
+
+	public List<CandidatesResultsRatingEntity> getRatingResult() {
+		return ratingResult;
+	}
+
+	public void setRatingResult(List<CandidatesResultsRatingEntity> ratingResult) {
+		this.ratingResult = ratingResult;
+	}
+
 	public RepresentativeEntity getRepresentative() {
-        return representative;
-    }
+		return representative;
+	}
 
-    public void setRepresentative(RepresentativeEntity representative) {
-        this.representative = representative;
-    }
+	public void setRepresentative(RepresentativeEntity representative) {
+		this.representative = representative;
+	}
 
-    @Override
+	@Override
     public String toString() {
         return "PollingDistrictEntity [id=" + id + ", name=" + name + ", address=" + address + ", numOfVoters="
                 + numOfVoters + ", constituency=" + constituency + ", representative=" + representative + "]";

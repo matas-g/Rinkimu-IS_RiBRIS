@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import lt.javainiai.exceptions.FileAlreadyExists;
 import lt.javainiai.model.CandidateEntity;
 import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.repository.ConstituencyRepository;
@@ -48,8 +49,9 @@ public class ConstituencyService {
         // Copy CSV file to project file system
         try {
             Files.copy(csvFile.getInputStream(), filePath);
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
+            throw new FileAlreadyExists("File exists");
         }
 
         // to store one line from file
@@ -74,15 +76,12 @@ public class ConstituencyService {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-        	deleteAll();
-        }
-        
-        
+        } 
 
         for (CandidateEntity candidate : candidateList) {
             candidateService.saveOrUpdate(candidate);
         }
+        
         return constituencyResponse;
     }
 

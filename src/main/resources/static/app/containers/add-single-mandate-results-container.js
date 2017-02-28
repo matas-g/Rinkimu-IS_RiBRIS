@@ -6,7 +6,7 @@ var AddSingleMandateResults = React.createClass({
   getInitialState: function() {
     return {
       district: {
-        id: 10
+        id: 1
       },
       constituencyId: 1,
       districts: [],
@@ -75,6 +75,9 @@ var AddSingleMandateResults = React.createClass({
     var voteCount = this.state.voteCount;
     for (var i = 0; i < candidatesList.length; i++) {
       var data = {
+        district: {
+          id: this.state.district.id
+        },
         numberOfVotes: voteCount[i],
         candidate: {
           id: candidatesList[i].id

@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import lt.javainiai.exceptions.FileAlreadyExists;
 import lt.javainiai.model.CandidateEntity;
 import lt.javainiai.model.PartyEntity;
 import lt.javainiai.repository.PartyRepository;
@@ -32,6 +33,8 @@ public class PartyService {
 
     // Path to store multi-candidate CSV files
     private final Path csvMultiLocation = Paths.get("csv-multi-files");
+    
+
 
     // Save or update party (with CSV candidate list)
     public PartyEntity saveOrUpdate(String partyName, Long partyNo, MultipartFile csvFile) {
@@ -40,16 +43,17 @@ public class PartyService {
         party.setName(partyName);
         party.setPartyNo(partyNo);
         // save party to Database and get response from repository;
-        PartyEntity partyResponse = partyRepository.saveOrUpdate(party);
+        PartyEntity partyResponse = null;
 
         List<CandidateEntity> candidateList = new ArrayList<>();
 
-        Path filePath = this.csvMultiLocation.resolve(csvFile.getOriginalFilename());
+        Path filePath = csvMultiLocation.resolve(csvFile.getOriginalFilename());
         // Copy CSV file to project file system
         try {
             Files.copy(csvFile.getInputStream(), filePath);
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
+            throw new FileAlreadyExists("File exists");
         }
 
         // to store one line from file
@@ -60,6 +64,7 @@ public class PartyService {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath.toString()))) {
             while ((data = bufferedReader.readLine()) != null) {
                 values = data.split(",", -1);
+                partyResponse = partyRepository.saveOrUpdate(party);
 
                 CandidateEntity candidate = new CandidateEntity();
                 candidate.setPersonsId(Long.valueOf(values[0]));
@@ -74,13 +79,12 @@ public class PartyService {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-        	deleteAll();
         }
 
         for (CandidateEntity candidate : candidateList) {
             candidateService.saveOrUpdate(candidate);
         }
+
         return partyResponse;
     }
     

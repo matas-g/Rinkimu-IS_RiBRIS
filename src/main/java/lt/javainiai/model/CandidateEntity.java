@@ -58,11 +58,11 @@ public class CandidateEntity {
     }
     
     @OneToOne(mappedBy = "candidate", cascade=CascadeType.ALL)
-    @JsonManagedReference(value = "candidate-resultsRating")
+    @JsonManagedReference(value = "candidate-ratingResults")
     private CandidatesResultsRatingEntity candidatesResultsRating;
     
     @OneToOne(mappedBy = "candidate", cascade=CascadeType.ALL)
-    @JsonManagedReference(value = "candidate-resultsSingleMandate")
+    @JsonManagedReference(value = "candidate-singleMandateResults")
     private CandidatesResultsSingleMandateEntity candidatesResultsSingleMandate;
     
     private Boolean multiMandate;

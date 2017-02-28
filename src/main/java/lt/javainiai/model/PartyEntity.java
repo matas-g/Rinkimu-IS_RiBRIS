@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
@@ -34,9 +33,9 @@ public class PartyEntity {
     @JsonManagedReference(value = "candidate-party")
     private List<CandidateEntity> candidates;
     
-    @OneToOne(mappedBy = "party", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "party", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "party-results")
-    private PartyResultsEntity partyResults;
+    private List<PartyResultsEntity> partyResults;
 
     // Controller
     public PartyEntity() {
@@ -75,7 +74,7 @@ public class PartyEntity {
         this.candidates = candidates;
     }
 
-    @Override
+	@Override
     public String toString() {
         return "PartyEntity [id=" + id + ", name=" + name + ", partyNo=" + partyNo + ", candidates=" + candidates + "]";
     }

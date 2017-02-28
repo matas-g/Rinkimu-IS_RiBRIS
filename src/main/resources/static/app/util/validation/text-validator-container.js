@@ -17,7 +17,6 @@ var ValidatorContainer = React.createClass({
       var input = newProps.children.props.value;
       const self = this;
       var newState = this.state.errorStates;
-      console.log(input);
       if (input != null && input != '' && input != undefined) {
         if (!exp.test(input)) {
           var newState = {
