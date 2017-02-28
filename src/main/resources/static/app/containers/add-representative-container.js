@@ -10,29 +10,20 @@ var AddRepresentativeContainer = React.createClass({
       pollingDistrict: {
         id: 1
       },
-      district: {},
-      districts: []
+      district: {}
     };
   },
 
   componentWillMount: function() {
     var self = this;
-    if (this.props.params.districtId != undefined) {
-      axios.get('http://localhost:8090/polling-districts/' + this.props.params.districtId).then(function(response) {
-        self.setState({
-          district: response.data
-        });
+    axios.get('http://localhost:8090/polling-districts/' + this.props.params.districtId).then(function(response) {
+      self.setState({
+        district: response.data,
+        pollingDistrict: {
+          id: response.data.id
+        },
       });
-    } else {
-      axios.get('http://localhost:8090/polling-districts/').then(function(response) {
-        self.setState({
-          districts: response.data,
-          pollingDistrict: {
-            id: response.data[0].id
-          }
-        });
-      });
-    }
+    });
   },
 
   handleDistrictChange : function(e){
@@ -61,24 +52,16 @@ var AddRepresentativeContainer = React.createClass({
       name: this.state.name,
       surname: this.state.surname,
       pollingDistrict: {
-        id: this.state.district.id
+        id: this.state.pollingDistrict.id
       }
     };
     axios.post('http://localhost:8090/representatives/', elementsList).then(function () {
-      if (this.props.params.districtId != undefined) {
-        this.context.router.push('/representatives');
-      } else {
-        this.context.router.push('/districts');
-      }
+      self.context.router.push('/districts');
     });
   },
 
   handleCancelClick() {
-    if (this.props.params.districtId == undefined) {
-      this.context.router.push('/representatives');
-    } else {
-      this.context.router.push('/districts');
-    }
+    this.context.router.push('/districts');
   },
 
   render: function() {
@@ -91,10 +74,10 @@ var AddRepresentativeContainer = React.createClass({
         surname={this.state.surname}
         pollingDistrict={this.state.pollingDistrict}
         district={this.state.district}
-        districts={this.state.districts}
         onDistrictChange={this.handleDistrictChange}
         onSaveClick={this.handleSaveClick}
         onCancelClick={this.handleCancelClick}
+        route={this.state.route}
       />
     );
   }

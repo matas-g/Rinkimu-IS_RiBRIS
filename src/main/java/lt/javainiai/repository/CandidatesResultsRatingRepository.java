@@ -18,15 +18,34 @@ public class CandidatesResultsRatingRepository implements RepositoryInterface<Ca
 
     @Override
     @Transactional
-    public CandidatesResultsRatingEntity saveOrUpdate(CandidatesResultsRatingEntity candidatesResults) {
-        if (candidatesResults.getId() == null) {
-            em.persist(candidatesResults);
-            return candidatesResults;
+    public CandidatesResultsRatingEntity saveOrUpdate(CandidatesResultsRatingEntity inputResult) {
+    	
+    	List<CandidatesResultsRatingEntity> allResults = findAll();
+    	boolean resultExists = false;
+    	CandidatesResultsRatingEntity newResult = new CandidatesResultsRatingEntity();
+    	
+    	for (CandidatesResultsRatingEntity resultInList : allResults) {
+	        if (resultInList.equals(inputResult)) {
+	        	resultExists = true;
+	        	newResult = resultInList;
+	            if (( inputResult.getNumberOfVotes() != null) && ( inputResult.getNumberOfVotes() == 0 )) {
+	            	newResult.setNumberOfVotes( inputResult.getNumberOfVotes() );
+	            } else if ((inputResult.getNumberOfVotes() != null) && (inputResult.getNumberOfVotes() != 0)) {
+	            	newResult.setNumberOfVotes( inputResult.getNumberOfVotes() + resultInList.getNumberOfVotes() );
+	            } else {
+	            	newResult.setNumberOfVotes( inputResult.getNumberOfVotes() );
+	            }
+	        }
+	        System.out.println("exists: " + resultExists);
+    	}
+        if (!resultExists) {
+            em.persist(inputResult);
+            return inputResult;
         } else {
-            CandidatesResultsRatingEntity merged = em.merge(candidatesResults);
+            CandidatesResultsRatingEntity merged = em.merge(newResult);
+            em.persist(merged);
             return merged;
         }
-    
     }
 
     @SuppressWarnings("unchecked")

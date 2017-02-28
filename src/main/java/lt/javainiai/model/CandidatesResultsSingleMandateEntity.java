@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,13 +24,18 @@ public class CandidatesResultsSingleMandateEntity {
     private Long numberOfVotes;
     
     @OneToOne
-    @JsonBackReference(value = "candidate-resultsSingleMandate")
+    @JsonBackReference(value = "candidate-singleMandateResults")
     private CandidateEntity candidate;
     
     @JsonProperty
     private Long getCandidateId() {
         return candidate == null ? null : candidate.getId();
     }
+    
+    @ManyToOne
+    @JsonBackReference(value = "district-singleMandateResults")
+    @JoinColumn(name = "Party_Id")
+    private PollingDistrictEntity district;
     
     public CandidatesResultsSingleMandateEntity(){
         
@@ -59,7 +66,15 @@ public class CandidatesResultsSingleMandateEntity {
         this.candidate = candidate;
     }
 
-    @Override
+    public PollingDistrictEntity getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(PollingDistrictEntity district) {
+		this.district = district;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

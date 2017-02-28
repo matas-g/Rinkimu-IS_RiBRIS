@@ -19,32 +19,14 @@ public class CandidatesResultsSingleMandateRepository implements
 
     @Override
     @Transactional
-    public CandidatesResultsSingleMandateEntity saveOrUpdate(CandidatesResultsSingleMandateEntity inputResult) {
-    	
-    	List<CandidatesResultsSingleMandateEntity> allResults = findAll();
-    	boolean resultExists = false;
-    	CandidatesResultsSingleMandateEntity newResult = new CandidatesResultsSingleMandateEntity();
-    	
-    	for (CandidatesResultsSingleMandateEntity resultInList : allResults) {
-	        if (resultInList.equals(inputResult)) {
-	        	resultExists = true;
-	        	newResult = resultInList;
-	            if (( inputResult.getNumberOfVotes() != null) && ( inputResult.getNumberOfVotes() == 0 )) {
-	            	newResult.setNumberOfVotes( inputResult.getNumberOfVotes() );
-	            } else if ((inputResult.getNumberOfVotes() != null) && (inputResult.getNumberOfVotes() != 0)) {
-	            	newResult.setNumberOfVotes( inputResult.getNumberOfVotes() + resultInList.getNumberOfVotes() );
-	            } else {
-	            	newResult.setNumberOfVotes( inputResult.getNumberOfVotes() );
-	            }
-	        }
-    	}
-        if (!resultExists) {
+	public CandidatesResultsSingleMandateEntity saveOrUpdate(CandidatesResultsSingleMandateEntity inputResult) {
+        if (inputResult.getId() == null) {
             em.persist(inputResult);
             return inputResult;
         } else {
-        	CandidatesResultsSingleMandateEntity merged = em.merge(newResult);
+        	CandidatesResultsSingleMandateEntity merged = em.merge(inputResult);
             em.persist(merged);
-            return merged;
+            return merged; 
         }
     }
 

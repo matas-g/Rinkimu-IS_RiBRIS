@@ -25,7 +25,7 @@ var RepresentativeListComponent = React.createClass({
     return (
       <div className="container-fluid">
         <div className="panel panel-default">
-        <div className="panel-heading"><strong>Apylinkių sąrašas</strong></div>
+        <div className="panel-heading"><strong>Atstovų sąrašas</strong></div>
           <table className="table">
             <thead>
               <tr>
