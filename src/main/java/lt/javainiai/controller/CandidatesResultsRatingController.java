@@ -31,19 +31,19 @@ public class CandidatesResultsRatingController {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public CandidatesResultsRatingEntity save(@Valid @RequestBody CandidatesResultsRatingEntity candidatesResults){
-        return this.candidatesResultsService.saveOrUpdate(candidatesResults);
+        return candidatesResultsService.saveOrUpdate(candidatesResults);
     }
     
-    @RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<CandidatesResultsRatingEntity> findAll() {
-        return this.candidatesResultsService.findAll();
+        return candidatesResultsService.findAll();
     }
     
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public CandidatesResultsRatingEntity findById(@Valid @PathVariable("id") Long id){
-        return this.candidatesResultsService.findById(id);
+        return candidatesResultsService.findById(id);
     }
     
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
