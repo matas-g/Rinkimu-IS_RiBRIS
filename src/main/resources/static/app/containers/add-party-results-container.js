@@ -88,7 +88,7 @@ var AddPartyResults = React.createClass({
         }
         axios.post('http://localhost:8090/party-results/', data);
       }
-      self.context.router.push('/results/rating');
+      self.context.router.push('representative/results/spoiled');
     } else {
       console.log("Alert");
     }

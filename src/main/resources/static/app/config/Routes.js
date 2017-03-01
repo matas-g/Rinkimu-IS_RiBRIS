@@ -14,6 +14,7 @@ const AddParty = require('../containers/add-party-container');
 const AddRepresentative = require('../containers/add-representative-container');
 const AddCandidate = require('../containers/add-candidate-container');
 const AddSingleMandateResults = require('../containers/add-single-mandate-results-container');
+const AddPartyResults = require('../containers/add-party-results-container');
 
 const ConstituenciesList = require('../containers/lists/constituencies-list-container');
 const DistrictsList = require('../containers/lists/districts-list-container');
@@ -28,8 +29,10 @@ const HomeList = require('../presentations/lists/home-list-presentation');
 const routes = (
   <Router history={hashHistory}>
     <Route path="/" component={HomeList}>
+
     </Route>
     <Route path="/admin" component={NavBar}>
+      <IndexRoute component={ConstituenciesList} />
       <Route path="/admin/constituencies" component={ConstituenciesList} />
         <Route path="/admin/constituencies/add" component={AddConstituency} />
         <Route path="/admin/constituencies/edit/:constituencyId" component={AddConstituency} />
@@ -53,11 +56,12 @@ const routes = (
         <Route path="/admin/candidates/party/:partyId" component={CandidatesList} />
         <Route path="/admin/candidates/add-list" component={AddConstituency} />
       </Route>
-      
+
     <Route path="/representative" component={NavRepresentative}>
-	    <Route path="/representative/results" component={AddSingleMandateResults} />
+	    <IndexRoute component={AddSingleMandateResults} />
 	    <Route path="/representative/results/single" component={AddSingleMandateResults} />
-	</Route>
+      <Route path="/representative/results/parties" component={AddPartyResults} />
+	  </Route>
   </Router>
 );
 

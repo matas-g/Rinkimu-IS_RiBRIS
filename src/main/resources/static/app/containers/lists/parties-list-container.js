@@ -22,7 +22,7 @@ var PartiesListContainer = React.createClass({
   handlePartyEdit: function(party) {
     var self = this;
     return function() {
-      self.context.router.push('/parties/add/' + party.id);
+      self.context.router.push('/admin/parties/add/' + party.id);
     }
   },
 
@@ -43,7 +43,7 @@ var PartiesListContainer = React.createClass({
   handleCandidatesListClick: function(party) {
     var self = this;
     return function() {
-      self.context.router.push('/candidates/party/' + party.id);
+      self.context.router.push('/admin/candidates/party/' + party.id);
     };
   },
 

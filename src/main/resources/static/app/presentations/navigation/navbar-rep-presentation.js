@@ -39,7 +39,7 @@ var NavigationRep = React.createClass({
           <nav className="navbar navbar-default" role="navigation">
             <div className="collapse navbar-collapse">
               <ul className="nav navbar-nav">
-              <li><NavLink to="/representative/results">Rezultatai</NavLink></li>
+              <li><NavLink to="/representative/results/single">Rezultatai</NavLink></li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li><NavLink to="/">

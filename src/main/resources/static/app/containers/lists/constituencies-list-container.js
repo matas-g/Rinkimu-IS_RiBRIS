@@ -22,7 +22,7 @@ var ConstituenciesListContainer = React.createClass({
   handleConstituencyEdit: function(constituency) {
     var self = this;
     return function() {
-      self.context.router.push('/constituencies/edit/' + constituency.id);
+      self.context.router.push('/admin/constituencies/edit/' + constituency.id);
     }
   },
 
@@ -43,14 +43,14 @@ var ConstituenciesListContainer = React.createClass({
   handleDistrictsList: function(constituency) {
     var self = this;
     return function() {
-      self.context.router.push('/districts/list/' + constituency.id);
+      self.context.router.push('/admin/districts/list/' + constituency.id);
     };
   },
 
   handleCandidatesList: function(constituency) {
     var self = this;
     return function() {
-      self.context.router.push('/candidates/constituency/' + constituency.id);
+      self.context.router.push('/admin/candidates/constituency/' + constituency.id);
     };
   },
 

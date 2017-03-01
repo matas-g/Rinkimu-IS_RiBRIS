@@ -11,7 +11,7 @@ var PartiesListContainer = React.createClass({
 
   componentWillMount: function() {
     var self = this;
-    if (self.props.location.pathname == "/candidates") {
+    if (self.props.location.pathname == "/admin/candidates") {
       axios.get('http://localhost:8090/candidates/')
       .then(function (response) {
         self.setState({
@@ -38,7 +38,7 @@ var PartiesListContainer = React.createClass({
   handleCandidateEdit: function(candidate) {
     var self = this;
     return function() {
-      self.context.router.push('/parties/add/' + constituency.id);
+      self.context.router.push('/admin/parties/add/' + constituency.id);
     }
   },
 

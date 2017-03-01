@@ -48,7 +48,7 @@ var AddConstituencyContainer = React.createClass({
           data.append( 'file', self.state.multiCandidateFile );
 
           axios.post('http://localhost:8090/constituencies/csv/', data, config).then(function (response) {
-              self.context.router.push('/constituencies/');
+              self.context.router.push('/admin/constituencies/');
             }).catch( function( error ) {
               console.log(error.response.status);
             });
@@ -56,7 +56,7 @@ var AddConstituencyContainer = React.createClass({
         } else {
           // Creating party without CSV candidate list
           axios.post('http://localhost:8090/constituencies/', data, config).then(function (response) {
-              self.context.router.push('/constituencies/');
+              self.context.router.push('/admin/constituencies/');
             }).catch( function( error ) {
             });
         }
@@ -74,7 +74,7 @@ var AddConstituencyContainer = React.createClass({
     },
 
     handleCancelClick() {
-        this.context.router.push('/constituencies');
+        this.context.router.push('/admin/constituencies');
     },
 
     render: function() {

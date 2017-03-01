@@ -56,12 +56,12 @@ var AddRepresentativeContainer = React.createClass({
       }
     };
     axios.post('http://localhost:8090/representatives/', elementsList).then(function () {
-      self.context.router.push('/districts');
+      self.context.router.push('/admin/districts');
     });
   },
 
   handleCancelClick() {
-    this.context.router.push('/districts');
+    this.context.router.push('/admin/districts');
   },
 
   render: function() {

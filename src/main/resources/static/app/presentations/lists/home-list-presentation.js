@@ -12,8 +12,8 @@ var HomeListComponent = React.createClass({
 			              	<li><NavLink to="/"><i className="fa fa-home fa-2x" aria-hidden="true"></i></NavLink></li>
 			                <li><NavLink to="/results">Rezultatai </NavLink></li>
 			                <li><NavLink to="/activity">Aktyvumas </NavLink></li>
-			                <li><NavLink to="/admin/constituencies">Administratoriui</NavLink></li>
-			                <li><NavLink to="representative/results">Atstovui</NavLink></li>
+			                <li><NavLink to="/admin">Administratoriui</NavLink></li>
+			                <li><NavLink to="/representative">Atstovui</NavLink></li>
 			              </ul>
 			            </div>
 			          </nav>
