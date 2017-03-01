@@ -77,7 +77,7 @@ var AddSingleMandateResults = React.createClass({
       return acc + val;
     }, 0);
 
-    if (sum == (candidatesList.length-1)) {
+    if (sum == (candidatesList.length)) {
       self.setState({
         valid: true
       });

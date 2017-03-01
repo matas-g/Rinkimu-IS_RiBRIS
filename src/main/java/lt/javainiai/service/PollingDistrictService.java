@@ -39,7 +39,7 @@ public class PollingDistrictService {
     public Long getSumOfSingleMandateVotesInDistrict(Long districtId) {
         Long sumOfVotes = 0L;
         PollingDistrictEntity district = findById(districtId);
-        List<CandidatesResultsSingleMandateEntity> districtSingleMemberResultsList = district.getSingleMandateResult();
+        List<CandidatesResultsSingleMandateEntity> districtSingleMemberResultsList = district.getSingleMandateResults();
 
         for (CandidatesResultsSingleMandateEntity candidateResult : districtSingleMemberResultsList) {
             sumOfVotes += candidateResult.getNumberOfVotes();

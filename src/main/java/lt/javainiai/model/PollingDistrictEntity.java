@@ -9,8 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -53,17 +53,17 @@ public class PollingDistrictEntity {
     @JoinColumn(name = "Constituency_Id")
     private ConstituencyEntity constituency;
     
-    @OneToMany(mappedBy = "district", cascade=CascadeType.ALL)
+    @ManyToMany(mappedBy = "districts", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "district-singleMandateResults")
-    private List<CandidatesResultsSingleMandateEntity> singleMandateResult;
+    private List<CandidatesResultsSingleMandateEntity> singleMandateResults;
     
-    @OneToMany(mappedBy = "district", cascade=CascadeType.ALL)
-    @JsonManagedReference(value = "district-ratingResults")
-    private List<CandidatesResultsRatingEntity> ratingResult;
+    @ManyToMany(mappedBy = "districts", cascade=CascadeType.ALL)
+    @JsonManagedReference(value = "districts-ratingResults")
+    private List<CandidatesResultsRatingEntity> ratingResults;
     
-    @OneToMany(mappedBy = "district", cascade=CascadeType.ALL)
-    @JsonManagedReference(value = "district-partyResults")
-    private List<PartyResultsEntity> partyResult;
+    @ManyToMany(mappedBy = "districts", cascade=CascadeType.ALL)
+    @JsonManagedReference(value = "districts-partyResults")
+    private List<PartyResultsEntity> partyResults;
 
 	@JsonProperty
     private String getConstituencyName() {
@@ -141,20 +141,28 @@ public class PollingDistrictEntity {
 		this.constituency = constituency;
 	}
 
-	public List<CandidatesResultsSingleMandateEntity> getSingleMandateResult() {
-		return singleMandateResult;
+	public List<CandidatesResultsSingleMandateEntity> getSingleMandateResults() {
+		return singleMandateResults;
 	}
 
-	public void setSingleMandateResult(List<CandidatesResultsSingleMandateEntity> singleMandateResult) {
-		this.singleMandateResult = singleMandateResult;
+	public void setSingleMandateResults(List<CandidatesResultsSingleMandateEntity> singleMandateResults) {
+		this.singleMandateResults = singleMandateResults;
 	}
 
-	public List<CandidatesResultsRatingEntity> getRatingResult() {
-		return ratingResult;
+	public List<CandidatesResultsRatingEntity> getRatingResults() {
+		return ratingResults;
 	}
 
-	public void setRatingResult(List<CandidatesResultsRatingEntity> ratingResult) {
-		this.ratingResult = ratingResult;
+	public void setRatingResults(List<CandidatesResultsRatingEntity> ratingResults) {
+		this.ratingResults = ratingResults;
+	}
+
+	public List<PartyResultsEntity> getPartyResults() {
+		return partyResults;
+	}
+
+	public void setPartyResults(List<PartyResultsEntity> partyResults) {
+		this.partyResults = partyResults;
 	}
 
 	public RepresentativeEntity getRepresentative() {
