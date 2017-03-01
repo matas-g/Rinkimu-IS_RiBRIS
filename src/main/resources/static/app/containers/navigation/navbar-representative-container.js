@@ -13,14 +13,6 @@ var NavRepContainer = React.createClass({
 	    };
 	  },
 
-	  handleCloseClick() {
-	    this.setState({ showModal: false });
-	  },
-
-	  handleOpenClick() {
-	    this.setState({ showModal: true });
-	  },
-
 	  componentWillReceiveProps(nextProps) {
 	    var self = this;
 	    if (self.props.location.pathname == "/representative/results") {
@@ -37,9 +29,6 @@ var NavRepContainer = React.createClass({
 	        <NavPresentation
 	          options={this.state.options}
 	          childs={this.props.children}
-	          showModal={this.state.showModal}
-	          openClick={this.handleOpenClick}
-	          closeClick={this.handleCloseClick}
 	        />
 	      </div>
 	    );
