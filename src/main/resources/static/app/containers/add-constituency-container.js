@@ -58,7 +58,6 @@ var AddConstituencyContainer = React.createClass({
           axios.post('http://localhost:8090/constituencies/', data, config).then(function (response) {
               self.context.router.push('/constituencies/');
             }).catch( function( error ) {
-
             });
         }
     },

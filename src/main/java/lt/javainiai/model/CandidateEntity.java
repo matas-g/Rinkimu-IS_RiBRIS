@@ -29,6 +29,8 @@ public class CandidateEntity {
     private Long id;
     
     private Long personsId;
+    
+    private Long listPossition;
 
     @NotNull
     @Length(min = 1, max = 40)
@@ -167,7 +169,15 @@ public class CandidateEntity {
         this.constituency = constituency;
     }
     
-    @Override
+    public Long getListPossition() {
+		return listPossition;
+	}
+
+	public void setListPossition(Long listPossition) {
+		this.listPossition = listPossition;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

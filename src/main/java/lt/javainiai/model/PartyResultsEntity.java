@@ -1,13 +1,15 @@
 package lt.javainiai.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -40,12 +42,21 @@ public class PartyResultsEntity {
       setUpdated(new Date());
     }
     
-    @ManyToOne
-    @JsonBackReference(value = "district-partyResults")
-    @JoinColumn(name = "District_Id")
-    private PollingDistrictEntity district;
+    @ManyToMany
+    @JsonBackReference(value = "districts-partyResults")
+    @JoinTable(name = "District_Single", joinColumns = { @JoinColumn(name="party_result_id") },
+    		inverseJoinColumns = {@JoinColumn(name="District_Id")})
+    private List<PollingDistrictEntity> districts;
 
-    // Constructor
+    public List<PollingDistrictEntity> getDistricts() {
+		return districts;
+	}
+
+	public void setDistricts(List<PollingDistrictEntity> districts) {
+		this.districts = districts;
+	}
+
+	// Constructor
     public PartyResultsEntity() {
     }
 

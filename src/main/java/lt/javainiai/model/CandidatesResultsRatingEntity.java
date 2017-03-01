@@ -1,13 +1,15 @@
 package lt.javainiai.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -47,10 +49,11 @@ public class CandidatesResultsRatingEntity {
         return candidate == null ? null : candidate.getId();
     }
     
-    @ManyToOne
-    @JsonBackReference(value = "district-ratingResults")
-    @JoinColumn(name = "District_Id")
-    private PollingDistrictEntity district;
+    @ManyToMany
+    @JsonBackReference(value = "districts-ratingResults")
+    @JoinTable(name = "District_Rating", joinColumns = { @JoinColumn(name="rating_result_id") },
+	inverseJoinColumns = {@JoinColumn(name="District_Id")})
+    private List<PollingDistrictEntity> districts;
     
 	//Constructor
     public CandidatesResultsRatingEntity(){
@@ -81,8 +84,16 @@ public class CandidatesResultsRatingEntity {
     public void setCandidate(CandidateEntity candidate) {
         this.candidate = candidate;
     }
-    
-    @Override
+
+	public List<PollingDistrictEntity> getDistricts() {
+		return districts;
+	}
+
+	public void setDistricts(List<PollingDistrictEntity> districts) {
+		this.districts = districts;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
