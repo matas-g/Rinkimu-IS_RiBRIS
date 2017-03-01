@@ -1,7 +1,7 @@
 var servedDetails = [
   {
     text: 'Pridėti vieną',
-    pathTo: '/parties/add'
+    pathTo: '/admin/parties/add'
   }
 ];
 

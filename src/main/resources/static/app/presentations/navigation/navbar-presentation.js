@@ -39,16 +39,15 @@ var Navigation = React.createClass({
           <nav className="navbar navbar-default" role="navigation">
             <div className="collapse navbar-collapse">
               <ul className="nav navbar-nav">
-                <li><NavLink to="/constituencies">Apygardos</NavLink></li>
-                <li><NavLink to="/districts">Apylinkes</NavLink></li>
-                <li><NavLink to="/parties">Partijos</NavLink></li>
-                <li><NavLink to="/candidates">Kandidatai</NavLink></li>
-                <li><NavLink to="/representatives">Atstovai</NavLink></li>
-                <li><NavLink to="/results">Rezultatai</NavLink></li>
+                <li><NavLink to="/admin/constituencies">Apygardos</NavLink></li>
+                <li><NavLink to="/admin/districts">Apylinkes</NavLink></li>
+                <li><NavLink to="/admin/parties">Partijos</NavLink></li>
+                <li><NavLink to="/admin/candidates">Kandidatai</NavLink></li>
+                <li><NavLink to="/admin/representatives">Atstovai</NavLink></li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li onClick={self.props.openClick}><a href="#">
-                  <span className="glyphicon glyphicon-log-in"></span> Login</a></li>
+                  <span className="glyphicon glyphicon-log-in"></span> Atsijungti</a></li>
               </ul>
             </div>
           </nav>
