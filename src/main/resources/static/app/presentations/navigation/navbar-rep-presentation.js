@@ -1,7 +1,5 @@
 const React = require('react');
 const NavLink = require('./nav-link');
-const Modal = require('react-bootstrap').Modal;
-const Button = require('react-bootstrap').Button;
 
 var NavigationRep = React.createClass({
   render: function() {
@@ -16,24 +14,6 @@ var NavigationRep = React.createClass({
     });
 
     return (
-      <div>
-        <Modal show={this.props.showModal} onHide={this.props.closeClick}>
-          <Modal.Header closeButton>
-            <Modal.Title>Login</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <form className="form-inline text-center">
-  				    <div className="form-group">
-    						<input type="email" className="form-control input" placeholder="Email" style={{ marginRight: '20px' }} />
-    						<input type="password" className="form-control input" placeholder="Password" />
-  				    </div>
-      			</form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button type="submit" className="btn btn-info btn-sm">Sign in</Button>
-            <Button onClick={this.props.closeClick}>Close</Button>
-          </Modal.Footer>
-        </Modal>
       <div className="container">
         <div className="navbar-inner nav-collapse">
           <nav className="navbar navbar-default" role="navigation">
@@ -60,7 +40,6 @@ var NavigationRep = React.createClass({
           </div>
         </div>
       </div>
-    </div>
     );
   }
 });
