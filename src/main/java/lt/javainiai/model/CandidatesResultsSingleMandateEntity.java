@@ -34,7 +34,7 @@ public class CandidatesResultsSingleMandateEntity {
     
     @ManyToOne
     @JsonBackReference(value = "district-singleMandateResults")
-    @JoinColumn(name = "Party_Id")
+    @JoinColumn(name = "Polling_District_Id")
     private PollingDistrictEntity district;
     
     public CandidatesResultsSingleMandateEntity(){
