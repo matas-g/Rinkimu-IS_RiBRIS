@@ -6,7 +6,6 @@ const ConstituenciesOptions = require('../../util/options-for-menu/constituencie
 const DistrictsOptions = require('../../util/options-for-menu/districts-options');
 const CandidatesOptions = require('../../util/options-for-menu/candidates-options');
 const PartiesOptions = require('../../util/options-for-menu/parties-options');
-const ResultsOptions = require('../../util/options-for-menu/results-options');
 const RepresentativesOptions = require('../../util/options-for-menu/representatives-options');
 
 var NavContainer = React.createClass({
@@ -28,32 +27,27 @@ var NavContainer = React.createClass({
 
   componentWillReceiveProps(nextProps) {
     var self = this;
-    if (self.props.location.pathname == "/constituencies") {
+    if (self.props.location.pathname == "/admin/constituencies") {
       self.setState({
         options: ConstituenciesOptions
       });
       self.forceUpdate();
-    } else if (self.props.location.pathname == "/districts") {
+    } else if (self.props.location.pathname == "/admin/districts") {
       self.setState({
         options: DistrictsOptions
       });
       self.forceUpdate();
-    } else if (self.props.location.pathname == "/parties") {
+    } else if (self.props.location.pathname == "/admin/parties") {
       self.setState({
         options: PartiesOptions
       });
       self.forceUpdate();
-    } else if (self.props.location.pathname == "/candidates") {
+    } else if (self.props.location.pathname == "/admin/candidates") {
       self.setState({
         options: CandidatesOptions
       });
       self.forceUpdate();
-    } else if (self.props.location.pathname == "/results") {
-      self.setState({
-        options: ResultsOptions
-      });
-      self.forceUpdate();
-    } else if (self.props.location.pathname == "/representatives") {
+    } else if (self.props.location.pathname == "/admin/representatives") {
       self.setState({
         options: RepresentativesOptions
       });

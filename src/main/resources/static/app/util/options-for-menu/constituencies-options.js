@@ -1,11 +1,11 @@
 var servedDetails = [
   {
     text: 'Pridėti vieną',
-    pathTo: '/constituencies/add'
+    pathTo: '/admin/constituencies/add'
   },
   {
     text: 'Priskirti apylinkę',
-    pathTo: '/districts/add/:constituencyId'
+    pathTo: '/admin/districts/add/:constituencyId'
   }
 ];
 
