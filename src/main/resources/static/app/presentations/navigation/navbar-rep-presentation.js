@@ -42,8 +42,9 @@ var NavigationRep = React.createClass({
               <li><NavLink to="/representative/results">Rezultatai</NavLink></li>
               </ul>
               <ul className="nav navbar-nav navbar-right">
-                <li onClick={self.props.openClick}><a href="#">
-                  <span className="glyphicon glyphicon-log-in"></span> Atsijungti</a></li>
+                <li><NavLink to="/">
+                  <span className="glyphicon glyphicon-log-in"> Atsijungti</span>
+                </NavLink></li>
               </ul>
             </div>
           </nav>
