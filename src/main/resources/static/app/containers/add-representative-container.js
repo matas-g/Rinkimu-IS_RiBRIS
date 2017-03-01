@@ -26,7 +26,7 @@ var AddRepresentativeContainer = React.createClass({
     });
   },
 
-  handleDistrictChange : function(e){
+  handleDistrictChange: function(e){
     var districtId = e.target.value;
     pollingDistrict: {
       id: districtId
@@ -67,7 +67,6 @@ var AddRepresentativeContainer = React.createClass({
   render: function() {
     return (
       <AddRepresentative
-        route={this.state.route}
         onNameChange={this.handleNameChange}
         name={this.state.name}
         onSurnameChange={this.handleSurnameChange}
@@ -77,7 +76,6 @@ var AddRepresentativeContainer = React.createClass({
         onDistrictChange={this.handleDistrictChange}
         onSaveClick={this.handleSaveClick}
         onCancelClick={this.handleCancelClick}
-        route={this.state.route}
       />
     );
   }

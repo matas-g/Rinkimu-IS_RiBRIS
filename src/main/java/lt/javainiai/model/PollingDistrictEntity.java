@@ -41,8 +41,11 @@ public class PollingDistrictEntity {
     @Column(name = "Number_of_Voters")
     private Long numOfVoters;
     
-    @Column(name = "Spoiled_Ballots")
-    private Long spoiledBallots;
+    @Column(name = "Spoiled_Single_Mandate_Ballots")
+    private Long spoiledSingleMandateBallots = 0L;
+    
+    @Column(name = "Spoiled_Multi_Mandate_Ballots")
+    private Long spoiledMultiMandateBallots = 0L;
 
     // Bidirectional ManyToOne
     @ManyToOne
@@ -57,6 +60,10 @@ public class PollingDistrictEntity {
     @OneToMany(mappedBy = "district", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "district-ratingResults")
     private List<CandidatesResultsRatingEntity> ratingResult;
+    
+    @OneToMany(mappedBy = "district", cascade=CascadeType.ALL)
+    @JsonManagedReference(value = "district-partyResults")
+    private List<PartyResultsEntity> partyResult;
 
 	@JsonProperty
     private String getConstituencyName() {
@@ -110,15 +117,23 @@ public class PollingDistrictEntity {
 		this.numOfVoters = numOfVoters;
 	}
 
-	public Long getSpoiledBallots() {
-		return spoiledBallots;
-	}
+	public Long getSpoiledSingleMandateBallots() {
+        return spoiledSingleMandateBallots;
+    }
 
-	public void setSpoiledBallots(Long spoiledBallots) {
-		this.spoiledBallots = spoiledBallots;
-	}
+    public void setSpoiledSingleMandateBallots(Long spoiledSingleMandateBallots) {
+        this.spoiledSingleMandateBallots = spoiledSingleMandateBallots;
+    }
 
-	public ConstituencyEntity getConstituency() {
+    public Long getSpoiledMultiMandateBallots() {
+        return spoiledMultiMandateBallots;
+    }
+
+    public void setSpoiledMultiMandateBallots(Long spoiledMultiMandateBallots) {
+        this.spoiledMultiMandateBallots = spoiledMultiMandateBallots;
+    }
+
+    public ConstituencyEntity getConstituency() {
 		return constituency;
 	}
 
