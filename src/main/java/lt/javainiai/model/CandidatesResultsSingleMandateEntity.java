@@ -52,8 +52,7 @@ public class CandidatesResultsSingleMandateEntity {
     }
     
     @ManyToMany
-    @JsonBackReference(value = "districts-singleMandateResults")
-    @JoinTable(name = "District_Party", joinColumns = { @JoinColumn(name="single_result_id") },
+    @JoinTable(name = "District_Single", joinColumns = { @JoinColumn(name="single_result_id") },
 	inverseJoinColumns = {@JoinColumn(name="District_Id")})
     private List<PollingDistrictEntity> districts;
 
