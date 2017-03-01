@@ -54,15 +54,12 @@ public class PollingDistrictEntity {
     private ConstituencyEntity constituency;
     
     @ManyToMany(mappedBy = "districts", cascade=CascadeType.ALL)
-    @JsonManagedReference(value = "district-singleMandateResults")
     private List<CandidatesResultsSingleMandateEntity> singleMandateResults;
     
     @ManyToMany(mappedBy = "districts", cascade=CascadeType.ALL)
-    @JsonManagedReference(value = "districts-ratingResults")
     private List<CandidatesResultsRatingEntity> ratingResults;
     
     @ManyToMany(mappedBy = "districts", cascade=CascadeType.ALL)
-    @JsonManagedReference(value = "districts-partyResults")
     private List<PartyResultsEntity> partyResults;
 
 	@JsonProperty
