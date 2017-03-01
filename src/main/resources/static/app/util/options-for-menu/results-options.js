@@ -1,11 +1,15 @@
 var servedDetails = [
   {
     text: 'Registruoti vienmandačių ruzultatus',
-    pathTo: '/results/single/add'
+    pathTo: '/results/single'
   },
   {
     text: 'Registruoti daugiamandačių rezultatus',
-    pathTo: '/results/multi/add'
+    pathTo: '/results/parties'
+  },
+  {
+    text: 'Registruoti reitingavimo rezultatus',
+    pathTo: '/results/rating'
   }
 ];
 

@@ -1,16 +1,15 @@
 const React = require('react');
 const axios = require('axios');
-const SingleMandateResults = require('../presentations/add-single-mandate-results-presentation');
+const PartyResults = require('../presentations/add-party-results-presentation');
 
-var AddSingleMandateResults = React.createClass({
+var AddPartyResults = React.createClass({
   getInitialState: function() {
     return {
       district: {
         id: 1
       },
-      constituencyId: 1,
       districts: [],
-      candidatesList: [],
+      partiesList: [],
       voteCount: [],
       votesEnteredState: [],
       valid: true
@@ -22,36 +21,30 @@ var AddSingleMandateResults = React.createClass({
     axios.get('http://localhost:8090/polling-districts/').then(function(response) {
       self.setState({
         districts: response.data,
-        constituencyId: response.data[0].constituencyId,
         district: {
           id: response.data[0].id
         }
       });
-      axios.get('http://localhost:8090/candidates/by-constituency/' + self.state.constituencyId).then(function(response) {
+      axios.get('http://localhost:8090/parties/').then(function(response) {
         self.setState({
-          candidatesList: response.data,
+          partiesList: response.data,
         });
       });
     });
   },
 
-  handleDistrictChange: function(e) {
+  handleDistrictChange: function(e){
     var districtId = parseInt(e.target.value);
     var self = this;
-    var constituencyId = 0;
-
-    axios.get('http://localhost:8090/polling-districts/' + districtId).then(function(response) {
-      constituencyId = response.data.constituencyId;
-      axios.get('http://localhost:8090/candidates/by-constituency/' + constituencyId).then(function(response) {
-        self.setState({
-          constituencyId: constituencyId,
-          candidatesList: response.data,
-          district: {
-            id: districtId
-          }
-        });
+    axios.get('http://localhost:8090/parties/').then(function(response) {
+      self.setState({
+        partiesList: response.data,
+        district: {
+          id: districtId
+        }
       });
     });
+
   },
 
   handleResultsChange: function(index) {
@@ -66,35 +59,36 @@ var AddSingleMandateResults = React.createClass({
         voteCount: voteArray,
         votesEnteredState: enteredState
       });
-    };
+    }
   },
 
   handleSaveClick: function(e) {
     e.preventDefault();
     var self = this;
-    var candidatesList = this.state.candidatesList;
+    var partiesList = this.state.partiesList;
     var sum = this.state.votesEnteredState.reduce(function(acc, val) {
       return acc + val;
     }, 0);
 
-    if (sum == (candidatesList.length-1)) {
+    if (sum == partiesList.length) {
       self.setState({
         valid: true
       });
       var voteCount = this.state.voteCount;
-      for (var i = 0; i < candidatesList.length; i++) {
+      for (var i = 0; i < partiesList.length; i++) {
         var data = {
+          numberOfVotes: voteCount[i],
+          party: {
+            id: partiesList[i].id
+          },
+          date: new Date(),
           district: {
             id: this.state.district.id
-          },
-          numberOfVotes: voteCount[i],
-          candidate: {
-            id: candidatesList[i].id
           }
         }
-        axios.post('http://localhost:8090/candidates-results/single-mandate/', data);
+        axios.post('http://localhost:8090/party-results/', data);
       }
-      self.context.router.push('/results/parties');
+      self.context.router.push('/results/rating');
     } else {
       console.log("Alert");
     }
@@ -102,11 +96,11 @@ var AddSingleMandateResults = React.createClass({
 
   render: function() {
     return (
-      <SingleMandateResults
+      <PartyResults
         district={this.state.district}
         constituencyId={this.state.constituencyId}
         districts={this.state.districts}
-        candidatesList={this.state.candidatesList}
+        partiesList={this.state.partiesList}
         voteCount={this.state.voteCount}
         onDistrictChange={this.handleDistrictChange}
         onResultsChange={this.handleResultsChange}
@@ -116,8 +110,8 @@ var AddSingleMandateResults = React.createClass({
   }
 });
 
-AddSingleMandateResults.contextTypes = {
+AddPartyResults.contextTypes = {
     router: React.PropTypes.object.isRequired,
 };
 
-module.exports = AddSingleMandateResults;
+module.exports = AddPartyResults;
