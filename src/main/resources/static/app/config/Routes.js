@@ -13,6 +13,7 @@ const AddParty = require('../containers/add-party-container');
 const AddRepresentative = require('../containers/add-representative-container');
 const AddCandidate = require('../containers/add-candidate-container');
 const AddSingleMandateResults = require('../containers/add-single-mandate-results-container');
+const AddPartyResults = require('../containers/add-party-results-container');
 
 const ConstituenciesList = require('../containers/lists/constituencies-list-container');
 const DistrictsList = require('../containers/lists/districts-list-container');
@@ -48,9 +49,9 @@ const routes = (
         <Route path="/candidates/add-list" component={AddConstituency} />
 
       <Route path="/results" component={AddSingleMandateResults} />
-        <Route path="/results/add-list" component={AddConstituency} />
-        <Route path="/results/edit" component={AddConstituency} />
-        <Route path="/results/delete" component={AddConstituency} />
+        <Route path="/results/single" component={AddSingleMandateResults} />
+        <Route path="/results/parties" component={AddPartyResults} />
+        <Route path="/results/rating" component={AddConstituency} />
     </Route>
   </Router>
 );

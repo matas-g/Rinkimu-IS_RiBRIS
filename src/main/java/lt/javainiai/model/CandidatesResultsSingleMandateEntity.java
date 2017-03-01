@@ -1,6 +1,8 @@
 package lt.javainiai.model;
 
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -23,6 +27,19 @@ public class CandidatesResultsSingleMandateEntity {
     
     private Long numberOfVotes;
     
+    private Date created;
+    private Date updated;
+
+    @PrePersist
+    protected void onCreate() {
+      setCreated(new Date());
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+      setUpdated(new Date());
+    }
+    
     @OneToOne
     @JsonBackReference(value = "candidate-singleMandateResults")
     private CandidateEntity candidate;
@@ -34,7 +51,7 @@ public class CandidatesResultsSingleMandateEntity {
     
     @ManyToOne
     @JsonBackReference(value = "district-singleMandateResults")
-    @JoinColumn(name = "Party_Id")
+    @JoinColumn(name = "District_Id")
     private PollingDistrictEntity district;
     
     public CandidatesResultsSingleMandateEntity(){
@@ -89,6 +106,22 @@ public class CandidatesResultsSingleMandateEntity {
 		} else if (!candidate.getId().equals(other.getCandidate().getId()))
 			return false;
 		return true;
+	}
+
+	public Date getCreated() {
+		return created;
+	}
+
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	public Date getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 
 	@Override
