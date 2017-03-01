@@ -44,7 +44,7 @@ public class PollingDistrictService {
         for (CandidatesResultsSingleMandateEntity candidateResult : districtSingleMemberResultsList) {
             sumOfVotes += candidateResult.getNumberOfVotes();
         }
-        return sumOfVotes;
+        return sumOfVotes + district.getSpoiledBallots();
     }
 
     public Double getPercentOfAllVoters(Long districtId) {
