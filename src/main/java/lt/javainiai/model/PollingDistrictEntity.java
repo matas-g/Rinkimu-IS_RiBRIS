@@ -60,6 +60,10 @@ public class PollingDistrictEntity {
     @OneToMany(mappedBy = "district", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "district-ratingResults")
     private List<CandidatesResultsRatingEntity> ratingResult;
+    
+    @OneToMany(mappedBy = "district", cascade=CascadeType.ALL)
+    @JsonManagedReference(value = "district-partyResults")
+    private List<PartyResultsEntity> partyResult;
 
 	@JsonProperty
     private String getConstituencyName() {
