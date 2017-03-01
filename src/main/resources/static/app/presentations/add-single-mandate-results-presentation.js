@@ -33,6 +33,8 @@ var SingleMandateResultsInputPresentation = React.createClass({
   });
   return (
     <form className="col-sm-offset-1 col-sm-10 container-fluid" autoComplete="off">
+      <h2>Suveskite kandidatų gautų balsų skaičių</h2>
+      <br />
       <h4>Pasirinkite apylinkę</h4>
       <br />
       <select className="form-control" value={this.props.district.id} onChange={this.props.onDistrictChange}>
