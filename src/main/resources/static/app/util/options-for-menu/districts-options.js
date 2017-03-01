@@ -1,7 +1,7 @@
 var servedDetails = [
   {
     text: 'Pridėti apylinkę',
-    pathTo: '/districts/add'
+    pathTo: '/admin/districts/add'
   }
 ];
 
