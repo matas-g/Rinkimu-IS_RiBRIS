@@ -38,7 +38,7 @@ var PartiesListContainer = React.createClass({
   handleCandidateEdit: function(candidate) {
     var self = this;
     return function() {
-      self.context.router.push('/admin/parties/add/' + constituency.id);
+      self.context.router.push('/admin/candidates/edit/' + candidate.id);
     }
   },
 

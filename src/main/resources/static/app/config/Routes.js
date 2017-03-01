@@ -55,6 +55,7 @@ const routes = (
         <Route path="/admin/candidates/constituency/:constituencyId" component={CandidatesList} />
         <Route path="/admin/candidates/party/:partyId" component={CandidatesList} />
         <Route path="/admin/candidates/add-list" component={AddConstituency} />
+      	<Route path="/admin/candidates/edit/:candidateId" component={AddCandidate} />
       </Route>
 
     <Route path="/representative" component={NavRepresentative}>
