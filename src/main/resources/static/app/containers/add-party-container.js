@@ -35,7 +35,7 @@ var AddPartyContainer = React.createClass({
 
         	axios.post('http://localhost:8090/parties/csv/', data, config).then(function (response) {
             	console.log("Party and CSV added.");
-            	self.context.router.push('/parties/');
+            	self.context.router.push('/admin/parties/');
             }).catch( function( error ) {
             	console.error( error );
             });
@@ -44,7 +44,7 @@ var AddPartyContainer = React.createClass({
         	// Creating party without CSV candidate list
         	axios.post('http://localhost:8090/parties/', data, config).then(function (response) {
             	console.log("Party added (no CSV).");
-            	self.context.router.push('/parties/');
+            	self.context.router.push('/admin/parties/');
             }).catch( function( error ) {
             	console.error( error );
             });
@@ -73,7 +73,7 @@ var AddPartyContainer = React.createClass({
     },
 
     handleCancelClick() {
-        this.context.router.push('/parties');
+        this.context.router.push('/admin/parties');
     },
 
     render: function() {

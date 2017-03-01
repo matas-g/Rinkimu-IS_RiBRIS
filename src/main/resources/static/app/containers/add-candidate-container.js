@@ -71,12 +71,12 @@ var AddCandidateContainer = React.createClass({
       biography: this.state.biography
     };
     axios.post('http://localhost:8090/candidates/', elementsList).then(function () {
-      self.context.router.push('/candidates');
+      self.context.router.push('/admin/candidates');
     });
   },
 
   handleCancelClick() {
-    this.context.router.push('/candidates');
+    this.context.router.push('/admin/candidates');
   },
 
   render: function() {

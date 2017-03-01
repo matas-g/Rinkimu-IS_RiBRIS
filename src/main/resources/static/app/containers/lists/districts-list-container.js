@@ -31,7 +31,7 @@ var DistrictListContainer = React.createClass({
   handleDistrictEdit: function(district) {
     var self = this;
     return function() {
-      self.context.router.push('/districts/edit/' + district.id);
+      self.context.router.push('/admin/districts/edit/' + district.id);
     }
   },
 

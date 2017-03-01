@@ -94,7 +94,7 @@ var AddSingleMandateResults = React.createClass({
         }
         axios.post('http://localhost:8090/candidates-results/single-mandate/', data);
       }
-      self.context.router.push('/results/parties');
+      self.context.router.push('/representative/results/parties');
     } else {
       console.log("Alert");
     }
