@@ -2,13 +2,13 @@ package lt.javainiai.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Length;
@@ -26,17 +26,16 @@ public class PartyEntity {
     @Length(min = 1, max = 200)
     private String name;
 
-    @Length(min = 1, max = 5)
     @Column(name = "Party_Number")
-    private String partyNo;
+    private Long partyNo;
 
-    @OneToMany(mappedBy = "party")
+    @OneToMany(mappedBy = "party", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "candidate-party")
     private List<CandidateEntity> candidates;
     
-    @OneToOne(mappedBy = "party")
+    @OneToMany(mappedBy = "party", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "party-results")
-    private PartyResultsEntity partyResults;
+    private List<PartyResultsEntity> partyResults;
 
     // Controller
     public PartyEntity() {
@@ -59,11 +58,11 @@ public class PartyEntity {
         this.name = name;
     }
 
-    public String getPartyNo() {
+    public Long getPartyNo() {
         return partyNo;
     }
 
-    public void setPartyNo(String partyNo) {
+    public void setPartyNo(Long partyNo) {
         this.partyNo = partyNo;
     }
 
@@ -75,7 +74,7 @@ public class PartyEntity {
         this.candidates = candidates;
     }
 
-    @Override
+	@Override
     public String toString() {
         return "PartyEntity [id=" + id + ", name=" + name + ", partyNo=" + partyNo + ", candidates=" + candidates + "]";
     }

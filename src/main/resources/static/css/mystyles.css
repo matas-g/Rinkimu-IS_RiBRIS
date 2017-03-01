@@ -1,0 +1,14 @@
+.hop {
+	transition: all .4s ease-in-out;
+}
+
+.hop:hover {
+	transform: scale(1.06);
+	z-index: 1;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

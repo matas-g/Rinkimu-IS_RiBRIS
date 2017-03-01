@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.repository.CrudRepository;
 
 import lt.javainiai.model.ConstituencyEntity;
 
@@ -25,13 +24,21 @@ public class ConstituencyRepository  implements RepositoryInterface<Constituency
         } else {
             ConstituencyEntity merged = em.merge(constituency);
             em.persist(merged);
-            return merged;
+            return merged; 
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<ConstituencyEntity> findAll() {
         return em.createQuery("SELECT c FROM ConstituencyEntity c").getResultList();
+    }
+    
+    public ConstituencyEntity findByName(String name) {
+    	return (ConstituencyEntity) 
+    			em.createQuery("SELECT c FROM ConstituencyEntity c WHERE c.name LIKE :name")
+    		    .setParameter("name", name)
+    		    .getSingleResult();
     }
 
     @Override
