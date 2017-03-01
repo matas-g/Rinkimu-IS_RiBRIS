@@ -36,7 +36,7 @@ public class PollingDistrictService {
     }
 
     // Election results
-    public Long getSumOfVotesInDistrict(Long districtId) {
+    public Long getSumOfSingleMandateVotesInDistrict(Long districtId) {
         Long sumOfVotes = 0L;
         PollingDistrictEntity district = findById(districtId);
         List<CandidatesResultsSingleMandateEntity> districtSingleMemberResultsList = district.getSingleMandateResult();
@@ -44,12 +44,12 @@ public class PollingDistrictService {
         for (CandidatesResultsSingleMandateEntity candidateResult : districtSingleMemberResultsList) {
             sumOfVotes += candidateResult.getNumberOfVotes();
         }
-        return sumOfVotes + district.getSpoiledBallots();
+        return sumOfVotes + district.getSpoiledSingleMandateBallots();
     }
 
     public Double getPercentOfAllVoters(Long districtId) {
         Double percent = 0.0;
-        Long sumOfVotes = getSumOfVotesInDistrict(districtId);
+        Long sumOfVotes = getSumOfSingleMandateVotesInDistrict(districtId);
         Long totalOfVoters = findById(districtId).getNumOfVoters();
 
         percent = (sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0;

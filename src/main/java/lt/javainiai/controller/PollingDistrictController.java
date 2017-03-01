@@ -60,7 +60,7 @@ public class PollingDistrictController {
     @RequestMapping(value = "total-votes/{districtId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Long getSumOfVotesInDistrict(@Valid @PathVariable("districtId") Long districtId) {
-        return pollingDistrictService.getSumOfVotesInDistrict(districtId);
+        return pollingDistrictService.getSumOfSingleMandateVotesInDistrict(districtId);
     }
     
     // Get percent of all voters in district
