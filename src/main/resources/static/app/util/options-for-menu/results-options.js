@@ -9,7 +9,7 @@ var servedDetails = [
   },
   {
     text: 'Registruoti reitingavimo rezultatus',
-    pathTo: '/representative/results/rating'
+    pathTo: '/representative/results/spoiled'
   }
 ];
 
