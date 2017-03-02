@@ -23,6 +23,7 @@ const RepresentativesList = require('../containers/lists/representatives-list-co
 const CandidatesList = require('../containers/lists/candidates-list-container');
 
 const HomeList = require('../presentations/lists/home-list-presentation');
+const PublicResultsList = require('../presentations/lists/public-result-list-presentation');
 
 
 
@@ -31,6 +32,9 @@ const routes = (
     <Route path="/" component={HomeList}>
 
     </Route>
+    
+    <Route path="/results" component={PublicResultsList} />
+    
     <Route path="/admin" component={NavBar}>
       <IndexRoute component={ConstituenciesList} />
       <Route path="/admin/constituencies" component={ConstituenciesList} />

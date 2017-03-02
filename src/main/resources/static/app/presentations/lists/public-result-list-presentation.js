@@ -1,7 +1,7 @@
 const React = require('react');
 const NavLink = require('../navigation/nav-link');
 
-var HomeListComponent = React.createClass({
+var PublicResultsListComponent = React.createClass({
 	render: function() {
 		return (
 		   <div className="container">
@@ -18,14 +18,26 @@ var HomeListComponent = React.createClass({
 	            </div>
 	          </nav>
 	      </div>
-	      <h3><center>LRS Rinkimai 2017</center></h3>
-	      <br/>
-	      <center><img src="img/vytis.png" width="108" height="120"/></center>
-	    </div>
+               
+	      <div className="row">
+	      	<div className="side-menu">
+	      		<nav className="navbar navbar-default" role="navigation">
+	      			<div className="navbar-header">
+	      				<div className="side-menu-container">
+			      			<ul className="nav navbar-nav">
+				              <li><a href="#/single-mandate"><i className="fa fa-user" aria-hidden="true"></i> Vienmandačių Rezultatai</a></li>
+				              <li><a href="#/muti-mandate"><i className="fa fa-users" aria-hidden="true"></i> Daugiamandačių Rezultatai</a></li>
+				            </ul>
+				          </div>
+				        </div>
+				      </nav>
+			      </div>
+	          </div>
+		    </div>
 		);
 	}
 });
 
 
 
-module.exports = HomeListComponent;
+module.exports = PublicResultsListComponent;
