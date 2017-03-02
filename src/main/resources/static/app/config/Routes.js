@@ -18,6 +18,7 @@ const AddPartyResults = require('../containers/add-party-results-container');
 const AddSpoiledResults = require('../containers/add-spoiled-results-container');
 
 const Suvesti = require('../presentations/suvedete-balsus');
+const Herb = require('../presentations/herb');
 
 const ConstituenciesList = require('../containers/lists/constituencies-list-container');
 const DistrictsList = require('../containers/lists/districts-list-container');
@@ -33,10 +34,11 @@ const PublicResultsList = require('../presentations/lists/public-result-list-pre
 const routes = (
   <Router history={hashHistory}>
     <Route path="/" component={HomeList}>
-
+    	<IndexRoute component={Herb} />
+    	<Route path="/results" component={PublicResultsList} />
     </Route>
     
-    <Route path="/results" component={PublicResultsList} />
+   
     
     <Route path="/admin" component={NavBar}>
       <IndexRoute component={ConstituenciesList} />
