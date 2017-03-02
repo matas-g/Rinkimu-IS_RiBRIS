@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
@@ -42,8 +42,9 @@ public class CandidatesResultsSingleMandateEntity {
       setUpdated(new Date());
     }
     
-    @OneToOne
+    @ManyToOne
     @JsonBackReference(value = "candidate-singleMandateResults")
+    @JoinColumn(name="candidate_id")
     private CandidateEntity candidate;
     
     @JsonProperty

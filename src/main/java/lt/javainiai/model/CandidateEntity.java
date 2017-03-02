@@ -1,6 +1,7 @@
 package lt.javainiai.model;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -59,13 +60,13 @@ public class CandidateEntity {
         return constituency == null ? null : constituency.getId();
     }
     
-    @OneToOne(mappedBy = "candidate", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "candidate", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "candidate-ratingResults")
-    private CandidatesResultsRatingEntity candidatesResultsRating;
+    private List<CandidatesResultsRatingEntity> candidatesResultsRating;
     
-    @OneToOne(mappedBy = "candidate", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "candidate", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "candidate-singleMandateResults")
-    private CandidatesResultsSingleMandateEntity candidatesResultsSingleMandate;
+    private List<CandidatesResultsSingleMandateEntity> candidatesResultsSingleMandate;
     
     private Boolean multiMandate;
 
@@ -137,19 +138,20 @@ public class CandidateEntity {
         this.biography = biography;
     }
 
-    public CandidatesResultsRatingEntity getCandidatesResultsRating() {
+	public List<CandidatesResultsRatingEntity> getCandidatesResultsRating() {
 		return candidatesResultsRating;
 	}
 
-	public void setCandidatesResultsRating(CandidatesResultsRatingEntity candidatesResultsRating) {
+	public void setCandidatesResultsRating(List<CandidatesResultsRatingEntity> candidatesResultsRating) {
 		this.candidatesResultsRating = candidatesResultsRating;
 	}
 
-	public CandidatesResultsSingleMandateEntity getCandidatesResultsSingleMandate() {
+	public List<CandidatesResultsSingleMandateEntity> getCandidatesResultsSingleMandate() {
 		return candidatesResultsSingleMandate;
 	}
 
-	public void setCandidatesResultsSingleMandate(CandidatesResultsSingleMandateEntity candidatesResultsSingleMandate) {
+	public void setCandidatesResultsSingleMandate(
+			List<CandidatesResultsSingleMandateEntity> candidatesResultsSingleMandate) {
 		this.candidatesResultsSingleMandate = candidatesResultsSingleMandate;
 	}
 
