@@ -3,6 +3,7 @@ const NavLink = require('../navigation/nav-link');
 
 var HomeListComponent = React.createClass({
 	render: function() {
+		console.log(this.props);
 		return (
 		   <div className="container">
 	        <div className="navbar-inner nav-collapse">
@@ -18,6 +19,10 @@ var HomeListComponent = React.createClass({
 	            </div>
 	          </nav>
 	      </div>
+	      <div className="col-sm-10">
+	        {this.props.children}
+	      </div>
+	     
 	    </div>
 		);
 	}

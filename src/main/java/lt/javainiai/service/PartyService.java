@@ -74,6 +74,7 @@ public class PartyService {
                 candidate.setParty(partyResponse);
                 candidate.setMultiMandate(Boolean.valueOf(values[4]));
                 candidate.setBiography(values[5]);
+                candidate.setListPossition(Long.valueOf(values[6]));
                 
                 candidateList.add(candidate);
             }
