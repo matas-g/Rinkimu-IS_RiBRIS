@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +36,10 @@ public class PartyController {
             @RequestParam("file") MultipartFile csvFile) {
         return partyService.saveOrUpdate(partyName, partyNo, csvFile);
     }
+    
+//    @PostMapping(value = "spoiled")
+//    @ResponseStatus(HttpStatus.ACCEPTED)
+//    public PartyEntity updateSpoiled(@RequestParam(""))
 
     // Register or update (no CSV file)
     @RequestMapping(method = RequestMethod.POST)

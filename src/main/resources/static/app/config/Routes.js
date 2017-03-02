@@ -15,6 +15,9 @@ const AddRepresentative = require('../containers/add-representative-container');
 const AddCandidate = require('../containers/add-candidate-container');
 const AddSingleMandateResults = require('../containers/add-single-mandate-results-container');
 const AddPartyResults = require('../containers/add-party-results-container');
+const AddSpoiledResults = require('../containers/add-spoiled-results-container');
+
+const Suvesti = require('../presentations/suvedete-balsus');
 
 const ConstituenciesList = require('../containers/lists/constituencies-list-container');
 const DistrictsList = require('../containers/lists/districts-list-container');
@@ -61,6 +64,7 @@ const routes = (
 	    <IndexRoute component={AddSingleMandateResults} />
 	    <Route path="/representative/results/single" component={AddSingleMandateResults} />
       <Route path="/representative/results/parties" component={AddPartyResults} />
+      <Route path="/representative/results/spoiled" component={Suvesti} />
 	  </Route>
   </Router>
 );
