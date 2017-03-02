@@ -64,6 +64,7 @@ const routes = (
 	    <IndexRoute component={AddSingleMandateResults} />
 	    <Route path="/representative/results/single" component={AddSingleMandateResults} />
       <Route path="/representative/results/parties" component={AddPartyResults} />
+      <Route path="/representative/results/spoiled" component={AddSpoiledResults} />
       <Route path="/representative/results/spoiled" component={Suvesti} />
 	  </Route>
   </Router>
