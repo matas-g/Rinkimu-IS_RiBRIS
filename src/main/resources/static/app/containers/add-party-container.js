@@ -11,6 +11,20 @@ var AddPartyContainer = React.createClass({
           }
         }
     },
+    
+    componentDidMount: function() {
+        var self = this;
+        if (self.props.params.partyId != undefined) {
+          axios.get('http://localhost:8090/parties/' + this.props.params.partyId).then(function (response) {
+            self.setState({
+              party:{
+            	  name: response.data.name,
+            	  partyNo: response.data.partyNo
+              }
+            });
+          });
+        }
+      },
 
     // Added for CSV import
     handleUploadMultiCandidateFile: function( file ) {

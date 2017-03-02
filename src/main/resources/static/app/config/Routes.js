@@ -49,7 +49,8 @@ const routes = (
       <Route path="/admin/parties" component={PartiesList} />
         <Route path="/admin/parties/add" component={AddParty} />
         <Route path="/admin/parties/add-list" component={AddConstituency} />
-
+      	<Route path="/admin/parties/edit/:partyId" component={AddParty} />
+     
       <Route path="/admin/candidates" component={CandidatesList} />
         <Route path="/admin/candidates/add" component={AddCandidate} />
         <Route path="/admin/candidates/constituency/:constituencyId" component={CandidatesList} />
