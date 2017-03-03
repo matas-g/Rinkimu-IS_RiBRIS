@@ -10,11 +10,11 @@ var HomeListComponent = React.createClass({
 	          <nav className="navbar navbar-default" role="navigation">
 	            <div className="collapse navbar-collapse">
 	              <ul className="nav navbar-nav">
-	              	<li><NavLink to="/"><i className="fa fa-home fa-2x" aria-hidden="true"></i></NavLink></li>
-	                <li><NavLink to="/results">Rezultatai </NavLink></li>
-	                <li><NavLink to="/activity">Aktyvumas </NavLink></li>
-	                <li><NavLink to="/admin">Administratoriui</NavLink></li>
-	                <li><NavLink to="/representative">Atstovui</NavLink></li>
+	              	<li><a href="#/"><i className="fa fa-home fa-2x" aria-hidden="true"></i></a></li>
+	                <li><a href="#/results">Rezultatai</a></li>
+	                <li><a href="#/activity">Aktyvumas </a></li>
+	                <li><a href="#/admin">Administratoriui</a></li>
+	                <li><a href="#/representative">Atstovui</a></li>
 	              </ul>
 	            </div>
 	          </nav>

@@ -5,7 +5,7 @@ var PublicResultsListComponent = React.createClass({
 	render: function() {
 		return (
 
-               
+        <div>     
 	      <div className="row">
 	      	<div className="side-menu">
 	      		<nav className="navbar navbar-default" role="navigation">
@@ -20,7 +20,10 @@ var PublicResultsListComponent = React.createClass({
 				      </nav>
 			      </div>
 	          </div>
-		  
+	          <div>
+	          	{this.props.children}
+	          </div>
+		 </div> 
 		);
 	}
 });

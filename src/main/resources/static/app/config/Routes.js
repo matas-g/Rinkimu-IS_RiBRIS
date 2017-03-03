@@ -28,6 +28,7 @@ const CandidatesList = require('../containers/lists/candidates-list-container');
 
 const HomeList = require('../presentations/lists/home-list-presentation');
 const PublicResultsList = require('../presentations/lists/public-result-list-presentation');
+const SingleMandateList = require('../presentations/lists/single-mandate-results');
 
 
 
@@ -35,7 +36,9 @@ const routes = (
   <Router history={hashHistory}>
     <Route path="/" component={HomeList}>
     	<IndexRoute component={Herb} />
-    	<Route path="/results" component={PublicResultsList} />
+      	<Route path="/results" component={PublicResultsList} >
+          <Route path="/single-mandate" component={SingleMandateList} />
+        </Route>
     </Route>
     
    
