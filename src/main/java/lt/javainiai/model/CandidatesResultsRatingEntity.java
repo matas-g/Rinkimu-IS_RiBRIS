@@ -1,15 +1,12 @@
 package lt.javainiai.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -29,35 +26,35 @@ public class CandidatesResultsRatingEntity {
 
     @ManyToOne
     @JsonBackReference(value = "candidate-ratingResults")
-    @JoinColumn(name="candidate_id")
+    @JoinColumn(name = "candidate_id")
     private CandidateEntity candidate;
-    
+
     private Date created;
     private Date updated;
 
     @PrePersist
     protected void onCreate() {
-      setCreated(new Date());
+        setCreated(new Date());
     }
 
     @PreUpdate
     protected void onUpdate() {
-      setUpdated(new Date());
+        setUpdated(new Date());
     }
-    
+
     @JsonProperty
     private Long getCandidateId() {
         return candidate == null ? null : candidate.getId();
     }
-    
-    @ManyToMany
-    @JoinTable(name = "District_Rating", joinColumns = { @JoinColumn(name="rating_result_id") },
-	inverseJoinColumns = {@JoinColumn(name="District_Id")})
-    private List<PollingDistrictEntity> districts;
-    
-	//Constructor
-    public CandidatesResultsRatingEntity(){
-        
+
+    @ManyToOne
+    @JsonBackReference(value = "district-candidateRatingResults")
+    @JoinColumn(name = "District_Id")
+    private PollingDistrictEntity district;
+
+    // Constructor
+    public CandidatesResultsRatingEntity() {
+
     }
 
     // Getters and Setters
@@ -85,48 +82,48 @@ public class CandidatesResultsRatingEntity {
         this.candidate = candidate;
     }
 
-	public List<PollingDistrictEntity> getDistricts() {
-		return districts;
-	}
+    public PollingDistrictEntity getDistrict() {
+        return district;
+    }
 
-	public void setDistricts(List<PollingDistrictEntity> districts) {
-		this.districts = districts;
-	}
+    public void setDistrict(PollingDistrictEntity district) {
+        this.district = district;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CandidatesResultsSingleMandateEntity other = (CandidatesResultsSingleMandateEntity) obj;
-		if (candidate.getId() == null) {
-			if (other.getId() != null)
-				return false;
-		} else if (!candidate.getId().equals(other.getId()))
-			return false;
-		return true;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        CandidatesResultsSingleMandateEntity other = (CandidatesResultsSingleMandateEntity) obj;
+        if (candidate.getId() == null) {
+            if (other.getId() != null)
+                return false;
+        } else if (!candidate.getId().equals(other.getId()))
+            return false;
+        return true;
+    }
 
     public Date getCreated() {
-		return created;
-	}
+        return created;
+    }
 
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+    public void setCreated(Date created) {
+        this.created = created;
+    }
 
-	public Date getUpdated() {
-		return updated;
-	}
+    public Date getUpdated() {
+        return updated;
+    }
 
-	public void setUpdated(Date updated) {
-		this.updated = updated;
-	}
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
 
-	@Override
+    @Override
     public String toString() {
         return "CandidatesResultsEntity [id=" + id + ", numberOfVotes=" + numberOfVotes + "]";
     }
