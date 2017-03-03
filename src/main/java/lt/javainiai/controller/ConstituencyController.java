@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.service.ConstituencyService;
 
-
 @RestController
 @RequestMapping("/constituencies/")
 public class ConstituencyController {
@@ -28,26 +27,27 @@ public class ConstituencyController {
     public ConstituencyController(ConstituencyService constituencyService) {
         this.constituencyService = constituencyService;
     }
-    
- // Register or update
+
+    // Register or update
     @RequestMapping(value = "csv/", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public ConstituencyEntity saveOrUpdate(@RequestParam(value="id", required=false) Long id, @RequestParam("name") String constituencyName,
-            @RequestParam("file") MultipartFile csvFile) {
+    public ConstituencyEntity saveOrUpdate(@RequestParam(value = "id", required = false) Long id,
+            @RequestParam("name") String constituencyName, @RequestParam("file") MultipartFile csvFile) {
         return constituencyService.saveOrUpdate(id, constituencyName, csvFile);
     }
 
     // Register or update (no CSV file)
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public ConstituencyEntity saveOrUpdate(@RequestParam(value="id", required=false) Long id, @RequestParam("name") String constituencyName) {
+    public ConstituencyEntity saveOrUpdate(@RequestParam(value = "id", required = false) Long id,
+            @RequestParam("name") String constituencyName) {
         return constituencyService.saveOrUpdate(id, constituencyName);
     }
 
     // Find all
-    @RequestMapping(method = RequestMethod.GET) 
+    @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<ConstituencyEntity> findAll() { 
+    public List<ConstituencyEntity> findAll() {
         return constituencyService.findAll();
     }
 
@@ -57,7 +57,7 @@ public class ConstituencyController {
     public ConstituencyEntity findById(@Valid @PathVariable("id") Long id) {
         return constituencyService.findById(id);
     }
-    
+
     // Find one by name
     @RequestMapping(value = "/by-name/{name}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
@@ -70,6 +70,20 @@ public class ConstituencyController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@Valid @PathVariable("id") Long id) {
         constituencyService.deleteById(id);
+    }
+
+    // Get number of votes in constituency
+    @RequestMapping(value = "total-votes/{constituencyId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public Long getSumOfSingleMandateVotesInConstituency(@Valid @PathVariable("constituencyId") Long constituencyId) {
+        return constituencyService.getSumOfSingleMandateVotesInConstituency(constituencyId);
+    }
+
+    // Get percent of all voters in constituency
+    @RequestMapping(value = "total-votes-percent/{constituencyId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public Double getPercentOfAllVotersInConstituency(@Valid @PathVariable("constituencyId") Long constituencyId) {
+        return constituencyService.getPercentOfAllVotersInConstituency(constituencyId);
     }
 
 }

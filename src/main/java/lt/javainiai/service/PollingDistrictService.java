@@ -35,7 +35,7 @@ public class PollingDistrictService {
         pollingDistrictRepository.deleteById(id);
     }
 
-    // Election results
+    // Election results - Voters activity
     public Long getSumOfSingleMandateVotesInDistrict(Long districtId) {
         Long sumOfVotes = 0L;
         PollingDistrictEntity district = findById(districtId);
