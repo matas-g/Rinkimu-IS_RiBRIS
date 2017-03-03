@@ -55,5 +55,15 @@ public class PollingDistrictService {
         percent = (sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0;
         return percent;
     }
-
+    
+    // Election results - Single mandate results
+    
+    
+    
+    // Number of votes for each candidate
+    
+    // Percent of all (single-member) ballots
+    
+    // Percent of all valid (single-member) ballots
+    
 }
