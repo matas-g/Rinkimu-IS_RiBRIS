@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -53,15 +54,17 @@ public class PollingDistrictEntity {
     @JoinColumn(name = "Constituency_Id")
     private ConstituencyEntity constituency;
     
-    @ManyToMany(mappedBy = "districts", cascade=CascadeType.ALL)
-    private List<CandidatesResultsSingleMandateEntity> singleMandateResults;
+    @OneToMany(mappedBy = "district", cascade=CascadeType.ALL)
+    @JsonManagedReference(value = "district-singleMandateResults")
+    private List<CandidatesResultsSingleMandateEntity> singleMandateResults;    
     
     @ManyToMany(mappedBy = "districts", cascade=CascadeType.ALL)
     private List<CandidatesResultsRatingEntity> ratingResults;
     
-    @ManyToMany(mappedBy = "districts", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "district", cascade=CascadeType.ALL)
+    @JsonManagedReference(value = "district-multiMandateResults")
     private List<PartyResultsEntity> partyResults;
-
+    
 	@JsonProperty
     private String getConstituencyName() {
         return constituency == null ? null : constituency.getName();

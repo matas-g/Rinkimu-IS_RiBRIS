@@ -1,15 +1,12 @@
 package lt.javainiai.model;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -42,18 +39,10 @@ public class PartyResultsEntity {
       setUpdated(new Date());
     }
     
-    @ManyToMany
-    @JoinTable(name = "District_Party", joinColumns = { @JoinColumn(name="party_result_id") },
-    		inverseJoinColumns = {@JoinColumn(name="District_Id")})
-    private List<PollingDistrictEntity> districts;
-
-    public List<PollingDistrictEntity> getDistricts() {
-		return districts;
-	}
-
-	public void setDistricts(List<PollingDistrictEntity> districts) {
-		this.districts = districts;
-	}
+    @ManyToOne
+    @JsonBackReference(value = "district-multiMandateResults")
+    @JoinColumn(name="District_Id")
+    private PollingDistrictEntity district;
 
 	// Constructor
     public PartyResultsEntity() {
@@ -99,13 +88,21 @@ public class PartyResultsEntity {
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
+    
+    public PollingDistrictEntity getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(PollingDistrictEntity district) {
+        this.district = district;
+    }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((created == null) ? 0 : created.hashCode());
-        result = prime * result + ((districts == null) ? 0 : districts.hashCode());
+        result = prime * result + ((district == null) ? 0 : district.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((numberOfVotes == null) ? 0 : numberOfVotes.hashCode());
         result = prime * result + ((party == null) ? 0 : party.hashCode());
@@ -127,10 +124,10 @@ public class PartyResultsEntity {
                 return false;
         } else if (!created.equals(other.created))
             return false;
-        if (districts == null) {
-            if (other.districts != null)
+        if (district == null) {
+            if (other.district != null)
                 return false;
-        } else if (!districts.equals(other.districts))
+        } else if (!district.equals(other.district))
             return false;
         if (id == null) {
             if (other.id != null)
