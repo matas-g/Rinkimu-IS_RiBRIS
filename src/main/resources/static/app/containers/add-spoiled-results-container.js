@@ -20,7 +20,10 @@ var AddConstituencyContainer = React.createClass({
         self.setState({
           districts: response.data,
           district: {
-            id: response.data[0].id
+            id: response.data[0].id,
+    		name: response.data[0].name,
+    		address: response.data[0].address,
+    		numOfVoters: response.data[0].numOfVoters
           }
         });
       });
@@ -36,7 +39,16 @@ var AddConstituencyContainer = React.createClass({
     handleSaveClick: function(e) {
       e.preventDefault();
       var self = this;
-      axios.post('http://localhost:8090/polling-districts/').then(function(response) { // praplesti rektu kontroleri,
+      console.log(this.state);
+      var dataList = {
+    		  district: {
+    	      name: this.state.name,
+    	      address: this.state.address,
+    	      numOfVoters: this.state.numOfVoters
+    		  	}
+      		};
+    	  
+      axios.post('http://localhost:8090/polling-districts/', dataList).then(function(response) { // praplesti rektu kontroleri,
                                                                                         // butent balsams priskirti ir
                                                                                        // pagal id atskirti kuriai apylinkei
       });
