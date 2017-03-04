@@ -26,16 +26,19 @@ var AddConstituencyContainer = React.createClass({
       });
     },
 
+    // blogas metodas cia, reiktu padaryti, kad butu 2 kart kvieciamas axios post metodas
+    // viena karta vienmandaciams (voteCountSingle) antra kart daugiamandaciams (voteCountMulti).
+    // tuo paciu reikia ir backe padaryti, kad polling district turetu metodus priimti district id
+    // pagal kuri jis zinos kuriai apylinkei yra priskiriami balsai ir balsu skaiciu sumergintu, t. y. butu sukuriama
+    // nauja apylinke, tada pagal id susirandi kuriai apylinkei setinsi balsu, uzsetinami senos apylinke
+    // visi laukai ir nauja apylinke sumerginama. T. y. paliekamas tik vienas metodas backe, tik merge, o paskui
+    // ta merge persistini.
     handleSaveClick: function(e) {
       e.preventDefault();
       var self = this;
-      axios.post('http://localhost:8090/polling-districts/').then(function(response) {
-        self.setState({
-          districts: response.data,
-          district: {
-            id: response.data[0].id
-          }
-        });
+      axios.post('http://localhost:8090/polling-districts/').then(function(response) { // praplesti rektu kontroleri,
+                                                                                        // butent balsams priskirti ir
+                                                                                       // pagal id atskirti kuriai apylinkei
       });
     },
 
