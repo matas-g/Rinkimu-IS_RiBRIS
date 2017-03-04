@@ -20,7 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lt.javainiai.exceptions.FileAlreadyExists;
 import lt.javainiai.model.CandidateEntity;
+import lt.javainiai.model.CandidatesResultsSingleMandateEntity;
 import lt.javainiai.model.ConstituencyEntity;
+import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.ConstituencyRepository;
 
 @Service
@@ -28,17 +30,17 @@ public class ConstituencyService {
 
     @Autowired
     private ConstituencyRepository constituencyRepository;
-    
+
     @Autowired
     private CandidateService candidateService;
 
     // Path to store multi-candidate CSV files
     private final Path csvMultiLocation = Paths.get("csv-multi-files");
-    
+
     public ConstituencyEntity saveOrUpdate(Long id, String constituencyName, MultipartFile csvFile) {
 
-    	ConstituencyEntity constituency = new ConstituencyEntity();
-    	constituency.setId(id);
+        ConstituencyEntity constituency = new ConstituencyEntity();
+        constituency.setId(id);
         constituency.setName(constituencyName);
         // save party to Database and get response from repository;
         ConstituencyEntity constituencyResponse = constituencyRepository.saveOrUpdate(constituency);
@@ -72,17 +74,17 @@ public class ConstituencyService {
                 candidate.setMultiMandate(Boolean.valueOf(values[4]));
                 candidate.setBiography(values[5]);
                 candidate.setListPossition(Long.valueOf(values[6]));
-                
+
                 candidateList.add(candidate);
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } 
+        }
 
         for (CandidateEntity candidate : candidateList) {
             candidateService.saveOrUpdate(candidate);
         }
-        
+
         return constituencyResponse;
     }
 
@@ -97,12 +99,12 @@ public class ConstituencyService {
 
     public List<ConstituencyEntity> findAll() {
         return constituencyRepository.findAll();
-    } 
+    }
 
     public ConstituencyEntity findById(Long id) {
         return constituencyRepository.findById(id);
     }
-    
+
     public ConstituencyEntity findByName(String name) {
         return constituencyRepository.findByName(name);
     }
@@ -110,7 +112,41 @@ public class ConstituencyService {
     public void deleteById(Long id) {
         constituencyRepository.deleteById(id);
     }
-    
+
+    // Election results - Voters activity
+    public Long getSumOfSingleMandateVotesInConstituency(Long constituencyId) {
+        Long sumOfVotes = 0L;
+        ConstituencyEntity constituency = findById(constituencyId);
+        List<PollingDistrictEntity> districts = constituency.getPollingDistricts();
+
+        for (PollingDistrictEntity district : districts) {
+            List<CandidatesResultsSingleMandateEntity> districtSingleMemberResultsList = district
+                    .getSingleMandateResults();
+
+            for (CandidatesResultsSingleMandateEntity candidateResult : districtSingleMemberResultsList) {
+                sumOfVotes += candidateResult.getNumberOfVotes();
+            }
+            sumOfVotes += district.getSpoiledSingleMandateBallots();
+        }
+        return sumOfVotes;
+    }
+
+    // Get percent of all voters in constituency
+    public Double getPercentOfAllVotersInConstituency(Long constituencyId) {
+        Double percent = 0.0;
+        Long sumOfVotes = getSumOfSingleMandateVotesInConstituency(constituencyId);
+        Long totalOfVoters = 0L;
+
+        ConstituencyEntity constituency = findById(constituencyId);
+        List<PollingDistrictEntity> districts = constituency.getPollingDistricts();
+
+        for (PollingDistrictEntity district : districts) {
+            totalOfVoters += district.getNumOfVoters();
+        }
+        percent = (sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0;
+        return percent;
+    }
+
     // Converts date (String) from CSV to java.util.Date, then to java.sql.Date
     // (needed for candidate.setBirthDate method)
     private java.sql.Date formatDate(String dateString) {
@@ -125,7 +161,7 @@ public class ConstituencyService {
         }
         return birthDate;
     }
-    
+
     // deletes CSV storage directory "csv-multi-files"
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(csvMultiLocation.toFile());

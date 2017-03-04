@@ -1,5 +1,8 @@
 package lt.javainiai.service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,8 @@ import org.springframework.stereotype.Service;
 import lt.javainiai.model.CandidatesResultsSingleMandateEntity;
 import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.PollingDistrictRepository;
+import lt.javainiai.utils.DistrictVotersActivityInPercent;
+import lt.javainiai.utils.DistrictVotersActivityInUnits;
 
 @Service
 public class PollingDistrictService {
@@ -35,8 +40,8 @@ public class PollingDistrictService {
         pollingDistrictRepository.deleteById(id);
     }
 
-    // Election results
-    public Long getSumOfSingleMandateVotesInDistrict(Long districtId) {
+    // Voters activity - in units
+    public Long getVotersActivityInUnitsInDistrict(Long districtId) {
         Long sumOfVotes = 0L;
         PollingDistrictEntity district = findById(districtId);
         List<CandidatesResultsSingleMandateEntity> districtSingleMemberResultsList = district.getSingleMandateResults();
@@ -47,13 +52,53 @@ public class PollingDistrictService {
         return sumOfVotes + district.getSpoiledSingleMandateBallots();
     }
 
-    public Double getPercentOfAllVoters(Long districtId) {
-        Double percent = 0.0;
-        Long sumOfVotes = getSumOfSingleMandateVotesInDistrict(districtId);
+    public List<DistrictVotersActivityInUnits> getVotersActivityInUnitsInAllDistricts() {
+
+        List<DistrictVotersActivityInUnits> activityInDistrictsList = new ArrayList<DistrictVotersActivityInUnits>();
+        List<PollingDistrictEntity> districts = findAll();
+
+        // Fill "activityInDistrictsList"
+        for (PollingDistrictEntity district : districts) {
+            Long districtId = district.getId();
+            Long totalOfBallots = getVotersActivityInUnitsInDistrict(districtId);
+
+            DistrictVotersActivityInUnits districtActivity = new DistrictVotersActivityInUnits(districtId,
+                    totalOfBallots);
+
+            activityInDistrictsList.add(districtActivity);
+        }
+        return activityInDistrictsList;
+    }
+
+    // Voters activity - in percent
+    public BigDecimal getVotersActivityInPercentInDistrict(Long districtId) {
+        Long sumOfVotes = getVotersActivityInUnitsInDistrict(districtId);
         Long totalOfVoters = findById(districtId).getNumOfVoters();
 
-        percent = (sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0;
+        BigDecimal percent = new BigDecimal((sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0);
+        
+        // Rounding to 0.00
+        percent = percent.setScale(2, RoundingMode.HALF_UP);
+        
         return percent;
+    }
+
+    public List<DistrictVotersActivityInPercent> getVotersActivityInPercentInAllDistricts() {
+
+        List<DistrictVotersActivityInPercent> activityInDistrictsList = new ArrayList<DistrictVotersActivityInPercent>();
+        List<PollingDistrictEntity> districts = findAll();
+
+        // Fill "activityInDistrictsList"
+        for (PollingDistrictEntity district : districts) {
+            Long districtId = district.getId();
+            BigDecimal activityInDistrict = getVotersActivityInPercentInDistrict(districtId);
+
+            DistrictVotersActivityInPercent districtActivity = new DistrictVotersActivityInPercent(districtId,
+                    activityInDistrict);
+
+            activityInDistrictsList.add(districtActivity);
+        }
+        return activityInDistrictsList;
     }
 
 }
