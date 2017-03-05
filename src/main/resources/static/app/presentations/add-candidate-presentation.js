@@ -4,15 +4,23 @@ const TextValidator = require('../util/validation/text-validator-container');
 var AddCandidatePresentation = React.createClass({
   render: function() {
   var self = this;
+  var greeting;
   var PartiesList = this.props.parties.map(function(party, index) {
       return (
           <option key={index} value={party.id}>{party.name}</option>
       );
   });
 
+  if(this.props.name  == ''){
+		 greeting = <h4>Registruoti naują kandidatą</h4>;
+	 } else {
+		 greeting = <h4>Atnaujinti kandidatą</h4>;
+	 }
+
   return (
+		  
     <form autoComplete="off">
-      <h4>Registruoti naują kandidatą</h4>
+      {greeting}
       <br />
       <div className="form-group">
         <label>Vardas</label>

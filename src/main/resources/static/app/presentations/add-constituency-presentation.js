@@ -6,13 +6,22 @@ const AddConstituencies = React.createClass({
   onUploadMultiCandidateFile: function() {
     this.props.onUploadMultiCandidateFile( this.refs.file.files[0] );
   },
+  
+  
+  
 
   render: function() {
+	 var greeting;
+	 if(this.props.constituency.id  == ""){
+		 greeting = <h4>Registruoti naują apygardą</h4>;
+	 } else {
+		 greeting = <h4>Atnaujinti apygardą</h4>;
+	 }
     return (
       <div className="container-fluid">
         <div className="col-sm-offset-1 col-sm-10">
           <form autoComplete="off">
-            <h4>Registruoti naują apygardą</h4><br />
+            {greeting}<br />
             <div className="form-group">
               <label>Pavadinimas</label>
               <TextValidator>

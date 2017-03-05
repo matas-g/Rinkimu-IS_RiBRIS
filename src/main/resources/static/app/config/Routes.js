@@ -25,6 +25,7 @@ const DistrictsList = require('../containers/lists/districts-list-container');
 const PartiesList = require('../containers/lists/parties-list-container');
 const RepresentativesList = require('../containers/lists/representatives-list-container');
 const CandidatesList = require('../containers/lists/candidates-list-container');
+const ActivityList = require('../containers/lists/activity-list-container');
 
 const HomeList = require('../presentations/lists/home-list-presentation');
 const PublicResultsList = require('../presentations/lists/public-result-list-presentation');
@@ -75,6 +76,8 @@ const routes = (
       <Route path="/representative/results/spoiled" component={AddSpoiledResults} />
       <Route path="/representative/results/spoiled" component={Suvesti} />
 	  </Route>
+	    
+	 <Route path="/activity" component={ActivityList} />
   </Router>
 );
 

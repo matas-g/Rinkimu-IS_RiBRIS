@@ -10,11 +10,17 @@ var AddPartyPresentation = React.createClass({
   },
 
   render: function() {
+	  var greeting;
+  if(this.props.party.name  == ''){
+	greeting = <h4>Registruoti naują partiją</h4>;
+  } else {
+	greeting = <h4>Atnaujinti partiją</h4>;
+  }
     return (
       <div className="container-fluid">
         <div className="col-sm-offset-1 col-sm-10">
           <form autoComplete="off">
-            <h4>Registruoti naują partiją</h4>
+            {greeting}
             <br />
             <div className="form-group">
               <label>Pavadinimas</label>

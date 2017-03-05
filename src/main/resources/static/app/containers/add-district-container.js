@@ -5,6 +5,7 @@ const AddDistrictComponent = require('../presentations/add-district-presentation
 var AddDistrictContainer = React.createClass({
   getInitialState: function() {
     return {
+      id: '',
       name: '',
       address: '',
       numOfVoters: '',

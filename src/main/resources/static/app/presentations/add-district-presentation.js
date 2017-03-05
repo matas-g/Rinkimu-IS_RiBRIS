@@ -5,16 +5,22 @@ const NumberValidator = require('../util/validation/number-validator-container')
 var AddDistrictPresentation = React.createClass({
   render: function() {
     var self = this;
+    var greeting;
     var ConstituenciesList = this.props.constituencies.map(function(constituency, index) {
         return (
             <option key={index} value={constituency.id}>{constituency.name}</option>
         );
     });
+    if(this.props.name  == ''){
+		 greeting = <h4>Registruoti naują apylinkę</h4>;
+	 } else {
+		 greeting = <h4>Atnaujinti apylinkę</h4>;
+	 }
     return (
       <div className="container-fluid">
         <div className="col-sm-offset-1 col-sm-10">
           <form autoComplete="off">
-            <h4>Registruoti naują apylinkę</h4>
+            {greeting}
             <br />
             <div className="form-group">
               <label>Pavadinimas</label>
