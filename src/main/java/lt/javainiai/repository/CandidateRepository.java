@@ -5,14 +5,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import lt.javainiai.model.CandidateEntity;
 
 @Repository
-@PreAuthorize("hasRole('ROLE_MANAGER')")
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class CandidateRepository implements RepositoryInterface<CandidateEntity> {
 
     @Autowired

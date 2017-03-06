@@ -11,8 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import lt.javainiai.model.ConstituencyEntity;
 
 @Repository
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class ConstituencyRepository  implements RepositoryInterface<ConstituencyEntity> {
-//implements RepositoryInterface<ConstituencyEntity>
+	
     @Autowired
     private EntityManager em;
 

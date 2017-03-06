@@ -85,10 +85,11 @@ public class PollingDistrictController {
     public List<DistrictVotersActivityInPercent> getVotersActivityInPercentInAllDistricts() {
         return pollingDistrictService.getVotersActivityInPercentInAllDistricts();
     }
-//    
+
     @RequestMapping(value ="spoiled-ballots/{districtId}",method = RequestMethod.POST)
     public PollingDistrictEntity postSpoiledBallots(@Valid @PathVariable("districtId") Long districtId, 
     		@RequestBody SpoiledResults results) {
         return pollingDistrictService.postSpoiledBallots(districtId, results);
     }
-} //@RequestParam("spoiledSingle") Long single, @RequestParam("spoiledMulti") Long multi) 
+} 
+

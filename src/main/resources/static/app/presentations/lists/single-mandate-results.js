@@ -5,7 +5,7 @@ var SingleMandateComponent = React.createClass({
 	render: function() {
 		return (
 
-				<div className="container-fluid col-md-10">
+				<div className="container-fluid">
 					<div className="panel panel-default">
 						<div className="panel-heading"><strong>Vienmadatės rezultatai</strong></div>
 						<table className="table">
@@ -31,7 +31,7 @@ var SingleMandateComponent = React.createClass({
 						</table>
 					</div>
 				</div>
-		
+
 		);
 	}
 });

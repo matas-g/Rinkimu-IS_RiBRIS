@@ -4,15 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Admin {
 
-	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
+//	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
 	@Id
 	@GeneratedValue
@@ -30,7 +27,7 @@ public class Admin {
 	public Admin(String name, String password, String... roles) {
 
 		this.name = name;
-		this.setPassword(password);
+//		this.setPassword(password);
 		this.roles = roles;
 	}
 
@@ -46,9 +43,9 @@ public class Admin {
 		return password;
 	}
 	
-	public void setPassword(String password) {
-		this.password = PASSWORD_ENCODER.encode(password);
-	}
+//	public void setPassword(String password) {
+//		this.password = PASSWORD_ENCODER.encode(password);
+//	}
 
 	public Long getId() {
 		return id;
