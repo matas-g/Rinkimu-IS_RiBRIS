@@ -1,11 +1,17 @@
 const React = require('react');
-const DeleteConfirm = require('react-delete-confirm');
+const ConfirmDelete = require('../../util/delete-confirm');
 
 var ConstituenciesListComponent = React.createClass({
   render: function() {
     var self = this;
+    var style = {backgroundColor: "D52D2D"};
+    var buttonText = <i className="fa fa-times" aria-hidden="true"></i>;
+    var cancelText = "Atšaukti";
+    var confirmText = "Patvirtinti";
     var nr = 1;
     var ConstituenciesList = this.props.constituencies.map(function(constituency, index) {
+      var title = <h2>Ištrinste <b>{constituency.name}</b> apygardą</h2>
+      var body = <h4 className="alert alert-danger">Ar tiktai norite ištrinti <b>{constituency.name}</b> apygardą?</h4>;
       return (
         <tr key={index}>
           <td>{nr++}</td>
@@ -26,9 +32,15 @@ var ConstituenciesListComponent = React.createClass({
             <button className="btn btn-success btn-sm" onClick={self.props.onEditItem(constituency)}>
               <i className="fa fa-pencil" aria-hidden="true"></i>
             </button>
-            <button className="btn btn-danger btn-sm" onClick={self.props.onRemoveItem(constituency)}>
-              <i className="fa fa-times" aria-hidden="true"></i>
-            </button>
+            <ConfirmDelete
+              title={title}
+              body={body}
+              style={style}
+              buttonText={buttonText}
+              cancelText={cancelText}
+              confirmText={confirmText}
+              onConfirm={self.props.onRemoveItem(constituency)}
+            />
           </td>
         </tr>
       );
