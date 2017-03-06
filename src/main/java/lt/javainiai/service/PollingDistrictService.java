@@ -5,6 +5,8 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.PollingDistrictRepository;
 import lt.javainiai.utils.DistrictVotersActivityInPercent;
 import lt.javainiai.utils.DistrictVotersActivityInUnits;
+import lt.javainiai.utils.SpoiledResults;
 
 @Service
 public class PollingDistrictService {
@@ -100,5 +103,28 @@ public class PollingDistrictService {
         }
         return activityInDistrictsList;
     }
+    
+    @Transactional
+    public PollingDistrictEntity postSpoiledBallots(Long districtId, SpoiledResults results){
+    	Long single;
+    	Long multi;
+    	if(results.getSpoiledSingle() == null){
+    		single = 0L;
+    	} else {
+    		single = results.getSpoiledSingle();
+    	}
+    	
+    	if(results.getSpoiledMulti() == null){
+    		multi = 0L;
+    	} else {
+    		multi = results.getSpoiledMulti();
+    	}
+    	
+    	return pollingDistrictRepository.postSpoiledBallots(districtId, single, multi);
+    }
+
+
 
 }
+
+
