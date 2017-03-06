@@ -1,10 +1,17 @@
 const React = require('react');
+const ConfirmDelete = require('../../util/delete-confirm');
 
 var PartiesListComponent = React.createClass({
   render: function() {
     var self = this;
+    var style = {backgroundColor: "D52D2D"};
+    var buttonText = <i className="fa fa-times" aria-hidden="true"></i>;
+    var cancelText = "Atšaukti";
+    var confirmText = "Patvirtinti";
     var nr = 1;
     var PartiesList = this.props.parties.map(function(party, index) {
+      var title = <h2>Ištrinste <b>{party.name}</b> partiją</h2>
+      var body = <h4 className="alert alert-danger">Ar tiktai norite ištrinti <b>{party.name}</b> partiją?</h4>;
       return (
         <tr key={index}>
           <td>{nr++}</td>
@@ -20,9 +27,15 @@ var PartiesListComponent = React.createClass({
             <button className="btn btn-success btn-sm" onClick={self.props.onEditItem(party)}>
               <i className="fa fa-pencil" aria-hidden="true"></i>
             </button>
-            <button className="btn btn-danger btn-sm" onClick={self.props.onRemoveItem(party)}>
-              <i className="fa fa-times" aria-hidden="true"></i>
-            </button>
+            <ConfirmDelete
+              title={title}
+              body={body}
+              style={style}
+              buttonText={buttonText}
+              cancelText={cancelText}
+              confirmText={confirmText}
+              onConfirm={self.props.onRemoveItem(party)}
+            />
           </td>
         </tr>
       );
