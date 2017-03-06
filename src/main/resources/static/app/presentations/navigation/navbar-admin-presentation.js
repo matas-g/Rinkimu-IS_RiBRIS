@@ -47,7 +47,7 @@ var Navigation = React.createClass({
           </div>
         </div>
       </div>
-   
+
     );
   }
 });
