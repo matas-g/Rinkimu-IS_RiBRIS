@@ -47,9 +47,9 @@ var AddConstituencyContainer = React.createClass({
     	      numOfVoters: this.state.numOfVoters
     		  	}
       		};
-    	  
+      
       axios.post('http://localhost:8090/polling-districts/', dataList).then(function(response) { // praplesti rektu kontroleri,
-                                                                                        // butent balsams priskirti ir
+             console.log(response);                                                                       // butent balsams priskirti ir
                                                                                        // pagal id atskirti kuriai apylinkei
       });
     },
