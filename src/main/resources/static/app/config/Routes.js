@@ -27,9 +27,13 @@ const PartiesList = require('../containers/lists/parties-list-container');
 const RepresentativesList = require('../containers/lists/representatives-list-container');
 const CandidatesList = require('../containers/lists/candidates-list-container');
 
+const PublicSingleResultsList = require('../containers/lists/public-single-list-container');
+
+
 const HomeList = require('../presentations/lists/home-list-presentation');
 const PublicResultsList = require('../presentations/lists/public-result-list-presentation');
-const SingleMandateList = require('../presentations/lists/single-mandate-results');
+const SingleMandateList = require('../presentations/lists/single-mandate-results-presentation');
+const MultiMandateList = require('../presentations/lists/multi-mandate-results-presentation');
 
 
 
@@ -38,7 +42,8 @@ const routes = (
     <Route path="/" component={HomeList}>
     	<IndexRoute component={Herb} />
       	<Route path="/results" component={PublicResultsList} >
-          <Route path="/single-mandate" component={SingleMandateList} />
+          <Route path="/single-mandate" component={PublicSingleResultsList} />
+          <Route path="/muti-mandate" component={MultiMandateList} />
         </Route>
     </Route>
     
