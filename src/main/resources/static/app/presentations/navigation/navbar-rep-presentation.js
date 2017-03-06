@@ -23,7 +23,7 @@ var NavigationRep = React.createClass({
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li><NavLink to="/">
-                  <span className="glyphicon glyphicon-log-in"> Atsijungti</span>
+                  <i className="fa fa-sign-in" aria-hidden="true"></i> Atsijungti
                 </NavLink></li>
               </ul>
             </div>

@@ -7,6 +7,7 @@ const hashHistory = ReactRouter.hashHistory;
 const NavBar = require('../containers/navigation/navbar-container');
 const NavRepresentative = require('../containers/navigation/navbar-representative-container');
 const NavListContainer = require('../containers/navigation/nav-cards-list-container');
+const Login = require('../presentations/lists/login-presentation');
 
 const AddConstituency = require('../containers/add-constituency-container');
 const AddDistrict = require('../containers/add-district-container');
@@ -41,7 +42,8 @@ const routes = (
         </Route>
     </Route>
     
-   
+    <Route path="/login" component={Login}>
+    </Route>
     
     <Route path="/admin" component={NavBar}>
       <IndexRoute component={ConstituenciesList} />

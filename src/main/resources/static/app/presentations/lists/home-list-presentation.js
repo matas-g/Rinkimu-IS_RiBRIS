@@ -13,8 +13,11 @@ var HomeListComponent = React.createClass({
 	              	<li><a href="#/"><i className="fa fa-home fa-2x" aria-hidden="true"></i></a></li>
 	                <li><a href="#/results">Rezultatai</a></li>
 	                <li><a href="#/activity">Aktyvumas </a></li>
-	                <li><a href="#/admin">Administratoriui</a></li>
-	                <li><a href="#/representative">Atstovui</a></li>
+	              </ul>
+	              <ul className="nav navbar-nav navbar-right">
+	              	 <li><a href="#/login">
+	              	 	<i className="fa fa-sign-in" aria-hidden="true"></i> Prisijungti
+	              	 </a></li>
 	              </ul>
 	            </div>
 	          </nav>

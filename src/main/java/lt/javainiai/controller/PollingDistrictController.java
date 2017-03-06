@@ -1,5 +1,6 @@
 package lt.javainiai.controller;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.service.PollingDistrictService;
+import lt.javainiai.utils.DistrictVotersActivityInPercent;
+import lt.javainiai.utils.DistrictVotersActivityInUnits;
 
 @RestController
 @RequestMapping("/polling-districts/")
@@ -55,19 +58,31 @@ public class PollingDistrictController {
     public void deleteById(@Valid @PathVariable("id") Long id) {
         pollingDistrictService.deleteById(id);
     }
-    
+
     // Get number of votes in district
     @RequestMapping(value = "total-votes/{districtId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Long getSumOfVotesInDistrict(@Valid @PathVariable("districtId") Long districtId) {
-        return pollingDistrictService.getSumOfSingleMandateVotesInDistrict(districtId);
+    public Long getVotersActivityInUnitsInDistrict(@Valid @PathVariable("districtId") Long districtId) {
+        return pollingDistrictService.getVotersActivityInUnitsInDistrict(districtId);
     }
-    
+
+    @RequestMapping(value = "total-votes/", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<DistrictVotersActivityInUnits> getVotersActivityInUnitsInAllDistricts() {
+        return pollingDistrictService.getVotersActivityInUnitsInAllDistricts();
+    }
+
     // Get percent of all voters in district
     @RequestMapping(value = "total-votes-percent/{districtId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Double getPercentOfAllVoters(@Valid @PathVariable("districtId") Long districtId) {
-        return pollingDistrictService.getPercentOfAllVoters(districtId);
+    public BigDecimal getVotersActivityInPercentInDistrict(@Valid @PathVariable("districtId") Long districtId) {
+        return pollingDistrictService.getVotersActivityInPercentInDistrict(districtId);
+    }
+
+    @RequestMapping(value = "total-votes-percent/", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<DistrictVotersActivityInPercent> getVotersActivityInPercentInAllDistricts() {
+        return pollingDistrictService.getVotersActivityInPercentInAllDistricts();
     }
 
 }

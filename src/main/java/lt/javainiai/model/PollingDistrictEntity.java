@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -58,7 +57,8 @@ public class PollingDistrictEntity {
     @JsonManagedReference(value = "district-singleMandateResults")
     private List<CandidatesResultsSingleMandateEntity> singleMandateResults;    
     
-    @ManyToMany(mappedBy = "districts", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "district", cascade=CascadeType.ALL)
+    @JsonManagedReference(value = "district-candidateRatingResults")
     private List<CandidatesResultsRatingEntity> ratingResults;
     
     @OneToMany(mappedBy = "district", cascade=CascadeType.ALL)
