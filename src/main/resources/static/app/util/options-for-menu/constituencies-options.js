@@ -1,12 +1,12 @@
 var servedDetails = [
   {
-    text: 'Pridėti vieną',
+    text: 'Pridėti apygardą',
     pathTo: '/admin/constituencies/add'
   },
-  {
-    text: 'Priskirti apylinkę',
-    pathTo: '/admin/districts/add/:constituencyId'
-  }
+   {
+    text: 'Pridėti ka nors ',
+    pathTo: '/admin/constituencies/add'
+  },
 ];
 
 module.exports = servedDetails;
