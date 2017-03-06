@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +20,7 @@ import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.service.PollingDistrictService;
 import lt.javainiai.utils.DistrictVotersActivityInPercent;
 import lt.javainiai.utils.DistrictVotersActivityInUnits;
+import lt.javainiai.utils.SpoiledResults;
 
 @RestController
 @RequestMapping("/polling-districts/")
@@ -83,5 +85,10 @@ public class PollingDistrictController {
     public List<DistrictVotersActivityInPercent> getVotersActivityInPercentInAllDistricts() {
         return pollingDistrictService.getVotersActivityInPercentInAllDistricts();
     }
-
-}
+//    
+    @RequestMapping(value ="spoiled-ballots/{districtId}",method = RequestMethod.POST)
+    public PollingDistrictEntity postSpoiledBallots(@Valid @PathVariable("districtId") Long districtId, 
+    		@RequestBody SpoiledResults results) {
+        return pollingDistrictService.postSpoiledBallots(districtId, results);
+    }
+} //@RequestParam("spoiledSingle") Long single, @RequestParam("spoiledMulti") Long multi) 

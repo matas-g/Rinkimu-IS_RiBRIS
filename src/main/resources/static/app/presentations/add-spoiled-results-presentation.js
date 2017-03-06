@@ -1,7 +1,7 @@
 const React = require('react');
 const NumberValidator = require('../util/validation/number-validator-container');
 
-const AddConstituencies = React.createClass({
+const AddSpoiledResults = React.createClass({
 
   render: function() {
     var DistrictsList = this.props.districts.map(function(district, index) {
@@ -47,4 +47,4 @@ const AddConstituencies = React.createClass({
   }
 });
 
-module.exports = AddConstituencies;
+module.exports = AddSpoiledResults;
