@@ -1,4 +1,4 @@
-package lt.javainiai.repository;
+package lt.javainiai.security;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import lt.javainiai.model.RepresentativeEntity;
+import lt.javainiai.repository.RepositoryInterface;
 
 @Repository
 public class RepresentativeRepository implements RepositoryInterface<RepresentativeEntity> {
