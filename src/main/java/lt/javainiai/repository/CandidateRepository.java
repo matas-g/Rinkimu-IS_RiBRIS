@@ -59,6 +59,7 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
     		    .getResultList();
     }
     
+    
     @SuppressWarnings("unchecked")
     public List<CandidateEntity> findAllFromParty(Long id) {
         return em.createNativeQuery("SELECT * FROM CANDIDATES c WHERE c.party_id = ?", CandidateEntity.class)
@@ -77,5 +78,11 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
         CandidateEntity candidateToRemove = em.find(CandidateEntity.class, id);
         em.remove(candidateToRemove);
     }
-
+    @Transactional
+    public void deleteByConstituencyId(Long id){
+    	em.createNativeQuery("DELETE FROM CANDIDATES c WHERE c.constituency_id = ?")
+    		.setParameter(1, id)
+    		.executeUpdate();
+    }
+    
 }

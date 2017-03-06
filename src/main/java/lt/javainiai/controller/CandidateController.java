@@ -69,5 +69,10 @@ public class CandidateController {
     public void deleteById(@Valid @PathVariable("id") Long id) {
         candidateService.deleteById(id);
     }
-
+    
+    @RequestMapping(value = "/by-constituency/{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteByConstituencyId(@Valid @PathVariable("id") Long id){
+    	candidateService.deleteByConstituencyId(id);
+    }
 }
