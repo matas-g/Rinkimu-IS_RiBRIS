@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lt.javainiai.repository.RepositoryInterface;
 
 @Repository
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class RepresentativeRepository implements RepositoryInterface<RepresentativeEntity> {
 
     @Autowired

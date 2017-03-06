@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lt.javainiai.model.PollingDistrictEntity;
 
 @Repository
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class PollingDistrictRepository implements RepositoryInterface<PollingDistrictEntity> {
 
     @Autowired
