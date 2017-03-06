@@ -16,25 +16,7 @@ var Navigation = React.createClass({
     });
 
     return (
-      <div>
-        <Modal show={this.props.showModal} onHide={this.props.closeClick}>
-          <Modal.Header closeButton>
-            <Modal.Title>Login</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <form className="form-inline text-center">
-  				    <div className="form-group">
-    						<input type="email" className="form-control input" placeholder="Email" style={{ marginRight: '20px' }} />
-    						<input type="password" className="form-control input" placeholder="Password" />
-  				    </div>
-      			</form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button type="submit" className="btn btn-info btn-sm">Sign in</Button>
-            <Button onClick={this.props.closeClick}>Close</Button>
-          </Modal.Footer>
-        </Modal>
-      <div className="container">
+        <div className="container">
         <div className="navbar-inner nav-collapse">
           <nav className="navbar navbar-default" role="navigation">
             <div className="collapse navbar-collapse">
@@ -48,7 +30,7 @@ var Navigation = React.createClass({
               </ul>
               <ul className="nav navbar-nav navbar-right">
                 <li><NavLink to="/">
-                  <span className="glyphicon glyphicon-log-in"> Atsijungti</span>
+                  <i className="fa fa-sign-in" aria-hidden="true"></i> Atsijungti
                 </NavLink></li>
               </ul>
             </div>
@@ -65,7 +47,7 @@ var Navigation = React.createClass({
           </div>
         </div>
       </div>
-    </div>
+   
     );
   }
 });

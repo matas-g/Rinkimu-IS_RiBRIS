@@ -1,6 +1,6 @@
 var servedDetails = [
   {
-    text: 'Pridėti vieną',
+    text: 'Pridėti partiją',
     pathTo: '/admin/parties/add'
   }
 ];
