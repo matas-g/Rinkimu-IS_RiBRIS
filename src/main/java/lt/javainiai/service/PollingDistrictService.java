@@ -43,7 +43,7 @@ public class PollingDistrictService {
         pollingDistrictRepository.deleteById(id);
     }
 
-    // Voters activity - in units
+    // Voters activity (4 following methods)
     public Long getVotersActivityInUnitsInDistrict(Long districtId) {
         Long sumOfVotes = 0L;
         PollingDistrictEntity district = findById(districtId);
@@ -60,7 +60,6 @@ public class PollingDistrictService {
         List<DistrictVotersActivityInUnits> activityInDistrictsList = new ArrayList<DistrictVotersActivityInUnits>();
         List<PollingDistrictEntity> districts = findAll();
 
-        // Fill "activityInDistrictsList"
         for (PollingDistrictEntity district : districts) {
             Long districtId = district.getId();
             Long totalOfBallots = getVotersActivityInUnitsInDistrict(districtId);
@@ -73,14 +72,11 @@ public class PollingDistrictService {
         return activityInDistrictsList;
     }
 
-    // Voters activity - in percent
     public BigDecimal getVotersActivityInPercentInDistrict(Long districtId) {
         Long sumOfVotes = getVotersActivityInUnitsInDistrict(districtId);
         Long totalOfVoters = findById(districtId).getNumOfVoters();
 
         BigDecimal percent = new BigDecimal((sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0);
-        
-        // Rounding to 0.00
         percent = percent.setScale(2, RoundingMode.HALF_UP);
         
         return percent;
@@ -91,7 +87,6 @@ public class PollingDistrictService {
         List<DistrictVotersActivityInPercent> activityInDistrictsList = new ArrayList<DistrictVotersActivityInPercent>();
         List<PollingDistrictEntity> districts = findAll();
 
-        // Fill "activityInDistrictsList"
         for (PollingDistrictEntity district : districts) {
             Long districtId = district.getId();
             BigDecimal activityInDistrict = getVotersActivityInPercentInDistrict(districtId);

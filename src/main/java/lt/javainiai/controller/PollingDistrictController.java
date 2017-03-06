@@ -61,7 +61,7 @@ public class PollingDistrictController {
         pollingDistrictService.deleteById(id);
     }
 
-    // Get number of votes in district
+    // Voters activity (4 following methods)
     @RequestMapping(value = "total-votes/{districtId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Long getVotersActivityInUnitsInDistrict(@Valid @PathVariable("districtId") Long districtId) {
@@ -74,7 +74,6 @@ public class PollingDistrictController {
         return pollingDistrictService.getVotersActivityInUnitsInAllDistricts();
     }
 
-    // Get percent of all voters in district
     @RequestMapping(value = "total-votes-percent/{districtId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public BigDecimal getVotersActivityInPercentInDistrict(@Valid @PathVariable("districtId") Long districtId) {

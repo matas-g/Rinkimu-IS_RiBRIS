@@ -3,6 +3,8 @@ package lt.javainiai.service;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -25,6 +27,8 @@ import lt.javainiai.model.CandidatesResultsSingleMandateEntity;
 import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.ConstituencyRepository;
+import lt.javainiai.utils.ConstituencyVotersActivityInPercent;
+import lt.javainiai.utils.ConstituencyVotersActivityInUnits;
 
 @Service
 public class ConstituencyService {
@@ -114,8 +118,8 @@ public class ConstituencyService {
         constituencyRepository.deleteById(id);
     }
 
-    // Election results - Voters activity
-    public Long getSumOfSingleMandateVotesInConstituency(Long constituencyId) {
+    // Voters activity (4 following methods)
+    public Long getVotersActivityInUnitsInConstituency(Long constituencyId) {
         Long sumOfVotes = 0L;
         ConstituencyEntity constituency = findById(constituencyId);
         List<PollingDistrictEntity> districts = constituency.getPollingDistricts();
@@ -132,20 +136,53 @@ public class ConstituencyService {
         return sumOfVotes;
     }
 
-    // Get percent of all voters in constituency
-    public Double getPercentOfAllVotersInConstituency(Long constituencyId) {
-        Double percent = 0.0;
-        Long sumOfVotes = getSumOfSingleMandateVotesInConstituency(constituencyId);
+    public List<ConstituencyVotersActivityInUnits> getVotersActivityInUnitsInAllConstituencies() {
+
+        List<ConstituencyVotersActivityInUnits> activityInConstituenciesList = new ArrayList<ConstituencyVotersActivityInUnits>();
+        List<ConstituencyEntity> constituencies = findAll();
+
+        for (ConstituencyEntity constituency : constituencies) {
+            Long constituencyId = constituency.getId();
+            Long totalOfBallots = getVotersActivityInUnitsInConstituency(constituencyId);
+
+            ConstituencyVotersActivityInUnits constituencyActivity = new ConstituencyVotersActivityInUnits(
+                    constituencyId, totalOfBallots);
+
+            activityInConstituenciesList.add(constituencyActivity);
+        }
+        return activityInConstituenciesList;
+    }
+
+    public BigDecimal getVotersActivityInPercentInConstituency(Long constituencyId) {
+        Long sumOfVotes = getVotersActivityInUnitsInConstituency(constituencyId);
         Long totalOfVoters = 0L;
 
         ConstituencyEntity constituency = findById(constituencyId);
         List<PollingDistrictEntity> districts = constituency.getPollingDistricts();
-
         for (PollingDistrictEntity district : districts) {
             totalOfVoters += district.getNumOfVoters();
         }
-        percent = (sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0;
+
+        BigDecimal percent = new BigDecimal((sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0);
+        percent = percent.setScale(2, RoundingMode.HALF_UP);
+
         return percent;
+    }
+
+    public List<ConstituencyVotersActivityInPercent> getVotersActivityInPercentInAllConstituencies() {
+        List<ConstituencyVotersActivityInPercent> activityInConstituenciesList = new ArrayList<ConstituencyVotersActivityInPercent>();
+        List<ConstituencyEntity> constituencies = findAll();
+
+        for (ConstituencyEntity constituency : constituencies) {
+            Long constituencyId = constituency.getId();
+            BigDecimal activityInConstituency = getVotersActivityInPercentInConstituency(constituencyId);
+
+            ConstituencyVotersActivityInPercent constituencyActivity = new ConstituencyVotersActivityInPercent(
+                    constituencyId, activityInConstituency);
+
+            activityInConstituenciesList.add(constituencyActivity);
+        }
+        return activityInConstituenciesList;
     }
 
     // Converts date (String) from CSV to java.util.Date, then to java.sql.Date

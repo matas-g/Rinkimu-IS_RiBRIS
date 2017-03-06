@@ -7,6 +7,7 @@ const hashHistory = ReactRouter.hashHistory;
 const NavBar = require('../containers/navigation/navbar-container');
 const NavRepresentative = require('../containers/navigation/navbar-representative-container');
 const NavListContainer = require('../containers/navigation/nav-cards-list-container');
+const Login = require('../presentations/lists/login-presentation');
 
 const AddConstituency = require('../containers/add-constituency-container');
 const AddDistrict = require('../containers/add-district-container');
@@ -29,6 +30,7 @@ const ActivityList = require('../containers/lists/activity-list-container');
 
 const HomeList = require('../presentations/lists/home-list-presentation');
 const PublicResultsList = require('../presentations/lists/public-result-list-presentation');
+const SingleMandateList = require('../presentations/lists/single-mandate-results');
 
 
 
@@ -36,10 +38,13 @@ const routes = (
   <Router history={hashHistory}>
     <Route path="/" component={HomeList}>
     	<IndexRoute component={Herb} />
-    	<Route path="/results" component={PublicResultsList} />
+      	<Route path="/results" component={PublicResultsList} >
+          <Route path="/single-mandate" component={SingleMandateList} />
+        </Route>
     </Route>
     
-   
+    <Route path="/login" component={Login}>
+    </Route>
     
     <Route path="/admin" component={NavBar}>
       <IndexRoute component={ConstituenciesList} />

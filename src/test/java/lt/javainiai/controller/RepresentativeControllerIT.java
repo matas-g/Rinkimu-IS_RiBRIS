@@ -25,7 +25,7 @@ import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import lt.javainiai.RiBRIS_Application;
-import lt.javainiai.model.RepresentativeEntity;
+import lt.javainiai.security.RepresentativeEntity;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {RiBRIS_Application.class })
