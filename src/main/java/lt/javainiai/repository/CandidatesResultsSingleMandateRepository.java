@@ -5,14 +5,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import lt.javainiai.model.CandidatesResultsSingleMandateEntity;
 
 @Repository
-@PreAuthorize("hasRole('ROLE_REPRESENTATIVE')")
+//@PreAuthorize("hasRole('ROLE_REPRESENTATIVE')")
 public class CandidatesResultsSingleMandateRepository implements 
 				RepositoryInterface<CandidatesResultsSingleMandateEntity>{
 

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lt.javainiai.model.PartyEntity;
 
 @Repository
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class PartyRepository implements RepositoryInterface<PartyEntity> {
 
     @Autowired
