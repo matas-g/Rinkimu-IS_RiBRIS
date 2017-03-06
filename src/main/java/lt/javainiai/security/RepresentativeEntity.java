@@ -14,6 +14,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lt.javainiai.model.PollingDistrictEntity;
 
@@ -49,6 +50,10 @@ public class RepresentativeEntity {
     @Length(min = 1, max = 50)
     private String email;
     
+    @JsonProperty
+    public String getDistrictName() {
+        return pollingDistrict == null ? null : pollingDistrict.getName();
+    }
 
     // Constructor
     public RepresentativeEntity() {

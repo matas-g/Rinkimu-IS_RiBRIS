@@ -57,6 +57,7 @@ const routes = (
 
       <Route path="/admin/representatives" component={RepresentativesList} />
         <Route path="/admin/representatives/add" component={AddRepresentative} />
+        <Route path="/admin/representatives/edit/:representativeId" component={AddRepresentative} />
         <Route path="/admin/representatives/add/:districtId" component={AddRepresentative} />
 
       <Route path="/admin/parties" component={PartiesList} />
