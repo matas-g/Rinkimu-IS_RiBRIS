@@ -21,6 +21,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lt.javainiai.security.RepresentativeEntity;
+
 @Entity
 @Table(name = "Polling_Districts")
 public class PollingDistrictEntity {
@@ -42,10 +44,10 @@ public class PollingDistrictEntity {
     private Long numOfVoters;
     
     @Column(name = "Spoiled_Single_Mandate_Ballots")
-    private Long spoiledSingleMandateBallots = 0L;
+    private Long spoiledSingleMandateBallots;
     
     @Column(name = "Spoiled_Multi_Mandate_Ballots")
-    private Long spoiledMultiMandateBallots = 0L;
+    private Long spoiledMultiMandateBallots;
 
     // Bidirectional ManyToOne
     @ManyToOne
