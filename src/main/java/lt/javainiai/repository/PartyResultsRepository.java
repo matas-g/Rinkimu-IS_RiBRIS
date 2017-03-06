@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lt.javainiai.model.PartyResultsEntity;
 
 @Repository
+//@PreAuthorize("hasRole('ROLE_REPRESENTATIVE')")
 public class PartyResultsRepository implements RepositoryInterface<PartyResultsEntity> {
 
     @Autowired

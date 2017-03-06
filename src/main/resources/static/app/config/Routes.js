@@ -27,11 +27,8 @@ const PartiesList = require('../containers/lists/parties-list-container');
 const RepresentativesList = require('../containers/lists/representatives-list-container');
 const CandidatesList = require('../containers/lists/candidates-list-container');
 
-
 const PublicResultsList = require('../presentations/lists/public-result-list-presentation');
 const SingleMandateList = require('../presentations/lists/single-mandate-results');
-
-
 
 const routes = (
   <Router history={hashHistory}>
