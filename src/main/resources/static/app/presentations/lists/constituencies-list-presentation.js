@@ -1,4 +1,5 @@
 const React = require('react');
+const DeleteConfirm = require('react-delete-confirm');
 
 var ConstituenciesListComponent = React.createClass({
   render: function() {
