@@ -23,6 +23,18 @@ var AddCandidateContainer = React.createClass({
         parties: response.data
       });
     });
+    if (this.props.params.candidateId != undefined) {
+	      axios.get('http://localhost:8090/candidates/' + this.props.params.candidateId).then(function (response) {
+	    	  console.log(response.data);
+	    	  self.setState({
+	        	 name: response.data.name,
+	             surname: response.data.surname,
+	             birthDate: response.data.birthDate,
+	             biography: response.data.biography,
+	             partyName: response.data.partyName
+	        });
+	      });
+	  }
   },
 
   handleNameChange: function(e) {
@@ -62,6 +74,7 @@ var AddCandidateContainer = React.createClass({
     e.preventDefault();
     var self = this;
     var elementsList = {
+      id: this.state.id,
       name: this.state.name,
       surname: this.state.surname,
       birthDate: this.state.birthDate,

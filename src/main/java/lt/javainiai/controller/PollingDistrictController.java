@@ -19,6 +19,7 @@ import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.service.PollingDistrictService;
 import lt.javainiai.utils.DistrictVotersActivityInPercent;
 import lt.javainiai.utils.DistrictVotersActivityInUnits;
+import lt.javainiai.utils.SpoiledResults;
 
 @RestController
 @RequestMapping("/polling-districts/")
@@ -84,4 +85,9 @@ public class PollingDistrictController {
         return pollingDistrictService.getVotersActivityInPercentInAllDistricts();
     }
 
-}
+    @RequestMapping(value ="spoiled-ballots/{districtId}",method = RequestMethod.POST)
+    public PollingDistrictEntity postSpoiledBallots(@Valid @PathVariable("districtId") Long districtId, 
+    		@RequestBody SpoiledResults results) {
+        return pollingDistrictService.postSpoiledBallots(districtId, results);
+    }
+} 

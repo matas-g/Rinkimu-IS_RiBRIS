@@ -15,7 +15,7 @@ var AddDistrictContainer = React.createClass({
     };
   },
 
-  componentWillMount: function() {
+  componentDidMount: function() {
     var self = this;
     axios.get('http://localhost:8090/constituencies/').then(function(response) {
       self.setState({
@@ -25,12 +25,23 @@ var AddDistrictContainer = React.createClass({
         }
       });
     });
+    if(this.props.params.districtId != undefined) {
+	    axios.get('http://localhost:8090/polling-districts/'+ this.props.params.districtId).then(function(response) {
+	    	self.setState({
+	    		id: response.data.id,
+	    		name: response.data.name,
+	    		address: response.data.address,
+	    		numOfVoters: response.data.numOfVoters
+	    	});
+	    }); 
+    }
   },
 
   handleSaveClick: function(e) {
     e.preventDefault();
     var self = this;
     var dataList = {
+      id: this.state.id,
       name: this.state.name.trim(),
       address: this.state.address,
       numOfVoters: this.state.numOfVoters,
