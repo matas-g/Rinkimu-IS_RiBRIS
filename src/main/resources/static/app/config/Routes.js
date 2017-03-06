@@ -63,15 +63,15 @@ const routes = (
       <Route path="/admin/parties" component={PartiesList} />
         <Route path="/admin/parties/add" component={AddParty} />
         <Route path="/admin/parties/add-list" component={AddConstituency} />
-      	<Route path="/admin/parties/edit/:partyId" component={AddParty} />
-     
+
       <Route path="/admin/candidates" component={CandidatesList} />
         <Route path="/admin/candidates/add" component={AddCandidate} />
         <Route path="/admin/candidates/constituency/:constituencyId" component={CandidatesList} />
         <Route path="/admin/candidates/party/:partyId" component={CandidatesList} />
         <Route path="/admin/candidates/add-list" component={AddConstituency} />
-      	<Route path="/admin/candidates/edit/:candidateId" component={AddCandidate} />
       </Route>
+      
+      <Route path="/activity" component={ActivityList} />
 
     <Route path="/representative" component={NavRepresentative}>
 	    <IndexRoute component={AddSingleMandateResults} />
@@ -81,7 +81,7 @@ const routes = (
       <Route path="/representative/results/spoiled" component={Suvesti} />
 	  </Route>
 	    
-	 <Route path="/activity" component={ActivityList} />
+	    
   </Router>
 );
 
