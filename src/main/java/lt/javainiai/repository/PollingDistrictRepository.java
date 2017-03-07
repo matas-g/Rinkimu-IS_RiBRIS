@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lt.javainiai.model.PollingDistrictEntity;
 
 @Repository
-//@PreAuthorize("hasRole('ROLE_ADMIN')")
+// @PreAuthorize("hasRole('ROLE_ADMIN')")
 public class PollingDistrictRepository implements RepositoryInterface<PollingDistrictEntity> {
 
     @Autowired
@@ -30,27 +30,28 @@ public class PollingDistrictRepository implements RepositoryInterface<PollingDis
     }
 
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public List<PollingDistrictEntity> findAll() {
         return em.createQuery("SELECT p FROM PollingDistrictEntity p").getResultList();
     }
-    
-    public PollingDistrictEntity postSpoiledBallots(Long districtId, Long single, Long multi){ 
-    	PollingDistrictEntity oldDistrict = findById(districtId);
-    	
-    	oldDistrict.setSpoiledSingleMandateBallots(single);
-    	oldDistrict.setSpoiledMultiMandateBallots(multi);
-    	
-    	PollingDistrictEntity merged = em.merge(oldDistrict);
-    	em.persist(merged);
-    	return merged; 
+
+    public PollingDistrictEntity postSpoiledBallots(Long districtId, Long single, Long multi) {
+        PollingDistrictEntity oldDistrict = findById(districtId);
+
+        oldDistrict.setSpoiledSingleMandateBallots(single);
+        oldDistrict.setSpoiledMultiMandateBallots(multi);
+
+        PollingDistrictEntity merged = em.merge(oldDistrict);
+        em.persist(merged);
+        return merged;
     }
-//    @SuppressWarnings("unchecked")
-//    public List<PollingDistrictEntity> findAllforConstituency(Long id) {
-//    	return em.createQuery("SELECT c FROM PollingDistrictEntity c WHERE c.constituency LIKE :id")
-//			     .setParameter("constituency", id)
-//			     .getResultList();
-//    }
+    // @SuppressWarnings("unchecked")
+    // public List<PollingDistrictEntity> findAllforConstituency(Long id) {
+    // return em.createQuery("SELECT c FROM PollingDistrictEntity c WHERE
+    // c.constituency LIKE :id")
+    // .setParameter("constituency", id)
+    // .getResultList();
+    // }
 
     @Override
     public PollingDistrictEntity findById(Long id) {
@@ -60,8 +61,7 @@ public class PollingDistrictRepository implements RepositoryInterface<PollingDis
     @Transactional
     @Override
     public void deleteById(Long id) {
-        PollingDistrictEntity pollingDistrictToRemove = em.find(PollingDistrictEntity.class, id);
-        em.remove(pollingDistrictToRemove);
+        em.remove(findById(id));
     }
 
 }

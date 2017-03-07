@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import lt.javainiai.model.CandidatesResultsRatingEntity;
 
 @Repository
-//@PreAuthorize("hasRole('ROLE_REPRESENTATIVE')")
-public class CandidatesResultsRatingRepository implements RepositoryInterface<CandidatesResultsRatingEntity>{
+// @PreAuthorize("hasRole('ROLE_REPRESENTATIVE')")
+public class CandidatesResultsRatingRepository implements RepositoryInterface<CandidatesResultsRatingEntity> {
 
     @Autowired
     private EntityManager em;
@@ -24,14 +24,14 @@ public class CandidatesResultsRatingRepository implements RepositoryInterface<Ca
             em.persist(inputResult);
             return inputResult;
         } else {
-        	CandidatesResultsRatingEntity merged = em.merge(inputResult);
+            CandidatesResultsRatingEntity merged = em.merge(inputResult);
             em.persist(merged);
-            return merged; 
+            return merged;
         }
     }
 
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public List<CandidatesResultsRatingEntity> findAll() {
         return em.createQuery("SELECT c FROM CandidatesResultsRatingEntity c").getResultList();
     }
@@ -43,11 +43,7 @@ public class CandidatesResultsRatingRepository implements RepositoryInterface<Ca
 
     @Override
     public void deleteById(Long id) {
-        CandidatesResultsRatingEntity candidateResultsToRemove = em.find(CandidatesResultsRatingEntity.class, id);
-        em.remove(candidateResultsToRemove);
+        em.remove(findById(id));
     }
 
- 
-    
-   
 }

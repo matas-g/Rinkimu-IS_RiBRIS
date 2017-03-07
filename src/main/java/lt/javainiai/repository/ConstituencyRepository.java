@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import lt.javainiai.model.ConstituencyEntity;
 
 @Repository
-//@PreAuthorize("hasRole('ROLE_ADMIN')")
-public class ConstituencyRepository  implements RepositoryInterface<ConstituencyEntity> {
-	
+// @PreAuthorize("hasRole('ROLE_ADMIN')")
+public class ConstituencyRepository implements RepositoryInterface<ConstituencyEntity> {
+
     @Autowired
     private EntityManager em;
 
@@ -25,21 +25,19 @@ public class ConstituencyRepository  implements RepositoryInterface<Constituency
         } else {
             ConstituencyEntity merged = em.merge(constituency);
             em.persist(merged);
-            return merged; 
+            return merged;
         }
     }
 
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public List<ConstituencyEntity> findAll() {
         return em.createQuery("SELECT c FROM ConstituencyEntity c").getResultList();
     }
-    
+
     public ConstituencyEntity findByName(String name) {
-    	return (ConstituencyEntity) 
-    			em.createQuery("SELECT c FROM ConstituencyEntity c WHERE c.name LIKE :name")
-    		    .setParameter("name", name)
-    		    .getSingleResult();
+        return (ConstituencyEntity) em.createQuery("SELECT c FROM ConstituencyEntity c WHERE c.name LIKE :name")
+                .setParameter("name", name).getSingleResult();
     }
 
     @Override
@@ -50,9 +48,7 @@ public class ConstituencyRepository  implements RepositoryInterface<Constituency
     @Transactional
     @Override
     public void deleteById(Long id) {
-        ConstituencyEntity constituancyToRemove = em.find(ConstituencyEntity.class, id);
-        em.remove(constituancyToRemove);
+        em.remove(findById(id));
     }
-    
 
 }
