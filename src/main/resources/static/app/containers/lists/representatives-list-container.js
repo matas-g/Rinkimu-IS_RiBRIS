@@ -22,7 +22,7 @@ var RepresentativesContainer = React.createClass({
   handleRepresentativeEdit: function(representative) {
     var self = this;
     return function() {
-      self.context.router.push('/admin/representative/edit/' + representative.id);
+      self.context.router.push('/admin/representatives/edit/' + representative.id);
     }
   },
 
