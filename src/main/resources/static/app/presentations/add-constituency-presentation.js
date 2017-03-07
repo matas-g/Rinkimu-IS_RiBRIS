@@ -7,7 +7,6 @@ const AddConstituencies = React.createClass({
     this.props.onUploadMultiCandidateFile( this.refs.file.files[0] );
   },
   
-
   render: function() {
 	 var greeting;
 	 var fileInput;

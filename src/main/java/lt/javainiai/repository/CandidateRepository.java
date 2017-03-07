@@ -79,9 +79,10 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
         CandidateEntity candidateToRemove = em.find(CandidateEntity.class, id);
         em.remove(candidateToRemove);
     }
+    
     @Transactional
     public void deleteByConstituencyId(Long id){
-    	em.createNativeQuery("DELETE FROM CANDIDATES c WHERE c.constituency_id = ?")
+    	em.createNativeQuery("DELETE FROM CANDIDATES  c WHERE c.constituency_id = ?")
     		.setParameter(1, id)
     		.executeUpdate();
     }
