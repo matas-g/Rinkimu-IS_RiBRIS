@@ -44,7 +44,7 @@ public class CandidatesResultsSingleMandateService {
         PollingDistrictEntity district = pollingDistrictService.findById(districtId);
         List<CandidateEntity> candidates = district.getConstituency().getCandidates();
         Long validVotes = 0L;
-        Long allBallots = 0L;
+        Long allBallots = pollingDistrictService.getVotersActivityInUnitsInDistrict(districtId);
 
         // Count all valid single-member votes in district
         List<CandidatesResultsSingleMandateEntity> results = findAll();
@@ -54,7 +54,7 @@ public class CandidatesResultsSingleMandateService {
             }
         }
 
-        allBallots = validVotes + district.getSpoiledSingleMandateBallots();
+//        allBallots = validVotes + district.getSpoiledSingleMandateBallots();
 
         // Fill districtResultsList with results of every candidate in district
         for (CandidateEntity candidate : candidates) {
