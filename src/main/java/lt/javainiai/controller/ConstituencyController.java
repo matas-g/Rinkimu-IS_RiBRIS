@@ -74,6 +74,8 @@ public class ConstituencyController {
     public void deleteById(@Valid @PathVariable("id") Long id) {
         constituencyService.deleteById(id);
     }
+    
+    
 
     // Voters activity (4 following methods)
     @RequestMapping(value = "total-votes/{constituencyId}", method = RequestMethod.GET)
@@ -100,5 +102,7 @@ public class ConstituencyController {
     public List<ConstituencyVotersActivityInPercent> getVotersActivityInPercentInAllConstituencies() {
         return constituencyService.getVotersActivityInPercentInAllConstituencies();
     }
+    
+    
 
 }

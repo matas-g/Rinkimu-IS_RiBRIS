@@ -5,16 +5,26 @@ const NumberValidator = require('../util/validation/number-validator-container')
 var AddDistrictPresentation = React.createClass({
   render: function() {
     var self = this;
+    var greeting;
+    var buttonText;
     var ConstituenciesList = this.props.constituencies.map(function(constituency, index) {
         return (
             <option key={index} value={constituency.id}>{constituency.name}</option>
         );
     });
+    
+    if(this.props.name  == ''){
+		 greeting = <h4>Registruoti naują apylinkę</h4>;
+		 buttonText = "Registruoti";
+	 } else {
+		 greeting = <h4>Redaguoti apylinkę</h4>;
+		 buttonText = "Redaguoti";
+	 }
     return (
       <div className="container-fluid">
         <div className="col-sm-offset-1 col-sm-10">
           <form autoComplete="off">
-            <h4>Registruoti naują apylinkę</h4>
+            {greeting}
             <br />
             <div className="form-group">
               <label>Pavadinimas</label>
@@ -42,7 +52,7 @@ var AddDistrictPresentation = React.createClass({
                   {ConstituenciesList}
               </select>
             </div>
-            <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onSaveClick}>Registruoti</button>
+            <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onSaveClick}>{buttonText}</button>
             <button className="btn btn-danger btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onCancelClick}>Atšaukti</button>
           </form>
         </div>
