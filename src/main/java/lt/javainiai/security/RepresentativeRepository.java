@@ -18,7 +18,6 @@ public class RepresentativeRepository implements RepositoryInterface<Representat
     private EntityManager em;
 
     @Transactional
-    @Override
     public RepresentativeEntity saveOrUpdate(RepresentativeEntity representative) {
         if (representative.getId() == null) {
             em.persist(representative);

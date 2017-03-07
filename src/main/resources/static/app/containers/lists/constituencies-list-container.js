@@ -29,7 +29,7 @@ var ConstituenciesListContainer = React.createClass({
   handleConstituencyRemove: function(constituency) {
     var self = this;
     return function() {
-      axios.delete('http://localhost:8090/constituencies/'+ constituency.id).then(function(response) {
+      axios.delete('http://localhost:8090/constituencies/'+ constituency.id).then(function() {
         axios.get('http://localhost:8090/constituencies/')
         .then(function (response) {
           self.setState({
