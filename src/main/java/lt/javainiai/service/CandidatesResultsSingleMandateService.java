@@ -54,8 +54,6 @@ public class CandidatesResultsSingleMandateService {
             }
         }
 
-//        allBallots = validVotes + district.getSpoiledSingleMandateBallots();
-
         // Fill districtResultsList with results of every candidate in district
         for (CandidateEntity candidate : candidates) {
             Long candidateVotes = 0L;
