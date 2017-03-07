@@ -10,35 +10,21 @@ var AddRepresentativeContainer = React.createClass({
       pollingDistrict: {
         id: 1
       },
-      districtName: ''
+      district: {}
     };
   },
 
   componentWillMount: function() {
     var self = this;
     console.log(this.state);
-    if(this.props.params.districtId == undefined) {
-      axios.get('http://localhost:8090/polling-districts/' + self.props.params.districtId).then(function(response) {
+      axios.get('http://localhost:8090/polling-districts/' + this.props.params.districtId).then(function(response) {
         self.setState({
-          districtName: response.data.name,
+          districtName: response.data,
           pollingDistrict: {
             id: response.data.id
           },
         });
       });
-    } else {
-      axios.get('http://localhost:8090/representatives/' + self.props.params.representativeId).then(function(response) {
-        console.log(response.data);
-        self.setState({
-          id: response.data.id,
-          name: response.data.name,
-          surname: response.data.surname,
-          pollingDistrict: {
-            id: response.data.id
-          },
-        });
-      });
-    }
   },
 
   handleDistrictChange: function(e){
