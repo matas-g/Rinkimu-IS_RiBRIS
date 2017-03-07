@@ -12,12 +12,12 @@ var AddCandidatePresentation = React.createClass({
       );
   });
 
-  if(this.props.name  == ''){
+  if(this.props.candidateId  != undefined){
+	     greeting = <h4>Redaguoti kandidatą</h4>;
+		 buttonText = "Redaguoti";
+  } else {
 		 greeting = <h4>Registruoti naują kandidatą</h4>;
 		 buttonText = "Registruoti";
-	 } else {
-		 greeting = <h4>Redaguoti kandidatą</h4>;
-		 buttonText = "Redaguoti";
 	 }
 
   return (
