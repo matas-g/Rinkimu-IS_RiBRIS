@@ -5,6 +5,7 @@ var AddCandidatePresentation = React.createClass({
   render: function() {
   var self = this;
   var greeting;
+  var buttonText;
   var PartiesList = this.props.parties.map(function(party, index) {
       return (
           <option key={index} value={party.id}>{party.name}</option>
@@ -13,8 +14,10 @@ var AddCandidatePresentation = React.createClass({
 
   if(this.props.name  == ''){
 		 greeting = <h4>Registruoti naują kandidatą</h4>;
+		 buttonText = "Registruoti";
 	 } else {
-		 greeting = <h4>Atnaujinti kandidatą</h4>;
+		 greeting = <h4>Redaguoti kandidatą</h4>;
+		 buttonText = "Redaguoti";
 	 }
 
   return (
@@ -49,7 +52,7 @@ var AddCandidatePresentation = React.createClass({
         <label>Biografija</label>
         <input className="form-control" type="text" value={this.props.biography} onChange={this.props.onBiographyChange} />
       </div>
-      <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onSaveClick}>Registruoti</button>
+      <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onSaveClick}>{buttonText}</button>
       <button className="btn btn-danger btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onCancelClick}>Atšaukti</button>
     </form>
     );

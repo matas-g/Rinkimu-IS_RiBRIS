@@ -82,7 +82,14 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
     
     @Transactional
     public void deleteByConstituencyId(Long id){
-    	em.createNativeQuery("DELETE FROM CANDIDATES  c WHERE c.constituency_id = ?")
+    	em.createNativeQuery("DELETE FROM CANDIDATES c WHERE c.constituency_id = ?")
+    		.setParameter(1, id)
+    		.executeUpdate();
+    }
+    
+    @Transactional
+    public void deleteByPartyId(Long id){
+    	em.createNativeQuery("DELETE FROM CANDIDATES c where c.party_id = ?")
     		.setParameter(1, id)
     		.executeUpdate();
     }

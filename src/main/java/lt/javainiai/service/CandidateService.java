@@ -41,5 +41,9 @@ public class CandidateService {
     public void deleteByConstituencyId(Long id) {
     	this.candidateRepository.deleteByConstituencyId(id);
     }
+    
+    public void deleteByPartyId(Long id) {
+    	this.candidateRepository.deleteByPartyId(id);
+    }
 
 }

@@ -10,24 +10,27 @@ const AddConstituencies = React.createClass({
   render: function() {
 	 var greeting;
 	 var fileInput;
+	 var buttonText;
+	 
 	 if(this.props.constituency.id  == ""){
 		 greeting = <h4>Registruoti naują apygardą</h4>;
+		 buttonText = "Registruoti";
 	 } else {
-		 greeting = <h4>Atnaujinti apygardą</h4>;
+		 greeting = <h4>Redaguoti apygardą</h4>;
+		 buttonText = "Redaguoti";
 	 }
 	 
 	 if(this.props.candidates.length != 0){
-		 fileInput = (<div><h4>Kandidatai įkelti</h4>
-		 <button className="btn btn-danger btn-sm"
-             onClick={this.props.onDeleteClick}>Ištrinti kandidatus
-           </button></div>);
+		 fileInput = (<div><label>Kandidatų sąrašas įkeltas</label>
+		   				<button className="btn btn-danger btn-sm" 
+			   onClick={this.props.onDeleteClick}>Ištrinti kandidatus</button></div>);
 	 } else {
-		 fileInput=(<div className="form-group">
-     	<label>Prisegti apygardos kandidatų sąrašą <span className="bg-danger">CSV</span> formatu:</label>
-     	<input type="file" ref='file' onChange={this.onUploadMultiCandidateFile} />
-     </div>)
+		 fileInput= (<div className="form-group"><label>Prisegti apygardos kandidatų sąrašą &nbsp;
+				   <span className="bg-danger">CSV</span> formatu:</label>
+     					<input type="file" ref='file' onChange={this.onUploadMultiCandidateFile} />
+     				 </div>)
 	 }
-	console.log(this.props.candidates);
+	 
     return (
       <div className="container-fluid">
         <div className="col-sm-offset-1 col-sm-10">
@@ -42,7 +45,7 @@ const AddConstituencies = React.createClass({
             </div>
             {fileInput}
             <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }}
-              onClick={this.props.onSaveClick}>Registruoti
+              onClick={this.props.onSaveClick}>{buttonText}
             </button>
             <button className="btn btn-danger btn-sm"
               onClick={this.props.onCancelClick}>Atšaukti
