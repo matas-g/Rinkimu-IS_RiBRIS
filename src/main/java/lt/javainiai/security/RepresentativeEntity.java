@@ -54,6 +54,11 @@ public class RepresentativeEntity {
     public String getDistrictName() {
         return pollingDistrict == null ? null : pollingDistrict.getName();
     }
+    
+    @JsonProperty
+    public Long getDistrictId() {
+        return pollingDistrict == null ? null : pollingDistrict.getId();
+    }
 
     // Constructor
     public RepresentativeEntity() {

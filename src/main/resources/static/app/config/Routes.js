@@ -73,7 +73,7 @@ const routes = (
         <Route path="/admin/candidates/add-list" component={AddConstituency} />
       	<Route path="/admin/candidates/edit/:candidateId" component={AddCandidate} />
       </Route>
-      
+
       <Route path="/activity" component={ActivityList} />
 
     <Route path="/representative" component={NavRepresentative}>
@@ -83,7 +83,6 @@ const routes = (
       <Route path="/representative/results/spoiled" component={AddSpoiledResults} />
       <Route path="/representative/results/spoiled" component={Suvesti} />
 	  </Route>
-	    
   </Router>
 );
 
