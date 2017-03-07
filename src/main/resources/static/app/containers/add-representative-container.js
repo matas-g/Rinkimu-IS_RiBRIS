@@ -5,7 +5,6 @@ const AddRepresentative = require('../presentations/add-representative-presentat
 var AddRepresentativeContainer = React.createClass({
   getInitialState: function() {
     return {
-      id: '',
       name: '',
       surname: '',
       pollingDistrict: {
@@ -17,7 +16,8 @@ var AddRepresentativeContainer = React.createClass({
 
   componentWillMount: function() {
     var self = this;
-    if(this.props.params.representativeId == undefined) {
+    console.log(this.state);
+    if(this.props.params.districtId == undefined) {
       axios.get('http://localhost:8090/polling-districts/' + self.props.params.districtId).then(function(response) {
         self.setState({
           districtName: response.data.name,
@@ -66,11 +66,10 @@ var AddRepresentativeContainer = React.createClass({
     e.preventDefault();
     var self = this;
     var elementsList = {
-      id: this.state.id,
       name: this.state.name,
       surname: this.state.surname,
       pollingDistrict: {
-        id: this.state.districtId
+        id: this.state.pollingDistrict.id
       }
     };
     axios.post('http://localhost:8090/representatives/', elementsList).then(function () {
