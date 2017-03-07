@@ -11,28 +11,28 @@ import org.springframework.transaction.annotation.Transactional;
 import lt.javainiai.model.CandidatesResultsSingleMandateEntity;
 
 @Repository
-//@PreAuthorize("hasRole('ROLE_REPRESENTATIVE')")
-public class CandidatesResultsSingleMandateRepository implements 
-				RepositoryInterface<CandidatesResultsSingleMandateEntity>{
+// @PreAuthorize("hasRole('ROLE_REPRESENTATIVE')")
+public class CandidatesResultsSingleMandateRepository
+        implements RepositoryInterface<CandidatesResultsSingleMandateEntity> {
 
     @Autowired
     private EntityManager em;
 
     @Override
     @Transactional
-	public CandidatesResultsSingleMandateEntity saveOrUpdate(CandidatesResultsSingleMandateEntity inputResult) {
+    public CandidatesResultsSingleMandateEntity saveOrUpdate(CandidatesResultsSingleMandateEntity inputResult) {
         if (inputResult.getId() == null) {
             em.persist(inputResult);
             return inputResult;
         } else {
-        	CandidatesResultsSingleMandateEntity merged = em.merge(inputResult);
+            CandidatesResultsSingleMandateEntity merged = em.merge(inputResult);
             em.persist(merged);
-            return merged; 
+            return merged;
         }
     }
 
-	@SuppressWarnings("unchecked")
-	@Override
+    @SuppressWarnings("unchecked")
+    @Override
     public List<CandidatesResultsSingleMandateEntity> findAll() {
         return em.createQuery("SELECT c FROM CandidatesResultsSingleMandateEntity c").getResultList();
     }
@@ -44,8 +44,6 @@ public class CandidatesResultsSingleMandateRepository implements
 
     @Override
     public void deleteById(Long id) {
-    	CandidatesResultsSingleMandateEntity candidateResultsToRemove = 
-		em.find(CandidatesResultsSingleMandateEntity.class, id);
-			em.remove(candidateResultsToRemove);
+        em.remove(findById(id));
     }
 }

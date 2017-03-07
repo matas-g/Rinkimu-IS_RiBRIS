@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lt.javainiai.model.CandidateEntity;
 
 @Repository
-//@PreAuthorize("hasRole('ROLE_ADMIN')")
+// @PreAuthorize("hasRole('ROLE_ADMIN')")
 public class CandidateRepository implements RepositoryInterface<CandidateEntity> {
 
     @Autowired
@@ -20,24 +20,24 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
     @Transactional
     @Override
     public CandidateEntity saveOrUpdate(CandidateEntity candidate) {
-    	
-    	List<CandidateEntity> candidates = findAll();
-    	boolean candidateExists = false;
-    	CandidateEntity newCandidate = new CandidateEntity();
-    	
-    	for (CandidateEntity candidateInList : candidates) {
-	        if (candidateInList.equals(candidate)) {
-	            candidateExists = true;
-	            newCandidate = candidateInList;
-	            if (candidate.getParty() != null) {
-	            	newCandidate.setParty(candidate.getParty());
-	            }
-	            if (candidate.getConstituency() != null) {
-	            	newCandidate.setParty(candidate.getParty());
-	            }
-	        }
-    	}
-    	if (!candidateExists) {
+
+        List<CandidateEntity> candidates = findAll();
+        boolean candidateExists = false;
+        CandidateEntity newCandidate = new CandidateEntity();
+
+        for (CandidateEntity candidateInList : candidates) {
+            if (candidateInList.equals(candidate)) {
+                candidateExists = true;
+                newCandidate = candidateInList;
+                if (candidate.getParty() != null) {
+                    newCandidate.setParty(candidate.getParty());
+                }
+                if (candidate.getConstituency() != null) {
+                    newCandidate.setParty(candidate.getParty());
+                }
+            }
+        }
+        if (!candidateExists) {
             em.persist(candidate);
             return candidate;
         } else {
@@ -48,24 +48,21 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
     }
 
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public List<CandidateEntity> findAll() {
         return em.createQuery("SELECT c FROM CandidateEntity c").getResultList();
     }
-    
+
     @SuppressWarnings("unchecked")
     public List<CandidateEntity> findAllFromConstituency(Long id) {
         return em.createNativeQuery("SELECT * FROM CANDIDATES c WHERE c.constituency_id = ?", CandidateEntity.class)
-        		.setParameter(1, id)
-    		    .getResultList();
+                .setParameter(1, id).getResultList();
     }
-    
-    
+
     @SuppressWarnings("unchecked")
     public List<CandidateEntity> findAllFromParty(Long id) {
         return em.createNativeQuery("SELECT * FROM CANDIDATES c WHERE c.party_id = ?", CandidateEntity.class)
-        		.setParameter(1, id)
-    		    .getResultList();
+                .setParameter(1, id).getResultList();
     }
 
     @Override
@@ -76,22 +73,18 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
     @Transactional
     @Override
     public void deleteById(Long id) {
-        CandidateEntity candidateToRemove = em.find(CandidateEntity.class, id);
-        em.remove(candidateToRemove);
+        em.remove(findById(id));
     }
-    
+
     @Transactional
-    public void deleteByConstituencyId(Long id){
-    	em.createNativeQuery("DELETE FROM CANDIDATES c WHERE c.constituency_id = ?")
-    		.setParameter(1, id)
-    		.executeUpdate();
+    public void deleteByConstituencyId(Long id) {
+        em.createNativeQuery("DELETE FROM CANDIDATES c WHERE c.constituency_id = ?").setParameter(1, id)
+                .executeUpdate();
     }
-    
+
     @Transactional
-    public void deleteByPartyId(Long id){
-    	em.createNativeQuery("DELETE FROM CANDIDATES c where c.party_id = ?")
-    		.setParameter(1, id)
-    		.executeUpdate();
+    public void deleteByPartyId(Long id) {
+        em.createNativeQuery("DELETE FROM CANDIDATES c where c.party_id = ?").setParameter(1, id).executeUpdate();
     }
-    
+
 }
