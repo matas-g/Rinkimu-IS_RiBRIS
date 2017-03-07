@@ -13,12 +13,13 @@ var AddPartyPresentation = React.createClass({
 	  var greeting;
 	  var buttonText;
 	  var fileInput;
-  if(this.props.party.name  == ''){
-	greeting = <h4>Registruoti naują partiją</h4>;
-	buttonText = "Registruoti";
+	  
+  if(this.props.partyId != undefined){
+	  greeting = <h4>Redaguoti partiją</h4>;
+	  buttonText = "Redaguoti";
   } else {
-	greeting = <h4>Redaguoti partiją</h4>;
-	buttonText = "Redaguoti";
+	  greeting = <h4>Registruoti naują partiją</h4>;
+	  buttonText = "Registruoti";
   }
   
   if(this.props.party.candidates.length != 0){

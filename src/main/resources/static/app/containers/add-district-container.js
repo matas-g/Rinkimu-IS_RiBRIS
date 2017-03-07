@@ -100,6 +100,7 @@ var AddDistrictContainer = React.createClass({
         constituencies={this.state.constituencies}
         onSaveClick={this.handleSaveClick}
         onCancelClick={this.handleCancelClick}
+        districtId={this.props.params.districtId}
       />
     );
   }

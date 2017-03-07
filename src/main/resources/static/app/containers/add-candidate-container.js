@@ -107,6 +107,7 @@ var AddCandidateContainer = React.createClass({
         onPartyChange={this.handlePartyChange}
         onSaveClick={this.handleSaveClick}
         onCancelClick={this.handleCancelClick}
+      	candidateId={this.props.params.candidateId}
       />
     );
   }
