@@ -99,6 +99,11 @@ input::-webkit-inner-spin-button {
   margin-left: 20%;
 }
 
-th {
-  font-size: 12px;
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 1px solid Black;
+  padding: 5px 15px;
 }
