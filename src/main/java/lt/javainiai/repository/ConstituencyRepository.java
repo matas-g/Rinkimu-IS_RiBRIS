@@ -53,5 +53,6 @@ public class ConstituencyRepository  implements RepositoryInterface<Constituency
         ConstituencyEntity constituancyToRemove = em.find(ConstituencyEntity.class, id);
         em.remove(constituancyToRemove);
     }
+    
 
 }
