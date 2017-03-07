@@ -73,9 +73,9 @@ public class PollingDistrictService {
         Long sumOfVotes = getVotersActivityInUnitsInDistrict(districtId);
         Long totalOfVoters = findById(districtId).getNumOfVoters();
 
-        BigDecimal percent = new BigDecimal((sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0);
+        BigDecimal percent = new BigDecimal((sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0d);
         percent = percent.setScale(2, RoundingMode.HALF_UP);
-        
+
         return percent;
     }
 

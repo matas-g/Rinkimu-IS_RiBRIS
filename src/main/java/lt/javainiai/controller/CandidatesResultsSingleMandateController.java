@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lt.javainiai.model.CandidatesResultsSingleMandateEntity;
 import lt.javainiai.service.CandidatesResultsSingleMandateService;
+import lt.javainiai.utils.SingleMandateCandidateResults;
 
 @RestController
 @RequestMapping("/candidates-results/single-mandate")
@@ -50,6 +51,12 @@ public class CandidatesResultsSingleMandateController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@Valid @PathVariable("id") Long id){
         candidatesResultsService.deleteById(id);
+    }
+    
+    @RequestMapping(value = "district/{districtId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<SingleMandateCandidateResults> getSingleMandateResultsInDistrict(@Valid @PathVariable("districtId") Long districtId) {
+        return candidatesResultsService.getSingleMandateResultsInDistrict(districtId);
     }
     
 }
