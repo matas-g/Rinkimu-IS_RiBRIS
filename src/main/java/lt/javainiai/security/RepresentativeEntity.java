@@ -11,11 +11,10 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lt.javainiai.model.PollingDistrictEntity;
 
@@ -23,7 +22,7 @@ import lt.javainiai.model.PollingDistrictEntity;
 @Table(name = "Polling_District_Representatives")
 public class RepresentativeEntity {
 	
-	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
+//	public static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -51,6 +50,15 @@ public class RepresentativeEntity {
     @Length(min = 1, max = 50)
     private String email;
     
+    @JsonProperty
+    public String getDistrictName() {
+        return pollingDistrict == null ? null : pollingDistrict.getName();
+    }
+    
+    @JsonProperty
+    public Long getDistrictId() {
+        return pollingDistrict == null ? null : pollingDistrict.getId();
+    }
 
     // Constructor
     public RepresentativeEntity() {

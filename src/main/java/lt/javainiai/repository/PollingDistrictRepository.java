@@ -35,6 +35,16 @@ public class PollingDistrictRepository implements RepositoryInterface<PollingDis
         return em.createQuery("SELECT p FROM PollingDistrictEntity p").getResultList();
     }
     
+    public PollingDistrictEntity postSpoiledBallots(Long districtId, Long single, Long multi){ 
+    	PollingDistrictEntity oldDistrict = findById(districtId);
+    	
+    	oldDistrict.setSpoiledSingleMandateBallots(single);
+    	oldDistrict.setSpoiledMultiMandateBallots(multi);
+    	
+    	PollingDistrictEntity merged = em.merge(oldDistrict);
+    	em.persist(merged);
+    	return merged; 
+    }
 //    @SuppressWarnings("unchecked")
 //    public List<PollingDistrictEntity> findAllforConstituency(Long id) {
 //    	return em.createQuery("SELECT c FROM PollingDistrictEntity c WHERE c.constituency LIKE :id")

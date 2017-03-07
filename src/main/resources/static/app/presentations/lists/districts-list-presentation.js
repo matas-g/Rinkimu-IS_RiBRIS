@@ -1,11 +1,18 @@
 const React = require('react');
 const Button = require('../add-button-presentation');
+const ConfirmDelete = require('../../util/delete-confirm');
 
 var DistrictListComponent = React.createClass({
   render: function() {
     var self = this;
+    var style = {backgroundColor: "D52D2D"};
+    var buttonText = <i className="fa fa-times" aria-hidden="true"></i>;
+    var cancelText = "Atšaukti";
+    var confirmText = "Patvirtinti";
     var nr = 1;
     var districtsList = this.props.districts.map(function(district, index) {
+      var title = <h2>Ištrinste <b>{district.name}</b> apylinkę</h2>
+      var body = <h4 className="alert alert-danger">Ar tiktai norite ištrinti <b>{district.name}</b> apylinkę?</h4>;
       return (
         <tr key={index}>
           <td>{nr++}</td>
@@ -18,9 +25,15 @@ var DistrictListComponent = React.createClass({
             <button className="btn btn-success btn-sm" onClick={self.props.onEditItem(district)}>
               <i className="fa fa-pencil" aria-hidden="true"></i>
             </button>
-             <button className="btn btn-danger btn-sm" onClick={self.props.onRemoveItem(district)}>
-              <i className="fa fa-times" aria-hidden="true"></i>
-            </button>
+            <ConfirmDelete
+              title={title}
+              body={body}
+              style={style}
+              buttonText={buttonText}
+              cancelText={cancelText}
+              confirmText={confirmText}
+              onConfirm={self.props.onRemoveItem(district)}
+            />
           </td>
         </tr>
       );
