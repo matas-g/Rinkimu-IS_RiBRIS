@@ -23,40 +23,49 @@ import lt.javainiai.utils.SingleMandateCandidateResults;
 public class CandidatesResultsSingleMandateController {
 
     private CandidatesResultsSingleMandateService candidatesResultsService;
-    
+
     @Autowired
-    public CandidatesResultsSingleMandateController(CandidatesResultsSingleMandateService candidatesResultsService){
+    public CandidatesResultsSingleMandateController(CandidatesResultsSingleMandateService candidatesResultsService) {
         this.candidatesResultsService = candidatesResultsService;
     }
-    
+
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public CandidatesResultsSingleMandateEntity save(@Valid @RequestBody CandidatesResultsSingleMandateEntity candidatesResults){
+    public CandidatesResultsSingleMandateEntity save(
+            @Valid @RequestBody CandidatesResultsSingleMandateEntity candidatesResults) {
         return candidatesResultsService.saveOrUpdate(candidatesResults);
     }
-    
+
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<CandidatesResultsSingleMandateEntity> findAll() {
         return candidatesResultsService.findAll();
     }
-    
+
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public CandidatesResultsSingleMandateEntity findById(@Valid @PathVariable("id") Long id){
+    public CandidatesResultsSingleMandateEntity findById(@Valid @PathVariable("id") Long id) {
         return candidatesResultsService.findById(id);
     }
-    
+
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@Valid @PathVariable("id") Long id){
+    public void deleteById(@Valid @PathVariable("id") Long id) {
         candidatesResultsService.deleteById(id);
     }
-    
+
     @RequestMapping(value = "district/{districtId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<SingleMandateCandidateResults> getSingleMandateResultsInDistrict(@Valid @PathVariable("districtId") Long districtId) {
+    public List<SingleMandateCandidateResults> getSingleMandateResultsInDistrict(
+            @Valid @PathVariable("districtId") Long districtId) {
         return candidatesResultsService.getSingleMandateResultsInDistrict(districtId);
     }
-    
+
+    @RequestMapping(value = "constituency/{constituencyId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<SingleMandateCandidateResults> getSingleMandateResultsInConstituency(
+            @Valid @PathVariable("constituencyId") Long constituencyId) {
+        return candidatesResultsService.getSingleMandateResultsInConstituency(constituencyId);
+    }
+
 }
