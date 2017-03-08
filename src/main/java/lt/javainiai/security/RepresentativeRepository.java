@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.RepositoryInterface;
 
 @Repository
-//@PreAuthorize("hasRole('ROLE_ADMIN')")
+// @PreAuthorize("hasRole('ROLE_ADMIN')")
 public class RepresentativeRepository implements RepositoryInterface<RepresentativeEntity> {
 
     @Autowired
@@ -31,7 +32,7 @@ public class RepresentativeRepository implements RepositoryInterface<Representat
     }
 
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public List<RepresentativeEntity> findAll() {
         return em.createQuery("SELECT r FROM RepresentativeEntity r").getResultList();
     }
@@ -44,8 +45,11 @@ public class RepresentativeRepository implements RepositoryInterface<Representat
     @Transactional
     @Override
     public void deleteById(Long id) {
-        RepresentativeEntity representativeToRemove = em.find(RepresentativeEntity.class, id);
-        em.remove(representativeToRemove);
+        RepresentativeEntity representative = findById(id);
+        PollingDistrictEntity district = representative.getPollingDistrict();
+        district.setRepresentative(null);
+
+        em.remove(findById(id));
     }
 
 }

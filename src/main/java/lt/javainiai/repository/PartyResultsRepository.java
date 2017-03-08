@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lt.javainiai.model.PartyResultsEntity;
 
 @Repository
-//@PreAuthorize("hasRole('ROLE_REPRESENTATIVE')")
+// @PreAuthorize("hasRole('ROLE_REPRESENTATIVE')")
 public class PartyResultsRepository implements RepositoryInterface<PartyResultsEntity> {
 
     @Autowired
@@ -20,17 +20,17 @@ public class PartyResultsRepository implements RepositoryInterface<PartyResultsE
     @Override
     @Transactional
     public PartyResultsEntity saveOrUpdate(PartyResultsEntity partyResults) {
-       if(partyResults.getId() == null) {
-           em.persist(partyResults);
-           return partyResults;
-       } else {
-           PartyResultsEntity merged = em.merge(partyResults);
-           return merged;
-       }
+        if (partyResults.getId() == null) {
+            em.persist(partyResults);
+            return partyResults;
+        } else {
+            PartyResultsEntity merged = em.merge(partyResults);
+            return merged;
+        }
     }
 
     @SuppressWarnings("unchecked")
-	@Override
+    @Override
     public List<PartyResultsEntity> findAll() {
         return em.createQuery("SELECT  c FROM PartyResultsEntity c").getResultList();
     }
@@ -42,9 +42,7 @@ public class PartyResultsRepository implements RepositoryInterface<PartyResultsE
 
     @Override
     public void deleteById(Long id) {
-        PartyResultsEntity partyResultsToRemove = em.find(PartyResultsEntity.class, id);
-        em.remove(partyResultsToRemove);
+        em.remove(findById(id));
     }
-    
 
 }

@@ -3,8 +3,6 @@ package lt.javainiai.service;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,8 +24,8 @@ import lt.javainiai.model.CandidatesResultsSingleMandateEntity;
 import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.ConstituencyRepository;
-import lt.javainiai.utils.ConstituencyVotersActivityInPercent;
-import lt.javainiai.utils.ConstituencyVotersActivityInUnits;
+import lt.javainiai.utils.ConstituencyVotersActivity;
+import lt.javainiai.utils.UtilityMethods;
 
 @Service
 public class ConstituencyService {
@@ -117,7 +115,7 @@ public class ConstituencyService {
         constituencyRepository.deleteById(id);
     }
 
-    // Voters activity (4 following methods)
+    // Voters activity (3 following methods)
     public Long getVotersActivityInUnitsInConstituency(Long constituencyId) {
         Long sumOfVotes = 0L;
         ConstituencyEntity constituency = findById(constituencyId);
@@ -135,24 +133,7 @@ public class ConstituencyService {
         return sumOfVotes;
     }
 
-    public List<ConstituencyVotersActivityInUnits> getVotersActivityInUnitsInAllConstituencies() {
-
-        List<ConstituencyVotersActivityInUnits> activityInConstituenciesList = new ArrayList<ConstituencyVotersActivityInUnits>();
-        List<ConstituencyEntity> constituencies = findAll();
-
-        for (ConstituencyEntity constituency : constituencies) {
-            Long constituencyId = constituency.getId();
-            Long totalOfBallots = getVotersActivityInUnitsInConstituency(constituencyId);
-
-            ConstituencyVotersActivityInUnits constituencyActivity = new ConstituencyVotersActivityInUnits(
-                    constituencyId, totalOfBallots);
-
-            activityInConstituenciesList.add(constituencyActivity);
-        }
-        return activityInConstituenciesList;
-    }
-
-    public BigDecimal getVotersActivityInPercentInConstituency(Long constituencyId) {
+    public Double getVotersActivityInPercentInConstituency(Long constituencyId) {
         Long sumOfVotes = getVotersActivityInUnitsInConstituency(constituencyId);
         Long totalOfVoters = 0L;
 
@@ -162,23 +143,23 @@ public class ConstituencyService {
             totalOfVoters += district.getNumOfVoters();
         }
 
-        BigDecimal percent = new BigDecimal((sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0);
-        percent = percent.setScale(2, RoundingMode.HALF_UP);
+        Double percent = (sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0;
+        percent = UtilityMethods.round(percent, 2);
 
         return percent;
     }
 
-    public List<ConstituencyVotersActivityInPercent> getVotersActivityInPercentInAllConstituencies() {
-        List<ConstituencyVotersActivityInPercent> activityInConstituenciesList = new ArrayList<ConstituencyVotersActivityInPercent>();
+    public List<ConstituencyVotersActivity> getVotersActivityInAllConstituencies() {
+        List<ConstituencyVotersActivity> activityInConstituenciesList = new ArrayList<ConstituencyVotersActivity>();
         List<ConstituencyEntity> constituencies = findAll();
 
         for (ConstituencyEntity constituency : constituencies) {
             Long constituencyId = constituency.getId();
-            BigDecimal activityInConstituency = getVotersActivityInPercentInConstituency(constituencyId);
+            Long givenBallots = getVotersActivityInUnitsInConstituency(constituencyId);
+            Double percentOfAllVoters = getVotersActivityInPercentInConstituency(constituencyId);
 
-            ConstituencyVotersActivityInPercent constituencyActivity = new ConstituencyVotersActivityInPercent(
-                    constituencyId, activityInConstituency);
-
+            ConstituencyVotersActivity constituencyActivity = new ConstituencyVotersActivity(constituency, givenBallots,
+                    percentOfAllVoters);
             activityInConstituenciesList.add(constituencyActivity);
         }
         return activityInConstituenciesList;
