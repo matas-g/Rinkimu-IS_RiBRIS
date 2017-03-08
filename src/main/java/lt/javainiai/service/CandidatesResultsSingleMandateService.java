@@ -89,7 +89,7 @@ public class CandidatesResultsSingleMandateService {
         return districtResultsList;
     }
 
-    // TODO - Single-mandate results in Constituency
+    // Single-mandate results in Constituency
     public List<SingleMandateCandidateResults> getSingleMandateResultsInConstituency(Long constituencyId) {
         List<SingleMandateCandidateResults> constituencyResultsList = new ArrayList<SingleMandateCandidateResults>();
         ConstituencyEntity constituency = constituencyService.findById(constituencyId);
@@ -98,7 +98,7 @@ public class CandidatesResultsSingleMandateService {
         Long validVotes = 0L;
         Long spoiledBallots = 0L;
         Long allBallots = 0L;
-        
+
         // Count all valid single-member votes in constituency
         List<CandidatesResultsSingleMandateEntity> results = findAll();
         for (CandidatesResultsSingleMandateEntity result : results) {
@@ -106,19 +106,19 @@ public class CandidatesResultsSingleMandateService {
                 validVotes += result.getNumberOfVotes();
             }
         }
-        
+
         // Count all ballots in single-member constituency
         for (PollingDistrictEntity district : districts) {
             spoiledBallots += district.getSpoiledSingleMandateBallots();
         }
         allBallots = validVotes + spoiledBallots;
-        
+
         // Fill List of single-member candidates with their results
         for (CandidateEntity candidate : candidates) {
             Long candidateVotes = 0L;
             Double percentOfValidBallots = null;
             Double percentOfAllBallots = null;
-        
+
             // Count candidate results in Constituency
             List<CandidatesResultsSingleMandateEntity> candidateResultsList = candidate
                     .getCandidatesResultsSingleMandate();
@@ -127,22 +127,21 @@ public class CandidatesResultsSingleMandateService {
                     candidateVotes += result.getNumberOfVotes();
                 }
             }
-            
+
             // Count percent of valid ballots
             percentOfValidBallots = (candidateVotes.doubleValue() / validVotes.doubleValue()) * 100.0d;
             percentOfValidBallots = UtilityMethods.round(percentOfValidBallots, 2);
-            
+
             // Count percent of all ballots
             percentOfAllBallots = (candidateVotes.doubleValue() / allBallots.doubleValue()) * 100.0d;
             percentOfAllBallots = UtilityMethods.round(percentOfAllBallots, 2);
-        
+
             // Create candidate result object and add to List
             SingleMandateCandidateResults candidateResults = new SingleMandateCandidateResults(candidate,
                     candidateVotes, percentOfValidBallots, percentOfAllBallots);
             constituencyResultsList.add(candidateResults);
         }
-        
         return constituencyResultsList;
     }
-    
+
 }
