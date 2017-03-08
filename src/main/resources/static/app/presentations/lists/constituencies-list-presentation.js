@@ -2,6 +2,7 @@ const React = require('react');
 const ConfirmDelete = require('../../util/delete-confirm');
 
 var ConstituenciesListComponent = React.createClass({
+
   render: function() {
     var self = this;
     var style = {backgroundColor: "D52D2D"};
@@ -9,8 +10,9 @@ var ConstituenciesListComponent = React.createClass({
     var cancelText = "Atšaukti";
     var confirmText = "Patvirtinti";
     var nr = 1;
+
     var ConstituenciesList = this.props.constituencies.map(function(constituency, index) {
-      var title = <h2>Ištrinste <b>{constituency.name}</b> apygardą</h2>
+      var title = <h2>Ištrinsite <b>{constituency.name}</b> apygardą</h2>
       var body = <h4 className="alert alert-danger">Ar tiktai norite ištrinti <b>{constituency.name}</b> apygardą?</h4>;
       return (
         <tr key={index}>
@@ -47,7 +49,7 @@ var ConstituenciesListComponent = React.createClass({
     });
 
     return (
-      <div className="container-fluid">
+     <div className="container-fluid">
         <div className="panel panel-default">
         <div className="panel-heading"><strong>Apygardų sąrašas</strong></div>
           <table className="table">
