@@ -1,6 +1,5 @@
 package lt.javainiai.controller;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -17,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.service.PollingDistrictService;
-import lt.javainiai.utils.DistrictVotersActivityInPercent;
-import lt.javainiai.utils.DistrictVotersActivityInUnits;
+import lt.javainiai.utils.DistrictVotersActivity;
 import lt.javainiai.utils.SpoiledResults;
 
 @RestController
@@ -60,31 +58,24 @@ public class PollingDistrictController {
         pollingDistrictService.deleteById(id);
     }
 
-    // Voters activity (4 following methods)
-    @RequestMapping(value = "total-votes/{districtId}", method = RequestMethod.GET)
+    // Voters activity (3 following methods)
+    @RequestMapping(value = "activity/{districtId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Long getVotersActivityInUnitsInDistrict(@Valid @PathVariable("districtId") Long districtId) {
         return pollingDistrictService.getVotersActivityInUnitsInDistrict(districtId);
     }
 
-    @RequestMapping(value = "total-votes/all/{constituencyId}", method = RequestMethod.GET)
+    @RequestMapping(value = "activity-percent/{districtId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<DistrictVotersActivityInUnits> getVotersActivityInUnitsInAllDistrictsOfConstituency(
-            @Valid @PathVariable("constituencyId") Long constituencyId) {
-        return pollingDistrictService.getVotersActivityInUnitsInAllDistrictsOfConstituency(constituencyId);
-    }
-
-    @RequestMapping(value = "total-votes-percent/{districtId}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public BigDecimal getVotersActivityInPercentInDistrict(@Valid @PathVariable("districtId") Long districtId) {
+    public Double getVotersActivityInPercentInDistrict(@Valid @PathVariable("districtId") Long districtId) {
         return pollingDistrictService.getVotersActivityInPercentInDistrict(districtId);
     }
 
-    @RequestMapping(value = "total-votes-percent/all/{constituencyId}", method = RequestMethod.GET)
+    @RequestMapping(value = "activity/all/{constituencyId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<DistrictVotersActivityInPercent> getVotersActivityInPercentInAllDistrictsOfConstituency(
+    public List<DistrictVotersActivity> getVotersActivityInAllDistrictsOfConstituency(
             @Valid @PathVariable("constituencyId") Long constituencyId) {
-        return pollingDistrictService.getVotersActivityInPercentInAllDistrictsOfConstituency(constituencyId);
+        return pollingDistrictService.getVotersActivityInAllDistrictsOfConstituency(constituencyId);
     }
 
     @RequestMapping(value = "spoiled-ballots/{districtId}", method = RequestMethod.POST)

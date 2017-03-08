@@ -33,7 +33,7 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
                     newCandidate.setParty(candidate.getParty());
                 }
                 if (candidate.getConstituency() != null) {
-                    newCandidate.setParty(candidate.getParty());
+                    newCandidate.setConstituency(candidate.getConstituency());
                 }
             }
         }
@@ -42,7 +42,6 @@ public class CandidateRepository implements RepositoryInterface<CandidateEntity>
             return candidate;
         } else {
             CandidateEntity merged = em.merge(newCandidate);
-            em.persist(merged);
             return merged;
         }
     }
