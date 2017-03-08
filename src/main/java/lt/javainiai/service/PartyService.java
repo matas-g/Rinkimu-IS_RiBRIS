@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import lt.javainiai.model.CandidateEntity;
@@ -80,6 +81,7 @@ public class PartyService {
         for (CandidateEntity candidate : candidateList) {
             candidateService.saveOrUpdate(candidate);
         }
+        FileSystemUtils.deleteRecursively(file);
         return partyResponse;
     }
 
