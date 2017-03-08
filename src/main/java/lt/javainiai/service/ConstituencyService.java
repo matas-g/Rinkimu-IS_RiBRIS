@@ -1,11 +1,12 @@
 package lt.javainiai.service;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,10 +16,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import lt.javainiai.exceptions.FileAlreadyExists;
 import lt.javainiai.model.CandidateEntity;
 import lt.javainiai.model.CandidatesResultsSingleMandateEntity;
 import lt.javainiai.model.ConstituencyEntity;
@@ -32,12 +31,8 @@ public class ConstituencyService {
 
     @Autowired
     private ConstituencyRepository constituencyRepository;
-
     @Autowired
     private CandidateService candidateService;
-
-    // Path to store multi-candidate CSV files
-    private final Path csvMultiLocation = Paths.get("csv-multi-files");
 
     public ConstituencyEntity saveOrUpdate(Long id, String constituencyName, MultipartFile csvFile) {
 
@@ -49,13 +44,14 @@ public class ConstituencyService {
 
         List<CandidateEntity> candidateList = new ArrayList<>();
 
-        Path filePath = this.csvMultiLocation.resolve(csvFile.getOriginalFilename());
-        // Copy CSV file to project file system
+        File file = null;
+        InputStreamReader inputStreamReader = null;
         try {
-            Files.copy(csvFile.getInputStream(), filePath);
+            file = UtilityMethods.multipartToFile(csvFile);
+            InputStream fileInputStream = new FileInputStream(file);
+            inputStreamReader = new InputStreamReader(fileInputStream, Charset.forName("UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
-            throw new FileAlreadyExists("File exists");
         }
 
         // to store one line from file
@@ -63,7 +59,7 @@ public class ConstituencyService {
         // array of values from one row of CSV file
         String[] values = {};
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath.toString()))) {
+        try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
             while ((data = bufferedReader.readLine()) != null) {
                 values = data.split(",", -1);
 
@@ -86,7 +82,6 @@ public class ConstituencyService {
         for (CandidateEntity candidate : candidateList) {
             candidateService.saveOrUpdate(candidate);
         }
-
         return constituencyResponse;
     }
 
@@ -178,20 +173,6 @@ public class ConstituencyService {
             e.printStackTrace();
         }
         return birthDate;
-    }
-
-    // deletes CSV storage directory "csv-multi-files"
-    public void deleteAll() {
-        FileSystemUtils.deleteRecursively(csvMultiLocation.toFile());
-    }
-
-    // creates CSV storage directory "csv-multi-files"
-    public void init() {
-        try {
-            Files.createDirectory(csvMultiLocation);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not initialize storage directory for multi-candidate CSV files!");
-        }
     }
 
 }
