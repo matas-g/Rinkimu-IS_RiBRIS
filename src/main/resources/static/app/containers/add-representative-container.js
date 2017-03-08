@@ -31,10 +31,13 @@ var AddRepresentativeContainer = React.createClass({
     if(this.props.params.representativeId != undefined){
        axios.get('http://localhost:8090/representatives/' + this.props.params.representativeId)
     	   .then(function(response){
-    	  self.setState({
-    		id: response.data.id,
-    	   	name: response.data.name,
-    	    surname: response.data.surname
+    		   self.setState({
+    			   id: response.data.id,
+    			   name: response.data.name,
+    			   surname: response.data.surname,
+    			   pollingDistrict: {
+    			        id: response.data.districtId
+    			      }
     				});
     	  	});
        axios.get('http://localhost:8090/polling-districts/').then(function(response) {

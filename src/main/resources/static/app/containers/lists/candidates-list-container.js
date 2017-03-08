@@ -35,12 +35,12 @@ var PartiesListContainer = React.createClass({
     }
   },
 
-  handleCandidateEdit: function(candidate) {
-    var self = this;
-    return function() {
-      self.context.router.push('/admin/candidates/edit/' + candidate.id);
-    }
-  },
+//  handleCandidateEdit: function(candidate) {
+//    var self = this;
+//    return function() {
+//      self.context.router.push('/admin/candidates/edit/' + candidate.id);
+//    }
+//  },
 
   handleCandidateRemove: function(candidate) {
     var self = this;
@@ -69,7 +69,7 @@ var PartiesListContainer = React.createClass({
     return (
       <CandidatesList
         candidates={this.state.candidates}
-        onEditItem={this.handleCandidateEdit}
+//        onEditItem={this.handleCandidateEdit}
         onRemoveItem={this.handleCandidateRemove}
       />
     );

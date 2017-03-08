@@ -23,7 +23,7 @@ var AddPartyPresentation = React.createClass({
   }
   
   if(this.props.candidates.length != 0){
-		 fileInput = (<div><label>Kandidatų sąrašas įkeltas</label>
+		 fileInput = (<div><label style={{ marginRight: '20px' }}>Kandidatų sąrašas įkeltas</label>
 		   				<button className="btn btn-danger btn-sm" 
 			   onClick={this.props.onDeleteClick}>Ištrinti kandidatus</button></div>);
   } else {
