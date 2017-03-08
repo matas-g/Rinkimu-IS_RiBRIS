@@ -52,7 +52,7 @@ var ConstituenciesListComponent = React.createClass({
      <div className="container-fluid">
         <div className="panel panel-default">
         <div className="panel-heading"><strong>Apygardų sąrašas</strong></div>
-          <table className="table">
+          <table className="table table-striped table-bordered">
             <thead>
               <tr>
                 <th>Nr</th>

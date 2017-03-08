@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -67,10 +68,11 @@ public class PollingDistrictController {
         return pollingDistrictService.getVotersActivityInUnitsInDistrict(districtId);
     }
 
-    @RequestMapping(value = "total-votes/", method = RequestMethod.GET)
+    @RequestMapping(value = "total-votes/all/{constituencyId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<DistrictVotersActivityInUnits> getVotersActivityInUnitsInAllDistricts() {
-        return pollingDistrictService.getVotersActivityInUnitsInAllDistricts();
+    public List<DistrictVotersActivityInUnits> getVotersActivityInUnitsInAllDistrictsOfConstituency(
+            @Valid @PathVariable("constituencyId") Long constituencyId) {
+        return pollingDistrictService.getVotersActivityInUnitsInAllDistrictsOfConstituency(constituencyId);
     }
 
     @RequestMapping(value = "total-votes-percent/{districtId}", method = RequestMethod.GET)
@@ -79,10 +81,11 @@ public class PollingDistrictController {
         return pollingDistrictService.getVotersActivityInPercentInDistrict(districtId);
     }
 
-    @RequestMapping(value = "total-votes-percent/", method = RequestMethod.GET)
+    @RequestMapping(value = "total-votes-percent/all/{constituencyId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<DistrictVotersActivityInPercent> getVotersActivityInPercentInAllDistricts() {
-        return pollingDistrictService.getVotersActivityInPercentInAllDistricts();
+    public List<DistrictVotersActivityInPercent> getVotersActivityInPercentInAllDistrictsOfConstituency(
+            @Valid @PathVariable("constituencyId") Long constituencyId) {
+        return pollingDistrictService.getVotersActivityInPercentInAllDistrictsOfConstituency(constituencyId);
     }
 
     @RequestMapping(value ="spoiled-ballots/{districtId}",method = RequestMethod.POST)
@@ -91,3 +94,4 @@ public class PollingDistrictController {
         return pollingDistrictService.postSpoiledBallots(districtId, results);
     }
 } 
+

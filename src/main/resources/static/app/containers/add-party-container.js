@@ -6,8 +6,10 @@ var AddPartyContainer = React.createClass({
     getInitialState: function() {
         return {
           party: {
+        	id:'',
             name: '',
-            partyNo: ''
+            partyNo: '',
+            candidates:[]
           }
         }
     },
@@ -18,8 +20,10 @@ var AddPartyContainer = React.createClass({
           axios.get('http://localhost:8090/parties/' + this.props.params.partyId).then(function (response) {
             self.setState({
               party:{
+            	  id: response.data.id,
             	  name: response.data.name,
-            	  partyNo: response.data.partyNo
+            	  partyNo: response.data.partyNo,
+            	  candidates: response.data.candidates
               }
             });
           });
@@ -34,14 +38,17 @@ var AddPartyContainer = React.createClass({
     handleSaveClick: function(e) {
         e.preventDefault();
         var self = this;
+        console.log(self.state);
         var data = new FormData();
         var config = {
         	headers: {
         		'Content-Type': 'multipart/form-data'
         	}
         };
+        data.append( 'id', self.state.party.id );
         data.append( 'name', self.state.party.name );
         data.append( 'partyNo', self.state.party.partyNo );
+       
 
         // Creating party with CSV candidate list
         if (self.state.multiCandidateFile) {
@@ -89,6 +96,11 @@ var AddPartyContainer = React.createClass({
     handleCancelClick() {
         this.context.router.push('/admin/parties');
     },
+    
+    handleDeleteCandidates: function(){
+    	var self = this;
+    	axios.delete('http://localhost:8090/candidates/by-party/' + this.state.party.id);
+    },
 
     render: function() {
         return (
@@ -98,6 +110,8 @@ var AddPartyContainer = React.createClass({
                 onSaveClick={this.handleSaveClick}
                 onCancelClick={this.handleCancelClick}
                 onFieldChange={this.handleFieldChange}
+            	onDeleteClick={this.handleDeleteCandidates}
+            	partyId={this.props.params.partyId}
             />
         );
     }

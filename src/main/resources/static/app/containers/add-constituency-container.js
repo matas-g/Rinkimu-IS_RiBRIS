@@ -9,7 +9,8 @@ var AddConstituencyContainer = React.createClass({
               id: '',
               name: ''
             },
-            constituencyId: 0
+            constituencyId: 0,
+            candidates: []
         }
     },
 
@@ -17,8 +18,9 @@ var AddConstituencyContainer = React.createClass({
       var self = this;
       if (this.props.params.constituencyId != undefined) {
         axios.get('http://localhost:8090/constituencies/' + this.props.params.constituencyId).then(function (response) {
-          self.setState({
-            constituency: response.data
+        	self.setState({
+            constituency: response.data,
+            candidates: response.data.candidates
           });
         });
       }
@@ -76,15 +78,25 @@ var AddConstituencyContainer = React.createClass({
     handleCancelClick() {
         this.context.router.push('/admin/constituencies');
     },
+    
+    handleDeleteCandidates: function(){
+    	var self = this;
+    	axios.delete('http://localhost:8090/candidates/by-constituency/' + this.state.constituency.id)
+    		.then(function (response) {
+    			forceUpdate();
+    		})
+    },
 
     render: function() {
         return (
             <AddConstituencies
                 constituency={this.state.constituency}
+            	candidates={this.state.candidates}
                 onSaveClick={this.handleSaveClick}
                 onCancelClick={this.handleCancelClick}
                 onFieldChange={this.handleFieldChange}
                 onUploadMultiCandidateFile={this.handleUploadMultiCandidateFile}
+            	onDeleteClick={this.handleDeleteCandidates}
             />
         );
     }

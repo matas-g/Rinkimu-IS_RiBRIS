@@ -22,6 +22,8 @@ public class PollingDistrictService {
 
     @Autowired
     private PollingDistrictRepository pollingDistrictRepository;
+    @Autowired
+    private ConstituencyService constituencyService;
 
     public PollingDistrictEntity saveOrUpdate(PollingDistrictEntity pollingDistrict) {
         return pollingDistrictRepository.saveOrUpdate(pollingDistrict);
@@ -55,10 +57,11 @@ public class PollingDistrictService {
         return sumOfVotes + district.getSpoiledSingleMandateBallots();
     }
 
-    public List<DistrictVotersActivityInUnits> getVotersActivityInUnitsInAllDistricts() {
+    public List<DistrictVotersActivityInUnits> getVotersActivityInUnitsInAllDistrictsOfConstituency(
+            Long constituencyId) {
 
         List<DistrictVotersActivityInUnits> activityInDistrictsList = new ArrayList<DistrictVotersActivityInUnits>();
-        List<PollingDistrictEntity> districts = findAll();
+        List<PollingDistrictEntity> districts = constituencyService.findById(constituencyId).getPollingDistricts();
 
         for (PollingDistrictEntity district : districts) {
             Long districtId = district.getId();
@@ -76,16 +79,17 @@ public class PollingDistrictService {
         Long sumOfVotes = getVotersActivityInUnitsInDistrict(districtId);
         Long totalOfVoters = findById(districtId).getNumOfVoters();
 
-        BigDecimal percent = new BigDecimal((sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0);
+        BigDecimal percent = new BigDecimal((sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0d);
         percent = percent.setScale(2, RoundingMode.HALF_UP);
-        
+
         return percent;
     }
 
-    public List<DistrictVotersActivityInPercent> getVotersActivityInPercentInAllDistricts() {
+    public List<DistrictVotersActivityInPercent> getVotersActivityInPercentInAllDistrictsOfConstituency(
+            Long constituencyId) {
 
         List<DistrictVotersActivityInPercent> activityInDistrictsList = new ArrayList<DistrictVotersActivityInPercent>();
-        List<PollingDistrictEntity> districts = findAll();
+        List<PollingDistrictEntity> districts = constituencyService.findById(constituencyId).getPollingDistricts();
 
         for (PollingDistrictEntity district : districts) {
             Long districtId = district.getId();

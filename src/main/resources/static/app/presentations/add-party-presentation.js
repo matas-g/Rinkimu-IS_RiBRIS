@@ -10,11 +10,33 @@ var AddPartyPresentation = React.createClass({
   },
 
   render: function() {
+	  var greeting;
+	  var buttonText;
+	  var fileInput;
+	  
+  if(this.props.partyId != undefined){
+	  greeting = <h4>Redaguoti partiją</h4>;
+	  buttonText = "Redaguoti";
+  } else {
+	  greeting = <h4>Registruoti naują partiją</h4>;
+	  buttonText = "Registruoti";
+  }
+  
+  if(this.props.party.candidates.length != 0){
+		 fileInput = (<div><label>Kandidatų sąrašas įkeltas</label>
+		   				<button className="btn btn-danger btn-sm" 
+			   onClick={this.props.onDeleteClick}>Ištrinti kandidatus</button></div>);
+  } else {
+		 fileInput= (<div className="form-group"><label>Prisegti partijos kandidatų sąrašą  &nbsp;
+				   <span className="bg-danger">CSV</span> formatu:</label>
+  					<input type="file" ref='file' onChange={this.onUploadMultiCandidateFile} />
+  				 </div>)
+	 }
     return (
       <div className="container-fluid">
         <div className="col-sm-offset-1 col-sm-10">
           <form autoComplete="off">
-            <h4>Registruoti naują partiją</h4>
+            {greeting}
             <br />
             <div className="form-group">
               <label>Pavadinimas</label>
@@ -30,11 +52,8 @@ var AddPartyPresentation = React.createClass({
                   onChange={this.props.onFieldChange('partyNo')} />
               </NumberValidator>
             </div>
-            <div className="form-group">
-            	<label>Prisegti partijos kandidatų sąrašą <span className="bg-danger">CSV</span> formatu:</label>
-            	<input type="file" ref='file' onChange={this.onUploadMultiCandidateFile} />
-            </div>
-            <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onSaveClick}>Registruoti</button>
+            {fileInput}
+            <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onSaveClick}>{buttonText}</button>
             <button className="btn btn-danger btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onCancelClick}>Atšaukti</button>
           </form>
         </div>

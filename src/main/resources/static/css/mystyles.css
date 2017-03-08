@@ -99,11 +99,16 @@ input::-webkit-inner-spin-button {
   margin-left: 20%;
 }
 
-table {
-  border-collapse: collapse;
+
+/* Single mandate results table css */
+.table-head {
+  font-size: 12px;
 }
 
-td, th {
-  border: 1px solid Black;
-  padding: 5px 15px;
+.table-head th {
+  text-align: center;
+}
+
+.text-middle {
+  text-align: center;
 }
