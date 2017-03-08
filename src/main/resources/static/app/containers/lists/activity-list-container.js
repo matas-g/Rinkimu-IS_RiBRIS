@@ -19,11 +19,11 @@ var ActivityListContainer = React.createClass({
 	  	.then(function(response){
 	  			districts = response.data;
 	  	}).then(function(){
-	  		axios.get('http://localhost:8090/polling-districts/total-votes/')
+	  		axios.get('http://localhost:8090/polling-districts/total-votes/all/')
 	  		.then(function(response){
 	  			activity = response.data;
 	  		}).then(function(){
-	  			axios.get('http://localhost:8090/polling-districts/total-votes-percent/')
+	  			axios.get('http://localhost:8090/polling-districts/total-votes-percent/all/')
 	  			.then(function(response){
 	  				self.setState({
 	  					districts: districts,
