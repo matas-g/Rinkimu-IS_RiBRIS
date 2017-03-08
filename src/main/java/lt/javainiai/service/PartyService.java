@@ -37,9 +37,10 @@ public class PartyService {
 
 
     // Save or update party (with CSV candidate list)
-    public PartyEntity saveOrUpdate(String partyName, Long partyNo, MultipartFile csvFile) {
+    public PartyEntity saveOrUpdate(Long id,String partyName, Long partyNo, MultipartFile csvFile) {
 
         PartyEntity party = new PartyEntity();
+        party.setId(id);
         party.setName(partyName);
         party.setPartyNo(partyNo);
         // save party to Database and get response from repository;
@@ -90,9 +91,10 @@ public class PartyService {
     }
     
     // Save or update party (no CSV candidate list)
-    public PartyEntity saveOrUpdate(String partyName, Long partyNo) {
+    public PartyEntity saveOrUpdate(Long id,String partyName, Long partyNo) {
 
         PartyEntity party = new PartyEntity();
+        party.setId(id);
         party.setName(partyName);
         party.setPartyNo(partyNo);
         // save party to Database and get response from repository;
