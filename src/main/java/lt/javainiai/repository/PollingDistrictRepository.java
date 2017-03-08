@@ -28,6 +28,7 @@ public class PollingDistrictRepository implements RepositoryInterface<PollingDis
             return merged;
         }
     }
+    
 
     @SuppressWarnings("unchecked")
     @Override
