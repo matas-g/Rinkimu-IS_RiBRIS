@@ -27,6 +27,7 @@ var AddCandidateContainer = React.createClass({
 	      axios.get('http://localhost:8090/candidates/' + this.props.params.candidateId).then(function (response) {
 	    	  console.log(response.data);
 	    	  self.setState({
+	    		 id: response.data.id,
 	        	 name: response.data.name,
 	             surname: response.data.surname,
 	             birthDate: response.data.birthDate,
