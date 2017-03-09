@@ -44,10 +44,10 @@ public class PollingDistrictEntity {
     private Long numOfVoters;
     
     @Column(name = "Spoiled_Single_Mandate_Ballots")
-    private Long spoiledSingleMandateBallots;
+    private Long spoiledSingleMandateBallots = 0L;
     
     @Column(name = "Spoiled_Multi_Mandate_Ballots")
-    private Long spoiledMultiMandateBallots;
+    private Long spoiledMultiMandateBallots = 0L;
 
     // Bidirectional ManyToOne
     @ManyToOne
