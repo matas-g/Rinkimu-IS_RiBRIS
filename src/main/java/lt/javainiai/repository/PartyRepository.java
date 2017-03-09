@@ -18,7 +18,6 @@ public class PartyRepository implements RepositoryInterface<PartyEntity> {
     private EntityManager em;
 
     @Transactional
-    @Override
     public PartyEntity saveOrUpdate(PartyEntity party) {
         if (party.getId() == null) {
             em.persist(party);

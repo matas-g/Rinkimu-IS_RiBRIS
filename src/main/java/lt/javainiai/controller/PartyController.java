@@ -31,9 +31,9 @@ public class PartyController {
     // Register or update
     @RequestMapping(value = "csv/", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public PartyEntity saveOrUpdate(@RequestParam("name") String partyName, @RequestParam("partyNo") Long partyNo,
+    public PartyEntity saveOrUpdate(@RequestParam(value ="id", required = false) Long id, @RequestParam("name") String partyName, @RequestParam("partyNo") Long partyNo,
             @RequestParam("file") MultipartFile csvFile) {
-        return partyService.saveOrUpdate(partyName, partyNo, csvFile);
+        return partyService.saveOrUpdate(id, partyName, partyNo, csvFile);
     }
     
 //    @PostMapping(value = "spoiled")
@@ -43,8 +43,8 @@ public class PartyController {
     // Register or update (no CSV file)
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public PartyEntity saveOrUpdate(@RequestParam("name") String partyName, @RequestParam("partyNo") Long partyNo) {
-        return partyService.saveOrUpdate(partyName, partyNo);
+    public PartyEntity saveOrUpdate(@RequestParam(value = "id", required = false) Long id, @RequestParam("name") String partyName, @RequestParam("partyNo") Long partyNo) {
+        return partyService.saveOrUpdate(id, partyName, partyNo);
     }
 
     // Find all
