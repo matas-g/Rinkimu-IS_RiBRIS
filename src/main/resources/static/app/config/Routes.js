@@ -30,7 +30,10 @@ const ActivityList = require('../containers/lists/activity-list-container');
 
 
 const PublicResultsList = require('../presentations/lists/public-result-list-presentation');
-const SingleMandateList = require('../presentations/lists/single-mandate-results-presentation');
+const SingleMandateList = require('../containers/lists/single-mandate-results-container');
+
+const SingleMandateDistrictsList = require('../presentations/lists/single-mandate-district-results-presentation');
+const SingleMandateDistrictResultsList = require('../containers/lists/single-mandate-districts-list-container');
 
 const routes = (
   <Router history={hashHistory}>
@@ -39,6 +42,8 @@ const routes = (
     	<Route path="/results" component={PublicResultsList} >
         <IndexRoute component={SingleMandateList} />
         <Route path="/single-mandate" component={SingleMandateList} />
+        <Route path="/single-mandate-districts/:constituencyId" component={SingleMandateDistrictResultsList} />
+        <Route path="/single-mandate-district-results" component={SingleMandateDistrictsList} />
         <Route path="/multi-mandate" component={SingleMandateList} />
       </Route>
     </Route>

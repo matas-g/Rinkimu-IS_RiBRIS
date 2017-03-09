@@ -39,7 +39,7 @@ public class PollingDistrictRepository implements RepositoryInterface<PollingDis
         PollingDistrictEntity oldDistrict = findById(districtId);
 
         oldDistrict.setSpoiledSingleMandateBallots(single);
-        oldDistrict.setSpoiledMultiMandateBallots(multi);
+       // oldDistrict.setSpoiledMultiMandateBallots(multi);
 
         PollingDistrictEntity merged = em.merge(oldDistrict);
         em.persist(merged);
