@@ -19,6 +19,8 @@ var ConstituenciesListContainer = React.createClass({
     });
   },
 
+
+
   handleConstituencyEdit: function(constituency) {
     var self = this;
     return function() {
