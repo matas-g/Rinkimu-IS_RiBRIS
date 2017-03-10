@@ -1,54 +1,39 @@
 const React = require('react');
 const NavLink = require('../navigation/nav-link');
 const Link = require('react-router').Link;
-
-var SingleMandateDistrictsComponent = React.createClass({
-	render: function() {
-
-		var nr = 1;
-		var DistrictsList = this.props.districts.map(function(district, index) {
-			return (
-				<tr key={index}>
-					<td><Link to="/single-mandate-district-results">{nr++}. {district.name}</Link></td>
-				</tr>
-			);
-			
-		});
+const ReactBsTable = require("react-bootstrap-table");
+const BootstrapTable = ReactBsTable.BootstrapTable;
+const TableHeaderColumn = ReactBsTable.TableHeaderColumn;
 
 
-		return (
+const SingleMandateDistrictsComponent = React.createClass({
+  render: function() {
+    var self = this;
+    var DistrictsList = [];
 
-			<div className="container-fluid">
-				<div className="panel panel-default">
-					<div className="panel-heading"><strong>Balsavimo rezultatai rinkimų apylinkėse</strong></div>
-					<table className="table table-striped table-bordered">
-						<thead>
-							<tr className="table-head"> 
-								<th className="text-middle" style={{verticalAlign: 'middle'}} rowSpan="2">Apylinkė</th> 
-								<th className="text-middle" style={{verticalAlign: 'middle'}} rowSpan="2">Rinkėjų skaičius</th>
-								<th className="text-middle" colSpan="2">Dalyvavo</th>
-								<th colSpan="2">Negaliojantys biuleteniai</th> 
-								<th colSpan="2">Galiojantys biuleteniai</th> 
-							</tr> 
-							<tr className="table-head"> 
-								<th>skaičius</th> 
-								<th>%</th>
-								<th>skaičius</th> 
-								<th>%</th>
-								<th>skaičius</th> 
-								<th>%</th> 
-							</tr>
-							</thead>
-							<tbody> 
-								{DistrictsList}
-							</tbody> 
-					</table>
-				</div>
-			</div>
-     
-					
-		);
-	}
+    self.props.districts.map(function(district, index) {
+		    DistrictsList.push(
+    		{
+				id: index+1,
+				name: district.name,
+				time: '2017-03-10'
+			}
+  		);
+	});
+
+    return (
+      
+      <div>
+      	<h4>Balsavimo rezultatai rinkimų apylinkėse</h4>
+		<BootstrapTable height='auto' data={DistrictsList} striped={true} pagination search searchPlaceholder='ieškoti'  >
+			<TableHeaderColumn width='35px' dataField='id' isKey>#</TableHeaderColumn>
+        	<TableHeaderColumn  dataField='name'>Apylinkės</TableHeaderColumn>
+        	<TableHeaderColumn  dataField='time'>Rezultatų pateikimo laikas</TableHeaderColumn>
+		</BootstrapTable>
+	</div>
+    )
+  }
 });
+
 
 module.exports = SingleMandateDistrictsComponent;

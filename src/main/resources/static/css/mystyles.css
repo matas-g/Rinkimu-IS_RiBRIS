@@ -100,7 +100,7 @@ input::-webkit-inner-spin-button {
 }
 
 
-/* Single mandate results table css */
+/* Single mandate results table css 
 .table-head {
   font-size: 12px;
 }
@@ -112,3 +112,10 @@ input::-webkit-inner-spin-button {
 .text-middle {
   text-align: center;
 }
+
+.react-bs-table {
+  height: 200px;
+}
+
+*/
+

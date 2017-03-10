@@ -1,58 +1,46 @@
 const React = require('react');
 const NavLink = require('../navigation/nav-link');
 const Link = require('react-router').Link;
+const ReactBsTable = require("react-bootstrap-table");
+const BootstrapTable = ReactBsTable.BootstrapTable;
+const TableHeaderColumn = ReactBsTable.TableHeaderColumn;
 
-var SingleMandateComponent = React.createClass({
-	render: function() {
+const SingleMandateComponent = React.createClass({
+  render: function() {
+    var self = this;
+    var ConstituenciesList = [];
 
-		var nr = 1;
-		var ConstituenciesList = this.props.constituencies.map(function(constituency, index) {
-			var link = "/single-mandate-districts/" + constituency.id;
-			return (
-				<tr key={index}>
-					<td><Link to={link}>{nr++}. {constituency.name}</Link></td>
-				</tr>
-			);
-			
-		});
+    self.props.constituencies.map(function(constituency, index) {
+		var link = "/single-mandate-districts/" + constituency.id;
+		    ConstituenciesList.push(
+    		{
+				id: index+1,
+				constituencyId: constituency.id,
+				name: constituency.name,
+				districtsCount: constituency.pollingDistricts.lenght,
+				votedDistrictsCount: 5,
+				link: link
+			}
+  		);
+	});
 
+	
 
-		return (
-
-			<div className="container-fluid">
-				<div className="panel panel-default">
-					<div className="panel-heading"><strong>Balsavimo rezultatai apygardose</strong></div>
-					<table className="table table-striped table-bordered">
-						<thead>
-							<tr className="table-head"> 
-								<th className="text-middle" style={{verticalAlign: 'middle'}} rowSpan="2">Apygardos</th> 
-								<th colSpan="2">Apylinkių skaičius</th> 
-								<th className="text-middle" style={{verticalAlign: 'middle'}} rowSpan="2">Rinkėjų skaičius</th>
-								<th className="text-middle" colSpan="2">Dalyvavo</th>
-								<th colSpan="2">Negaliojantys biuleteniai</th> 
-								<th colSpan="2">Galiojantys biuleteniai</th> 
-							</tr> 
-							<tr className="table-head"> 
-								<th>iš viso</th> 
-								<th>duomenis atsiuntė</th> 
-								<th>skaičius</th> 
-								<th>%</th>
-								<th>skaičius</th> 
-								<th>%</th>
-								<th>skaičius</th> 
-								<th>%</th> 
-							</tr>
-							</thead>
-							<tbody> 
-								{ConstituenciesList}
-							</tbody> 
-					</table>
-				</div>
-			</div>
-     
-					
-		);
-	}
+    return (
+      <div>
+      <h4>Balsavimo rezultatai vienmandatėse apygardose</h4>
+		<BootstrapTable height='auto' data={ConstituenciesList} striped={true} pagination search searchPlaceholder='ieškoti'>
+			<TableHeaderColumn row='0' colSpan='2' headerAlign='center' dataAlign='center'>Apygardos</TableHeaderColumn>
+        	<TableHeaderColumn row='1'  width='35px' dataField='id' isKey>#</TableHeaderColumn>
+        	<TableHeaderColumn row='1' headerAlign='center'  dataField='name'>Pavadinimas</TableHeaderColumn>
+        	<TableHeaderColumn row='0' colSpan='2' headerAlign='center'>Apylinkių skaičius</TableHeaderColumn>
+       	 	<TableHeaderColumn row='1' width='160' headerAlign='center' dataAlign='center' dataField='districtsCount'>iš viso</TableHeaderColumn>
+        	<TableHeaderColumn row='1' width='160' headerAlign='center' dataAlign='center' dataField='votedDistrictsCount'>duomenis atsiuntė</TableHeaderColumn>
+		</BootstrapTable>
+		</div>
+		
+    )
+  }
 });
 
 module.exports = SingleMandateComponent;

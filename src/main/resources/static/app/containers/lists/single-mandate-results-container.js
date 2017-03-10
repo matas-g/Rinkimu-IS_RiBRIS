@@ -19,6 +19,27 @@ var SingleMandateListContainer = React.createClass({
     });
   },
 
+   activeFormatter(cell, row) {
+    return (
+      <SingleMandateComponent active={ cell } />
+    );
+  },
+
+  cellButton(cell, row, enumObject, rowIndex) {
+    return (
+       <button 
+          type="button" 
+          onClick={() => 
+          this.onClickProductSelected(cell, row, rowIndex)}
+       >
+       Click me { rowIndex }
+       </button>
+    )
+  },
+
+  handleClickProductSelected(cell, row, rowIndex){
+     console.log('Product #', rowIndex);
+    },
 
   handleDistrictsList: function(constituency) {
     var self = this;
@@ -31,6 +52,9 @@ var SingleMandateListContainer = React.createClass({
     return (
       <SingleMandateListPresentation
         constituencies={this.state.constituencies}
+        activeFormatter={this.props.activeFormatter}
+        onClickProductSelected={this.handleClickProductSelected}
+        cellButton={this.cellButton}
       />
     );
   }
