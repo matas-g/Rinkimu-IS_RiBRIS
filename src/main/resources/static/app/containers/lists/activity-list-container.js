@@ -5,9 +5,6 @@ const  ActivityListPresentation = require('../../presentations/lists/activity-li
 var ActivityListContainer = React.createClass({
   getInitialState: function() {
     return ({
-//    	districts: [],
-//        activity: [],
-//        percentOfAllVoters: []
     	constituencies: []
     });
   },
@@ -28,8 +25,6 @@ var ActivityListContainer = React.createClass({
 	  return (
       <ActivityListPresentation
         constituencies={this.state.constituencies}
-//      	activity={this.state.activity}
-//      	percents={this.state.percentOfAllVoters}
       />
     );
   }
