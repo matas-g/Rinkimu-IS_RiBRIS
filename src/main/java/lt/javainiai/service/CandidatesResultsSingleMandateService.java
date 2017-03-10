@@ -13,9 +13,9 @@ import lt.javainiai.model.CandidatesResultsSingleMandateEntity;
 import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.CandidatesResultsSingleMandateRepository;
-import lt.javainiai.utils.SingleMandateCandidateResults;
 import lt.javainiai.utils.ConstituencyProgress;
 import lt.javainiai.utils.DistrictResultSubmitTime;
+import lt.javainiai.utils.SingleMandateCandidateResults;
 import lt.javainiai.utils.UtilityMethods;
 
 @Service
@@ -158,16 +158,18 @@ public class CandidatesResultsSingleMandateService {
             Long districtsWithResults = 0L;
 
             for (PollingDistrictEntity district : districts) {
-                // Check if polling district has submitted results for all
-                // single member candidates
-                Long totalOfCandidates = new Long(district.getConstituency().getCandidates().size());
-                Long numberOfCandidatesWithSubmittedResults = new Long(district.getSingleMandateResults().size());
 
-                if (totalOfCandidates.equals(numberOfCandidatesWithSubmittedResults)) {
+                // Check if polling district has submitted results for all
+                // parties
+                long totalOfCandidates = district.getConstituency().getCandidates().size();
+                long numberOfCandidatesWithSubmittedResults = district.getSingleMandateResults().size();
+
+                if (totalOfCandidates == numberOfCandidatesWithSubmittedResults) {
                     district.setSubmittedSingleResults(true);
                 } else {
                     district.setSubmittedSingleResults(false);
                 }
+                pollingDistrictService.saveOrUpdate(district);
 
                 if (district.getSubmittedSingleResults()) {
                     districtsWithResults++;

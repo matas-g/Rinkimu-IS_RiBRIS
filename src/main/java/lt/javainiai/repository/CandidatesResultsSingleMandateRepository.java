@@ -46,4 +46,5 @@ public class CandidatesResultsSingleMandateRepository
     public void deleteById(Long id) {
         em.remove(findById(id));
     }
+
 }

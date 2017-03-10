@@ -70,7 +70,7 @@ public class CandidatesResultsSingleMandateController {
 		return candidatesResultsService.getSingleMandateResultsInConstituency(constituencyId);
 	}
 
-	@RequestMapping(value = "progress", method = RequestMethod.GET)
+    @RequestMapping(value = "progress", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public List<ConstituencyProgress> getConstituenciesProgressList() {
 		return candidatesResultsService.getConstituenciesProgressList();
