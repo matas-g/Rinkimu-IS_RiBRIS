@@ -12,6 +12,7 @@ import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.CandidatesResultsSingleMandateRepository;
 import lt.javainiai.utils.SingleMandateCandidateResults;
+import lt.javainiai.utils.SingleMandateConstituencyProgress;
 import lt.javainiai.utils.UtilityMethods;
 
 @Service
@@ -40,7 +41,13 @@ public class CandidatesResultsSingleMandateService {
         this.candidatesResultsRepository.deleteById(id);
     }
 
-    // Single-mandate results in District
+    /**
+     * Counts single-mandate results in specified polling-district.
+     * 
+     * @param Polling
+     *            district ID.
+     * @return List of SingleMandateCandidateResults objects.
+     */
     public List<SingleMandateCandidateResults> getSingleMandateResultsInDistrict(Long districtId) {
 
         List<SingleMandateCandidateResults> districtResultsList = new ArrayList<SingleMandateCandidateResults>();
@@ -142,6 +149,38 @@ public class CandidatesResultsSingleMandateService {
             constituencyResultsList.add(candidateResults);
         }
         return constituencyResultsList;
+    }
+
+    public List<SingleMandateConstituencyProgress> getConstituenciesProgressList() {
+        List<SingleMandateConstituencyProgress> constituenciesProgressList = new ArrayList<>();
+        List<ConstituencyEntity> constituencies = constituencyService.findAll();
+
+        for (ConstituencyEntity constituency : constituencies) {
+            List<PollingDistrictEntity> districts = constituency.getPollingDistricts();
+            Long totalNumOfDistricts = new Long(districts.size());
+            Long districtsWithResults = 0L;
+
+            for (PollingDistrictEntity district : districts) {
+                // Check if polling district has submitted results for all
+                // single member candidates
+                Long totalOfCandidates = new Long(district.getConstituency().getCandidates().size());
+                Long numberOfCandidatesWithSubmittedResults = new Long(district.getSingleMandateResults().size());
+
+                if (totalOfCandidates.equals(numberOfCandidatesWithSubmittedResults)) {
+                    district.setSubmittedSingleResults(true);
+                } else {
+                    district.setSubmittedSingleResults(false);
+                }
+
+                if (district.getSubmittedSingleResults()) {
+                    districtsWithResults++;
+                }
+            }
+            SingleMandateConstituencyProgress progress = new SingleMandateConstituencyProgress(constituency,
+                    totalNumOfDistricts, districtsWithResults);
+            constituenciesProgressList.add(progress);
+        }
+        return constituenciesProgressList;
     }
 
 }

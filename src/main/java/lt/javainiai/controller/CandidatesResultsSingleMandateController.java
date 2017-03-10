@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lt.javainiai.model.CandidatesResultsSingleMandateEntity;
 import lt.javainiai.service.CandidatesResultsSingleMandateService;
 import lt.javainiai.utils.SingleMandateCandidateResults;
+import lt.javainiai.utils.SingleMandateConstituencyProgress;
 
 @RestController
 @RequestMapping("/candidates-results/single-mandate")
@@ -66,6 +67,12 @@ public class CandidatesResultsSingleMandateController {
     public List<SingleMandateCandidateResults> getSingleMandateResultsInConstituency(
             @Valid @PathVariable("constituencyId") Long constituencyId) {
         return candidatesResultsService.getSingleMandateResultsInConstituency(constituencyId);
+    }
+
+    @RequestMapping(value = "progress", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<SingleMandateConstituencyProgress> getConstituenciesProgressList() {
+        return candidatesResultsService.getConstituenciesProgressList();
     }
 
 }
