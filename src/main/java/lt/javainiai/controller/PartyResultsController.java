@@ -20,36 +20,35 @@ import lt.javainiai.service.PartyResultsService;
 @RestController
 @RequestMapping("/party-results/")
 public class PartyResultsController {
-    
+
     private PartyResultsService partyResultsService;
-    
+
     @Autowired
-    public PartyResultsController(PartyResultsService partyResultsService){
+    public PartyResultsController(PartyResultsService partyResultsService) {
         this.partyResultsService = partyResultsService;
     }
 
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public PartyResultsEntity save(@Valid @RequestBody PartyResultsEntity partyResults){
+    public PartyResultsEntity save(@Valid @RequestBody PartyResultsEntity partyResults) {
         return this.partyResultsService.saveOrUpdate(partyResults);
     }
-    
+
     @RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public List<PartyResultsEntity> findAll() {
         return this.partyResultsService.findAll();
     }
-    
+
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public PartyResultsEntity findById(@Valid @PathVariable("id") Long id) {
         return this.partyResultsService.findById(id);
     }
-    
+
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@Valid @PathVariable("id") Long id){
+    public void deleteById(@Valid @PathVariable("id") Long id) {
         this.partyResultsService.deleteById(id);
     }
 }
-

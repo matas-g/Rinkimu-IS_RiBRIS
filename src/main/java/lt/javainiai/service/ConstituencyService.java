@@ -141,7 +141,7 @@ public class ConstituencyService {
 			totalOfVoters += district.getNumOfVoters();
 		}
 
-		Double percent = (sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0;
+		Double percent = (sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0d;
 		percent = UtilityMethods.round(percent, 2);
 
 		return percent;
