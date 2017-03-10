@@ -18,6 +18,7 @@ import lt.javainiai.model.CandidatesResultsSingleMandateEntity;
 import lt.javainiai.service.CandidatesResultsSingleMandateService;
 import lt.javainiai.utils.SingleMandateCandidateResults;
 import lt.javainiai.utils.SingleMandateConstituencyProgress;
+import lt.javainiai.utils.SingleMandateDistrictResultSubmitTime;
 
 @RestController
 @RequestMapping("/candidates-results/single-mandate")
@@ -73,6 +74,13 @@ public class CandidatesResultsSingleMandateController {
     @ResponseStatus(HttpStatus.OK)
     public List<SingleMandateConstituencyProgress> getConstituenciesProgressList() {
         return candidatesResultsService.getConstituenciesProgressList();
+    }
+
+    @RequestMapping(value = "districts-results-time/{constituencyId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<SingleMandateDistrictResultSubmitTime> getDistrictsResultsSubmissionTime(
+            @Valid @PathVariable("constituencyId") Long constituencyId) {
+        return candidatesResultsService.getDistrictsResultsSubmissionTime(constituencyId);
     }
 
 }

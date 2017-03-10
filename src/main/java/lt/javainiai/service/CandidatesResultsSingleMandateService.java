@@ -1,6 +1,8 @@
 package lt.javainiai.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.CandidatesResultsSingleMandateRepository;
 import lt.javainiai.utils.SingleMandateCandidateResults;
 import lt.javainiai.utils.SingleMandateConstituencyProgress;
+import lt.javainiai.utils.SingleMandateDistrictResultSubmitTime;
 import lt.javainiai.utils.UtilityMethods;
 
 @Service
@@ -41,13 +44,7 @@ public class CandidatesResultsSingleMandateService {
         this.candidatesResultsRepository.deleteById(id);
     }
 
-    /**
-     * Counts single-mandate results in specified polling-district.
-     * 
-     * @param Polling
-     *            district ID.
-     * @return List of SingleMandateCandidateResults objects.
-     */
+    // Counts single-mandate results in specified polling-district.
     public List<SingleMandateCandidateResults> getSingleMandateResultsInDistrict(Long districtId) {
 
         List<SingleMandateCandidateResults> districtResultsList = new ArrayList<SingleMandateCandidateResults>();
@@ -181,6 +178,35 @@ public class CandidatesResultsSingleMandateService {
             constituenciesProgressList.add(progress);
         }
         return constituenciesProgressList;
+    }
+
+    public List<SingleMandateDistrictResultSubmitTime> getDistrictsResultsSubmissionTime(Long constituencyId) {
+        List<SingleMandateDistrictResultSubmitTime> districtResultsSubmissionTimeList = new ArrayList<>();
+        List<PollingDistrictEntity> districts = constituencyService.findById(constituencyId).getPollingDistricts();
+
+        for (PollingDistrictEntity district : districts) {
+            Date resultsDate = null;
+            String resultsDateString = "Rezultatai nepateikti";
+
+            List<CandidatesResultsSingleMandateEntity> results = district.getSingleMandateResults();
+
+            if (!results.isEmpty()) {
+                for (CandidatesResultsSingleMandateEntity result : results) {
+                    resultsDate = result.getCreated();
+                    break;
+                }
+                try {
+                    SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    resultsDateString = dt.format(resultsDate);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            SingleMandateDistrictResultSubmitTime districtResultsSubmissionTime = new SingleMandateDistrictResultSubmitTime(
+                    district, resultsDateString);
+            districtResultsSubmissionTimeList.add(districtResultsSubmissionTime);
+        }
+        return districtResultsSubmissionTimeList;
     }
 
 }
