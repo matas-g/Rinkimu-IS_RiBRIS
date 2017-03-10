@@ -21,12 +21,12 @@ var SingleMandateListContainer = React.createClass({
   },
 
   cellButton(cell, row, enumObject, rowIndex) {
-    var link = "/single-mandate-districts/" + this.state.constituencies[rowIndex].id;
+    var link = "/single-mandate-districts/" + this.state.constituencies[rowIndex].constituency.id;
     return (
        <Link 
           to={link} 
        >
-       {this.state.constituencies[rowIndex].name}
+       {this.state.constituencies[rowIndex].constituency.name}
        </Link>
     )
   },

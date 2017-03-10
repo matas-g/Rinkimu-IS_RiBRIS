@@ -11,22 +11,12 @@ var SingleMandateDistrictListContainer = React.createClass({
 
   componentWillMount: function() {
     var self = this;
-    if (self.props.params.constituencyId == undefined) {
-      axios.get('http://localhost:8090/polling-districts/')
+      axios.get('http://localhost:8090/candidates-results/single-mandate/districts-results-time/' + self.props.params.constituencyId)
       .then(function (response) {
         self.setState({
             districts: response.data,
         });
       });
-    } else {
-      axios.get('http://localhost:8090/constituencies/' + self.props.params.constituencyId)
-      .then(function (response) {
-        console.log(response);
-        self.setState({
-            districts: response.data.pollingDistricts,
-        });
-      });
-    }
   },
 
   render: function() {

@@ -14,8 +14,8 @@ const SingleMandateComponent = React.createClass({
 	    ConstituenciesList.push(
     		{
 				id: index+1,
-				constituencyId: constituency.id,
-				name: constituency.name,
+				constituencyId: constituency.constituency.id,
+				name: constituency.constituency.name,
 				districtsCount: constituency.totalNumOfDistricts,
 				votedDistrictsCount: constituency.districtsWithResults
 			}

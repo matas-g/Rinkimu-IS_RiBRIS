@@ -13,11 +13,12 @@ const SingleMandateDistrictsComponent = React.createClass({
 
     self.props.districts.map(function(district, index) {
 		    DistrictsList.push(
-    		{
-				id: index+1,
-				name: district.name,
-				time: '2017-03-10'
-			}
+      		{
+  				id: index+1,
+          districtId: district.district.id,
+  				name: district.district.name,
+  				time: district.resultsDateString
+  			}
   		);
 	});
 
