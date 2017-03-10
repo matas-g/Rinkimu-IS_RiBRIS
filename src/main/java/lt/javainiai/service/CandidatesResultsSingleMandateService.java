@@ -1,6 +1,8 @@
 package lt.javainiai.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.CandidatesResultsSingleMandateRepository;
 import lt.javainiai.utils.SingleMandateCandidateResults;
+import lt.javainiai.utils.ConstituencyProgress;
+import lt.javainiai.utils.DistrictResultSubmitTime;
 import lt.javainiai.utils.UtilityMethods;
 
 @Service
@@ -40,7 +44,7 @@ public class CandidatesResultsSingleMandateService {
         this.candidatesResultsRepository.deleteById(id);
     }
 
-    // Single-mandate results in District
+    // Counts single-mandate results in specified polling-district.
     public List<SingleMandateCandidateResults> getSingleMandateResultsInDistrict(Long districtId) {
 
         List<SingleMandateCandidateResults> districtResultsList = new ArrayList<SingleMandateCandidateResults>();
@@ -142,6 +146,67 @@ public class CandidatesResultsSingleMandateService {
             constituencyResultsList.add(candidateResults);
         }
         return constituencyResultsList;
+    }
+
+    public List<ConstituencyProgress> getConstituenciesProgressList() {
+        List<ConstituencyProgress> constituenciesProgressList = new ArrayList<>();
+        List<ConstituencyEntity> constituencies = constituencyService.findAll();
+
+        for (ConstituencyEntity constituency : constituencies) {
+            List<PollingDistrictEntity> districts = constituency.getPollingDistricts();
+            Long totalNumOfDistricts = new Long(districts.size());
+            Long districtsWithResults = 0L;
+
+            for (PollingDistrictEntity district : districts) {
+                // Check if polling district has submitted results for all
+                // single member candidates
+                Long totalOfCandidates = new Long(district.getConstituency().getCandidates().size());
+                Long numberOfCandidatesWithSubmittedResults = new Long(district.getSingleMandateResults().size());
+
+                if (totalOfCandidates.equals(numberOfCandidatesWithSubmittedResults)) {
+                    district.setSubmittedSingleResults(true);
+                } else {
+                    district.setSubmittedSingleResults(false);
+                }
+
+                if (district.getSubmittedSingleResults()) {
+                    districtsWithResults++;
+                }
+            }
+            ConstituencyProgress progress = new ConstituencyProgress(constituency, totalNumOfDistricts,
+                    districtsWithResults);
+            constituenciesProgressList.add(progress);
+        }
+        return constituenciesProgressList;
+    }
+
+    public List<DistrictResultSubmitTime> getDistrictsResultsSubmissionTime(Long constituencyId) {
+        List<DistrictResultSubmitTime> districtResultsSubmissionTimeList = new ArrayList<>();
+        List<PollingDistrictEntity> districts = constituencyService.findById(constituencyId).getPollingDistricts();
+
+        for (PollingDistrictEntity district : districts) {
+            Date resultsDate = null;
+            String resultsDateString = "Rezultatai nepateikti";
+
+            List<CandidatesResultsSingleMandateEntity> results = district.getSingleMandateResults();
+
+            if (!results.isEmpty()) {
+                for (CandidatesResultsSingleMandateEntity result : results) {
+                    resultsDate = result.getCreated();
+                    break;
+                }
+                try {
+                    SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    resultsDateString = dt.format(resultsDate);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            DistrictResultSubmitTime districtResultsSubmissionTime = new DistrictResultSubmitTime(district,
+                    resultsDateString);
+            districtResultsSubmissionTimeList.add(districtResultsSubmissionTime);
+        }
+        return districtResultsSubmissionTimeList;
     }
 
 }

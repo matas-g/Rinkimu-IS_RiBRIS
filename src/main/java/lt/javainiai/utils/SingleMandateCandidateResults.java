@@ -4,10 +4,10 @@ import lt.javainiai.model.CandidateEntity;
 
 public class SingleMandateCandidateResults {
 
-    private CandidateEntity candidate = null;
-    private Long votes = null;
-    private Double percentOfValidBallots = null;
-    private Double percentOfAllBallots = null;
+    private CandidateEntity candidate;
+    private Long votes;
+    private Double percentOfValidBallots;
+    private Double percentOfAllBallots;
 
     public SingleMandateCandidateResults(CandidateEntity candidate, Long votes, Double percentOfValidBallots,
             Double percentOfAllBallots) {
