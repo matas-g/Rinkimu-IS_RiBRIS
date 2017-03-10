@@ -1,5 +1,6 @@
 const React = require('react');
 const axios = require('axios');
+const Link = require('react-router').Link;
 const SingleMandateListPresentation = require('../../presentations/lists/single-mandate-results-presentation');
 
 var SingleMandateListContainer = React.createClass({
@@ -11,7 +12,7 @@ var SingleMandateListContainer = React.createClass({
 
   componentWillMount: function() {
     var self = this;
-    axios.get('http://localhost:8090/constituencies/')
+    axios.get('http://localhost:8090/candidates-results/single-mandate/progress/')
     .then(function (response) {
       self.setState({
         constituencies: response.data
@@ -19,33 +20,15 @@ var SingleMandateListContainer = React.createClass({
     });
   },
 
-   activeFormatter(cell, row) {
-    return (
-      <SingleMandateComponent active={ cell } />
-    );
-  },
-
   cellButton(cell, row, enumObject, rowIndex) {
+    var link = "/single-mandate-districts/" + this.state.constituencies[rowIndex].id;
     return (
-       <button 
-          type="button" 
-          onClick={() => 
-          this.onClickProductSelected(cell, row, rowIndex)}
+       <Link 
+          to={link} 
        >
-       Click me { rowIndex }
-       </button>
+       {this.state.constituencies[rowIndex].name}
+       </Link>
     )
-  },
-
-  handleClickProductSelected(cell, row, rowIndex){
-     console.log('Product #', rowIndex);
-    },
-
-  handleDistrictsList: function(constituency) {
-    var self = this;
-    return function() {
-      self.context.router.push('/admin/districts/list/' + constituency.id);
-    };
   },
 
   render: function() {
