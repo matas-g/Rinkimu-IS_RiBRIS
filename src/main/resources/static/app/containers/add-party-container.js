@@ -61,7 +61,6 @@ var AddPartyContainer = React.createClass({
         	// Creating party without CSV candidate list
         	axios.post('http://localhost:8090/parties/', data, config).then(function (response) {
             	console.log("Party added (no CSV).");
-            	console.log(response);
             	self.context.router.push('/admin/parties/');
             }).catch( function( error ) {
             	console.error( error );
@@ -97,6 +96,7 @@ var AddPartyContainer = React.createClass({
     handleDeleteCandidates: function(){
     	var self = this;
     	axios.delete('http://localhost:8090/candidates/by-party/' + this.state.party.id);
+    	this.setState({ candidates: []});
     },
 
     render: function() {
