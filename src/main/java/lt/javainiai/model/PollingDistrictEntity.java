@@ -23,6 +23,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lt.javainiai.security.RepresentativeEntity;
 
+//import lt.javainiai.security.RepresentativeEntity;
+
 @Entity
 @Table(name = "Polling_Districts")
 public class PollingDistrictEntity {
