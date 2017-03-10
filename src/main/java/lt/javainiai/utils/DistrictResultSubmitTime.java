@@ -2,12 +2,12 @@ package lt.javainiai.utils;
 
 import lt.javainiai.model.PollingDistrictEntity;
 
-public class SingleMandateDistrictResultSubmitTime {
+public class DistrictResultSubmitTime {
 
     private PollingDistrictEntity district;
     private String resultsDateString;
 
-    public SingleMandateDistrictResultSubmitTime(PollingDistrictEntity district, String resultsDateString) {
+    public DistrictResultSubmitTime(PollingDistrictEntity district, String resultsDateString) {
         this.district = district;
         this.resultsDateString = resultsDateString;
     }

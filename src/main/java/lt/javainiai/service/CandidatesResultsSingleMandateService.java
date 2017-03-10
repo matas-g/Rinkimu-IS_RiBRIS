@@ -14,8 +14,8 @@ import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.CandidatesResultsSingleMandateRepository;
 import lt.javainiai.utils.SingleMandateCandidateResults;
-import lt.javainiai.utils.SingleMandateConstituencyProgress;
-import lt.javainiai.utils.SingleMandateDistrictResultSubmitTime;
+import lt.javainiai.utils.ConstituencyProgress;
+import lt.javainiai.utils.DistrictResultSubmitTime;
 import lt.javainiai.utils.UtilityMethods;
 
 @Service
@@ -148,8 +148,8 @@ public class CandidatesResultsSingleMandateService {
         return constituencyResultsList;
     }
 
-    public List<SingleMandateConstituencyProgress> getConstituenciesProgressList() {
-        List<SingleMandateConstituencyProgress> constituenciesProgressList = new ArrayList<>();
+    public List<ConstituencyProgress> getConstituenciesProgressList() {
+        List<ConstituencyProgress> constituenciesProgressList = new ArrayList<>();
         List<ConstituencyEntity> constituencies = constituencyService.findAll();
 
         for (ConstituencyEntity constituency : constituencies) {
@@ -173,15 +173,15 @@ public class CandidatesResultsSingleMandateService {
                     districtsWithResults++;
                 }
             }
-            SingleMandateConstituencyProgress progress = new SingleMandateConstituencyProgress(constituency,
-                    totalNumOfDistricts, districtsWithResults);
+            ConstituencyProgress progress = new ConstituencyProgress(constituency, totalNumOfDistricts,
+                    districtsWithResults);
             constituenciesProgressList.add(progress);
         }
         return constituenciesProgressList;
     }
 
-    public List<SingleMandateDistrictResultSubmitTime> getDistrictsResultsSubmissionTime(Long constituencyId) {
-        List<SingleMandateDistrictResultSubmitTime> districtResultsSubmissionTimeList = new ArrayList<>();
+    public List<DistrictResultSubmitTime> getDistrictsResultsSubmissionTime(Long constituencyId) {
+        List<DistrictResultSubmitTime> districtResultsSubmissionTimeList = new ArrayList<>();
         List<PollingDistrictEntity> districts = constituencyService.findById(constituencyId).getPollingDistricts();
 
         for (PollingDistrictEntity district : districts) {
@@ -202,8 +202,8 @@ public class CandidatesResultsSingleMandateService {
                     e.printStackTrace();
                 }
             }
-            SingleMandateDistrictResultSubmitTime districtResultsSubmissionTime = new SingleMandateDistrictResultSubmitTime(
-                    district, resultsDateString);
+            DistrictResultSubmitTime districtResultsSubmissionTime = new DistrictResultSubmitTime(district,
+                    resultsDateString);
             districtResultsSubmissionTimeList.add(districtResultsSubmissionTime);
         }
         return districtResultsSubmissionTimeList;

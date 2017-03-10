@@ -2,14 +2,13 @@ package lt.javainiai.utils;
 
 import lt.javainiai.model.ConstituencyEntity;
 
-public class SingleMandateConstituencyProgress {
+public class ConstituencyProgress {
 
     private ConstituencyEntity constituency;
     private Long totalNumOfDistricts;
     private Long districtsWithResults;
 
-    public SingleMandateConstituencyProgress(ConstituencyEntity constituency, Long totalNumOfDistricts,
-            Long districtsWithResults) {
+    public ConstituencyProgress(ConstituencyEntity constituency, Long totalNumOfDistricts, Long districtsWithResults) {
         this.constituency = constituency;
         this.totalNumOfDistricts = totalNumOfDistricts;
         this.districtsWithResults = districtsWithResults;
