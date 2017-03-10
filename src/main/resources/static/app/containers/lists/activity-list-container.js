@@ -14,12 +14,11 @@ var ActivityListContainer = React.createClass({
   
   componentWillMount: function(){
 	  var self = this;
-	  var districts;
-	  var activity;
 	  axios.get('http://localhost:8090/constituencies/activity/all/')
 	  	.then(function(response){
-	  		console.log(response);
-	  			constituencies = response.data;
+	  		self.setState({
+	  			constituencies: response.data
+	  		});
 	  	})
 	  	
 	  },

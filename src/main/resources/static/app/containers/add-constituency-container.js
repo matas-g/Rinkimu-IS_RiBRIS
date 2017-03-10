@@ -10,8 +10,7 @@ var AddConstituencyContainer = React.createClass({
               name: ''
             },
             constituencyId: 0,
-            candidates: [],
-            deleted: false
+            candidates: []
         }
     },
 
@@ -83,7 +82,7 @@ var AddConstituencyContainer = React.createClass({
     handleDeleteCandidates: function(){
     	var self = this;
     	axios.delete('http://localhost:8090/candidates/by-constituency/' + this.state.constituency.id);
-//    	self.forceUpdate().bind(self);
+    	this.setState({ candidates: []});
     },
 
     render: function() {

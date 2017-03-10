@@ -21,10 +21,12 @@ const AddConstituencies = React.createClass({
 	 }
 	 
 	 if(this.props.candidates.length != 0){
+		 console.log(this.props);
 		 fileInput = (<div><label style={{ marginRight: '20px' }}>Kandidatų sąrašas įkeltas</label>
 		   				<button className="btn btn-danger btn-sm" 
 			   onClick={this.props.onDeleteClick}>Ištrinti kandidatus</button></div>);
 	 } else {
+		 console.log(this.props);
 		 fileInput= (<div className="form-group"><label>Prisegti apygardos kandidatų sąrašą &nbsp;
 				   <span className="bg-danger">CSV</span> formatu:</label>
      					<input type="file" ref='file' onChange={this.onUploadMultiCandidateFile} />

@@ -8,10 +8,9 @@ var ActivityListComponent = React.createClass({
       return (
         <tr key={index}>
           <td>{nr++}</td>
-          <td>{constituency.name}</td>
-          <td>{constituency.numOfVoters}</td>
-          <td>{constituency.sumOfGivenBallots}</td>
-          <td>{constituency.percentOfAllVoters}%</td>
+          <td>{constituency.constituency.name}</td>
+          <td>{constituency.givenBallots}</td>
+          <td>{constituency.percentOfAllVoters}</td>
         </tr>
       );
     });
@@ -25,8 +24,6 @@ var ActivityListComponent = React.createClass({
               <tr>
                 <th>Nr</th>
                 <th>Pavadinimas</th>
-                <th>Balsuotojų skaičius</th>
-                <th>Apygarda</th>
                 <th>Balsavusių skaičius</th>
                 <th>Balsai procentaliai</th>
               </tr>
