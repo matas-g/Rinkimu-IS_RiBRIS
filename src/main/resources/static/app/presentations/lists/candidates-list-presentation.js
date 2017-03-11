@@ -5,13 +5,21 @@ var CandidatesList = React.createClass({
     var self = this;
     var nr = 1;
     var CandidatesList = this.props.candidates.map(function(candidate, index) {
+    	var constituencyOf;
+    	
+    	if(candidate.constituencyId === null) {
+    		constituencyOf = "-----------";
+    	} else {
+    		constituencyOf  = self.props.constituencies[candidate.constituencyId-1].name;
+    	}
+    	
       return (
         <tr key={index}>
           <td>{nr++}</td>
           <td>{candidate.name.replace(/'/g,"")}</td>
           <td>{candidate.surname.replace(/'/g,"")}</td>
           <td>{candidate.birthDate}</td>
-          <td>{candidate.constituency}</td>
+          <td>{constituencyOf}</td>
           <td>{candidate.partyName}</td>
           <td>
             <button className="btn btn-danger btn-sm" onClick={self.props.onRemoveItem(candidate)}>
