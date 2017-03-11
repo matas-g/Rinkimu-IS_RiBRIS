@@ -36,7 +36,7 @@ var Confirm = React.createClass({
         });
     },
 
-    onConfim() {
+    onConfirm() {
         this.setState({
             isOpened: false,
         });
@@ -56,7 +56,7 @@ var Confirm = React.createClass({
                 </Modal.Body>
                 <Modal.Footer>
                     {cancelButton}
-                    <Button bsStyle={this.props.confirmBSStyle} onClick={this.onConfim}>{this.props.confirmText}</Button>
+                    <Button bsStyle={this.props.confirmBSStyle} onClick={this.onConfirm}>{this.props.confirmText}</Button>
                 </Modal.Footer>
             </Modal>
         );

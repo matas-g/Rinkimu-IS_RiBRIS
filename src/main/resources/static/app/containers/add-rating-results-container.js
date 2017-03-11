@@ -6,29 +6,25 @@ var AddSingleMandateResults = React.createClass({
   getInitialState: function() {
     return {
       district: {
-        id: 1
+        id: this.props.districtId
       },
+      constituencyId: this.props.constituencyId,
       districts: [],
       candidatesList: [],
-      voteCount: [],
-      votesEnteredState: [],
-      valid: true
+      voteArray: [],
+      votesEnteredState: []
     };
   },
 
   componentWillMount: function() {
     var self = this;
     axios.get('http://localhost:8090/polling-districts/').then(function(response) {
-        var districts = response.data;
-        var district = {
-          id: response.data[0].id
-        };
-      });
-      axios.get('http://localhost:8090/candidates/rating').then(function(response) {
+      var districts = response.data;
+      axios.get('http://localhost:8090/candidates/by-constituency/' + response.data[0].constituencyId)
+      .then(function(response) {
         self.setState({
           candidatesList: response.data,
-          districts: districts,
-          district: district
+          districts: districts
         });
       });
     });
@@ -41,13 +37,10 @@ var AddSingleMandateResults = React.createClass({
 
     axios.get('http://localhost:8090/polling-districts/' + districtId).then(function(response) {
       constituencyId = response.data.constituencyId;
+      self.props.setIds(districtId, constituencyId);
       axios.get('http://localhost:8090/candidates/by-constituency/' + constituencyId).then(function(response) {
         self.setState({
-          constituencyId: constituencyId,
-          candidatesList: response.data,
-          district: {
-            id: districtId
-          }
+          candidatesList: response.data
         });
       });
     });
@@ -56,13 +49,13 @@ var AddSingleMandateResults = React.createClass({
   handleResultsChange: function(index) {
     var self = this;
     return function(e) {
-      var voteArray = self.state.voteCount;
+      var voteArray = self.state.voteArray;
       var enteredState = self.state.votesEnteredState;
       voteArray[index] = e.target.value;
       enteredState[index] = 1;
 
       self.setState({
-        voteCount: voteArray,
+        voteArray: voteArray,
         votesEnteredState: enteredState
       });
     };
@@ -71,28 +64,12 @@ var AddSingleMandateResults = React.createClass({
   handleSaveClick: function(e) {
     e.preventDefault();
     var self = this;
-    var candidatesList = this.state.candidatesList;
     var sum = this.state.votesEnteredState.reduce(function(acc, val) {
       return acc + val;
     }, 0);
 
     if (sum == (candidatesList.length-1)) {
-      self.setState({
-        valid: true
-      });
-      var voteCount = this.state.voteCount;
-      for (var i = 0; i < candidatesList.length; i++) {
-        var data = {
-          district: {
-            id: this.state.district.id
-          },
-          numberOfVotes: voteCount[i],
-          candidate: {
-            id: candidatesList[i].id
-          }
-        }
-        axios.post('http://localhost:8090/candidates-results/single-mandate/', data);
-      }
+      self.props.handleVotesReport('ratingVotes', self.state.voteArray);
       self.context.router.push('/representative/results/parties');
     } else {
       console.log("Alert");
@@ -106,7 +83,7 @@ var AddSingleMandateResults = React.createClass({
         constituencyId={this.state.constituencyId}
         districts={this.state.districts}
         candidatesList={this.state.candidatesList}
-        voteCount={this.state.voteCount}
+        voteArray={this.state.voteArray}
         onDistrictChange={this.handleDistrictChange}
         onResultsChange={this.handleResultsChange}
         onSaveClick={this.handleSaveClick}

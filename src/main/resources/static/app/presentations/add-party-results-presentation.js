@@ -4,12 +4,12 @@ const NumberValidator = require('../util/validation/number-validator-container')
 var PartyResultsInputPresentation = React.createClass({
   render: function() {
   var self = this;
-  var CandidateRows = this.props.partiesList.map(function(party, index) {
+  var PartiesRows = this.props.partiesList.map(function(party, index) {
     return (
       <div className="form-group col-sm-6" key={index}>
         <label>{party.name.replace(/'/g,"")}</label>
         <NumberValidator>
-          <input className="form-control" type="number" value={self.props.voteCount[index]}
+          <input className="form-control" type="number" value={self.props.voteArray[index]}
             onChange={self.props.onResultsChange(index)} />
         </NumberValidator>
       </div>
@@ -33,17 +33,22 @@ var PartyResultsInputPresentation = React.createClass({
   });
   return (
     <form className="col-sm-offset-1 col-sm-10 container-fluid" autoComplete="off">
-      <h2>Suveskite partijų gautų balsų skaičių</h2>
+      <h2 className="alert alert-info text-center">Suveskite partijų gautų balsų skaičių</h2>
       <br />
-      <h4>Pasirinkite apylinkę</h4>
-      <br />
+      <h4 className="alert alert-success text-center">Pasirinkite apylinkę</h4>
       <select className="form-control" value={this.props.district.id} onChange={this.props.onDistrictChange}>
         {DistrictsList}
       </select>
       <br />
       <div>
-        {CandidateRows}
+        {PartiesRows}
       </div>
+      <h4 className="alert alert-success text-center">Sugadinti vienmandačiai balsai</h4>
+        <NumberValidator>
+          <input id="kiekis" className="form-control" type="number" value={this.props.results.spoiledMulti}
+            onChange={this.props.onMultiChange} />
+        </NumberValidator>
+        <br />
       <div>
         <button className="btn btn-success btn-sm" style={{ marginRight: '20px'}} onClick={this.props.onSaveClick}>Registruoti</button>
         <button className="btn btn-danger btn-sm" onClick={this.props.onCancelClick}>Atšaukti</button>

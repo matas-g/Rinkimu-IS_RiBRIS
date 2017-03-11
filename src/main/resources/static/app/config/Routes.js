@@ -16,7 +16,8 @@ const AddRepresentative = require('../containers/add-representative-container');
 const AddCandidate = require('../containers/add-candidate-container');
 const AddSingleMandateResults = require('../containers/add-single-mandate-results-container');
 const AddPartyResults = require('../containers/add-party-results-container');
-const AddSpoiledResults = require('../containers/add-spoiled-results-container');
+//const AddRatingResults = require('../containers/add-rating-results-container');
+const ResultsReport = require('../containers/results-report-container');
 
 const Suvesti = require('../presentations/suvedete-balsus');
 const Herb = require('../presentations/herb');
@@ -45,6 +46,7 @@ const routes = (
         <Route path="/single-mandate-districts/:constituencyId" component={SingleMandateDistrictResultsList} />
         <Route path="/single-mandate-district-results" component={SingleMandateDistrictsList} />
         <Route path="/multi-mandate" component={SingleMandateList} />
+        <Route path="/activity" component={ActivityList} />
       </Route>
     </Route>
 
@@ -71,7 +73,7 @@ const routes = (
         <Route path="/admin/parties/add" component={AddParty} />
         <Route path="/admin/parties/add-list" component={AddConstituency} />
       <Route path="/admin/parties/edit/:partyId" component={AddParty} />
-      
+
       <Route path="/admin/candidates" component={CandidatesList} />
         <Route path="/admin/candidates/add" component={AddCandidate} />
         <Route path="/admin/candidates/constituency/:constituencyId" component={CandidatesList} />
@@ -80,14 +82,11 @@ const routes = (
       	<Route path="/admin/candidates/edit/:candidateId" component={AddCandidate} />
       </Route>
 
-      <Route path="/activity" component={ActivityList} />
-
     <Route path="/representative" component={NavRepresentative}>
 	    <IndexRoute component={AddSingleMandateResults} />
 	    <Route path="/representative/results/single" component={AddSingleMandateResults} />
       <Route path="/representative/results/parties" component={AddPartyResults} />
-      <Route path="/representative/results/spoiled" component={AddSpoiledResults} />
-      <Route path="/representative/results/spoiled" component={Suvesti} />
+      <Route path="/representative/results/report" component={ResultsReport} />
 	  </Route>
   </Router>
 );

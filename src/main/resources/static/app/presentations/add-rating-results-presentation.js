@@ -1,7 +1,7 @@
 const React = require('react');
 const NumberValidator = require('../util/validation/number-validator-container');
 
-var SingleMandateResultsInputPresentation = React.createClass({
+var RatingResultsInputPresentation = React.createClass({
   render: function() {
   var self = this;
   var CandidateRows = this.props.candidatesList.map(function(candidate, index) {
@@ -9,7 +9,7 @@ var SingleMandateResultsInputPresentation = React.createClass({
       <div className="form-group col-sm-6" key={index}>
         <label>{candidate.name.replace(/'/g,"") + " " + candidate.surname.replace(/'/g,"")}</label>
         <NumberValidator>
-          <input className="form-control" type="number" value={self.props.voteCount[index]}
+          <input className="form-control" type="number" value={self.props.voteArray[index]}
             onChange={self.props.onResultsChange(index)} />
         </NumberValidator>
       </div>
@@ -51,4 +51,4 @@ var SingleMandateResultsInputPresentation = React.createClass({
   }
 });
 
-module.exports = SingleMandateResultsInputPresentation;
+module.exports = RatingResultsInputPresentation;

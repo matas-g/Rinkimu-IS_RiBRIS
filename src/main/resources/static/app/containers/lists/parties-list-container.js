@@ -29,7 +29,7 @@ var PartiesListContainer = React.createClass({
   handlePartyRemove: function(party) {
     var self = this;
     return function() {
-      axios.delete('http://localhost:8090/parties/'+ party.id).then(function(response) {
+      axios.delete('http://localhost:8090/parties/'+ party.id).then(function() {
         axios.get('http://localhost:8090/parties/')
         .then(function (response) {
           self.setState({

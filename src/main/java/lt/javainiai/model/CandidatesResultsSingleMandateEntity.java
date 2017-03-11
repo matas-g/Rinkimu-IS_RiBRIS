@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -40,6 +41,7 @@ public class CandidatesResultsSingleMandateEntity {
     }
     
     @ManyToOne
+    @NotNull
     @JsonBackReference(value = "candidate-singleMandateResults")
     @JoinColumn(name="candidate_id")
     private CandidateEntity candidate;

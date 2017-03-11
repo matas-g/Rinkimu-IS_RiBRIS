@@ -29,9 +29,8 @@ var RepresentativesContainer = React.createClass({
   handleRepresentativeRemove: function(representative) {
     var self = this;
     return function() {
-      axios.delete('http://localhost:8090/representatives/'+ representative.id).then(function(response) {
-        axios.get('http://localhost:8090/representatives/')
-        .then(function (response) {
+      axios.delete('http://localhost:8090/representatives/'+ representative.id).then(function() {
+        axios.get('http://localhost:8090/representatives/').then(function (response) {
           self.setState({
             representatives: response.data
           });
@@ -44,7 +43,6 @@ var RepresentativesContainer = React.createClass({
     return (
       <RepresentativesList
         representatives={this.state.representatives}
-        onAddClick={this.handleAddRepresentative}
         onEditItem={this.handleRepresentativeEdit}
         onRemoveItem={this.handleRepresentativeRemove}
       />
