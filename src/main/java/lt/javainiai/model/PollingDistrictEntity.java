@@ -84,12 +84,6 @@ public class PollingDistrictEntity {
     @JsonManagedReference(value = "pollingDistrict-representative")
     private RepresentativeEntity representative;
 
-    @Column(name = "Submitted_Single_Mandate_Results")
-    private Boolean submittedSingleResults = false;
-
-    @Column(name = "Submitted_Multi_Mandate_Results")
-    private Boolean submittedMultiResults = false;
-
     // Constructor
     public PollingDistrictEntity() {
     }
@@ -181,22 +175,6 @@ public class PollingDistrictEntity {
 
     public void setRepresentative(RepresentativeEntity representative) {
         this.representative = representative;
-    }
-
-    public Boolean getSubmittedSingleResults() {
-        return submittedSingleResults;
-    }
-
-    public void setSubmittedSingleResults(Boolean submittedSingleResults) {
-        this.submittedSingleResults = submittedSingleResults;
-    }
-
-    public Boolean getSubmittedMultiResults() {
-        return submittedMultiResults;
-    }
-
-    public void setSubmittedMultiResults(Boolean submittedMultiResults) {
-        this.submittedMultiResults = submittedMultiResults;
     }
 
     @Override

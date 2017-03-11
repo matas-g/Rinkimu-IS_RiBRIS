@@ -13,7 +13,6 @@ import lt.javainiai.model.CandidatesResultsSingleMandateEntity;
 import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.CandidatesResultsSingleMandateRepository;
-import lt.javainiai.repository.PollingDistrictRepository;
 import lt.javainiai.utils.ConstituencyProgress;
 import lt.javainiai.utils.DistrictResultSubmitTime;
 import lt.javainiai.utils.SingleMandateCandidateResults;
@@ -27,39 +26,11 @@ public class CandidatesResultsSingleMandateService {
     @Autowired
     private PollingDistrictService pollingDistrictService;
     @Autowired
-    private PollingDistrictRepository pollingDistrictRepository;
-    @Autowired
     private ConstituencyService constituencyService;
 
     public CandidatesResultsSingleMandateEntity saveOrUpdate(CandidatesResultsSingleMandateEntity candidatesResults) {
-        CandidatesResultsSingleMandateEntity responseResults = candidatesResultsRepository
-                .saveOrUpdate(candidatesResults);
-
-        // FIXME - Not working.
-        // Set TRUE to show, that polling district has submitted single mandate
-        // results
-        PollingDistrictEntity district = responseResults.getDistrict();
-        Long districtId = district.getId();
-        boolean submitted;
-
-        long totalOfCandidates = district.getConstituency().getCandidates().size();
-        long numberOfCandidatesWithSubmittedResults = district.getSingleMandateResults().size();
-
-        if (numberOfCandidatesWithSubmittedResults < totalOfCandidates) {
-            submitted = false;
-        } else {
-            submitted = true;
-        }
-        pollingDistrictRepository.updateSingleMandateDistrictSubmitBool(districtId, submitted);
-
-        return responseResults;
+        return candidatesResultsRepository.saveOrUpdate(candidatesResults);
     }
-
-    // Original
-    // public CandidatesResultsSingleMandateEntity
-    // saveOrUpdate(CandidatesResultsSingleMandateEntity candidatesResults) {
-    // return candidatesResultsRepository.saveOrUpdate(candidatesResults);
-    // }
 
     public List<CandidatesResultsSingleMandateEntity> findAll() {
         return candidatesResultsRepository.findAll();
@@ -114,10 +85,10 @@ public class CandidatesResultsSingleMandateService {
             percentOfAllBallots = (candidateVotes.doubleValue() / allBallots.doubleValue()) * 100.0d;
             percentOfAllBallots = UtilityMethods.round(percentOfAllBallots, 2);
 
-            SingleMandateCandidateResults candidateResults = new SingleMandateCandidateResults(candidate,
+            SingleMandateCandidateResults candidateResult = new SingleMandateCandidateResults(candidate,
                     candidateVotes, percentOfValidBallots, percentOfAllBallots);
 
-            districtResultsList.add(candidateResults);
+            districtResultsList.add(candidateResult);
         }
         return districtResultsList;
     }
@@ -190,20 +161,10 @@ public class CandidatesResultsSingleMandateService {
 
                 // Check if polling district has submitted results for all
                 // parties
-                // long totalOfCandidates =
-                // district.getConstituency().getCandidates().size();
-                // long numberOfCandidatesWithSubmittedResults =
-                // district.getSingleMandateResults().size();
-                //
-                // if (totalOfCandidates ==
-                // numberOfCandidatesWithSubmittedResults) {
-                // district.setSubmittedSingleResults(true);
-                // } else {
-                // district.setSubmittedSingleResults(false);
-                // }
-                // pollingDistrictService.saveOrUpdate(district);
+                long totalOfCandidates = district.getConstituency().getCandidates().size();
+                long numberOfCandidatesWithSubmittedResults = district.getSingleMandateResults().size();
 
-                if (district.getSubmittedSingleResults()) {
+                if (totalOfCandidates == numberOfCandidatesWithSubmittedResults) {
                     districtsWithResults++;
                 }
             }
