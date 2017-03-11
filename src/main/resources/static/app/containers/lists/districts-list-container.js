@@ -38,7 +38,7 @@ var DistrictListContainer = React.createClass({
   handleDistrictRemove: function(district) {
     var self = this;
     return function() {
-      axios.delete('http://localhost:8090/polling-districts/'+ district.id).then(function(response) {
+      axios.delete('http://localhost:8090/polling-districts/'+ district.id).then(function() {
         axios.get('http://localhost:8090/polling-districts/')
         .then(function (response) {
           self.setState({

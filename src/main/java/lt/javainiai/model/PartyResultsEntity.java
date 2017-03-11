@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -22,6 +23,7 @@ public class PartyResultsEntity {
     private Long numberOfVotes;
 
     @ManyToOne
+    @NotNull
     @JsonBackReference(value = "party-results")
     @JoinColumn(name = "Party_Id")
     private PartyEntity party;
