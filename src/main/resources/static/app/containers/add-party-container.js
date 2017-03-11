@@ -13,16 +13,15 @@ var AddPartyContainer = React.createClass({
           candidates:[]
         }
     },
-    
+
     componentDidMount: function() {
         var self = this;
         if (self.props.params.partyId != undefined) {
           axios.get('http://localhost:8090/parties/' + this.props.params.partyId).then(function (response) {
-        	  console.log(response.data);
         	  self.setState({
         		  party: response.data,
         		  candidates: response.data.candidates
-            });  
+            });
           });
         }
       },
@@ -44,7 +43,7 @@ var AddPartyContainer = React.createClass({
         data.append( 'id', self.state.party.id);
         data.append( 'name', self.state.party.name );
         data.append( 'partyNo', self.state.party.partyNo );
-       
+
 
         // Creating party with CSV candidate list
         if (self.state.multiCandidateFile) {
@@ -61,7 +60,6 @@ var AddPartyContainer = React.createClass({
         	// Creating party without CSV candidate list
         	axios.post('http://localhost:8090/parties/', data, config).then(function (response) {
             	console.log("Party added (no CSV).");
-            	console.log(response);
             	self.context.router.push('/admin/parties/');
             }).catch( function( error ) {
             	console.error( error );
@@ -93,7 +91,7 @@ var AddPartyContainer = React.createClass({
     handleCancelClick() {
         this.context.router.push('/admin/parties');
     },
-    
+
     handleDeleteCandidates: function(){
     	var self = this;
     	axios.delete('http://localhost:8090/candidates/by-party/' + this.state.party.id);
@@ -102,12 +100,12 @@ var AddPartyContainer = React.createClass({
     render: function() {
         return (
             <AddParty
-                party={this.state.party}
+              party={this.state.party}
             	onUploadMultiCandidateFile={this.handleUploadMultiCandidateFile}
-                candidates={this.state.candidates}
+              candidates={this.state.candidates}
             	onSaveClick={this.handleSaveClick}
-                onCancelClick={this.handleCancelClick}
-                onFieldChange={this.handleFieldChange}
+              onCancelClick={this.handleCancelClick}
+              onFieldChange={this.handleFieldChange}
             	onDeleteClick={this.handleDeleteCandidates}
             	partyId={this.props.params.partyId}
             />

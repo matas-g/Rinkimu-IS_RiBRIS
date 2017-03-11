@@ -45,7 +45,7 @@ var Confirm = React.createClass({
 
     render() {
       var cancelButton = this.props.showCancelButton ?
-          (<Button bsStyle="default">{this.props.cancelText}</Button>) : null;
+          (<Button bsStyle="default" onClick={this.onClose}>{this.props.cancelText}</Button>) : null;
         var modal = (
             <Modal show={this.state.isOpened} onHide={this.onClose}>
                 <Modal.Header>

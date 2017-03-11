@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -25,7 +26,7 @@ public class PartyEntity {
 
     @Length(min = 1, max = 200)
     private String name;
-
+    
     @Column(name = "Party_Number")
     private Long partyNo;
 

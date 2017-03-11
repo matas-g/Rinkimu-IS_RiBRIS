@@ -6,11 +6,11 @@ var AddPartyResults = React.createClass({
   getInitialState: function() {
     return {
       district: {
-        id: 1
+        id: this.props.districtId
       },
       districts: [],
       partiesList: [],
-      voteCount: [],
+      voteArray: [],
       votesEnteredState: [],
       valid: true
     };
@@ -21,9 +21,6 @@ var AddPartyResults = React.createClass({
     axios.get('http://localhost:8090/polling-districts/').then(function(response) {
       self.setState({
         districts: response.data,
-        district: {
-          id: response.data[0].id
-        }
       });
       axios.get('http://localhost:8090/parties/').then(function(response) {
         self.setState({
@@ -36,12 +33,10 @@ var AddPartyResults = React.createClass({
   handleDistrictChange: function(e){
     var districtId = parseInt(e.target.value);
     var self = this;
+    this.props.setIds(districtId, this.props.constituencyId);
     axios.get('http://localhost:8090/parties/').then(function(response) {
       self.setState({
-        partiesList: response.data,
-        district: {
-          id: districtId
-        }
+        partiesList: response.data
       });
     });
 
@@ -50,13 +45,13 @@ var AddPartyResults = React.createClass({
   handleResultsChange: function(index) {
     var self = this;
     return function(e) {
-      var voteArray = self.state.voteCount;
+      var voteArray = self.state.voteArray;
       var enteredState = self.state.votesEnteredState;
       voteArray[index] = e.target.value;
       enteredState[index] = 1;
 
       self.setState({
-        voteCount: voteArray,
+        voteArray: voteArray,
         votesEnteredState: enteredState
       });
     }
@@ -71,24 +66,9 @@ var AddPartyResults = React.createClass({
     }, 0);
 
     if (sum == partiesList.length) {
-      self.setState({
-        valid: true
-      });
-      var voteCount = this.state.voteCount;
-      for (var i = 0; i < partiesList.length; i++) {
-        var data = {
-          numberOfVotes: voteCount[i],
-          party: {
-            id: partiesList[i].id
-          },
-          date: new Date(),
-          district: {
-            id: this.state.district.id
-          }
-        }
-        axios.post('http://localhost:8090/party-results/', data);
-      }
-      self.context.router.push('representative/results/spoiled');
+      var voteArray = this.state.voteArray;
+      self.props.handleVotesReport('partyVotes', self.state.voteArray);
+      self.context.router.push('representative/results/report');
     } else {
       console.log("Alert");
     }
@@ -101,10 +81,12 @@ var AddPartyResults = React.createClass({
         constituencyId={this.state.constituencyId}
         districts={this.state.districts}
         partiesList={this.state.partiesList}
-        voteCount={this.state.voteCount}
+        voteArray={this.state.voteArray}
         onDistrictChange={this.handleDistrictChange}
         onResultsChange={this.handleResultsChange}
+        onMultiChange={this.props.onMultiChange}
         onSaveClick={this.handleSaveClick}
+        results={this.props.results}
       />
     );
   }

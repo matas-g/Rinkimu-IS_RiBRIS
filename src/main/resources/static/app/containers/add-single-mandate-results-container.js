@@ -11,9 +11,8 @@ var AddSingleMandateResults = React.createClass({
       constituencyId: 1,
       districts: [],
       candidatesList: [],
-      voteCount: [],
-      votesEnteredState: [],
-      valid: true
+      voteArray: [],
+      votesEnteredState: []
     };
   },
 
@@ -27,6 +26,7 @@ var AddSingleMandateResults = React.createClass({
           id: response.data[0].id
         }
       });
+      self.props.setIds(response.data[0].id, response.data[0].constituencyId);
       axios.get('http://localhost:8090/candidates/by-constituency/' + self.state.constituencyId).then(function(response) {
         self.setState({
           candidatesList: response.data,
@@ -57,16 +57,17 @@ var AddSingleMandateResults = React.createClass({
   handleResultsChange: function(index) {
     var self = this;
     return function(e) {
-      var voteArray = self.state.voteCount;
+      var voteArray = self.state.voteArray;
       var enteredState = self.state.votesEnteredState;
       voteArray[index] = e.target.value;
       enteredState[index] = 1;
 
       self.setState({
-        voteCount: voteArray,
+        voteArray: voteArray,
         votesEnteredState: enteredState
       });
     };
+
   },
 
   handleSaveClick: function(e) {
@@ -76,24 +77,8 @@ var AddSingleMandateResults = React.createClass({
     var sum = this.state.votesEnteredState.reduce(function(acc, val) {
       return acc + val;
     }, 0);
-
     if (sum == (candidatesList.length)) {
-      self.setState({
-        valid: true
-      });
-      var voteCount = this.state.voteCount;
-      for (var i = 0; i < candidatesList.length; i++) {
-        var data = {
-          district: {
-            id: this.state.district.id
-          },
-          numberOfVotes: voteCount[i],
-          candidate: {
-            id: candidatesList[i].id
-          }
-        }
-        axios.post('http://localhost:8090/candidates-results/single-mandate/', data);
-      }
+      self.props.handleVotesReport('singleMandateVotes', self.state.voteArray);
       self.context.router.push('/representative/results/parties');
     } else {
       console.log("Alert");
@@ -107,10 +92,12 @@ var AddSingleMandateResults = React.createClass({
         constituencyId={this.state.constituencyId}
         districts={this.state.districts}
         candidatesList={this.state.candidatesList}
-        voteCount={this.state.voteCount}
+        voteArray={this.state.voteArray}
         onDistrictChange={this.handleDistrictChange}
         onResultsChange={this.handleResultsChange}
         onSaveClick={this.handleSaveClick}
+        onSingleChange={this.props.onSingleChange}
+        results={this.props.results}
       />
     );
   }
