@@ -13,9 +13,6 @@ var CandidatesList = React.createClass({
           <td>{candidate.birthDate}</td>
           <td>{candidate.partyName}</td>
           <td>
-            <button className="btn btn-success btn-sm" onClick={self.props.onEditItem(candidate)}>
-              <i className="fa fa-pencil" aria-hidden="true"></i>
-            </button>
             <button className="btn btn-danger btn-sm" onClick={self.props.onRemoveItem(candidate)}>
               <i className="fa fa-times" aria-hidden="true"></i>
             </button>
@@ -36,7 +33,7 @@ var CandidatesList = React.createClass({
                 <th>Pavardė</th>
                 <th>Gimimo data</th>
                 <th>Partija</th>
-                <th>Redaguoti</th>
+                <th>Ištrinti</th>
               </tr>
             </thead>
             <tbody>

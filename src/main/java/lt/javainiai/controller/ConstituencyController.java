@@ -1,6 +1,5 @@
 package lt.javainiai.controller;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -17,8 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.service.ConstituencyService;
-import lt.javainiai.utils.ConstituencyVotersActivityInPercent;
-import lt.javainiai.utils.ConstituencyVotersActivityInUnits;
+import lt.javainiai.utils.ConstituencyVotersActivity;
 
 @RestController
 @RequestMapping("/constituencies/")
@@ -77,30 +75,23 @@ public class ConstituencyController {
     
     
 
-    // Voters activity (4 following methods)
-    @RequestMapping(value = "total-votes/{constituencyId}", method = RequestMethod.GET)
+    // Voters activity (3 following methods)
+    @RequestMapping(value = "activity/{constituencyId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public Long getVotersActivityInUnitsInConstituency(@Valid @PathVariable("constituencyId") Long constituencyId) {
         return constituencyService.getVotersActivityInUnitsInConstituency(constituencyId);
     }
 
-    @RequestMapping(value = "total-votes/", method = RequestMethod.GET)
+    @RequestMapping(value = "activity-percent/{constituencyId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<ConstituencyVotersActivityInUnits> getVotersActivityInUnitsInAllConstituencies() {
-        return constituencyService.getVotersActivityInUnitsInAllConstituencies();
-    }
-
-    @RequestMapping(value = "total-votes-percent/{constituencyId}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public BigDecimal getVotersActivityInPercentInConstituency(
-            @Valid @PathVariable("constituencyId") Long constituencyId) {
+    public Double getVotersActivityInPercentInConstituency(@Valid @PathVariable("constituencyId") Long constituencyId) {
         return constituencyService.getVotersActivityInPercentInConstituency(constituencyId);
     }
 
-    @RequestMapping(value = "total-votes-percent/", method = RequestMethod.GET)
+    @RequestMapping(value = "activity/all/", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<ConstituencyVotersActivityInPercent> getVotersActivityInPercentInAllConstituencies() {
-        return constituencyService.getVotersActivityInPercentInAllConstituencies();
+    public List<ConstituencyVotersActivity> getVotersActivityInAllConstituencies() {
+        return constituencyService.getVotersActivityInAllConstituencies();
     }
     
     

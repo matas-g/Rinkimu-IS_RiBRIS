@@ -13,12 +13,12 @@ var AddDistrictPresentation = React.createClass({
         );
     });
     
-    if(this.props.name  == ''){
+    if(this.props.districtId != undefined){
+    	 greeting = <h4>Redaguoti apylinkę</h4>;
+		 buttonText = "Redaguoti";
+	 } else {
 		 greeting = <h4>Registruoti naują apylinkę</h4>;
 		 buttonText = "Registruoti";
-	 } else {
-		 greeting = <h4>Redaguoti apylinkę</h4>;
-		 buttonText = "Redaguoti";
 	 }
     return (
       <div className="container-fluid">

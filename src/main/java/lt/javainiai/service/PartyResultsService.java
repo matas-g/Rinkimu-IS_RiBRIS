@@ -10,23 +10,24 @@ import lt.javainiai.repository.PartyResultsRepository;
 
 @Service
 public class PartyResultsService {
-    
+
     @Autowired
     private PartyResultsRepository partyResultsRepository;
-    
+
     public PartyResultsEntity saveOrUpdate(PartyResultsEntity partyResults) {
-        return this.partyResultsRepository.saveOrUpdate(partyResults);
+        return partyResultsRepository.saveOrUpdate(partyResults);
     }
 
     public List<PartyResultsEntity> findAll() {
         return this.partyResultsRepository.findAll();
     }
-    
-    public PartyResultsEntity findById(Long id){
+
+    public PartyResultsEntity findById(Long id) {
         return this.partyResultsRepository.findById(id);
     }
-    
-    public void deleteById(Long id){
+
+    public void deleteById(Long id) {
         this.partyResultsRepository.deleteById(id);
     }
+
 }

@@ -8,9 +8,9 @@ var AddPartyContainer = React.createClass({
           party: {
         	id:'',
             name: '',
-            partyNo: '',
-            candidates:[]
-          }
+            partyNo: ''
+          },
+          candidates:[]
         }
     },
     
@@ -18,14 +18,11 @@ var AddPartyContainer = React.createClass({
         var self = this;
         if (self.props.params.partyId != undefined) {
           axios.get('http://localhost:8090/parties/' + this.props.params.partyId).then(function (response) {
-            self.setState({
-              party:{
-            	  id: response.data.id,
-            	  name: response.data.name,
-            	  partyNo: response.data.partyNo,
-            	  candidates: response.data.candidates
-              }
-            });
+        	  console.log(response.data);
+        	  self.setState({
+        		  party: response.data,
+        		  candidates: response.data.candidates
+            });  
           });
         }
       },
@@ -44,6 +41,7 @@ var AddPartyContainer = React.createClass({
         		'Content-Type': 'multipart/form-data'
         	}
         };
+        data.append( 'id', self.state.party.id);
         data.append( 'name', self.state.party.name );
         data.append( 'partyNo', self.state.party.partyNo );
        
@@ -63,6 +61,7 @@ var AddPartyContainer = React.createClass({
         	// Creating party without CSV candidate list
         	axios.post('http://localhost:8090/parties/', data, config).then(function (response) {
             	console.log("Party added (no CSV).");
+            	console.log(response);
             	self.context.router.push('/admin/parties/');
             }).catch( function( error ) {
             	console.error( error );
@@ -97,7 +96,6 @@ var AddPartyContainer = React.createClass({
     
     handleDeleteCandidates: function(){
     	var self = this;
-    	console.log(this.state);
     	axios.delete('http://localhost:8090/candidates/by-party/' + this.state.party.id);
     },
 
@@ -105,11 +103,13 @@ var AddPartyContainer = React.createClass({
         return (
             <AddParty
                 party={this.state.party}
-            	  onUploadMultiCandidateFile={this.handleUploadMultiCandidateFile}
-                onSaveClick={this.handleSaveClick}
+            	onUploadMultiCandidateFile={this.handleUploadMultiCandidateFile}
+                candidates={this.state.candidates}
+            	onSaveClick={this.handleSaveClick}
                 onCancelClick={this.handleCancelClick}
                 onFieldChange={this.handleFieldChange}
             	onDeleteClick={this.handleDeleteCandidates}
+            	partyId={this.props.params.partyId}
             />
         );
     }

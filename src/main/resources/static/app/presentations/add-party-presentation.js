@@ -13,16 +13,17 @@ var AddPartyPresentation = React.createClass({
 	  var greeting;
 	  var buttonText;
 	  var fileInput;
-  if(this.props.party.name  == ''){
-	greeting = <h4>Registruoti naują partiją</h4>;
-	buttonText = "Registruoti";
+	  
+  if(this.props.partyId != undefined){
+	  greeting = <h4>Redaguoti partiją</h4>;
+	  buttonText = "Redaguoti";
   } else {
-	greeting = <h4>Redaguoti partiją</h4>;
-	buttonText = "Redaguoti";
+	  greeting = <h4>Registruoti naują partiją</h4>;
+	  buttonText = "Registruoti";
   }
   
-  if(this.props.party.candidates.length != 0){
-		 fileInput = (<div><label>Kandidatų sąrašas įkeltas</label>
+  if(this.props.candidates.length != 0){
+		 fileInput = (<div><label style={{ marginRight: '20px' }}>Kandidatų sąrašas įkeltas</label>
 		   				<button className="btn btn-danger btn-sm" 
 			   onClick={this.props.onDeleteClick}>Ištrinti kandidatus</button></div>);
   } else {
