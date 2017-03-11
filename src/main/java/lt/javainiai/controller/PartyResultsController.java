@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lt.javainiai.model.PartyResultsEntity;
 import lt.javainiai.service.PartyResultsService;
-import lt.javainiai.utils.ConstituencyProgress;
-import lt.javainiai.utils.DistrictResultSubmitTime;
 import lt.javainiai.utils.MultiMandatePartyResults;
 
 @RestController
@@ -55,38 +53,11 @@ public class PartyResultsController {
         this.partyResultsService.deleteById(id);
     }
 
-    // TODO
     @RequestMapping(value = "district/{districtId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<MultiMandatePartyResults> getMultiMandateResultsInDistrict(
             @Valid @PathVariable("districtId") Long districtId) {
         return partyResultsService.getMultiMandateResultsInDistrict(districtId);
-    }
-
-    @RequestMapping(value = "constituency/{constituencyId}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public List<MultiMandatePartyResults> getMultiMandateResultsInConstituency(
-            @Valid @PathVariable("constituencyId") Long constituencyId) {
-        return partyResultsService.getMultiMandateResultsInConstituency(constituencyId);
-    }
-
-    @RequestMapping(value = "total-results", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public List<MultiMandatePartyResults> getMultiMandateTotalResults() {
-        return partyResultsService.getMultiMandateTotalResults();
-    }
-
-    @RequestMapping(value = "progress", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public List<ConstituencyProgress> getConstituenciesProgressList() {
-        return partyResultsService.getConstituenciesProgressList();
-    }
-
-    @RequestMapping(value = "districts-results-time/{constituencyId}", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public List<DistrictResultSubmitTime> getDistrictsResultsSubmissionTime(
-            @Valid @PathVariable("constituencyId") Long constituencyId) {
-        return partyResultsService.getDistrictsResultsSubmissionTime(constituencyId);
     }
 
 }

@@ -10,8 +10,6 @@ import lt.javainiai.model.PartyEntity;
 import lt.javainiai.model.PartyResultsEntity;
 import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.PartyResultsRepository;
-import lt.javainiai.utils.ConstituencyProgress;
-import lt.javainiai.utils.DistrictResultSubmitTime;
 import lt.javainiai.utils.MultiMandatePartyResults;
 import lt.javainiai.utils.UtilityMethods;
 
@@ -41,7 +39,6 @@ public class PartyResultsService {
         this.partyResultsRepository.deleteById(id);
     }
 
-    // TODO
     public List<MultiMandatePartyResults> getMultiMandateResultsInDistrict(Long districtId) {
         List<MultiMandatePartyResults> districtResultsList = new ArrayList<>();
         PollingDistrictEntity district = pollingDistrictService.findById(districtId);
@@ -87,38 +84,5 @@ public class PartyResultsService {
         }
         return districtResultsList;
     }
-
-    public List<MultiMandatePartyResults> getMultiMandateResultsInConstituency(Long constituencyId) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public List<MultiMandatePartyResults> getMultiMandateTotalResults() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public List<ConstituencyProgress> getConstituenciesProgressList() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public List<DistrictResultSubmitTime> getDistrictsResultsSubmissionTime(Long constituencyId) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    // TODO
-    // Check if polling district has submitted results for all parties
-    // long totalOfParties = partyService.findAll().size();
-    // long numberOfPartiesWithSubmittedResults =
-    // district.getPartyResults().size();
-    //
-    // if (totalOfParties == numberOfPartiesWithSubmittedResults) {
-    // district.setSubmittedMultiResults(true);
-    // } else {
-    // district.setSubmittedMultiResults(false);
-    // }
-    // pollingDistrictService.saveOrUpdate(district);
 
 }
