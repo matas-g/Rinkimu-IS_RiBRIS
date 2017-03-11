@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lt.javainiai.model.PartyResultsEntity;
 import lt.javainiai.service.PartyResultsService;
+import lt.javainiai.utils.MultiMandatePartyResults;
 
 @RestController
 @RequestMapping("/party-results/")
@@ -51,4 +52,12 @@ public class PartyResultsController {
     public void deleteById(@Valid @PathVariable("id") Long id) {
         this.partyResultsService.deleteById(id);
     }
+
+    @RequestMapping(value = "district/{districtId}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<MultiMandatePartyResults> getMultiMandateResultsInDistrict(
+            @Valid @PathVariable("districtId") Long districtId) {
+        return partyResultsService.getMultiMandateResultsInDistrict(districtId);
+    }
+
 }

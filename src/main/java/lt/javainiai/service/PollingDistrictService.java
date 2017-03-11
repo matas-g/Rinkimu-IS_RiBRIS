@@ -58,10 +58,10 @@ public class PollingDistrictService {
     }
 
     public Double getVotersActivityInPercentInDistrict(Long districtId) {
-        Long sumOfVotes = getVotersActivityInUnitsInDistrict(districtId);
+        Long givenBallots = getVotersActivityInUnitsInDistrict(districtId);
         Long totalOfVoters = findById(districtId).getNumOfVoters();
 
-        Double percent = (sumOfVotes.doubleValue() / totalOfVoters.doubleValue()) * 100.0d;
+        Double percent = (givenBallots.doubleValue() / totalOfVoters.doubleValue()) * 100.0d;
         percent = UtilityMethods.round(percent, 2);
 
         return percent;
@@ -110,7 +110,7 @@ public class PollingDistrictService {
             long totalOfCandidates = district.getConstituency().getCandidates().size();
             long numberOfCandidatesWithSubmittedResults = district.getSingleMandateResults().size();
 
-            if (totalOfCandidates != numberOfCandidatesWithSubmittedResults) {
+            if (numberOfCandidatesWithSubmittedResults < totalOfCandidates) {
                 districtsNotSubmittedresults.add(district);
             }
         }
@@ -125,7 +125,7 @@ public class PollingDistrictService {
             long totalOfParties = partyService.findAll().size();
             long numberOfPartiesWithSubmittedResults = district.getPartyResults().size();
 
-            if (totalOfParties != numberOfPartiesWithSubmittedResults) {
+            if (numberOfPartiesWithSubmittedResults < totalOfParties) {
                 districtsNotSubmittedresults.add(district);
             }
         }
