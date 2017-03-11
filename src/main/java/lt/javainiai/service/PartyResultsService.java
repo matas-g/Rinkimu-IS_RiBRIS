@@ -30,4 +30,17 @@ public class PartyResultsService {
         this.partyResultsRepository.deleteById(id);
     }
 
+    // TODO
+    // Check if polling district has submitted results for all parties
+    // long totalOfParties = partyService.findAll().size();
+    // long numberOfPartiesWithSubmittedResults =
+    // district.getPartyResults().size();
+    //
+    // if (totalOfParties == numberOfPartiesWithSubmittedResults) {
+    // district.setSubmittedMultiResults(true);
+    // } else {
+    // district.setSubmittedMultiResults(false);
+    // }
+    // pollingDistrictService.saveOrUpdate(district);
+
 }

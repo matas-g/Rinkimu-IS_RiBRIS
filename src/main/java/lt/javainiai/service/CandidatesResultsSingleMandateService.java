@@ -13,6 +13,7 @@ import lt.javainiai.model.CandidatesResultsSingleMandateEntity;
 import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.CandidatesResultsSingleMandateRepository;
+import lt.javainiai.repository.PollingDistrictRepository;
 import lt.javainiai.utils.ConstituencyProgress;
 import lt.javainiai.utils.DistrictResultSubmitTime;
 import lt.javainiai.utils.SingleMandateCandidateResults;
@@ -26,11 +27,39 @@ public class CandidatesResultsSingleMandateService {
     @Autowired
     private PollingDistrictService pollingDistrictService;
     @Autowired
+    private PollingDistrictRepository pollingDistrictRepository;
+    @Autowired
     private ConstituencyService constituencyService;
 
     public CandidatesResultsSingleMandateEntity saveOrUpdate(CandidatesResultsSingleMandateEntity candidatesResults) {
-        return candidatesResultsRepository.saveOrUpdate(candidatesResults);
+        CandidatesResultsSingleMandateEntity responseResults = candidatesResultsRepository
+                .saveOrUpdate(candidatesResults);
+
+        // FIXME - Not working.
+        // Set TRUE to show, that polling district has submitted single mandate
+        // results
+        PollingDistrictEntity district = responseResults.getDistrict();
+        Long districtId = district.getId();
+        boolean submitted;
+
+        long totalOfCandidates = district.getConstituency().getCandidates().size();
+        long numberOfCandidatesWithSubmittedResults = district.getSingleMandateResults().size();
+
+        if (numberOfCandidatesWithSubmittedResults < totalOfCandidates) {
+            submitted = false;
+        } else {
+            submitted = true;
+        }
+        pollingDistrictRepository.updateSingleMandateDistrictSubmitBool(districtId, submitted);
+
+        return responseResults;
     }
+
+    // Original
+    // public CandidatesResultsSingleMandateEntity
+    // saveOrUpdate(CandidatesResultsSingleMandateEntity candidatesResults) {
+    // return candidatesResultsRepository.saveOrUpdate(candidatesResults);
+    // }
 
     public List<CandidatesResultsSingleMandateEntity> findAll() {
         return candidatesResultsRepository.findAll();
@@ -56,7 +85,7 @@ public class CandidatesResultsSingleMandateService {
         // Count all valid single-member votes in district
         List<CandidatesResultsSingleMandateEntity> results = findAll();
         for (CandidatesResultsSingleMandateEntity result : results) {
-            if (result.getDistrict() == district) {
+            if (result.getDistrict().equals(district)) {
                 validVotes += result.getNumberOfVotes();
             }
         }
@@ -71,7 +100,7 @@ public class CandidatesResultsSingleMandateService {
             List<CandidatesResultsSingleMandateEntity> candidateResultsList = candidate
                     .getCandidatesResultsSingleMandate();
             for (CandidatesResultsSingleMandateEntity result : candidateResultsList) {
-                if (result.getDistrict() == district) {
+                if (result.getDistrict().equals(district)) {
                     candidateVotes = result.getNumberOfVotes();
                     break;
                 }
@@ -106,7 +135,7 @@ public class CandidatesResultsSingleMandateService {
         // Count all valid single-member votes in constituency
         List<CandidatesResultsSingleMandateEntity> results = findAll();
         for (CandidatesResultsSingleMandateEntity result : results) {
-            if (result.getDistrict().getConstituency() == constituency) {
+            if (result.getDistrict().getConstituency().equals(constituency)) {
                 validVotes += result.getNumberOfVotes();
             }
         }
@@ -127,7 +156,7 @@ public class CandidatesResultsSingleMandateService {
             List<CandidatesResultsSingleMandateEntity> candidateResultsList = candidate
                     .getCandidatesResultsSingleMandate();
             for (CandidatesResultsSingleMandateEntity result : candidateResultsList) {
-                if (result.getDistrict().getConstituency() == constituency) {
+                if (result.getDistrict().getConstituency().equals(constituency)) {
                     candidateVotes += result.getNumberOfVotes();
                 }
             }
@@ -161,15 +190,18 @@ public class CandidatesResultsSingleMandateService {
 
                 // Check if polling district has submitted results for all
                 // parties
-                long totalOfCandidates = district.getConstituency().getCandidates().size();
-                long numberOfCandidatesWithSubmittedResults = district.getSingleMandateResults().size();
-
-                if (totalOfCandidates == numberOfCandidatesWithSubmittedResults) {
-                    district.setSubmittedSingleResults(true);
-                } else {
-                    district.setSubmittedSingleResults(false);
-                }
-                pollingDistrictService.saveOrUpdate(district);
+                // long totalOfCandidates =
+                // district.getConstituency().getCandidates().size();
+                // long numberOfCandidatesWithSubmittedResults =
+                // district.getSingleMandateResults().size();
+                //
+                // if (totalOfCandidates ==
+                // numberOfCandidatesWithSubmittedResults) {
+                // district.setSubmittedSingleResults(true);
+                // } else {
+                // district.setSubmittedSingleResults(false);
+                // }
+                // pollingDistrictService.saveOrUpdate(district);
 
                 if (district.getSubmittedSingleResults()) {
                     districtsWithResults++;

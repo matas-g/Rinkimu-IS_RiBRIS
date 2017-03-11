@@ -64,4 +64,15 @@ public class PollingDistrictRepository implements RepositoryInterface<PollingDis
         em.remove(findById(id));
     }
 
+    // FIXME - Not working.
+    // Called from: CandidatesResultsSingleMandateService
+    @Transactional
+    public void updateSingleMandateDistrictSubmitBool(Long districtId, boolean value) {
+        PollingDistrictEntity district = findById(districtId);
+        district.setSubmittedSingleResults(value);
+
+        PollingDistrictEntity merged = em.merge(district);
+        em.persist(merged);
+    }
+
 }
