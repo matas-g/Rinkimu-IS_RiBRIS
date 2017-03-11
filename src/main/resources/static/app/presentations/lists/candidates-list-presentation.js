@@ -8,7 +8,7 @@ var CandidatesList = React.createClass({
     	var constituencyOf;
     	
     	if(candidate.constituencyId === null) {
-    		constituencyOf = "-----------";
+    		constituencyOf = "";
     	} else {
     		constituencyOf  = self.props.constituencies[candidate.constituencyId-1].name;
     	}
