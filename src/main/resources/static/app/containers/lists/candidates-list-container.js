@@ -5,43 +5,53 @@ const CandidatesList = require('../../presentations/lists/candidates-list-presen
 var PartiesListContainer = React.createClass({
   getInitialState: function() {
     return {
-      candidates: []
+      candidates: [],
+      constituencies: []
     };
   },
 
   componentWillMount: function() {
     var self = this;
+    var candidates;
     if (self.props.location.pathname == "/admin/candidates") {
       axios.get('http://localhost:8090/candidates/')
       .then(function (response) {
-        self.setState({
-            candidates: response.data,
-        });
+        candidates = response.data;
+      }).then(function(){
+    	  axios.get('http://localhost:8090/constituencies/').then(function (response) {
+    		  self.setState({
+    			  candidates: candidates,
+    			  constituencies: response.data
+    		  });
+    	  }) 
       });
     } else if (self.props.location.pathname.includes("constituency")) {
       axios.get('http://localhost:8090/candidates/by-constituency/' + self.props.params.constituencyId)
       .then(function (response) {
-        self.setState({
-            candidates: response.data,
-        });
+        candidates = response.data;
+      }).then(function(){
+    	  axios.get('http://localhost:8090/constituencies/').then(function (response) {
+    		  self.setState({
+    			  candidates: candidates,
+    			  constituencies: response.data
+    		  });
+    	  })
       });
     } else {
       axios.get('http://localhost:8090/candidates/by-party/' + self.props.params.partyId)
       .then(function (response) {
-        self.setState({
-            candidates: response.data,
-        });
+            candidates = response.data;
+      	}).then(function(){
+    	  axios.get('http://localhost:8090/constituencies/').then(function (response) {
+    		  self.setState({
+    			  candidates: candidates,
+    			  constituencies: response.data
+    		  });
+    	  })
       });
     }
   },
-
-//  handleCandidateEdit: function(candidate) {
-//    var self = this;
-//    return function() {
-//      self.context.router.push('/admin/candidates/edit/' + candidate.id);
-//    }
-//  },
-
+      
   handleCandidateRemove: function(candidate) {
     var self = this;
     return function() {
@@ -71,6 +81,7 @@ var PartiesListContainer = React.createClass({
         candidates={this.state.candidates}
 //        onEditItem={this.handleCandidateEdit}
         onRemoveItem={this.handleCandidateRemove}
+      	constituencies={this.state.constituencies}
       />
     );
   }
