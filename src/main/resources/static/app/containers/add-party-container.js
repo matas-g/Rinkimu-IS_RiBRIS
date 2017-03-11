@@ -118,4 +118,3 @@ AddPartyContainer.contextTypes = {
 };
 
 module.exports = AddPartyContainer;
->>>>>>> branch 'development' of https://github.com/matas-g/Rinkimu-IS_RiBRIS

@@ -10,7 +10,7 @@ var ActivityListComponent = React.createClass({
           <td>{nr++}</td>
           <td>{constituency.constituency.name}</td>
           <td>{constituency.givenBallots}</td>
-          <td>{constituency.percentOfAllVoters}</td>
+          <td>{constituency.percentOfAllVoters}%</td>
         </tr>
       );
     });
