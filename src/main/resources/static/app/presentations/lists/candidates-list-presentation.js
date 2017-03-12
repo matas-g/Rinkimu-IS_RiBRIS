@@ -10,6 +10,8 @@ var CandidatesList = React.createClass({
     	if(candidate.constituencyId === null) {
     		constituencyOf = "";
     	} else {
+    		console.log(self.props.constituencies);
+    		console.log(candidate);
     		constituencyOf  = self.props.constituencies[candidate.constituencyId-1].name;
     	}
     	

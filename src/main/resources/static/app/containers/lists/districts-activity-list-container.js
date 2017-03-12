@@ -11,9 +11,9 @@ var DistrictsActivityListContainer = React.createClass({
   
   componentWillMount: function(){
 	  var self = this;
-	  console.log(this.props.params);
 	  axios.get('http://localhost:8090/polling-districts/activity/all/'+ this.props.params.constituencyId)
 	  	.then(function(response){
+	  		console.log(response.data);
 	  		self.setState({
 	  			districts: response.data
 	  		});

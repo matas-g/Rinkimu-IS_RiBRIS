@@ -3,19 +3,16 @@ const router = require('react-router');
 const Link = require('react-router').Link;
 
 var ActivityListComponent = React.createClass({
-	handleClick: function(e) {
-	    this.router.transitionTo('index');
-	  },
-	
 	render: function() {
     var self = this;
     var nr = 1;
     var activityList = this.props.constituencies.map(function(constituency, index) {
+    	console.log(constituency);
     	var link = "/polling-districts/activity/all/" + constituency.constituency.id;
     	return (
         <tr key={index}>
           <td>{nr++}</td>
-          <td><Link to={link} >{constituency.constituency.name}</Link></td>
+          <td><Link to={link}>{constituency.constituency.name}</Link></td>
           <td>{constituency.givenBallots}</td>
           <td>{constituency.percentOfAllVoters}%</td>
         </tr>
