@@ -81,10 +81,8 @@ var AddConstituencyContainer = React.createClass({
     
     handleDeleteCandidates: function(){
     	var self = this;
-    	axios.delete('http://localhost:8090/candidates/by-constituency/' + this.state.constituency.id)
-    		.then(function (response) {
-    			forceUpdate();
-    		})
+    	axios.delete('http://localhost:8090/candidates/by-constituency/' + this.state.constituency.id);
+    	this.setState({ candidates: []});
     },
 
     render: function() {
