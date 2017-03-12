@@ -41,25 +41,30 @@ var DistrictListComponent = React.createClass({
 
     return (
       <div className="container-fluid">
-        <div className="panel panel-default">
-        <div className="panel-heading"><strong>Apylinkių sąrašas</strong></div>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Nr</th>
-                <th>Pavadinimas</th>
-                <th>Adresas</th>
-                <th>Balsuotojų skaičius</th>
-                <th>Apygarda</th>
-                <th>Apylinkės atstovas</th>
-                <th>Redaguoti</th>
-              </tr>
-            </thead>
-            <tbody>
-              {districtsList}
-            </tbody>
-          </table>
+        <div className="form-group pull-right">
+          <input type="text" className="search form-control" placeholder="Ieškoti" />
         </div>
+        <div>
+          <h3>
+            <strong>Apylinkių sąrašas</strong>
+          </h3>
+        </div>
+        <table className="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Nr</th>
+              <th>Pavadinimas</th>
+              <th>Adresas</th>
+              <th>Balsuotojų skaičius</th>
+              <th>Apygarda</th>
+              <th>Apylinkės atstovas</th>
+              <th>Redaguoti</th>
+            </tr>
+          </thead>
+          <tbody>
+            {districtsList}
+          </tbody>
+        </table>
       </div>
     );
   }

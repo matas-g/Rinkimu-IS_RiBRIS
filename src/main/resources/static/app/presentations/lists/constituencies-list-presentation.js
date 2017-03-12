@@ -11,7 +11,13 @@ var ConstituenciesListComponent = React.createClass({
     var confirmText = "Patvirtinti";
     var nr = 1;
 
-    var ConstituenciesList = this.props.constituencies.map(function(constituency, index) {
+    var ConstituenciesList = this.props.constituencies.filter(function(constituency) {
+      if (constituency.name.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) {
+        return false;
+      } else {
+        return true;
+      }
+    }).map(function(constituency, index){
       var title = <h2>Ištrinsite <b>{constituency.name}</b> apygardą</h2>
       var body = <h4 className="alert alert-danger">Ar tiktai norite ištrinti <b>{constituency.name}</b> apygardą?</h4>;
       return (
@@ -49,25 +55,30 @@ var ConstituenciesListComponent = React.createClass({
     });
 
     return (
-     <div className="container-fluid">
-        <div className="panel panel-default">
-        <div className="panel-heading"><strong>Apygardų sąrašas</strong></div>
-          <table className="table table-striped table-bordered">
-            <thead>
-              <tr>
-                <th>Nr</th>
-                <th>Pavadinimas</th>
-                <th>Apylinkių sąrašas</th>
-                <th>Kandidatų sąrašas</th>
-                <th>Redaguoti</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ConstituenciesList}
-            </tbody>
-          </table>
-        </div>
+    <div className="container-fluid">
+      <div className="form-group pull-right">
+        <input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchTextChange} />
       </div>
+      <div>
+        <h3>
+          <strong>Apygardų sąrašas</strong>
+        </h3>
+      </div>
+      <table className="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Nr</th>
+            <th>Pavadinimas</th>
+            <th>Apylinkių sąrašas</th>
+            <th>Kandidatų sąrašas</th>
+            <th>Redaguoti</th>
+          </tr>
+        </thead>
+        <tbody>
+          {ConstituenciesList}
+        </tbody>
+      </table>
+    </div>
     )
   }
 });

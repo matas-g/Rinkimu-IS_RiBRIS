@@ -5,7 +5,8 @@ const CandidatesList = require('../../presentations/lists/candidates-list-presen
 var PartiesListContainer = React.createClass({
   getInitialState: function() {
     return {
-      candidates: []
+      candidates: [],
+      searchText: ''
     };
   },
 
@@ -18,7 +19,7 @@ var PartiesListContainer = React.createClass({
             candidates: response.data,
         });
       });
-    } else if (self.props.location.pathname.includes("constituency")) {
+    } else if (self.props.location.pathname.includes("/admin/candidates/constituency/")) {
       axios.get('http://localhost:8090/candidates/by-constituency/' + self.props.params.constituencyId)
       .then(function (response) {
         self.setState({
@@ -35,12 +36,12 @@ var PartiesListContainer = React.createClass({
     }
   },
 
-//  handleCandidateEdit: function(candidate) {
-//    var self = this;
-//    return function() {
-//      self.context.router.push('/admin/candidates/edit/' + candidate.id);
-//    }
-//  },
+  handleSearchTextChange: function(e) {
+    var text = e.target.value;
+    this.setState({
+      searchText: text
+    });
+  },
 
   handleCandidateRemove: function(candidate) {
     var self = this;
@@ -69,7 +70,8 @@ var PartiesListContainer = React.createClass({
     return (
       <CandidatesList
         candidates={this.state.candidates}
-//        onEditItem={this.handleCandidateEdit}
+        searchText={this.state.searchText}
+        onSearchTextChange={this.handleSearchTextChange}
         onRemoveItem={this.handleCandidateRemove}
       />
     );
