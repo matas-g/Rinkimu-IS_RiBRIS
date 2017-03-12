@@ -55,7 +55,6 @@ public class PartyResultsController {
         this.partyResultsService.deleteById(id);
     }
 
-    // TODO
     @RequestMapping(value = "district/{districtId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<MultiMandatePartyResults> getMultiMandateResultsInDistrict(

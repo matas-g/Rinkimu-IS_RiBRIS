@@ -37,17 +37,17 @@ public class ConstituencyService {
     private PollingDistrictService pollingDistrictService;
 
     public ConstituencyEntity saveOrUpdate(Long id, String constituencyName, MultipartFile csvFile) {
-
+        List<CandidateEntity> candidateList = new ArrayList<>();
         ConstituencyEntity constituency = new ConstituencyEntity();
         constituency.setId(id);
         constituency.setName(constituencyName);
-        // save party to Database and get response from repository;
         ConstituencyEntity constituencyResponse = constituencyRepository.saveOrUpdate(constituency);
-
-        List<CandidateEntity> candidateList = new ArrayList<>();
-
         File file = null;
         InputStreamReader inputStreamReader = null;
+        String lineFromFile = "";
+        // array of values from one row of CSV file
+        String[] values = {};
+
         try {
             file = UtilityMethods.multipartToFile(csvFile);
             InputStream fileInputStream = new FileInputStream(file);
@@ -56,16 +56,11 @@ public class ConstituencyService {
             e.printStackTrace();
         }
 
-        // to store one line from file
-        String data = "";
-        // array of values from one row of CSV file
-        String[] values = {};
-
         try (BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-            while ((data = bufferedReader.readLine()) != null) {
-                values = data.split(",", -1);
-
+            while ((lineFromFile = bufferedReader.readLine()) != null) {
                 CandidateEntity candidate = new CandidateEntity();
+                values = lineFromFile.split(",", -1);
+
                 candidate.setPersonsId(Long.valueOf(values[0]));
                 candidate.setName(values[1]);
                 candidate.setSurname(values[2]);
@@ -74,7 +69,6 @@ public class ConstituencyService {
                 candidate.setMultiMandate(Boolean.valueOf(values[4]));
                 candidate.setBiography(values[5]);
                 candidate.setListPossition(Long.valueOf(values[6]));
-
                 candidateList.add(candidate);
             }
         } catch (IOException e) {
@@ -90,11 +84,9 @@ public class ConstituencyService {
 
     // Save or update party (no CSV candidate list)
     public ConstituencyEntity saveOrUpdate(Long id, String constituencyName) {
-
         ConstituencyEntity constituency = new ConstituencyEntity();
         constituency.setId(id);
         constituency.setName(constituencyName);
-        // save party to Database and get response from repository;
         return constituencyRepository.saveOrUpdate(constituency);
     }
 
@@ -130,9 +122,9 @@ public class ConstituencyService {
     public Double getVotersActivityInPercentInConstituency(Long constituencyId) {
         Long givenBallots = getVotersActivityInUnitsInConstituency(constituencyId);
         Long totalOfVoters = 0L;
-
         ConstituencyEntity constituency = findById(constituencyId);
         List<PollingDistrictEntity> districts = constituency.getPollingDistricts();
+
         for (PollingDistrictEntity district : districts) {
             totalOfVoters += district.getNumOfVoters();
         }
@@ -151,9 +143,9 @@ public class ConstituencyService {
             Long constituencyId = constituency.getId();
             Long givenBallots = getVotersActivityInUnitsInConstituency(constituencyId);
             Double percentOfAllVoters = getVotersActivityInPercentInConstituency(constituencyId);
+            ConstituencyVotersActivity constituencyActivity;
 
-            ConstituencyVotersActivity constituencyActivity = new ConstituencyVotersActivity(constituency, givenBallots,
-                    percentOfAllVoters);
+            constituencyActivity = new ConstituencyVotersActivity(constituency, givenBallots, percentOfAllVoters);
             activityInConstituenciesList.add(constituencyActivity);
         }
         return activityInConstituenciesList;

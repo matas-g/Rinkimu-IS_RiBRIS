@@ -1,11 +1,14 @@
 package lt.javainiai.service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.model.PartyEntity;
 import lt.javainiai.model.PartyResultsEntity;
 import lt.javainiai.model.PollingDistrictEntity;
@@ -22,6 +25,8 @@ public class PartyResultsService {
     private PartyResultsRepository partyResultsRepository;
     @Autowired
     private PollingDistrictService pollingDistrictService;
+    @Autowired
+    private ConstituencyService constituencyService;
     @Autowired
     private PartyService partyService;
 
@@ -41,29 +46,26 @@ public class PartyResultsService {
         this.partyResultsRepository.deleteById(id);
     }
 
-    // TODO
     public List<MultiMandatePartyResults> getMultiMandateResultsInDistrict(Long districtId) {
         List<MultiMandatePartyResults> districtResultsList = new ArrayList<>();
-        PollingDistrictEntity district = pollingDistrictService.findById(districtId);
         List<PartyEntity> parties = partyService.findAll();
+        List<PartyResultsEntity> allPartyResults = findAll();
+        PollingDistrictEntity district = pollingDistrictService.findById(districtId);
         Long validVotes = 0L;
         Long allBallots = pollingDistrictService.getVotersActivityInUnitsInDistrict(districtId);
 
-        // Count all valid votes in district
-        List<PartyResultsEntity> allPartyResults = findAll();
         for (PartyResultsEntity result : allPartyResults) {
             if (result.getDistrict().equals(district)) {
                 validVotes += result.getNumberOfVotes();
             }
         }
 
-        // Fill districtResultsList with district results of every party
         for (PartyEntity party : parties) {
+            MultiMandatePartyResults partyResult;
             Long partyVotes = 0L;
             Double percentOfValidBallots = null;
             Double percentOfAllBallots = null;
 
-            // Get result in units in one district
             List<PartyResultsEntity> partyResults = party.getPartyResults();
             for (PartyResultsEntity result : partyResults) {
                 if (result.getDistrict().equals(district)) {
@@ -72,53 +74,155 @@ public class PartyResultsService {
                 }
             }
 
-            // Get result in percent of valid ballots in one district
             percentOfValidBallots = (partyVotes.doubleValue() / validVotes.doubleValue()) * 100.0d;
             percentOfValidBallots = UtilityMethods.round(percentOfValidBallots, 2);
 
-            // Get result in percent of all ballots in one district
             percentOfAllBallots = (partyVotes.doubleValue() / allBallots.doubleValue()) * 100.0d;
             percentOfAllBallots = UtilityMethods.round(percentOfAllBallots, 2);
 
-            MultiMandatePartyResults partyResult = new MultiMandatePartyResults(party, partyVotes,
-                    percentOfValidBallots, percentOfAllBallots);
-
+            partyResult = new MultiMandatePartyResults(party, partyVotes, percentOfValidBallots, percentOfAllBallots);
             districtResultsList.add(partyResult);
         }
         return districtResultsList;
     }
 
     public List<MultiMandatePartyResults> getMultiMandateResultsInConstituency(Long constituencyId) {
-        // TODO Auto-generated method stub
-        return null;
+        ConstituencyEntity constituency = constituencyService.findById(constituencyId);
+        List<MultiMandatePartyResults> constituencyResultsList = new ArrayList<>();
+        List<PartyResultsEntity> results = findAll();
+        List<PollingDistrictEntity> districts = constituency.getPollingDistricts();
+        List<PartyEntity> parties = partyService.findAll();
+        Long validVotes = 0L;
+        Long spoiledBallots = 0L;
+        Long allBallots = 0L;
+
+        for (PartyResultsEntity result : results) {
+            if (result.getDistrict().getConstituency().equals(constituency)) {
+                validVotes += result.getNumberOfVotes();
+            }
+        }
+
+        for (PollingDistrictEntity district : districts) {
+            spoiledBallots += district.getSpoiledMultiMandateBallots();
+        }
+        allBallots = validVotes + spoiledBallots;
+
+        for (PartyEntity party : parties) {
+            List<PartyResultsEntity> partyResultsList = party.getPartyResults();
+            MultiMandatePartyResults partyResult;
+            Long partyVotes = 0L;
+            Double percentOfValidBallots;
+            Double percentOfAllBallots;
+
+            for (PartyResultsEntity result : partyResultsList) {
+                if (result.getDistrict().getConstituency().equals(constituency)) {
+                    partyVotes += result.getNumberOfVotes();
+                }
+            }
+
+            percentOfValidBallots = (partyVotes.doubleValue() / validVotes.doubleValue()) * 100.0d;
+            percentOfValidBallots = UtilityMethods.round(percentOfValidBallots, 2);
+
+            percentOfAllBallots = (partyVotes.doubleValue() / allBallots.doubleValue()) * 100.0d;
+            percentOfAllBallots = UtilityMethods.round(percentOfAllBallots, 2);
+
+            partyResult = new MultiMandatePartyResults(party, partyVotes, percentOfValidBallots, percentOfAllBallots);
+            constituencyResultsList.add(partyResult);
+        }
+        return constituencyResultsList;
     }
 
     public List<MultiMandatePartyResults> getMultiMandateTotalResults() {
-        // TODO Auto-generated method stub
-        return null;
+        List<MultiMandatePartyResults> totalResultsList = new ArrayList<>();
+        List<PartyResultsEntity> results = findAll();
+        List<PollingDistrictEntity> districts = pollingDistrictService.findAll();
+        List<PartyEntity> parties = partyService.findAll();
+        Long validVotes = 0L;
+        Long spoiledBallots = 0L;
+        Long allBallots = 0L;
+
+        for (PartyResultsEntity result : results) {
+            validVotes += result.getNumberOfVotes();
+        }
+
+        for (PollingDistrictEntity district : districts) {
+            spoiledBallots += district.getSpoiledMultiMandateBallots();
+        }
+        allBallots = validVotes + spoiledBallots;
+
+        for (PartyEntity party : parties) {
+            List<PartyResultsEntity> partyResultsList = party.getPartyResults();
+            MultiMandatePartyResults partyResult;
+            Long partyVotes = 0L;
+            Double percentOfValidBallots;
+            Double percentOfAllBallots;
+
+            for (PartyResultsEntity result : partyResultsList) {
+                partyVotes += result.getNumberOfVotes();
+            }
+
+            percentOfValidBallots = (partyVotes.doubleValue() / validVotes.doubleValue()) * 100.0d;
+            percentOfValidBallots = UtilityMethods.round(percentOfValidBallots, 2);
+
+            percentOfAllBallots = (partyVotes.doubleValue() / allBallots.doubleValue()) * 100.0d;
+            percentOfAllBallots = UtilityMethods.round(percentOfAllBallots, 2);
+
+            partyResult = new MultiMandatePartyResults(party, partyVotes, percentOfValidBallots, percentOfAllBallots);
+            totalResultsList.add(partyResult);
+        }
+        return totalResultsList;
     }
 
     public List<ConstituencyProgress> getConstituenciesProgressList() {
-        // TODO Auto-generated method stub
-        return null;
+        List<ConstituencyProgress> constituenciesProgressList = new ArrayList<>();
+        List<ConstituencyEntity> constituencies = constituencyService.findAll();
+
+        for (ConstituencyEntity constituency : constituencies) {
+            List<PollingDistrictEntity> districts = constituency.getPollingDistricts();
+            ConstituencyProgress progress;
+            Long totalNumOfDistricts = new Long(districts.size());
+            Long districtsWithResults = 0L;
+
+            for (PollingDistrictEntity district : districts) {
+                long totalOfParties = partyService.findAll().size();
+                long numberOfPartiesWithSubmittedResults = district.getPartyResults().size();
+
+                if (totalOfParties == numberOfPartiesWithSubmittedResults) {
+                    districtsWithResults++;
+                }
+            }
+            progress = new ConstituencyProgress(constituency, totalNumOfDistricts, districtsWithResults);
+            constituenciesProgressList.add(progress);
+        }
+        return constituenciesProgressList;
     }
 
     public List<DistrictResultSubmitTime> getDistrictsResultsSubmissionTime(Long constituencyId) {
-        // TODO Auto-generated method stub
-        return null;
-    }
+        List<DistrictResultSubmitTime> districtResultsSubmissionTimeList = new ArrayList<>();
+        List<PollingDistrictEntity> districts = constituencyService.findById(constituencyId).getPollingDistricts();
 
-    // TODO
-    // Check if polling district has submitted results for all parties
-    // long totalOfParties = partyService.findAll().size();
-    // long numberOfPartiesWithSubmittedResults =
-    // district.getPartyResults().size();
-    //
-    // if (totalOfParties == numberOfPartiesWithSubmittedResults) {
-    // district.setSubmittedMultiResults(true);
-    // } else {
-    // district.setSubmittedMultiResults(false);
-    // }
-    // pollingDistrictService.saveOrUpdate(district);
+        for (PollingDistrictEntity district : districts) {
+            List<PartyResultsEntity> results = district.getPartyResults();
+            DistrictResultSubmitTime districtResultsSubmissionTime;
+            Date resultsDate = null;
+            String resultsDateString = "Rezultatai nepateikti";
+
+            if (!results.isEmpty()) {
+                for (PartyResultsEntity result : results) {
+                    resultsDate = result.getCreated();
+                    break;
+                }
+                try {
+                    SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                    resultsDateString = dt.format(resultsDate);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            districtResultsSubmissionTime = new DistrictResultSubmitTime(district, resultsDateString);
+            districtResultsSubmissionTimeList.add(districtResultsSubmissionTime);
+        }
+        return districtResultsSubmissionTimeList;
+    }
 
 }
