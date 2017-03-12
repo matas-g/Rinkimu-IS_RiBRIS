@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -26,15 +25,15 @@ public class PartyEntity {
 
     @Length(min = 1, max = 200)
     private String name;
-    
+
     @Column(name = "Party_Number")
     private Long partyNo;
 
-    @OneToMany(mappedBy = "party", cascade=CascadeType.ALL)
+    @OneToMany(mappedBy = "party", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "candidate-party")
     private List<CandidateEntity> candidates;
-    
-    @OneToMany(mappedBy = "party", cascade=CascadeType.ALL)
+
+    @OneToMany(mappedBy = "party", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "party-results")
     private List<PartyResultsEntity> partyResults;
 
@@ -131,5 +130,5 @@ public class PartyEntity {
             return false;
         return true;
     }
-    
+
 }
