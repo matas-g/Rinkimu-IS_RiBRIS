@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import lt.javainiai.model.CandidatesResultsSingleMandateEntity;
 import lt.javainiai.model.PartyResultsEntity;
@@ -91,7 +90,6 @@ public class PollingDistrictService {
         return activityInDistrictsList;
     }
 
-    @Transactional
     public PollingDistrictEntity postSpoiledBallots(Long districtId, SpoiledResults results) {
         Long single;
         Long multi;
