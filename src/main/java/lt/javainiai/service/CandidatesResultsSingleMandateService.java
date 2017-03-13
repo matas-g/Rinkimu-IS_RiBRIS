@@ -157,7 +157,7 @@ public class CandidatesResultsSingleMandateService {
                 long totalOfCandidates = district.getConstituency().getCandidates().size();
                 long numberOfCandidatesWithSubmittedResults = district.getSingleMandateResults().size();
 
-                if (totalOfCandidates == numberOfCandidatesWithSubmittedResults) {
+                if (numberOfCandidatesWithSubmittedResults >= totalOfCandidates) {
                     districtsWithResults++;
                 }
             }
@@ -178,10 +178,9 @@ public class CandidatesResultsSingleMandateService {
             String resultsDateString = "Rezultatai nepateikti";
 
             if (!results.isEmpty()) {
-                for (CandidatesResultsSingleMandateEntity result : results) {
-                    resultsDate = result.getCreated();
-                    break;
-                }
+                CandidatesResultsSingleMandateEntity lastResult = results.get(results.size() - 1);
+                resultsDate = lastResult.getCreated();
+
                 try {
                     SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                     resultsDateString = dt.format(resultsDate);

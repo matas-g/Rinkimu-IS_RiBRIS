@@ -199,7 +199,7 @@ public class PartyResultsService {
                 long totalOfParties = partyService.findAll().size();
                 long numberOfPartiesWithSubmittedResults = district.getPartyResults().size();
 
-                if (totalOfParties == numberOfPartiesWithSubmittedResults) {
+                if (numberOfPartiesWithSubmittedResults >= totalOfParties) {
                     districtsWithResults++;
                 }
             }
@@ -220,10 +220,9 @@ public class PartyResultsService {
             String resultsDateString = "Rezultatai nepateikti";
 
             if (!results.isEmpty()) {
-                for (PartyResultsEntity result : results) {
-                    resultsDate = result.getCreated();
-                    break;
-                }
+                PartyResultsEntity lastResult = results.get(results.size() - 1);
+                resultsDate = lastResult.getCreated();
+
                 try {
                     SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                     resultsDateString = dt.format(resultsDate);
