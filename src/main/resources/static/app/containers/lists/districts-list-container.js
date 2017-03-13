@@ -5,7 +5,8 @@ const DistrictListComponent = require('../../presentations/lists/districts-list-
 var DistrictListContainer = React.createClass({
   getInitialState: function() {
     return {
-      districts: []
+      districts: [],
+      searchText: ''
     };
   },
 
@@ -26,6 +27,13 @@ var DistrictListContainer = React.createClass({
         });
       });
     }
+  },
+
+  handleSearchTextChange: function(e) {
+    var text = e.target.value;
+    this.setState({
+      searchText: text
+    });
   },
 
   handleDistrictEdit: function(district) {
@@ -53,6 +61,8 @@ var DistrictListContainer = React.createClass({
     return (
       <DistrictListComponent
         districts={this.state.districts}
+        searchText={this.state.searchText}
+        onSearchTextChange={this.handleSearchTextChange}
         onAddClick={this.handleAddDistrict}
         onEditItem={this.handleDistrictEdit}
         onRemoveItem={this.handleDistrictRemove}

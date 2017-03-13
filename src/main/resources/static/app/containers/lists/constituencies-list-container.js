@@ -5,7 +5,8 @@ const ConstituenciesListPresentation = require('../../presentations/lists/consti
 var ConstituenciesListContainer = React.createClass({
   getInitialState: function() {
     return {
-      constituencies: []
+      constituencies: [],
+      searchText: ''
     };
   },
 
@@ -19,7 +20,12 @@ var ConstituenciesListContainer = React.createClass({
     });
   },
 
-
+  handleSearchTextChange: function(e) {
+    var text = e.target.value;
+    this.setState({
+      searchText: text
+    });
+  },
 
   handleConstituencyEdit: function(constituency) {
     var self = this;
@@ -59,7 +65,9 @@ var ConstituenciesListContainer = React.createClass({
   render: function() {
     return (
       <ConstituenciesListPresentation
+        searchText={this.state.searchText}
         constituencies={this.state.constituencies}
+        onSearchTextChange={this.handleSearchTextChange}
         onEditItem={this.handleConstituencyEdit}
         onRemoveItem={this.handleConstituencyRemove}
         onDistrictsListClick={this.handleDistrictsList}

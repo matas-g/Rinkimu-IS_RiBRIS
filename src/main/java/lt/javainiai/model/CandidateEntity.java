@@ -60,6 +60,11 @@ public class CandidateEntity {
         return constituency == null ? null : constituency.getId();
     }
     
+    @JsonProperty
+    public String getConstituencyName() {
+        return constituency == null ? null : constituency.getName();
+    }
+    
     @OneToMany(mappedBy = "candidate", cascade=CascadeType.ALL)
     @JsonManagedReference(value = "candidate-ratingResults")
     private List<CandidatesResultsRatingEntity> candidatesResultsRating;

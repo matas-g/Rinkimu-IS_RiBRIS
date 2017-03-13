@@ -6,7 +6,7 @@ var AddRepresentativePresentation = React.createClass({
     if(this.props.representativeId == undefined) {
       return (
         <form autoComplete="off">
-          <h4>Registruoti naują atstovą</h4>
+          <h4 className="alert alert-info">Registruoti naują atstovą</h4>
           <br />
           <div className="form-group">
             <label>Vardas</label>
@@ -30,7 +30,7 @@ var AddRepresentativePresentation = React.createClass({
     } else {
       return (
         <form autoComplete="off">
-          <h4>Redaguoti {this.props.districtName} apylinkės atstovą</h4>
+          <h4 className="alert alert-info">Redaguoti {this.props.districtName} apylinkės atstovą</h4>
           <br />
           <div className="form-group">
             <label>Vardas</label>
