@@ -69,20 +69,11 @@ input::-webkit-inner-spin-button {
   color: #fff;
 }
 
-
-
-
-
 /* Login css */
 
 .img img{
   height: 160px;
   width: 160px;
-}
-
-.img img:hover {
-  height: 170px;
-  width: 170px;
 }
 
 .info p {
@@ -100,7 +91,7 @@ input::-webkit-inner-spin-button {
 }
 
 
-/* Single mandate results table css 
+/* Single mandate results table css
 .table-head {
   font-size: 12px;
 }
@@ -118,4 +109,3 @@ input::-webkit-inner-spin-button {
 }
 
 */
-
