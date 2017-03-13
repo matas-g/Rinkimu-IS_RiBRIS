@@ -61,10 +61,11 @@ public class CandidatesResultsSingleMandateService {
         for (CandidateEntity candidate : candidates) {
             List<CandidatesResultsSingleMandateEntity> candidateResultsList = candidate
                     .getCandidatesResultsSingleMandate();
+
             SingleMandateCandidateResults candidateResult;
             Long candidateVotes = 0L;
-            Double percentOfValidBallots = null;
-            Double percentOfAllBallots = null;
+            Double percentOfValidBallots = 0.0d;
+            Double percentOfAllBallots = 0.0d;
 
             for (CandidatesResultsSingleMandateEntity result : candidateResultsList) {
                 if (result.getDistrict().equals(district)) {
@@ -73,11 +74,15 @@ public class CandidatesResultsSingleMandateService {
                 }
             }
 
-            percentOfValidBallots = (candidateVotes.doubleValue() / validVotes.doubleValue()) * 100.0d;
-            percentOfValidBallots = UtilityMethods.round(percentOfValidBallots, 2);
+            if (!validVotes.equals(0L)) {
+                percentOfValidBallots = (candidateVotes.doubleValue() / validVotes.doubleValue()) * 100.0d;
+                percentOfValidBallots = UtilityMethods.round(percentOfValidBallots.doubleValue(), 2);
+            }
 
-            percentOfAllBallots = (candidateVotes.doubleValue() / allBallots.doubleValue()) * 100.0d;
-            percentOfAllBallots = UtilityMethods.round(percentOfAllBallots, 2);
+            if (!allBallots.equals(0L)) {
+                percentOfAllBallots = (candidateVotes.doubleValue() / allBallots.doubleValue()) * 100.0d;
+                percentOfAllBallots = UtilityMethods.round(percentOfAllBallots.doubleValue(), 2);
+            }
 
             candidateResult = new SingleMandateCandidateResults(candidate, candidateVotes, percentOfValidBallots,
                     percentOfAllBallots);
@@ -112,8 +117,8 @@ public class CandidatesResultsSingleMandateService {
                     .getCandidatesResultsSingleMandate();
             SingleMandateCandidateResults candidateResult;
             Long candidateVotes = 0L;
-            Double percentOfValidBallots = null;
-            Double percentOfAllBallots = null;
+            Double percentOfValidBallots = 0.0d;
+            Double percentOfAllBallots = 0.0d;
 
             for (CandidatesResultsSingleMandateEntity result : candidateResultsList) {
                 if (result.getDistrict().getConstituency().equals(constituency)) {
@@ -121,11 +126,15 @@ public class CandidatesResultsSingleMandateService {
                 }
             }
 
-            percentOfValidBallots = (candidateVotes.doubleValue() / validVotes.doubleValue()) * 100.0d;
-            percentOfValidBallots = UtilityMethods.round(percentOfValidBallots, 2);
+            if (!validVotes.equals(0L)) {
+                percentOfValidBallots = (candidateVotes.doubleValue() / validVotes.doubleValue()) * 100.0d;
+                percentOfValidBallots = UtilityMethods.round(percentOfValidBallots, 2);
+            }
 
-            percentOfAllBallots = (candidateVotes.doubleValue() / allBallots.doubleValue()) * 100.0d;
-            percentOfAllBallots = UtilityMethods.round(percentOfAllBallots, 2);
+            if (!allBallots.equals(0L)) {
+                percentOfAllBallots = (candidateVotes.doubleValue() / allBallots.doubleValue()) * 100.0d;
+                percentOfAllBallots = UtilityMethods.round(percentOfAllBallots, 2);
+            }
 
             candidateResult = new SingleMandateCandidateResults(candidate, candidateVotes, percentOfValidBallots,
                     percentOfAllBallots);

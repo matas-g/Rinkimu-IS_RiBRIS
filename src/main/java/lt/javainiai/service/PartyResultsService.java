@@ -63,8 +63,8 @@ public class PartyResultsService {
         for (PartyEntity party : parties) {
             MultiMandatePartyResults partyResult;
             Long partyVotes = 0L;
-            Double percentOfValidBallots = null;
-            Double percentOfAllBallots = null;
+            Double percentOfValidBallots = 0.0d;
+            Double percentOfAllBallots = 0.0d;
 
             List<PartyResultsEntity> partyResults = party.getPartyResults();
             for (PartyResultsEntity result : partyResults) {
@@ -74,11 +74,15 @@ public class PartyResultsService {
                 }
             }
 
-            percentOfValidBallots = (partyVotes.doubleValue() / validVotes.doubleValue()) * 100.0d;
-            percentOfValidBallots = UtilityMethods.round(percentOfValidBallots, 2);
+            if (!validVotes.equals(0L)) {
+                percentOfValidBallots = (partyVotes.doubleValue() / validVotes.doubleValue()) * 100.0d;
+                percentOfValidBallots = UtilityMethods.round(percentOfValidBallots, 2);
+            }
 
-            percentOfAllBallots = (partyVotes.doubleValue() / allBallots.doubleValue()) * 100.0d;
-            percentOfAllBallots = UtilityMethods.round(percentOfAllBallots, 2);
+            if (!allBallots.equals(0L)) {
+                percentOfAllBallots = (partyVotes.doubleValue() / allBallots.doubleValue()) * 100.0d;
+                percentOfAllBallots = UtilityMethods.round(percentOfAllBallots, 2);
+            }
 
             partyResult = new MultiMandatePartyResults(party, partyVotes, percentOfValidBallots, percentOfAllBallots);
             districtResultsList.add(partyResult);
@@ -111,8 +115,8 @@ public class PartyResultsService {
             List<PartyResultsEntity> partyResultsList = party.getPartyResults();
             MultiMandatePartyResults partyResult;
             Long partyVotes = 0L;
-            Double percentOfValidBallots;
-            Double percentOfAllBallots;
+            Double percentOfValidBallots = 0.0d;
+            Double percentOfAllBallots = 0.0d;
 
             for (PartyResultsEntity result : partyResultsList) {
                 if (result.getDistrict().getConstituency().equals(constituency)) {
@@ -120,11 +124,15 @@ public class PartyResultsService {
                 }
             }
 
-            percentOfValidBallots = (partyVotes.doubleValue() / validVotes.doubleValue()) * 100.0d;
-            percentOfValidBallots = UtilityMethods.round(percentOfValidBallots, 2);
+            if (!validVotes.equals(0L)) {
+                percentOfValidBallots = (partyVotes.doubleValue() / validVotes.doubleValue()) * 100.0d;
+                percentOfValidBallots = UtilityMethods.round(percentOfValidBallots, 2);
+            }
 
-            percentOfAllBallots = (partyVotes.doubleValue() / allBallots.doubleValue()) * 100.0d;
-            percentOfAllBallots = UtilityMethods.round(percentOfAllBallots, 2);
+            if (!allBallots.equals(0L)) {
+                percentOfAllBallots = (partyVotes.doubleValue() / allBallots.doubleValue()) * 100.0d;
+                percentOfAllBallots = UtilityMethods.round(percentOfAllBallots, 2);
+            }
 
             partyResult = new MultiMandatePartyResults(party, partyVotes, percentOfValidBallots, percentOfAllBallots);
             constituencyResultsList.add(partyResult);
@@ -154,18 +162,22 @@ public class PartyResultsService {
             List<PartyResultsEntity> partyResultsList = party.getPartyResults();
             MultiMandatePartyResults partyResult;
             Long partyVotes = 0L;
-            Double percentOfValidBallots;
-            Double percentOfAllBallots;
+            Double percentOfValidBallots = 0.0d;
+            Double percentOfAllBallots = 0.0d;
 
             for (PartyResultsEntity result : partyResultsList) {
                 partyVotes += result.getNumberOfVotes();
             }
 
-            percentOfValidBallots = (partyVotes.doubleValue() / validVotes.doubleValue()) * 100.0d;
-            percentOfValidBallots = UtilityMethods.round(percentOfValidBallots, 2);
+            if (!validVotes.equals(0L)) {
+                percentOfValidBallots = (partyVotes.doubleValue() / validVotes.doubleValue()) * 100.0d;
+                percentOfValidBallots = UtilityMethods.round(percentOfValidBallots, 2);
+            }
 
-            percentOfAllBallots = (partyVotes.doubleValue() / allBallots.doubleValue()) * 100.0d;
-            percentOfAllBallots = UtilityMethods.round(percentOfAllBallots, 2);
+            if (!allBallots.equals(0L)) {
+                percentOfAllBallots = (partyVotes.doubleValue() / allBallots.doubleValue()) * 100.0d;
+                percentOfAllBallots = UtilityMethods.round(percentOfAllBallots, 2);
+            }
 
             partyResult = new MultiMandatePartyResults(party, partyVotes, percentOfValidBallots, percentOfAllBallots);
             totalResultsList.add(partyResult);
