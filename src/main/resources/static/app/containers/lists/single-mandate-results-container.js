@@ -6,7 +6,8 @@ const SingleMandateListPresentation = require('../../presentations/lists/single-
 var SingleMandateListContainer = React.createClass({
   getInitialState: function() {
     return {
-      constituencies: []
+      constituencies: [],
+      searchText: ''
     };
   },
 
@@ -20,22 +21,19 @@ var SingleMandateListContainer = React.createClass({
     });
   },
 
-  cellButton(cell, row, enumObject, rowIndex) {
-    var link = "/single-mandate-districts/" + this.state.constituencies[rowIndex].constituency.id;
-    return (
-       <Link 
-          to={link} 
-       >
-       {this.state.constituencies[rowIndex].constituency.name}
-       </Link>
-    )
+  handleSearchTextChange: function(e) {
+      var text = e.target.value;
+      this.setState({
+        searchText: text
+    });
   },
 
   render: function() {
     return (
       <SingleMandateListPresentation
         constituencies={this.state.constituencies}
-        cellButton={this.cellButton}
+        onSearchTextChange={this.handleSearchTextChange}
+        searchText={this.state.searchText}
       />
     );
   }

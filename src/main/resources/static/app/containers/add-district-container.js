@@ -16,7 +16,7 @@ var AddDistrictContainer = React.createClass({
     };
   },
 
-  componentDidMount: function() {
+  componentWillMount: function() {
     var self = this;
     axios.get('http://localhost:8090/constituencies/').then(function(response) {
       self.setState({

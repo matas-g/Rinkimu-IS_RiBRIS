@@ -6,7 +6,8 @@ const SingleMandateDistrictListComponent = require('../../presentations/lists/si
 var SingleMandateDistrictListContainer = React.createClass({
   getInitialState: function() {
     return {
-      districts: []
+      districts: [],
+      searchText: ''
     };
   },
 
@@ -20,22 +21,20 @@ var SingleMandateDistrictListContainer = React.createClass({
       });
   },
 
-  cellButton(cell, row, enumObject, rowIndex) {
-    var link = "/single-mandate-district-results/" + this.state.districts[rowIndex].district.id;
-    return (
-       <Link 
-          to={link} 
-       >
-       {this.state.districts[rowIndex].district.name}
-       </Link>
-    )
+    handleSearchTextChange: function(e) {
+      var text = e.target.value;
+      this.setState({
+        searchText: text
+    });
   },
+
 
   render: function() {
     return (
       <SingleMandateDistrictListComponent
         districts={this.state.districts}
-        cellButton={this.cellButton}
+        onSearchTextChange={this.handleSearchTextChange}
+        searchText={this.state.searchText}
       />
     );
   }

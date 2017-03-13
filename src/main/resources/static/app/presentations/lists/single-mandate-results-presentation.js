@@ -1,48 +1,58 @@
 const React = require('react');
 const NavLink = require('../navigation/nav-link');
 const Link = require('react-router').Link;
-const ReactBsTable = require("react-bootstrap-table");
-const BootstrapTable = ReactBsTable.BootstrapTable;
-const TableHeaderColumn = ReactBsTable.TableHeaderColumn;
 
-const SingleMandateComponent = React.createClass({
-  render: function() {
-    var self = this;
-    var ConstituenciesList = [];
+var SingleMandateComponent = React.createClass({
+	render: function() {
 
-     var noData = {
-      noDataText: 'Šiuo metu duomenų nėra'
-    }
-
-    self.props.constituencies.map(function(constituency, index) {
-	    ConstituenciesList.push(
-    		{
-				id: index+1,
-				constituencyId: constituency.constituency.id,
-				name: constituency.constituency.name,
-				districtsCount: constituency.totalNumOfDistricts,
-				votedDistrictsCount: constituency.districtsWithResults
-			}
+	var nr = 1;
+	var self = this;
+	var ConstituenciesList = this.props.constituencies.filter(function(constituency) {
+      	if (constituency.constituency.name.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) {
+        return false;
+      } else {
+        return true;
+      }
+    }).map(function(constituency, index) {
+			var link = "/single-mandate-districts/" + constituency.constituency.id;
+			return (
+				<tr key={index}>
+					<td><Link to={link}>{nr++}. {constituency.constituency.name}</Link></td>
+					<td>{constituency.totalNumOfDistricts}</td>
+					<td>{constituency.districtsWithResults}</td>
+				</tr>
 			);
-	});
+			
+		});
 
-	
+		return (
 
-    return (
-      <div>
-	      <h4>Balsavimo rezultatai vienmandatėse apygardose</h4>
-			<BootstrapTable height='auto' data={ConstituenciesList} options={noData}  striped={true} pagination search searchPlaceholder='ieškoti'>
-				<TableHeaderColumn row='0' colSpan='2' headerAlign='center' dataAlign='center'>Apygardos</TableHeaderColumn>
-	        	<TableHeaderColumn row='1'  width='35px' dataField='id' isKey>#</TableHeaderColumn>
-	        	<TableHeaderColumn row='1' headerAlign='center'  dataFormat={self.props.cellButton.bind(this)} dataField='name' >Pavadinimas</TableHeaderColumn>
-	        	<TableHeaderColumn row='0' colSpan='2' headerAlign='center'>Apylinkių skaičius</TableHeaderColumn>
-	       	 	<TableHeaderColumn row='1' width='160' headerAlign='center' dataAlign='center' dataField='districtsCount'>iš viso</TableHeaderColumn>
-	        	<TableHeaderColumn row='1' width='160' headerAlign='center' dataAlign='center' dataField='votedDistrictsCount'>duomenis atsiuntė</TableHeaderColumn>
-			</BootstrapTable>
-		</div>
-		
-    )
-  }
+			<div className="container-fluid">
+				
+				<div className="form-group pull-right">
+					<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchTextChange} />
+				</div>
+					<h3>Balsavimo rezultatai apygardose</h3>
+					<table className="table table-striped table-bordered">
+						<thead>
+							<tr className="table-head"> 
+								<th className="text-middle" style={{verticalAlign: 'middle'}} rowSpan="2">Apygardos</th> 
+								<th colSpan="2">Apylinkių skaičius</th> 
+							</tr> 
+							<tr className="table-head"> 
+								<th>iš viso</th> 
+								<th>duomenis atsiuntė</th>
+							</tr>
+							</thead>
+							<tbody> 
+								{ConstituenciesList}
+							</tbody> 
+					</table>
+			</div>			
+		);
+	}
 });
+
+
 
 module.exports = SingleMandateComponent;
