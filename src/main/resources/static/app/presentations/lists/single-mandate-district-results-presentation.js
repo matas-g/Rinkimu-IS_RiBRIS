@@ -1,6 +1,9 @@
 const React = require('react');
 const NavLink = require('../navigation/nav-link');
 const Link = require('react-router').Link;
+const ReactBsTable = require("react-bootstrap-table");
+const BootstrapTable = ReactBsTable.BootstrapTable;
+const TableHeaderColumn = ReactBsTable.TableHeaderColumn;
 
 var SingleMandateDistrictResultsComponent = React.createClass({
 	render: function() {
@@ -36,3 +39,4 @@ var SingleMandateDistrictResultsComponent = React.createClass({
 });
 
 module.exports = SingleMandateDistrictResultsComponent;
+

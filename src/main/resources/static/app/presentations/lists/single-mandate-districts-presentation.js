@@ -11,6 +11,10 @@ const SingleMandateDistrictsComponent = React.createClass({
     var self = this;
     var DistrictsList = [];
 
+    var noData = {
+      noDataText: 'Šiuo metu duomenų nėra'
+    }
+
     self.props.districts.map(function(district, index) {
 		    DistrictsList.push(
       		{
@@ -26,11 +30,11 @@ const SingleMandateDistrictsComponent = React.createClass({
       
       <div>
       	<h4>Balsavimo rezultatai rinkimų apylinkėse</h4>
-		<BootstrapTable height='auto' data={DistrictsList} striped={true} pagination search searchPlaceholder='ieškoti'  >
-			<TableHeaderColumn width='35px' dataField='id' isKey>#</TableHeaderColumn>
-        	<TableHeaderColumn  dataField='name'>Apylinkės</TableHeaderColumn>
-        	<TableHeaderColumn  dataField='time'>Rezultatų pateikimo laikas</TableHeaderColumn>
-		</BootstrapTable>
+      		<BootstrapTable height='auto' data={DistrictsList} options={noData} striped={true} pagination search searchPlaceholder='ieškoti'  >
+      	     <TableHeaderColumn width='35px' dataField='id' isKey>#</TableHeaderColumn>
+             <TableHeaderColumn dataField='name' dataFormat={self.props.cellButton.bind(this)}>Apylinkės</TableHeaderColumn>
+          	 <TableHeaderColumn dataField='time'>Rezultatų pateikimo laikas</TableHeaderColumn>
+      		</BootstrapTable>
 	</div>
     )
   }

@@ -1,5 +1,6 @@
 const React = require('react');
 const axios = require('axios');
+const Link = require('react-router').Link;
 const SingleMandateDistrictListComponent = require('../../presentations/lists/single-mandate-districts-presentation');
 
 var SingleMandateDistrictListContainer = React.createClass({
@@ -19,10 +20,22 @@ var SingleMandateDistrictListContainer = React.createClass({
       });
   },
 
+  cellButton(cell, row, enumObject, rowIndex) {
+    var link = "/single-mandate-district-results/" + this.state.districts[rowIndex].district.id;
+    return (
+       <Link 
+          to={link} 
+       >
+       {this.state.districts[rowIndex].district.name}
+       </Link>
+    )
+  },
+
   render: function() {
     return (
       <SingleMandateDistrictListComponent
         districts={this.state.districts}
+        cellButton={this.cellButton}
       />
     );
   }

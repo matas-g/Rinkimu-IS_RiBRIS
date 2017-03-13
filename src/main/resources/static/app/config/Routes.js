@@ -44,7 +44,7 @@ const routes = (
         <IndexRoute component={SingleMandateList} />
         <Route path="/single-mandate" component={SingleMandateList} />
         <Route path="/single-mandate-districts/:constituencyId" component={SingleMandateDistrictResultsList} />
-        <Route path="/single-mandate-district-results" component={SingleMandateDistrictsList} />
+        <Route path="/single-mandate-district-results/:districtId" component={SingleMandateDistrictsList} />
         <Route path="/multi-mandate" component={SingleMandateList} />
         <Route path="/activity" component={ActivityList} />
       </Route>

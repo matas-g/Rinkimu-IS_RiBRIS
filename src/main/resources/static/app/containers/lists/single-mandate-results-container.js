@@ -35,8 +35,6 @@ var SingleMandateListContainer = React.createClass({
     return (
       <SingleMandateListPresentation
         constituencies={this.state.constituencies}
-        activeFormatter={this.props.activeFormatter}
-        onClickProductSelected={this.handleClickProductSelected}
         cellButton={this.cellButton}
       />
     );

@@ -10,6 +10,10 @@ const SingleMandateComponent = React.createClass({
     var self = this;
     var ConstituenciesList = [];
 
+     var noData = {
+      noDataText: 'Šiuo metu duomenų nėra'
+    }
+
     self.props.constituencies.map(function(constituency, index) {
 	    ConstituenciesList.push(
     		{
@@ -26,15 +30,15 @@ const SingleMandateComponent = React.createClass({
 
     return (
       <div>
-      <h4>Balsavimo rezultatai vienmandatėse apygardose</h4>
-		<BootstrapTable height='auto' data={ConstituenciesList} striped={true} pagination search searchPlaceholder='ieškoti'>
-			<TableHeaderColumn row='0' colSpan='2' headerAlign='center' dataAlign='center'>Apygardos</TableHeaderColumn>
-        	<TableHeaderColumn row='1'  width='35px' dataField='id' isKey>#</TableHeaderColumn>
-        	<TableHeaderColumn row='1' headerAlign='center'  dataFormat={self.props.cellButton.bind(this)} dataField='name' >Pavadinimas</TableHeaderColumn>
-        	<TableHeaderColumn row='0' colSpan='2' headerAlign='center'>Apylinkių skaičius</TableHeaderColumn>
-       	 	<TableHeaderColumn row='1' width='160' headerAlign='center' dataAlign='center' dataField='districtsCount'>iš viso</TableHeaderColumn>
-        	<TableHeaderColumn row='1' width='160' headerAlign='center' dataAlign='center' dataField='votedDistrictsCount'>duomenis atsiuntė</TableHeaderColumn>
-		</BootstrapTable>
+	      <h4>Balsavimo rezultatai vienmandatėse apygardose</h4>
+			<BootstrapTable height='auto' data={ConstituenciesList} options={noData}  striped={true} pagination search searchPlaceholder='ieškoti'>
+				<TableHeaderColumn row='0' colSpan='2' headerAlign='center' dataAlign='center'>Apygardos</TableHeaderColumn>
+	        	<TableHeaderColumn row='1'  width='35px' dataField='id' isKey>#</TableHeaderColumn>
+	        	<TableHeaderColumn row='1' headerAlign='center'  dataFormat={self.props.cellButton.bind(this)} dataField='name' >Pavadinimas</TableHeaderColumn>
+	        	<TableHeaderColumn row='0' colSpan='2' headerAlign='center'>Apylinkių skaičius</TableHeaderColumn>
+	       	 	<TableHeaderColumn row='1' width='160' headerAlign='center' dataAlign='center' dataField='districtsCount'>iš viso</TableHeaderColumn>
+	        	<TableHeaderColumn row='1' width='160' headerAlign='center' dataAlign='center' dataField='votedDistrictsCount'>duomenis atsiuntė</TableHeaderColumn>
+			</BootstrapTable>
 		</div>
 		
     )
