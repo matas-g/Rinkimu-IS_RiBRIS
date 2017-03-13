@@ -10,7 +10,15 @@ var DistrictListComponent = React.createClass({
     var cancelText = "Atšaukti";
     var confirmText = "Patvirtinti";
     var nr = 1;
-    var districtsList = this.props.districts.map(function(district, index) {
+    var districtsList = this.props.districts.filter(function(district) {
+      if ((district.name.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) &&
+         (district.address.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) &&
+         (district.constituencyName.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1)) {
+        return false;
+      } else {
+        return true;
+      }
+    }).map(function(district, index) {
       var title = <h2>Ištrinste <b>{district.name}</b> apylinkę</h2>
       var body = <h4 className="alert alert-danger">Ar tiktai norite ištrinti <b>{district.name}</b> apylinkę?</h4>;
       return (
@@ -41,25 +49,30 @@ var DistrictListComponent = React.createClass({
 
     return (
       <div className="container-fluid">
-        <div className="panel panel-default">
-        <div className="panel-heading"><strong>Apylinkių sąrašas</strong></div>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Nr</th>
-                <th>Pavadinimas</th>
-                <th>Adresas</th>
-                <th>Balsuotojų skaičius</th>
-                <th>Apygarda</th>
-                <th>Apylinkės atstovas</th>
-                <th>Redaguoti</th>
-              </tr>
-            </thead>
-            <tbody>
-              {districtsList}
-            </tbody>
-          </table>
+        <div className="form-group pull-right">
+          <input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchTextChange} />
         </div>
+        <div>
+          <h3>
+            <strong>Apylinkių sąrašas</strong>
+          </h3>
+        </div>
+        <table className="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Nr</th>
+              <th>Pavadinimas</th>
+              <th>Adresas</th>
+              <th>Balsuotojų skaičius</th>
+              <th>Apygarda</th>
+              <th>Apylinkės atstovas</th>
+              <th>Redaguoti</th>
+            </tr>
+          </thead>
+          <tbody>
+            {districtsList}
+          </tbody>
+        </table>
       </div>
     );
   }

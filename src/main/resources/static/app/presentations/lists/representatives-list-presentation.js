@@ -39,22 +39,27 @@ var RepresentativeListComponent = React.createClass({
 
     return (
       <div className="container-fluid">
-        <div className="panel panel-default">
-        <div className="panel-heading"><strong>Atstovų sąrašas</strong></div>
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Nr</th>
-                <th>Vardas</th>
-                <th>Pavardė</th>
-                <th>Apylinkė</th>
-              </tr>
-            </thead>
-            <tbody>
-              {RepresentativesList}
-            </tbody>
-          </table>
+        <div className="form-group pull-right">
+          <input type="text" className="search form-control" placeholder="Ieškoti" />
         </div>
+        <div>
+          <h3>
+            <strong>Atstovų sąrašas</strong>
+          </h3>
+        </div>
+        <table className="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Nr</th>
+              <th>Vardas</th>
+              <th>Pavardė</th>
+              <th>Apylinkė</th>
+            </tr>
+          </thead>
+          <tbody>
+            {RepresentativesList}
+          </tbody>
+        </table>
       </div>
     );
   }

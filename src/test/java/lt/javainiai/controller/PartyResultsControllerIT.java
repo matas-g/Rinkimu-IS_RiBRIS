@@ -83,14 +83,16 @@ public class PartyResultsControllerIT {
    
     }
      
-    private void deletePartyResultsById(Long id){
+    @SuppressWarnings("unused")
+	private void deletePartyResultsById(Long id){
        ResponseEntity<Void> response = 
                restTemplate.exchange(URI  + id, HttpMethod.DELETE, null, Void.class);
         
        Assert.assertThat(response.getStatusCode(), is(HttpStatus.NO_CONTENT));
     
     }
-     
+    
+    @SuppressWarnings("unused")
     private PartyResultsEntity findPartyResultsById(Long id){
        ResponseEntity<PartyResultsEntity> response = 
                restTemplate.exchange(URI  + id, HttpMethod.GET, null, PartyResultsEntity.class);

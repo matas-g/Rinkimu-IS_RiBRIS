@@ -29,13 +29,12 @@ var AddCandidateContainer = React.createClass({
     });
     if (this.props.params.candidateId != undefined) {
 	      axios.get('http://localhost:8090/candidates/' + this.props.params.candidateId).then(function (response) {
-	    	  console.log(response.data);
 	    	  self.setState({
-	    		 id: response.data.id,
-	        	 name: response.data.name,
-	             surname: response.data.surname,
-	             birthDate: response.data.birthDate,
-	             biography: response.data.biography
+	    		  id: response.data.id,
+        	  name: response.data.name,
+            surname: response.data.surname,
+            birthDate: response.data.birthDate,
+            biography: response.data.biography
 	        });
 	      });
 	  }

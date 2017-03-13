@@ -58,6 +58,26 @@ var ValidatorContainer = React.createClass({
             errorStates: newState
           });
         }
+        if (input.length >= 4 && !exp.test(input)) {
+          var newState = {
+            invalidText: true,
+            invalidLength: newState.invalidLength
+          };
+          self.setState({
+            isValid: false,
+            errorStates: newState
+          });
+        }
+        if (input.length >= 4 && exp.test(input)) {
+          var newState = {
+            invalidText: false,
+            invalidLength: newState.invalidLength
+          };
+          self.setState({
+            isValid: true,
+            errorStates: newState
+          });
+        }
       }
     },
 
