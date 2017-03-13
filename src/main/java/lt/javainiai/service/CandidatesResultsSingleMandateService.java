@@ -17,6 +17,7 @@ import lt.javainiai.utils.ConstituencyProgress;
 import lt.javainiai.utils.DistrictResultSubmitTime;
 import lt.javainiai.utils.SingleMandateCandidateResults;
 import lt.javainiai.utils.UtilityMethods;
+import lt.javainiai.utils.WinnerCandidateSingleMandate;
 
 @Service
 public class CandidatesResultsSingleMandateService {
@@ -192,6 +193,29 @@ public class CandidatesResultsSingleMandateService {
             districtResultsSubmissionTimeList.add(districtResultsSubmissionTime);
         }
         return districtResultsSubmissionTimeList;
+    }
+
+    public List<WinnerCandidateSingleMandate> getWinnerCandidatesSingleMandate() {
+        List<WinnerCandidateSingleMandate> winnerCandidatesList = new ArrayList<>();
+        List<ConstituencyEntity> constituencies = constituencyService.findAll();
+
+        for (ConstituencyEntity constituency : constituencies) {
+            List<SingleMandateCandidateResults> candidateResults = getSingleMandateResultsInConstituency(
+                    constituency.getId());
+            WinnerCandidateSingleMandate winnerCandidate;
+            CandidateEntity candidate = null;
+            Double percentOfAllBallots = 0.0d;
+
+            for (SingleMandateCandidateResults candidateResult : candidateResults) {
+                if (percentOfAllBallots <= candidateResult.getPercentOfAllBallots()) {
+                    percentOfAllBallots = candidateResult.getPercentOfAllBallots();
+                    candidate = candidateResult.getCandidate();
+                }
+            }
+            winnerCandidate = new WinnerCandidateSingleMandate(candidate, percentOfAllBallots);
+            winnerCandidatesList.add(winnerCandidate);
+        }
+        return winnerCandidatesList;
     }
 
 }
