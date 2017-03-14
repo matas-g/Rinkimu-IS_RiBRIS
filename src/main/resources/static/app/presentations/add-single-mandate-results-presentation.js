@@ -1,5 +1,6 @@
 const React = require('react');
 const NumberValidator = require('../util/validation/number-validator-container');
+const Alert = require('../util/alert/alert');
 
 var SingleMandateResultsInputPresentation = React.createClass({
   render: function() {
@@ -8,10 +9,8 @@ var SingleMandateResultsInputPresentation = React.createClass({
     return (
       <div className="form-group col-sm-6" key={index}>
         <label>{candidate.name.replace(/'/g,"") + " " + candidate.surname.replace(/'/g,"")}</label>
-        <NumberValidator>
           <input className="form-control" type="number" value={self.props.voteArray[index]}
             onChange={self.props.onResultsChange(index)} />
-        </NumberValidator>
       </div>
     );
   }).reduce(function(r, element, index) {
@@ -32,30 +31,37 @@ var SingleMandateResultsInputPresentation = React.createClass({
     );
   });
   return (
-    <form className="col-sm-offset-1 col-sm-10 container-fluid" autoComplete="off">
-      <h2 className="alert alert-info text-center">Suveskite kandidatų gautų balsų skaičių</h2>
-      <br />
-      <h4 className="alert alert-success text-center">Pasirinkite apylinkę</h4>
-        <select className="form-control" value={this.props.district.id} onChange={this.props.onDistrictChange}>
-          {DistrictsList}
-        </select>
-        <br />
-        <div>
-          {CandidateRows}
-        </div>
-      <br />
-      <h4 className="alert alert-success text-center">Sugadinti vienmandačiai balsai</h4>
-        <br />
-        <NumberValidator>
-          <input id="kiekis" className="form-control" type="number" value={this.props.results.spoiledSingle}
-            onChange={this.props.onSingleChange} />
-        </NumberValidator>
-        <br />
-      <div>
-        <button className="btn btn-success btn-sm" style={{ marginRight: '20px'}} onClick={this.props.onSaveClick}>Registruoti</button>
-        <button className="btn btn-danger btn-sm" onClick={this.props.onCancelClick}>Atšaukti</button>
+    <div className="container-fluid">
+      <div className="col-sm-offset-1 col-sm-10">
+        <form autoComplete="off">
+          <h2 className="alert alert-info text-center">Suveskite kandidatų gautų balsų skaičių</h2>
+          <br />
+          <h4 className="alert alert-success text-center">Pasirinkite apylinkę</h4>
+            <select className="form-control" value={this.props.district.id} onChange={this.props.onDistrictChange}>
+              {DistrictsList}
+            </select>
+            <br />
+            <div>
+              {CandidateRows}
+            </div>
+          <br />
+          <h4 className="alert alert-success text-center">Sugadinti vienmandačiai balsai</h4>
+            <br />
+            <NumberValidator
+               handleValidStateChange={self.props.handleValidStateChange}
+               >
+              <input id="kiekis" className="form-control" type="number" value={this.props.results.spoiledSingle}
+                onChange={this.props.onSingleChange} />
+            </NumberValidator>
+            <br />
+            <Alert text={this.props.text} style={"alert alert-danger alert-dismissable text-center"} />
+          <div>
+            <button className="btn btn-success btn-sm" style={{ marginRight: '20px'}} onClick={this.props.onSaveClick}>Registruoti</button>
+            <button className="btn btn-danger btn-sm" onClick={this.props.onCancelClick}>Atšaukti</button>
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
     );
   }
 });
