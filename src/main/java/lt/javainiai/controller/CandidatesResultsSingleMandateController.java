@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lt.javainiai.model.CandidatesResultsSingleMandateEntity;
 import lt.javainiai.service.CandidatesResultsSingleMandateService;
-import lt.javainiai.utils.SingleMandateCandidateResults;
-import lt.javainiai.utils.WinnerCandidateSingleMandate;
 import lt.javainiai.utils.ConstituencyProgress;
 import lt.javainiai.utils.DistrictResultSubmitTime;
+import lt.javainiai.utils.SingleMandateCandidateResults;
+
 
 @RestController
 @RequestMapping("/candidates-results/single-mandate")
@@ -86,7 +86,7 @@ public class CandidatesResultsSingleMandateController {
 
     @RequestMapping(value = "winner-candidates", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    List<WinnerCandidateSingleMandate> getWinnerCandidatesSingleMandate() {
+    List<SingleMandateCandidateResults> getWinnerCandidatesSingleMandate() {
         return candidatesResultsService.getWinnerCandidatesSingleMandate();
     }
 }
