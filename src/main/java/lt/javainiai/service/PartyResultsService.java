@@ -17,6 +17,7 @@ import lt.javainiai.utils.ConstituencyProgress;
 import lt.javainiai.utils.DistrictResultSubmitTime;
 import lt.javainiai.utils.MultiMandatePartyResults;
 import lt.javainiai.utils.UtilityMethods;
+import lt.javainiai.utils.WinnerPartyMultiMandate;
 
 @Service
 public class PartyResultsService {
@@ -183,6 +184,18 @@ public class PartyResultsService {
             totalResultsList.add(partyResult);
         }
         return totalResultsList;
+    }
+    
+    public List<WinnerPartyMultiMandate> getWinnerPartiesMultiMandate() {
+        List<WinnerPartyMultiMandate> winnerParties = new ArrayList<>();
+        List<MultiMandatePartyResults> totalPartyResults = getMultiMandateTotalResults();
+        
+        // TODO
+        
+        
+        
+        
+        return winnerParties;
     }
 
     public List<ConstituencyProgress> getConstituenciesProgressList() {
