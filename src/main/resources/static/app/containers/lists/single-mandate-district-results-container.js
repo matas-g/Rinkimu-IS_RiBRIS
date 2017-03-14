@@ -6,7 +6,7 @@ const SingleMandateDistrictResultsComponent = require('../../presentations/lists
 var SingleMandateDistrictListResultsContainer = React.createClass({
   getInitialState: function() {
     return {
-      districts: []
+      candidates: [],
     };
   },
 
@@ -15,7 +15,7 @@ var SingleMandateDistrictListResultsContainer = React.createClass({
       axios.get('http://localhost:8090/candidates-results/single-mandate/district/' + self.props.params.districtId)
       .then(function (response) {
         self.setState({
-            districts: response.data,
+            candidates: response.data,
         });
       });
   },
@@ -25,8 +25,7 @@ var SingleMandateDistrictListResultsContainer = React.createClass({
   render: function() {
     return (
       <SingleMandateDistrictResultsComponent
-        districts={this.state.districts}
-        cellButton={this.cellButton}
+        candidates={this.state.candidates}
       />
     );
   }

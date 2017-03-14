@@ -108,4 +108,17 @@ input::-webkit-inner-spin-button {
   height: 200px;
 }
 
+/* Candidate profile css */
+.panel .panel-heading {
+  background: #4CAF50;
+  color: #fff;
+}
 
+.panel {
+  border: 1px solid #4CAF50;
+}
+
+.img-circle {
+  height: 195px;
+  width: 190px;
+}
