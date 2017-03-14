@@ -20,6 +20,7 @@ import lt.javainiai.utils.ConstituencyProgress;
 import lt.javainiai.utils.DistrictResultSubmitTime;
 import lt.javainiai.utils.SingleMandateCandidateResults;
 
+
 @RestController
 @RequestMapping("/candidates-results/single-mandate")
 public class CandidatesResultsSingleMandateController {
