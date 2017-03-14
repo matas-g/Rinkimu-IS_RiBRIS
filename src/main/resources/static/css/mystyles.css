@@ -108,6 +108,10 @@ input::-webkit-inner-spin-button {
   height: 200px;
 }
 
+.make-space {
+  height: 50px;
+}
+
 /* Candidate profile css */
 .panel .panel-heading {
   background: #4CAF50;
@@ -122,3 +126,13 @@ input::-webkit-inner-spin-button {
   height: 195px;
   width: 190px;
 }
+
+.candidate-name-decorator a {
+  color: #000;
+  text-decoration: none;
+}
+
+.candidate-name-decorator a:hover {
+  color: #3e8e41;
+}
+

@@ -86,21 +86,21 @@ var ValidatorContainer = React.createClass({
 
     },
 
-    shouldComponentUpdate: function(nextProps, nextState) {
-      if((this.state.isValid == nextState.isValid) &&
-         (this.state.errorStates.invalidText == nextState.errorStates.invalidText) &&
-         (this.state.errorStates.invalidLength == nextState.errorStates.invalidLength) &&
-         (this.state.input == nextProps.children.props.value)) {
-        return false;
-      } else {
-        this.props.handleValidStateChange(this.state.isValid);
-        return true;
-      }
-    },
+    // shouldComponentUpdate: function(nextProps, nextState) {
+    //   if((this.state.isValid == nextState.isValid) &&
+    //      (this.state.errorStates.invalidText == nextState.errorStates.invalidText) &&
+    //      (this.state.errorStates.invalidLength == nextState.errorStates.invalidLength) &&
+    //      (this.state.input == nextProps.children.props.value)) {
+    //     return false;
+    //   } else {
+    //     this.props.handleValidStateChange(this.state.isValid);
+    //     return true;
+    //   }
+    // },
 
-    componentDidUpdate: function(prevProps, prevState) {
-      this.props.handleValidStateChange(this.state.isValid);
-    },
+    // componentDidUpdate: function(prevProps, prevState) {
+    //   this.props.handleValidStateChange(this.state.isValid);
+    // },
 
     render: function() {
         return (

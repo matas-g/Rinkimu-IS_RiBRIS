@@ -7,6 +7,7 @@ var SingleMandateDistrictListResultsContainer = React.createClass({
   getInitialState: function() {
     return {
       candidates: [],
+       searchText: '',
     };
   },
 
@@ -20,12 +21,20 @@ var SingleMandateDistrictListResultsContainer = React.createClass({
       });
   },
 
+  handleSearchTextChange: function(e) {
+    var text = e.target.value;
+    this.setState({
+      searchText: text
+  });
+},
   
 
   render: function() {
     return (
       <SingleMandateDistrictResultsComponent
         candidates={this.state.candidates}
+        onSearchTextChange={this.handleSearchTextChange}
+        searchText={this.state.searchText}
       />
     );
   }

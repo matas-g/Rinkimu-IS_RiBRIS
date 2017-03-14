@@ -7,15 +7,21 @@ var SingleMandateDistrictResultsComponent = React.createClass({
 
 	var self = this;
     var nr = 1;
-	var CanditateList = this.props.candidates.map(function(candidate, index) {
+	var CanditateList = this.props.candidates.filter(function(candidate) {
+        if (candidate.candidate.name.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) {
+        return false;
+      } else {
+        return true;
+      }
+    }).map(function(candidate, index) {
 			var link = "/candidate-biography/" + candidate.candidate.id;
 			return (
 				<tr key={index}>
-					<td><Link to={link}>{nr++}. {candidate.candidate.name}. {candidate.candidate.surname}</Link></td>
+					<td className="candidate-name-decorator"><Link to={link}>{nr++}. {candidate.candidate.name}. {candidate.candidate.surname}</Link></td>
 					<td>{candidate.candidate.partyName}</td>
 					<td>{candidate.votes}</td>
-					<td>{candidate.percentOfValidBallots}</td>
-					<td>{candidate.percentOfAllBallots}</td>
+					<td style={{textAlign: 'center'}}>{candidate.percentOfValidBallots}%</td>
+					<td style={{textAlign: 'center'}}>{candidate.percentOfAllBallots}%</td>
 				</tr>
 			);
 			
@@ -28,12 +34,12 @@ var SingleMandateDistrictResultsComponent = React.createClass({
 				<div className="form-group pull-right">
 					<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchTextChange} />
 				</div>
-					<h3>Balsavimo rezultatai rinkimų apylinkėje</h3>
+					<h3>Balsavimo rezultatai rinkimų  apylinkėje</h3>
 					<table className="table table-striped table-bordered">
 						<thead>
 							<tr className="table-head">
-								<th lassName="text-middle" style={{verticalAlign: 'middle'}} rowSpan="2">Kandidatas</th>
-								<th lassName="text-middle" style={{verticalAlign: 'middle'}} rowSpan="2">Iškėlė</th>
+								<th className="text-middle" style={{verticalAlign: 'middle'}} rowSpan="2">Kandidatas</th>
+								<th className="text-middle" style={{verticalAlign: 'middle'}} rowSpan="2">Iškėlė</th>
 								<th colSpan="3">Paduotų balsų skaičius</th>
 							</tr>
 							<tr className="table-head">

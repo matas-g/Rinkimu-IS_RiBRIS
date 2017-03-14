@@ -25,7 +25,7 @@ var ValidatorContainer = React.createClass({
               errorStates: newState
             });
           }
-          this.props.handleValidStateChange(this.props.isValid);
+          // this.props.handleValidStateChange(this.props.isValid);
         }
         if (parseInt(input) != NaN) {
           if (parseInt(input) >= 0) {
@@ -37,22 +37,22 @@ var ValidatorContainer = React.createClass({
               errorStates: newState
             });
           }
-          this.props.handleValidStateChange(this.props.isValid);
+          // this.props.handleValidStateChange(this.props.isValid);
         }
       }
     },
 
-    shouldComponentUpdate: function(nextProps, nextState) {
-      if((this.state.isValid == nextState.isValid) &&
-         (this.state.errorStates.invalidText == nextState.errorStates.invalidText) &&
-         (this.state.errorStates.invalidLength == nextState.errorStates.invalidLength) &&
-         (this.state.input == nextProps.children.props.value)) {
-        return false;
-      } else {
-        this.props.handleValidStateChange(this.state.isValid);
-        return true;
-      }
-    },
+    // shouldComponentUpdate: function(nextProps, nextState) {
+    //   if((this.state.isValid == nextState.isValid) &&
+    //      (this.state.errorStates.invalidText == nextState.errorStates.invalidText) &&
+    //      (this.state.errorStates.invalidLength == nextState.errorStates.invalidLength) &&
+    //      (this.state.input == nextProps.children.props.value)) {
+    //     return false;
+    //   } else {
+    //     this.props.handleValidStateChange(this.state.isValid);
+    //     return true;
+    //   }
+    // },
 
     render: function() {
         return (

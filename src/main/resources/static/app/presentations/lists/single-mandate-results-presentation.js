@@ -17,7 +17,7 @@ var SingleMandateComponent = React.createClass({
 			var link = "/single-mandate-districts/" + constituency.constituency.id;
 			return (
 				<tr key={index}>
-					<td><Link to={link}>{nr++}. {constituency.constituency.name}</Link></td>
+					<td className="candidate-name-decorator"><Link to={link}>{nr++}. {constituency.constituency.name}</Link></td>
 					<td>{constituency.totalNumOfDistricts}</td>
 					<td>{constituency.districtsWithResults}</td>
 				</tr>

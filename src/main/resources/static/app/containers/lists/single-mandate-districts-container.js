@@ -7,7 +7,9 @@ var SingleMandateDistrictListContainer = React.createClass({
   getInitialState: function() {
     return {
       districts: [],
-      searchText: ''
+      candidates: [],
+      searchText: '',
+      constituencyName: ''
     };
   },
 
@@ -15,11 +17,21 @@ var SingleMandateDistrictListContainer = React.createClass({
     var self = this;
       axios.get('http://localhost:8090/candidates-results/single-mandate/districts-results-time/' + self.props.params.constituencyId)
       .then(function (response) {
+        console.log(response.data[0].district.constituencyName);
         self.setState({
             districts: response.data,
-        });
-      });
-  },
+            constituencyName: response.data[0].district.constituencyName
+          });
+        }).then(function() {
+          axios.get('http://localhost:8090/candidates-results/single-mandate/constituency/' + self.props.params.constituencyId)
+            .then(function (response) {
+
+            self.setState({
+              candidates: response.data
+            });
+        })
+    })
+},
 
     handleSearchTextChange: function(e) {
       var text = e.target.value;
@@ -33,8 +45,10 @@ var SingleMandateDistrictListContainer = React.createClass({
     return (
       <SingleMandateDistrictListComponent
         districts={this.state.districts}
+        candidates={this.state.candidates}
         onSearchTextChange={this.handleSearchTextChange}
         searchText={this.state.searchText}
+        constituencyName={this.state.constituencyName}
       />
     );
   }

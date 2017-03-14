@@ -33,7 +33,7 @@ const DistrictsActivityList = require('../containers/lists/districts-activity-li
 const PublicResultsList = require('../presentations/lists/public-result-list-presentation');
 const SingleMandateList = require('../containers/lists/single-mandate-results-container');
 
-const SingleMandateDistrictsList = require('../containers/lists/single-mandate-districts-list-container');
+const SingleMandateDistrictsList = require('../containers/lists/single-mandate-districts-container');
 const SingleMandateDistrictResultsList = require('../containers/lists/single-mandate-district-results-container');
 
 const CandidateBiography = require('../containers/candidate-biography-container');
