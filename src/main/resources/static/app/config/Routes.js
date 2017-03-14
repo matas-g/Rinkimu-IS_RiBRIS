@@ -33,8 +33,10 @@ const DistrictsActivityList = require('../containers/lists/districts-activity-li
 const PublicResultsList = require('../presentations/lists/public-result-list-presentation');
 const SingleMandateList = require('../containers/lists/single-mandate-results-container');
 
-const SingleMandateDistrictsList = require('../presentations/lists/single-mandate-district-results-presentation');
-const SingleMandateDistrictResultsList = require('../containers/lists/single-mandate-districts-list-container');
+const SingleMandateDistrictsList = require('../containers/lists/single-mandate-districts-container');
+const SingleMandateDistrictResultsList = require('../containers/lists/single-mandate-district-results-container');
+
+const CandidateBiography = require('../containers/candidate-biography-container');
 
 const routes = (
   <Router history={hashHistory}>
@@ -43,8 +45,10 @@ const routes = (
     	<Route path="/results" component={PublicResultsList} >
         <IndexRoute component={SingleMandateList} />
         <Route path="/single-mandate" component={SingleMandateList} />
-        <Route path="/single-mandate-districts/:constituencyId" component={SingleMandateDistrictResultsList} />
-        <Route path="/single-mandate-district-results" component={SingleMandateDistrictsList} />
+        <Route path="/single-mandate-districts/:constituencyId" component={SingleMandateDistrictsList} />
+        <Route path="/single-mandate-district-results/:districtId" component={SingleMandateDistrictResultsList} />
+        <Route path="/candidate-biography/:candidateId" component={CandidateBiography} />
+        
         <Route path="/multi-mandate" component={SingleMandateList} />
         <Route path="/activity" component={ConstituencyActivityList} />
         <Route path="/polling-districts/activity/all/:constituencyId" component={DistrictsActivityList} />

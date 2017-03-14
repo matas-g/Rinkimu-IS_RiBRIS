@@ -6,13 +6,18 @@ var ActivityListComponent = React.createClass({
 	render: function() {
     var self = this;
     var nr = 1;
-    var activityList = this.props.constituencies.map(function(constituency, index) {
+    var activityList = this.props.constituencies.filter(function(constituency) {
+        if (constituency.constituency.name.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) {
+        return false;
+      } else {
+        return true;
+      }
+    }).map(function(constituency, index) {
     	console.log(constituency);
     	var link = "/polling-districts/activity/all/" + constituency.constituency.id;
     	return (
         <tr key={index}>
-          <td>{nr++}</td>
-          <td><Link to={link}>{constituency.constituency.name}</Link></td>
+          <td className="candidate-name-decorator"><Link to={link}>{nr++}.{constituency.constituency.name}</Link></td>
           <td>{constituency.givenBallots}</td>
           <td>{constituency.percentOfAllVoters}%</td>
         </tr>
@@ -21,12 +26,13 @@ var ActivityListComponent = React.createClass({
 
     return (
       <div className="container-fluid">
-        <div className="panel panel-default">
-        <div className="panel-heading"><strong>Apygardų sąrašas</strong></div>
-          <table className="table">
+       <div className="form-group pull-right">
+          <input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchTextChange} />
+        </div>
+        <h3>Apygardų sąrašas</h3>
+          <table className="table table-striped table-bordered">
             <thead>
-              <tr>
-                <th>Nr</th>
+              <tr className="table-head">
                 <th>Pavadinimas</th>
                 <th>Balsavusių skaičius</th>
                 <th>Balsai procentaliai</th>
@@ -37,7 +43,6 @@ var ActivityListComponent = React.createClass({
             </tbody>
           </table>
         </div>
-      </div>
     );
   }
 });

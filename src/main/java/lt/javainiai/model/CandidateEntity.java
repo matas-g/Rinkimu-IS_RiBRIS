@@ -52,7 +52,7 @@ public class CandidateEntity {
 
     @JsonProperty
     public String getPartyName() {
-        return party == null ? null : party.getName();
+        return party == null ? "Išsikėlė pats" : party.getName();
     }
     
     @JsonProperty
