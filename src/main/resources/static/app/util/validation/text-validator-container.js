@@ -98,6 +98,10 @@ var ValidatorContainer = React.createClass({
       }
     },
 
+    componentDidUpdate: function(prevProps, prevState) {
+      this.props.handleValidStateChange(this.state.isValid);
+    },
+
     render: function() {
         return (
             <Validator

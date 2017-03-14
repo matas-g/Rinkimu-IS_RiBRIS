@@ -30,7 +30,9 @@ var AddPartyContainer = React.createClass({
 
     // Added for CSV import
     handleUploadMultiCandidateFile: function( file ) {
-        this.setState( { multiCandidateFile: file });
+      this.setState({
+        multiCandidateFile: file
+      });
     },
 
     handleSaveClick: function(e) {
