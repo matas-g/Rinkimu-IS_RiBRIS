@@ -91,7 +91,7 @@ input::-webkit-inner-spin-button {
 }
 
 
-/* Single mandate results table css
+/* Single mandate results table css */
 .table-head {
   font-size: 12px;
 }
@@ -108,4 +108,31 @@ input::-webkit-inner-spin-button {
   height: 200px;
 }
 
-*/
+.make-space {
+  height: 50px;
+}
+
+/* Candidate profile css */
+.panel .panel-heading {
+  background: #4CAF50;
+  color: #fff;
+}
+
+.panel {
+  border: 1px solid #4CAF50;
+}
+
+.img-circle {
+  height: 195px;
+  width: 190px;
+}
+
+.candidate-name-decorator a {
+  color: #000;
+  text-decoration: none;
+}
+
+.candidate-name-decorator a:hover {
+  color: #3e8e41;
+}
+

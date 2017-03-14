@@ -5,7 +5,8 @@ const DistrictsActivityListPresentation = require('../../presentations/lists/dis
 var DistrictsActivityListContainer = React.createClass({
   getInitialState: function() {
     return ({
-    	districts: []
+    	districts: [],
+      searchText: ''
     });
   },
   
@@ -20,19 +21,26 @@ var DistrictsActivityListContainer = React.createClass({
 	  	})
   },
   
+    handleSearchTextChange: function(e) {
+      var text = e.target.value;
+      this.setState({
+        searchText: text
+    });
+  },
 
   render: function() {
-	  console.log(this.state);
 	  return (
       <DistrictsActivityListPresentation
         districts={this.state.districts}
+        onSearchTextChange={this.handleSearchTextChange}
+        searchText={this.state.searchText}
       />
     );
   }
 });
 
-//ActivityListContainer.contextTypes = {
-//	    router: React.PropTypes.object.isRequired
-//	};
+DistrictsActivityListContainer.contextTypes = {
+	    router: React.PropTypes.object.isRequired
+	};
   
 module.exports = DistrictsActivityListContainer;

@@ -5,7 +5,8 @@ const ActivityListPresentation = require('../../presentations/lists/activity-lis
 var ConstituencyActivityListContainer = React.createClass({
   getInitialState: function() {
     return ({
-    	constituencies: []
+    	constituencies: [],
+      searchText: ''
     });
   },
   
@@ -18,20 +19,28 @@ var ConstituencyActivityListContainer = React.createClass({
 	  		});
 	  	})
   },
+
+    handleSearchTextChange: function(e) {
+      var text = e.target.value;
+      this.setState({
+        searchText: text
+    });
+  },
   
 
   render: function() {
-	  console.log(this.state);
 	  return (
       <ActivityListPresentation
         constituencies={this.state.constituencies}
+        onSearchTextChange={this.handleSearchTextChange}
+        searchText={this.state.searchText}
       />
     );
   }
 });
 
-//ActivityListContainer.contextTypes = {
-//	    router: React.PropTypes.object.isRequired
-//	};
+ConstituencyActivityListContainer.contextTypes = {
+	    router: React.PropTypes.object.isRequired
+	};
   
 module.exports = ConstituencyActivityListContainer;

@@ -10,10 +10,16 @@ var DistrictsActivityListComponent = React.createClass({
 	render: function() {
     var self = this;
     var nr = 1;
-    var activityList = this.props.districts.map(function(district, index) {
+    var activityList = this.props.districts.filter(function(district) {
+        if (district.district.name.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) {
+        return false;
+      } else {
+        return true;
+      }
+    }).map(function(district, index) {
     	return (
         <tr key={index}>
-          <td>{nr++}</td>
+        <td>{nr++}</td>
           <td>{district.district.name}</td>
           <td>{district.givenBallots}</td>
           <td>{district.percentOfAllVoters}%</td>
@@ -23,11 +29,13 @@ var DistrictsActivityListComponent = React.createClass({
 
     return (
       <div className="container-fluid">
-        <div className="panel panel-default">
-        <div className="panel-heading"><strong>Apylinkių sąrašas</strong></div>
-          <table className="table">
+        <div className="form-group pull-right">
+          <input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchTextChange} />
+        </div>
+        <h3>Apylinkių sąrašas</h3>
+          <table className="table table-striped table-bordered">
             <thead>
-              <tr>
+              <tr className="table-head">
                 <th>Nr</th>
                 <th>Pavadinimas</th>
                 <th>Balsavusių skaičius</th>
@@ -39,7 +47,6 @@ var DistrictsActivityListComponent = React.createClass({
             </tbody>
           </table>
         </div>
-      </div>
     );
   }
 });

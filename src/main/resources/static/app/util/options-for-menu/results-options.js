@@ -1,6 +1,6 @@
 var servedDetails = [
   {
-    text: 'Registruoti vienmandačių ruzultatus',
+    text: 'Registruoti vienmandačių rezultatus',
     pathTo: '/representative/results/single'
   },
   {
