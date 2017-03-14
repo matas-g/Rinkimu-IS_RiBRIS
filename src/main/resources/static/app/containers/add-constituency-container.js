@@ -112,12 +112,7 @@ var AddConstituencyContainer = React.createClass({
           onCancelClick={this.handleCancelClick}
           onFieldChange={this.handleFieldChange}
           onUploadMultiCandidateFile={this.handleUploadMultiCandidateFile}
-<<<<<<< HEAD
           onDeleteClick={this.handleDeleteCandidates}
-          handleValidStateChange={this.handleValidStateChange}
-=======
-        	onDeleteClick={this.handleDeleteCandidates}
->>>>>>> branch 'development' of https://github.com/matas-g/Rinkimu-IS_RiBRIS
         />
       );
     }

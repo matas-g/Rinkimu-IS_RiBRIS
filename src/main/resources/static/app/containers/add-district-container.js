@@ -13,12 +13,8 @@ var AddDistrictContainer = React.createClass({
       constituency: {
         id: 1
       },
-<<<<<<< HEAD
-      isValid: true,
-=======
       isValid: false,
       text: ''
->>>>>>> branch 'development' of https://github.com/matas-g/Rinkimu-IS_RiBRIS
     };
   },
 
@@ -101,17 +97,7 @@ var AddDistrictContainer = React.createClass({
   },
 
   handleCancelClick() {
-<<<<<<< HEAD
-      this.context.router.push('/admin/districts/');
-  },
-  
-  handleValidStateChange: function(isValid) {
-      this.setState({
-        isValid: isValid
-      });
-=======
     this.context.router.push('/admin/districts/');
->>>>>>> branch 'development' of https://github.com/matas-g/Rinkimu-IS_RiBRIS
   },
 
   render: function() {
