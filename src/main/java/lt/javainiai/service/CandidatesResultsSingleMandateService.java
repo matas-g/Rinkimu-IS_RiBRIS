@@ -17,7 +17,6 @@ import lt.javainiai.utils.ConstituencyProgress;
 import lt.javainiai.utils.DistrictResultSubmitTime;
 import lt.javainiai.utils.SingleMandateCandidateResults;
 import lt.javainiai.utils.UtilityMethods;
-import lt.javainiai.utils.WinnerCandidateSingleMandate;
 
 @Service
 public class CandidatesResultsSingleMandateService {
@@ -195,25 +194,30 @@ public class CandidatesResultsSingleMandateService {
         return districtResultsSubmissionTimeList;
     }
 
-    public List<WinnerCandidateSingleMandate> getWinnerCandidatesSingleMandate() {
-        List<WinnerCandidateSingleMandate> winnerCandidatesList = new ArrayList<>();
+    public List<SingleMandateCandidateResults> getWinnerCandidatesSingleMandate() {
+        List<SingleMandateCandidateResults> winnerCandidatesList = new ArrayList<>();
         List<ConstituencyEntity> constituencies = constituencyService.findAll();
 
         for (ConstituencyEntity constituency : constituencies) {
+            Long constituencyId = constituency.getId();
             List<SingleMandateCandidateResults> candidateResults = getSingleMandateResultsInConstituency(
-                    constituency.getId());
-            WinnerCandidateSingleMandate winnerCandidate;
-            CandidateEntity candidate = null;
-            Double percentOfAllBallots = 0.0d;
+                    constituencyId);
+            Double bestPercentOfAllBallots = 0.0d;
 
-            for (SingleMandateCandidateResults candidateResult : candidateResults) {
-                if (percentOfAllBallots <= candidateResult.getPercentOfAllBallots()) {
-                    percentOfAllBallots = candidateResult.getPercentOfAllBallots();
-                    candidate = candidateResult.getCandidate();
+            if (!candidateResults.isEmpty()) {
+                // find best result
+                for (SingleMandateCandidateResults candidateResult : candidateResults) {
+                    if (bestPercentOfAllBallots < candidateResult.getPercentOfAllBallots()) {
+                        bestPercentOfAllBallots = candidateResult.getPercentOfAllBallots();
+                    }
+                }
+                // save all candidates with equal best result to list
+                for (SingleMandateCandidateResults candidateResult : candidateResults) {
+                    if (candidateResult.getPercentOfAllBallots() == bestPercentOfAllBallots) {
+                        winnerCandidatesList.add(candidateResult);
+                    }
                 }
             }
-            winnerCandidate = new WinnerCandidateSingleMandate(candidate, percentOfAllBallots);
-            winnerCandidatesList.add(winnerCandidate);
         }
         return winnerCandidatesList;
     }
