@@ -5,14 +5,13 @@ import lt.javainiai.model.PartyEntity;
 public class WinnerPartyMultiMandate {
 
     private PartyEntity party;
-    private Long numOfVotes;
+    private Long votes;
     private Double percentOfAllBallots;
     private Long numOfMandatesWon;
 
-    public WinnerPartyMultiMandate(PartyEntity party, Long numOfVotes, Double percentOfAllBallots,
-            Long numOfMandatesWon) {
+    public WinnerPartyMultiMandate(PartyEntity party, Long votes, Double percentOfAllBallots, Long numOfMandatesWon) {
         this.party = party;
-        this.numOfVotes = numOfVotes;
+        this.votes = votes;
         this.percentOfAllBallots = percentOfAllBallots;
         this.numOfMandatesWon = numOfMandatesWon;
     }
@@ -25,12 +24,12 @@ public class WinnerPartyMultiMandate {
         this.party = party;
     }
 
-    public Long getNumOfVotes() {
-        return numOfVotes;
+    public Long getVotes() {
+        return votes;
     }
 
-    public void setNumOfVotes(Long numOfVotes) {
-        this.numOfVotes = numOfVotes;
+    public void setVotes(Long votes) {
+        this.votes = votes;
     }
 
     public Double getPercentOfAllBallots() {

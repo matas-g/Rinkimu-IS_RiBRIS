@@ -2,7 +2,7 @@ package lt.javainiai.utils;
 
 import lt.javainiai.model.PartyEntity;
 
-public class MultiMandatePartyResults {
+public class MultiMandatePartyResults implements Comparable<MultiMandatePartyResults> {
 
     private PartyEntity party;
     private Long votes;
@@ -47,6 +47,18 @@ public class MultiMandatePartyResults {
 
     public void setPercentOfAllBallots(Double percentOfAllBallots) {
         this.percentOfAllBallots = percentOfAllBallots;
+    }
+
+    @Override
+    public int compareTo(MultiMandatePartyResults party) {
+        // TODO Auto-generated method stub
+
+        // return
+        // 1 - more than o
+        // 0 - equal to o
+        // -1 - less than o
+
+        return this.votes.compareTo(party.getVotes());
     }
 
 }

@@ -2,6 +2,8 @@ package lt.javainiai.service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -185,16 +187,40 @@ public class PartyResultsService {
         }
         return totalResultsList;
     }
-    
+
     public List<WinnerPartyMultiMandate> getWinnerPartiesMultiMandate() {
         List<WinnerPartyMultiMandate> winnerParties = new ArrayList<>();
         List<MultiMandatePartyResults> totalPartyResults = getMultiMandateTotalResults();
-        
-        // TODO
-        
-        
-        
-        
+        List<MultiMandatePartyResults> partiesWithMandates = new ArrayList<>();
+        Long totalVotes = 0L;
+        Double mandateQuote;
+
+        for (MultiMandatePartyResults partyResult : totalPartyResults) {
+            if (partyResult.getPercentOfAllBallots() >= 5.0d) {
+                partiesWithMandates.add(partyResult);
+                totalVotes += partyResult.getVotes();
+            }
+        }
+        mandateQuote = totalVotes.doubleValue() / 70.0d;
+        mandateQuote = UtilityMethods.roundUp(mandateQuote, 2);
+
+        Collections.sort(partiesWithMandates, new Comparator<MultiMandatePartyResults>() {
+            @Override
+            public int compare(MultiMandatePartyResults o1, MultiMandatePartyResults o2) {
+                return o2.getVotes().compareTo(o1.getVotes());
+            }
+        });
+
+        for (MultiMandatePartyResults partyResult : partiesWithMandates) {
+            PartyEntity party = partyResult.getParty();
+            Long votes = partyResult.getVotes();
+            Double percentOfAllBallots = partyResult.getPercentOfAllBallots();
+            Long numOfMandatesWon = partyResult.getVotes() / mandateQuote.longValue();
+
+            WinnerPartyMultiMandate winnerParty = new WinnerPartyMultiMandate(party, votes, percentOfAllBallots,
+                    numOfMandatesWon);
+            winnerParties.add(winnerParty);
+        }
         return winnerParties;
     }
 
