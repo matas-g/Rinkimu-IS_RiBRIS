@@ -12,7 +12,7 @@ var AddPartyResults = React.createClass({
       partiesList: [],
       voteArray: [],
       votesEnteredState: [],
-      valid: true
+      text: ''
     };
   },
 
@@ -60,6 +60,12 @@ var AddPartyResults = React.createClass({
     }
   },
 
+  handleValidStateChange: function(isValid) {
+    this.setState({
+      isValid: isValid
+    });
+  },
+
   handleSaveClick: function(e) {
     e.preventDefault();
     var self = this;
@@ -73,13 +79,17 @@ var AddPartyResults = React.createClass({
       self.props.handleVotesReport('partyVotes', self.state.voteArray);
       self.context.router.push('representative/results/report');
     } else {
-      console.log("Alert");
+      this.setState({
+        text: "Suveskite balsus visoms partijoms, jei partija balsų negavo, įveskite 0"
+      });
     }
   },
 
   render: function() {
     return (
       <PartyResults
+        text={this.state.text}
+        handleValidStateChange={this.handleValidStateChange}
         district={this.state.district}
         constituencyId={this.state.constituencyId}
         districts={this.state.districts}

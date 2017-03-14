@@ -12,7 +12,8 @@ var AddSingleMandateResults = React.createClass({
       districts: [],
       candidatesList: [],
       voteArray: [],
-      votesEnteredState: []
+      votesEnteredState: [],
+      text: ''
     };
   },
 
@@ -42,6 +43,7 @@ var AddSingleMandateResults = React.createClass({
 
     axios.get('http://localhost:8090/polling-districts/' + districtId).then(function(response) {
       constituencyId = response.data.constituencyId;
+      self.props.setIds(districtId, constituencyId);
       axios.get('http://localhost:8090/candidates/by-constituency/' + constituencyId).then(function(response) {
         self.setState({
           constituencyId: constituencyId,
@@ -51,6 +53,12 @@ var AddSingleMandateResults = React.createClass({
           }
         });
       });
+    });
+  },
+
+  handleValidStateChange: function(isValid) {
+    this.setState({
+      isValid: isValid
     });
   },
 
@@ -81,13 +89,17 @@ var AddSingleMandateResults = React.createClass({
       self.props.handleVotesReport('singleMandateVotes', self.state.voteArray);
       self.context.router.push('/representative/results/parties');
     } else {
-      console.log("Alert");
+      this.setState({
+        text: "Suveskite balsus visiems kandidatams, jei kandidatas balsų negavo, įveskite 0"
+      });
     }
   },
 
   render: function() {
     return (
       <SingleMandateResults
+        text={this.state.text}
+        handleValidStateChange={this.handleValidStateChange}
         district={this.state.district}
         constituencyId={this.state.constituencyId}
         districts={this.state.districts}

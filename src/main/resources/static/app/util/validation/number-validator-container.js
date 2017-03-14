@@ -48,10 +48,8 @@ var ValidatorContainer = React.createClass({
       if((this.state.isValid == nextState.isValid) &&
          (this.state.errorStates.negativeNumber == nextState.errorStates.negativeNumber) &&
          (this.state.input == nextProps.children.props.value)) {
-           console.log("skaicius");
         return false;
       } else {
-        console.log("ne skaicius");
         this.props.handleValidStateChange(this.state.isValid);
         return true;
       }

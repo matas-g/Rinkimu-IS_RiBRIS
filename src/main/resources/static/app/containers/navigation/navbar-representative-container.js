@@ -55,7 +55,6 @@ var NavRepContainer = React.createClass({
 	  },
 
 		handleSaveClick() {
-			console.log("siuciama");
 			var results = this.state.results;
 			for (var i = 0; i < candidatesList.length; i++) {
 				var data = {
