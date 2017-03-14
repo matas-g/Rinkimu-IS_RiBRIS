@@ -211,7 +211,6 @@ public class CandidatesResultsSingleMandateService {
                         bestPercentOfAllBallots = candidateResult.getPercentOfAllBallots();
                     }
                 }
-
                 // save all candidates with equal best result to list
                 for (SingleMandateCandidateResults candidateResult : candidateResults) {
                     if (candidateResult.getPercentOfAllBallots() == bestPercentOfAllBallots) {

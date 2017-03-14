@@ -51,13 +51,6 @@ public class MultiMandatePartyResults implements Comparable<MultiMandatePartyRes
 
     @Override
     public int compareTo(MultiMandatePartyResults party) {
-        // TODO Auto-generated method stub
-
-        // return
-        // 1 - more than o
-        // 0 - equal to o
-        // -1 - less than o
-
         return this.votes.compareTo(party.getVotes());
     }
 

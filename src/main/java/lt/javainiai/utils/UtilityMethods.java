@@ -18,7 +18,7 @@ public class UtilityMethods {
         bd = bd.setScale(places, RoundingMode.HALF_UP);
         return bd.doubleValue();
     }
-    
+
     public static double roundUp(double value, int places) {
         if (places < 0) {
             throw new IllegalArgumentException();
