@@ -18,6 +18,8 @@ var ResultsReportContainer = React.createClass({
 
     componentWillMount: function() {
       var self = this;
+      console.log(this.props.results);
+      console.log(this.state);
       axios.get('http://localhost:8090/candidates/by-constituency/' + this.state.constituencyId).then(function(response) {
         candidatesList = response.data;
         axios.get('http://localhost:8090/polling-districts/' + self.state.district.id).then(function(response) {

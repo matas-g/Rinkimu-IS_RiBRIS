@@ -43,8 +43,7 @@ var AddPartyPresentation = React.createClass({
             <div className="form-group">
               <label>Pavadinimas</label>
               <TextValidator
-                handleValidStateChange={this.props.handleValidStateChange}
-                >
+                handleValidStateChange={this.props.handleValidStateChange}>
                 <input id="pavadinimas" className="form-control" type="text" value={this.props.party.name}
                   onChange={this.props.onFieldChange('name')} />
               </TextValidator>
