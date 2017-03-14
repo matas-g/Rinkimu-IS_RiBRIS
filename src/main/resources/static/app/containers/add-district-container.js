@@ -13,7 +13,7 @@ var AddDistrictContainer = React.createClass({
       constituency: {
         id: 1
       },
-      isValid: true,
+      isValid: false,
       text: ''
     };
   },
@@ -97,7 +97,7 @@ var AddDistrictContainer = React.createClass({
 },
 
   handleCancelClick() {
-      this.context.router.push('/admin/districts/');
+    this.context.router.push('/admin/districts/');
   },
 
   render: function() {

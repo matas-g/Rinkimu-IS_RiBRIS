@@ -15,12 +15,12 @@ var AddDistrictPresentation = React.createClass({
     });
 
     if(this.props.districtId != undefined){
-    	 greeting = <h4>Redaguoti apylinkę</h4>;
-		 buttonText = "Redaguoti";
-	 } else {
-		 greeting = <h4>Registruoti naują apylinkę</h4>;
-		 buttonText = "Registruoti";
-	 }
+    	greeting = <h4>Redaguoti apylinkę</h4>;
+		  buttonText = "Redaguoti";
+	  } else {
+		  greeting = <h4>Registruoti naują apylinkę</h4>;
+		  buttonText = "Registruoti";
+	  }
     return (
       <div className="container-fluid">
         <Alert text={this.props.text} style={"alert alert-danger alert-dismissable text-center"} />
