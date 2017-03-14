@@ -5,6 +5,7 @@ const AddRepresentative = require('../presentations/add-representative-presentat
 var AddRepresentativeContainer = React.createClass({
   getInitialState: function() {
     return {
+      id: '',
       name: '',
       surname: '',
       pollingDistrict: {
@@ -80,6 +81,7 @@ var AddRepresentativeContainer = React.createClass({
     e.preventDefault();
     var self = this;
     var elementsList = {
+      id: this.state.id,
       name: this.state.name,
       surname: this.state.surname,
       pollingDistrict: {

@@ -31,8 +31,7 @@ var AddDistrictPresentation = React.createClass({
             <div className="form-group">
               <label>Pavadinimas</label>
               <TextValidator
-                handleValidStateChange={this.props.handleValidStateChange}
-                >
+                handleValidStateChange={this.props.handleValidStateChange}>
                 <input id="pavadinimas" className="form-control" type="text" value={this.props.name}
                   onChange={this.props.onNameChange} />
               </TextValidator>
@@ -45,8 +44,7 @@ var AddDistrictPresentation = React.createClass({
             <div className="form-group">
               <label>Balsuotojų skaičius</label>
               <NumberValidator
-                handleValidStateChange={this.props.handleValidStateChange}
-                >
+                handleValidStateChange={this.props.handleValidStateChange}>
                 <input id="skaicius" className="form-control" type="number" value={this.props.numOfVoters}
                   onChange={this.props.onVotersChange} />
               </NumberValidator>

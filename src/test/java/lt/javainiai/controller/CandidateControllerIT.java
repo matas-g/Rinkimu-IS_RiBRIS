@@ -27,6 +27,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import lt.javainiai.RiBRIS_Application;
 import lt.javainiai.model.CandidateEntity;
+import lt.javainiai.model.PartyEntity;
 
 
 @RunWith(SpringRunner.class)
@@ -78,8 +79,8 @@ public class CandidateControllerIT {
         createOrUpdateCandidate(candidate2);
         
         
-        Assert.assertThat((findCandidateById(2L)).getName(), is("Rolis"));
-        Assert.assertThat((findCandidateById(1L)).getName(), is("Andrius"));
+        Assert.assertEquals("Andrius", findCandidateById(1L).getName());
+        Assert.assertEquals("Rolis", findCandidateById(2L).getName());
     
     }
     
@@ -89,20 +90,27 @@ public class CandidateControllerIT {
         candidate1.setName("Andrius");
         candidate1.setSurname("Kubilius");
         candidate1.setBirthDate(new Date(1992-12-13));
+        PartyEntity party = new PartyEntity();
+        candidate1.setParty(party);
         
         createOrUpdateCandidate(candidate1);
         
-        candidate1.setId(1L);
-        candidate1.setName("Anatolijus");
-        candidate1.setSurname("Kibartas");
+        CandidateEntity candidate = new CandidateEntity();
+        candidate.setId(1L);
+        candidate.setName("Anatolijus");
+        candidate.setSurname("Kibartas");
+        candidate.setBirthDate(new Date(1992-12-21));
+        candidate.setParty(party);
         
-        createOrUpdateCandidate(candidate1);
-        
-        Assert.assertEquals("Anatolijus", (findCandidateById(1L)).getName());
-        Assert.assertEquals("Kibartas", (findCandidateById(1L)).getSurname());
+        createOrUpdateCandidate(candidate);
         
         List<CandidateEntity> candidates = getCandidates();
         Assert.assertThat(candidates.size(), is(1));
+        Assert.assertEquals("Anatolijus", (findCandidateById(1L)).getName());
+        Assert.assertEquals("Kibartas", (findCandidateById(1L)).getSurname());
+        
+        
+        
         
     }
     
