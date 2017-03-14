@@ -1,5 +1,6 @@
 const React = require('react');
 const NumberValidator = require('../util/validation/number-validator-container');
+const Alert = require('../util/alert/alert');
 
 var PartyResultsInputPresentation = React.createClass({
   render: function() {
@@ -8,10 +9,8 @@ var PartyResultsInputPresentation = React.createClass({
     return (
       <div className="form-group col-sm-6" key={index}>
         <label>{party.name.replace(/'/g,"")}</label>
-        <NumberValidator>
           <input className="form-control" type="number" value={self.props.voteArray[index]}
             onChange={self.props.onResultsChange(index)} />
-        </NumberValidator>
       </div>
     );
   }).reduce(function(r, element, index) {
@@ -32,28 +31,35 @@ var PartyResultsInputPresentation = React.createClass({
     );
   });
   return (
-    <form className="col-sm-offset-1 col-sm-10 container-fluid" autoComplete="off">
-      <h2 className="alert alert-info text-center">Suveskite partijų gautų balsų skaičių</h2>
-      <br />
-      <h4 className="alert alert-success text-center">Pasirinkite apylinkę</h4>
-      <select className="form-control" value={this.props.district.id} onChange={this.props.onDistrictChange}>
-        {DistrictsList}
-      </select>
-      <br />
-      <div>
-        {PartiesRows}
+    <div className="container-fluid">
+      <Alert text={this.props.text} style={"alert alert-danger alert-dismissable text-center"} />
+      <div className="col-sm-offset-1 col-sm-10">
+        <form autoComplete="off">
+          <h2 className="alert alert-info text-center">Suveskite partijų gautų balsų skaičių</h2>
+          <br />
+          <h4 className="alert alert-success text-center">Pasirinkite apylinkę</h4>
+          <select className="form-control" value={this.props.district.id} onChange={this.props.onDistrictChange}>
+            {DistrictsList}
+          </select>
+          <br />
+          <div>
+            {PartiesRows}
+          </div>
+          <h4 className="alert alert-success text-center">Sugadinti vienmandačiai balsai</h4>
+            <NumberValidator
+               handleValidStateChange={self.props.handleValidStateChange}
+               >
+              <input id="kiekis" className="form-control" type="number" value={this.props.results.spoiledMulti}
+                onChange={this.props.onMultiChange} />
+            </NumberValidator>
+            <br />
+          <div>
+            <button className="btn btn-success btn-sm" style={{ marginRight: '20px'}} onClick={this.props.onSaveClick}>Registruoti</button>
+            <button className="btn btn-danger btn-sm" onClick={this.props.onCancelClick}>Atšaukti</button>
+          </div>
+        </form>
       </div>
-      <h4 className="alert alert-success text-center">Sugadinti vienmandačiai balsai</h4>
-        <NumberValidator>
-          <input id="kiekis" className="form-control" type="number" value={this.props.results.spoiledMulti}
-            onChange={this.props.onMultiChange} />
-        </NumberValidator>
-        <br />
-      <div>
-        <button className="btn btn-success btn-sm" style={{ marginRight: '20px'}} onClick={this.props.onSaveClick}>Registruoti</button>
-        <button className="btn btn-danger btn-sm" onClick={this.props.onCancelClick}>Atšaukti</button>
-      </div>
-    </form>
+    </div>
     );
   }
 });

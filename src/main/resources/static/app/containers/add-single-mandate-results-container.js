@@ -12,7 +12,8 @@ var AddSingleMandateResults = React.createClass({
       districts: [],
       candidatesList: [],
       voteArray: [],
-      votesEnteredState: []
+      votesEnteredState: [],
+      text: ''
     };
   },
 
@@ -81,13 +82,17 @@ var AddSingleMandateResults = React.createClass({
       self.props.handleVotesReport('singleMandateVotes', self.state.voteArray);
       self.context.router.push('/representative/results/parties');
     } else {
-      console.log("Alert");
+      this.setState({
+        text: "Suveskite balsus visiems kandidatams, jei kandidatas balsų negavo, įveskite 0"
+      });
     }
   },
 
   render: function() {
     return (
       <SingleMandateResults
+        text={this.state.text}
+        handleValidStateChange={this.handleValidStateChange}
         district={this.state.district}
         constituencyId={this.state.constituencyId}
         districts={this.state.districts}
