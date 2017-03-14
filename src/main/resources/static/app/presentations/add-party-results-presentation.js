@@ -32,7 +32,6 @@ var PartyResultsInputPresentation = React.createClass({
   });
   return (
     <div className="container-fluid">
-      <Alert text={this.props.text} style={"alert alert-danger alert-dismissable text-center"} />
       <div className="col-sm-offset-1 col-sm-10">
         <form autoComplete="off">
           <h2 className="alert alert-info text-center">Suveskite partijų gautų balsų skaičių</h2>
@@ -45,7 +44,7 @@ var PartyResultsInputPresentation = React.createClass({
           <div>
             {PartiesRows}
           </div>
-          <h4 className="alert alert-success text-center">Sugadinti vienmandačiai balsai</h4>
+          <h4 className="alert alert-success text-center">Sugadinti daugiamandačiai balsai</h4>
             <NumberValidator
                handleValidStateChange={self.props.handleValidStateChange}
                >
@@ -53,6 +52,7 @@ var PartyResultsInputPresentation = React.createClass({
                 onChange={this.props.onMultiChange} />
             </NumberValidator>
             <br />
+            <Alert text={this.props.text} style={"alert alert-danger alert-dismissable text-center"} />
           <div>
             <button className="btn btn-success btn-sm" style={{ marginRight: '20px'}} onClick={this.props.onSaveClick}>Registruoti</button>
             <button className="btn btn-danger btn-sm" onClick={this.props.onCancelClick}>Atšaukti</button>

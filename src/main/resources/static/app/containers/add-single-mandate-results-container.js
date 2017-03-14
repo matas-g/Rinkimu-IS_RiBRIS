@@ -43,6 +43,7 @@ var AddSingleMandateResults = React.createClass({
 
     axios.get('http://localhost:8090/polling-districts/' + districtId).then(function(response) {
       constituencyId = response.data.constituencyId;
+      self.props.setIds(districtId, constituencyId);
       axios.get('http://localhost:8090/candidates/by-constituency/' + constituencyId).then(function(response) {
         self.setState({
           constituencyId: constituencyId,
@@ -52,6 +53,12 @@ var AddSingleMandateResults = React.createClass({
           }
         });
       });
+    });
+  },
+
+  handleValidStateChange: function(isValid) {
+    this.setState({
+      isValid: isValid
     });
   },
 
