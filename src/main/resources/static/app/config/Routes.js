@@ -19,7 +19,7 @@ const AddPartyResults = require('../containers/add-party-results-container');
 //const AddRatingResults = require('../containers/add-rating-results-container');
 const ResultsReport = require('../containers/results-report-container');
 
-const Suvesti = require('../presentations/suvedete-balsus');
+const Success = require('../presentations/success');
 const Herb = require('../presentations/herb');
 
 const ConstituenciesList = require('../containers/lists/constituencies-list-container');
@@ -48,7 +48,7 @@ const routes = (
         <Route path="/single-mandate-districts/:constituencyId" component={SingleMandateDistrictsList} />
         <Route path="/single-mandate-district-results/:districtId" component={SingleMandateDistrictResultsList} />
         <Route path="/candidate-biography/:candidateId" component={CandidateBiography} />
-        
+
         <Route path="/multi-mandate" component={SingleMandateList} />
         <Route path="/activity" component={ConstituencyActivityList} />
         <Route path="/polling-districts/activity/all/:constituencyId" component={DistrictsActivityList} />
@@ -92,6 +92,7 @@ const routes = (
 	    <Route path="/representative/results/single" component={AddSingleMandateResults} />
       <Route path="/representative/results/parties" component={AddPartyResults} />
       <Route path="/representative/results/report" component={ResultsReport} />
+      <Route path="/representative/results/success" component={Success} />
 	  </Route>
   </Router>
 );

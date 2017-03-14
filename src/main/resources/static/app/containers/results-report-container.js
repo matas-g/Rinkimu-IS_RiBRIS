@@ -38,6 +38,40 @@ var ResultsReportContainer = React.createClass({
         this.context.router.push('/representative/results/single');
     },
 
+    handleSaveClick() {
+			var results = this.state.results;
+			for (var i = 0; i < candidatesList.length; i++) {
+				var data = {
+					district: {
+						id: this.state.districtId
+					},
+					numberOfVotes: results.singleMandateVotes[i],
+					candidate: {
+						id: candidatesList[i].id
+					}
+				}
+				axios.post('http://localhost:8090/candidates-results/single-mandate/', data);
+			}
+			for (var i = 0; i < partiesList.length; i++) {
+				var data = {
+					numberOfVotes: results.partyVotes[i],
+					party: {
+						id: partiesList[i].id
+					},
+					district: {
+						id: this.state.districtId
+					}
+				}
+				axios.post('http://localhost:8090/party-results/', data);
+			}
+			var dataList = {
+				spoiledSingle: this.state.spoiledSingle,
+				spoiledMulti: this.state.spoiledMulti
+			}
+			axios.post('http://localhost:8090/polling-districts/spoiled-ballots/'+this.state.districtId, dataList);
+      this.context.router.push('/representative/results/success');
+		},
+
     render: function() {
       return (
         <ResultsReport
@@ -46,7 +80,7 @@ var ResultsReportContainer = React.createClass({
           partiesList={this.state.partiesList}
           onCancelClick={this.handleCancelClick}
           results={this.props.results}
-          onSaveClick={this.props.onSaveClick}
+          onSaveClick={this.handleSaveClick}
         />
       );
     }
