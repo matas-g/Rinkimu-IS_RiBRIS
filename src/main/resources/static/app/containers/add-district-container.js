@@ -94,7 +94,7 @@ var AddDistrictContainer = React.createClass({
         id: constituencyId
       }
     });
-  },
+},
 
   handleCancelClick() {
     this.context.router.push('/admin/districts/');
@@ -117,7 +117,6 @@ var AddDistrictContainer = React.createClass({
         onSaveClick={this.handleSaveClick}
         onCancelClick={this.handleCancelClick}
         districtId={this.props.params.districtId}
-        handleValidStateChange={this.handleValidStateChange}
       />
     );
   }
