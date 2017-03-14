@@ -1,6 +1,7 @@
 const React = require('react');
 const TextValidator = require('../util/validation/text-validator-container');
 const NumberValidator = require('../util/validation/number-validator-container');
+const Alert = require('../util/alert/alert');
 
 var AddDistrictPresentation = React.createClass({
   render: function() {
@@ -12,7 +13,7 @@ var AddDistrictPresentation = React.createClass({
             <option key={index} value={constituency.id}>{constituency.name}</option>
         );
     });
-    
+
     if(this.props.districtId != undefined){
     	 greeting = <h4>Redaguoti apylinkę</h4>;
 		 buttonText = "Redaguoti";
@@ -22,13 +23,16 @@ var AddDistrictPresentation = React.createClass({
 	 }
     return (
       <div className="container-fluid">
+        <Alert text={this.props.text} style={"alert alert-danger alert-dismissable text-center"} />
         <div className="col-sm-offset-1 col-sm-10">
           <form autoComplete="off">
             {greeting}
             <br />
             <div className="form-group">
               <label>Pavadinimas</label>
-              <TextValidator>
+              <TextValidator
+                handleValidStateChange={this.props.handleValidStateChange}
+                >
                 <input id="pavadinimas" className="form-control" type="text" value={this.props.name}
                   onChange={this.props.onNameChange} />
               </TextValidator>
@@ -40,7 +44,9 @@ var AddDistrictPresentation = React.createClass({
             </div>
             <div className="form-group">
               <label>Balsuotojų skaičius</label>
-              <NumberValidator>
+              <NumberValidator
+                handleValidStateChange={this.props.handleValidStateChange}
+                >
                 <input id="skaicius" className="form-control" type="number" value={this.props.numOfVoters}
                   onChange={this.props.onVotersChange} />
               </NumberValidator>
