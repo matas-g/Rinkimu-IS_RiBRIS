@@ -50,8 +50,7 @@ const AddConstituencies = React.createClass({
             <div className="form-group">
               <label>Pavadinimas</label>
               <TextValidator
-                 handleValidStateChange={this.props.handleValidStateChange}
-                 >
+                  handleValidStateChange={this.props.handleValidStateChange}>
                 <input id="pavadinimas" className="form-control" type="text" value={this.props.constituency.name}
                   onChange={this.props.onFieldChange('name')} />
               </TextValidator>

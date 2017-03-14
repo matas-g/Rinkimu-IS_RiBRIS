@@ -43,7 +43,7 @@ var AddSingleMandateResults = React.createClass({
     axios.get('http://localhost:8090/polling-districts/' + districtId).then(function(response) {
       constituencyId = response.data.constituencyId;
       axios.get('http://localhost:8090/candidates/by-constituency/' + constituencyId).then(function(response) {
-        self.setState({
+    	 self.setState({
           constituencyId: constituencyId,
           candidatesList: response.data,
           district: {

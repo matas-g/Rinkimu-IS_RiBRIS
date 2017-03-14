@@ -12,7 +12,8 @@ var AddDistrictContainer = React.createClass({
       constituencies: [],
       constituency: {
         id: 1
-      }
+      },
+      isValid: true,
     };
   },
 
@@ -80,10 +81,16 @@ var AddDistrictContainer = React.createClass({
         id: constituencyId
       }
     });
-},
+  },
 
   handleCancelClick() {
       this.context.router.push('/admin/districts/');
+  },
+  
+  handleValidStateChange: function(isValid) {
+      this.setState({
+        isValid: isValid
+      });
   },
 
   render: function() {
@@ -101,6 +108,7 @@ var AddDistrictContainer = React.createClass({
         onSaveClick={this.handleSaveClick}
         onCancelClick={this.handleCancelClick}
         districtId={this.props.params.districtId}
+        handleValidStateChange={this.handleValidStateChange}
       />
     );
   }

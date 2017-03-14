@@ -104,12 +104,12 @@ var AddConstituencyContainer = React.createClass({
         <AddConstituencies
           text={this.state.text}
           constituency={this.state.constituency}
-        	candidates={this.state.candidates}
+          candidates={this.state.candidates}
           onSaveClick={this.handleSaveClick}
           onCancelClick={this.handleCancelClick}
           onFieldChange={this.handleFieldChange}
           onUploadMultiCandidateFile={this.handleUploadMultiCandidateFile}
-        	onDeleteClick={this.handleDeleteCandidates}
+          onDeleteClick={this.handleDeleteCandidates}
           handleValidStateChange={this.handleValidStateChange}
         />
       );
