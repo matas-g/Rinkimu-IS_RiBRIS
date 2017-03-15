@@ -7,7 +7,7 @@ var MultiMandateDistrictListContainer = React.createClass({
   getInitialState: function() {
     return {
       districts: [],
-      candidates: [],
+      parties: [],
       searchText: '',
       constituencyName: ''
     };
@@ -15,19 +15,18 @@ var MultiMandateDistrictListContainer = React.createClass({
 
   componentWillMount: function() {
     var self = this;
-      axios.get('http://localhost:8090/candidates-results/single-mandate/districts-results-time/' + self.props.params.constituencyId)
+      axios.get('http://localhost:8090/party-results/districts-results-time/' + self.props.params.constituencyId)
       .then(function (response) {
-        console.log(response.data[0].district.constituencyName);
         self.setState({
             districts: response.data,
             constituencyName: response.data[0].district.constituencyName
           });
         }).then(function() {
-          axios.get('http://localhost:8090/candidates-results/single-mandate/constituency/' + self.props.params.constituencyId)
+          axios.get('http://localhost:8090/party-results/constituency/' + self.props.params.constituencyId)
             .then(function (response) {
 
             self.setState({
-              candidates: response.data
+              parties: response.data
             });
         })
     })
@@ -45,7 +44,7 @@ var MultiMandateDistrictListContainer = React.createClass({
     return (
       <MultiMandateDistrictListComponent
         districts={this.state.districts}
-        candidates={this.state.candidates}
+        parties={this.state.parties}
         onSearchTextChange={this.handleSearchTextChange}
         searchText={this.state.searchText}
         constituencyName={this.state.constituencyName}

@@ -7,7 +7,9 @@ var MultiMandateListContainer = React.createClass({
   getInitialState: function() {
     return {
       constituencies: [],
-      searchText: ''
+      parties: [],
+      searchText: '',
+      searchParty: '',
     };
   },
 
@@ -15,10 +17,16 @@ var MultiMandateListContainer = React.createClass({
     var self = this;
     axios.get('http://localhost:8090/party-results/progress')
     .then(function (response) {
-      self.setState({
-        constituencies: response.data
-      });
-    });
+        constituencies = response.data;
+        axios.get('http://localhost:8090/party-results/winner-parties')
+        .then(function (response) {
+        	parties = response.data;
+        	self.setState({
+        		constituencies: constituencies,
+        		parties: parties
+        	});
+        });
+     })
   },
 
   handleSearchTextChange: function(e) {
@@ -32,8 +40,10 @@ var MultiMandateListContainer = React.createClass({
     return (
       <MultiMandateListPresentation
         constituencies={this.state.constituencies}
+      	parties={this.state.parties}
         onSearchTextChange={this.handleSearchTextChange}
         searchText={this.state.searchText}
+      	searchParty={this.state.searchParty}
       />
     );
   }
