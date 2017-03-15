@@ -54,40 +54,61 @@ var ResultsReportPresentation = React.createClass({
         </div>
       );
     });
-
-    return (
-      <div className="container-fluid">
-        <div className="row">
-          <h2 className="alert alert-danger text-center">Pasitikrinkite ar rezultatai suvesti teisingai</h2>
-        </div>
-        <div className="row">
-          <h3 className="alert alert-danger text-center">Suvesti balsai (Kandidatams):</h3>
-          <br />
-          <div>
-            {SingleResults}
+    if (this.props.candidatesList.length == 0) {
+      return (
+        <div className="container-fluid">
+          <div className="row">
+            <h2 className="alert alert-danger text-center">Pasitikrinkite ar rezultatai suvesti teisingai</h2>
           </div>
-        </div>
-        <div className="row">
-          <h3 className="alert alert-danger text-center">Suvesti balsai (Partijoms):</h3>
-          <br />
-          <div>
-            {MultiResults}
+          <div className="row">
+            <h3 className="alert alert-danger text-center">Suvesti balsai (Partijoms):</h3>
+            <br />
+            <div>
+              {MultiResults}
+            </div>
           </div>
-        </div>
-        <div className="row">
-          <h3 className="alert alert-danger text-center">Sugadinti biuleteniai:</h3>
-          <br />
-          <div>
-            <SpoiledBallots results={this.props.results} />
+          <div className="row">
+            <h3 className="alert alert-danger text-center">Sugadinti daugiamandačiai biuleteniai:</h3>
+            <br />
+            <div className="col-sm-4 col-sm-offset-4" >
+              <h4 className="alert alert-success">{this.props.results.spoiledMulti}</h4>
+            </div>
           </div>
+          <div className="row">
+            <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onSaveClick}>Registruoti</button>
+            <button className="btn btn-danger btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onCancelClick}>Atšaukti</button>
+          </div>
+          <br />
         </div>
-        <div className="row">
-          <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onSaveClick}>Registruoti</button>
-          <button className="btn btn-danger btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onCancelClick}>Atšaukti</button>
+      );
+    } else {
+      return (
+        <div className="container-fluid">
+          <div className="row">
+            <h2 className="alert alert-danger text-center">Pasitikrinkite ar rezultatai suvesti teisingai</h2>
+          </div>
+          <div className="row">
+            <h3 className="alert alert-danger text-center">Suvesti balsai (Kandidatams):</h3>
+            <br />
+            <div>
+              {SingleResults}
+            </div>
+          </div>
+          <div className="row">
+            <h3 className="alert alert-danger text-center">Sugadinti vienmandačiai biuleteniai:</h3>
+            <br />
+            <div className="col-sm-4 col-sm-offset-4" >
+              <h4 className="alert alert-success">{this.props.results.spoiledSingle}</h4>
+            </div>
+          </div>
+          <div className="row">
+            <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onSaveClick}>Registruoti</button>
+            <button className="btn btn-danger btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onCancelClick}>Atšaukti</button>
+          </div>
+          <br />
         </div>
-        <br />
-      </div>
-    )
+      );
+    }
   }
 });
 
