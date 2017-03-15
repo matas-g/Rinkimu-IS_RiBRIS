@@ -8,7 +8,8 @@ var MultiMandateDistrictListContainer = React.createClass({
     return {
       districts: [],
       parties: [],
-      searchText: '',
+      searchParty: '',
+      searchDistrict: '',
       constituencyName: ''
     };
   },
@@ -32,10 +33,17 @@ var MultiMandateDistrictListContainer = React.createClass({
     })
 },
 
-    handleSearchTextChange: function(e) {
-      var text = e.target.value;
+    handleSearchPartyTextChange: function(e) {
+      var party = e.target.value;
       this.setState({
-        searchText: text
+        searchParty: party
+    });
+  },
+  
+  handleSearchDistrictTextChange: function(e) {
+      var district = e.target.value;
+      this.setState({
+        searchDistrict: district
     });
   },
 
@@ -45,8 +53,10 @@ var MultiMandateDistrictListContainer = React.createClass({
       <MultiMandateDistrictListComponent
         districts={this.state.districts}
         parties={this.state.parties}
-        onSearchTextChange={this.handleSearchTextChange}
-        searchText={this.state.searchText}
+        onSearchPartyChange={this.handleSearchPartyTextChange}
+      	onSearchDistrictChange={this.handleSearchDistrictTextChange}
+        searchParty={this.state.searchParty}
+      	searchDistrict={this.state.searchDistrict}
         constituencyName={this.state.constituencyName}
       />
     );

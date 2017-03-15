@@ -8,7 +8,7 @@ var MultiMandateListContainer = React.createClass({
     return {
       constituencies: [],
       parties: [],
-      searchText: '',
+      searchConstituency: '',
       searchParty: '',
     };
   },
@@ -28,18 +28,18 @@ var MultiMandateListContainer = React.createClass({
         });
      })
   },
-
-  handleSearchTextChange: function(e) {
-      var text = e.target.value;
-      this.setState({
-        searchText: text
-    });
+  
+  handleSearchPartyTextChange: function(e) {
+	  var party = e.target.value;
+	  this.setState({
+		  searchParty: party
+	  });
   },
 
-   handlePartiesSearchTextChange: function(e) {
-      var party = e.target.value;
+  handleSearchConstituenciesTextChange: function(e) {
+      var constituency = e.target.value;
       this.setState({
-        searchParty: party
+        searchConstituency: constituency
     });
   },
 
@@ -48,9 +48,9 @@ var MultiMandateListContainer = React.createClass({
       <MultiMandateListPresentation
         constituencies={this.state.constituencies}
       	parties={this.state.parties}
-        onSearchPartiesTextChange={this.handlePartiesSearchTextChange}
-        onSearchTextChange={this.handleSearchTextChange}
-        searchText={this.state.searchText}
+        onSearchPartyTextChange={this.handleSearchPartyTextChange}
+      	onSearchConstituencyTextChange={this.handleSearchConstituenciesTextChange}
+      	searchConstituency={this.state.searchConstituency}
       	searchParty={this.state.searchParty}
       />
     );

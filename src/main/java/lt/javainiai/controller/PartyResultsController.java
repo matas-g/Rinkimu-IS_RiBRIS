@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import lt.javainiai.model.CandidateEntity;
 import lt.javainiai.model.PartyResultsEntity;
 import lt.javainiai.service.PartyResultsService;
 import lt.javainiai.utils.ConsolidatedParty;
@@ -94,6 +95,12 @@ public class PartyResultsController {
     @ResponseStatus(HttpStatus.OK)
     public List<ConsolidatedParty> getConsolidatedParties() {
         return partyResultsService.getConsolidatedParties();
+    }
+
+    @RequestMapping(value = "consolidated-candidates", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<CandidateEntity> getAllWinnerCandidates() {
+        return partyResultsService.getAllWinnerCandidates();
     }
 
 }
