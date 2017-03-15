@@ -299,11 +299,7 @@ VALUES
 
 INSERT INTO PARTIES (id, name, PARTY_NUMBER)
 VALUES
-<<<<<<< HEAD
-(null, 'Lietuvos socialdemokratųpartija', 1),
-=======
 (null, 'Lietuvos socialdemokratų partija', 1),
->>>>>>> branch 'development' of https://github.com/matas-g/Rinkimu-IS_RiBRIS
 (null, 'Lietuvos humanistų partija', 2),
 (null, 'Lietuvos žalioji partija', 3),
 (null, 'Respublikonų partija', 4),

@@ -32,7 +32,7 @@ var MultiMandateComponent = React.createClass({
 	    });
 
 		var ConstituenciesList = this.props.constituencies.filter(function(constituency) {
-	      	if (constituency.constituency.name.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) {
+	      	if (constituency.constituency.name.toLowerCase().indexOf(self.props.searchConstituency.toLowerCase()) === -1) {
 	        return false;
 	      } else {
 	        return true;
@@ -52,7 +52,7 @@ var MultiMandateComponent = React.createClass({
 				<div className="container-fluid">
 					<div className="row">
 						<div className="pull-right">
-								<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchCandidatesTextChange} />
+								<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchPartyTextChange} />
 						</div>
 						<h3>Balsavimo rezultatai daugiamandatėje apygardoje</h3>
 						<table className="table table-striped table-bordered">
@@ -77,7 +77,7 @@ var MultiMandateComponent = React.createClass({
 					<br/>
 				 <div className="row">
 						<div className="form-group pull-right">
-							<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchTextChange} />
+							<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchConstituencyTextChange} />
 						</div>
 							<h3>Balsavimo rezultatai apygardose</h3>
 							<table className="table table-striped table-bordered">
