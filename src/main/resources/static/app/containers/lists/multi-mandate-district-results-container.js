@@ -15,18 +15,13 @@ var MultiMandateListContainer = React.createClass({
 
 componentWillMount: function() {
     var self = this;
-    axios.get('http://localhost:8090/candidates-results/single-mandate/progress/')
+    axios.get('http://localhost:8090/party-results/district/'+ this.props.params.districtId)
     .then(function (response) {
-        constituencies = response.data;
-     axios.get('http://localhost:8090/candidates-results/single-mandate/winner-candidates/')
-    .then(function (response) {
-        candidates = response.data;
-        self.setState({
-            constituencies: constituencies,
-            candidates: candidates
+    	self.setState({
+            parties: response.data
         });
-    });
-  })
+    })
+    	
 },
 
 
