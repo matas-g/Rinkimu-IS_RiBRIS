@@ -6,7 +6,26 @@ var MultiMandateComponent = React.createClass({
 		render: function() {
 
 		var nr = 1;
+		var num = 1;
 		var self = this;
+		
+		var WinnersPartiesList = this.props.parties.filter(function(party) {
+			 if (party.party.name.toLowerCase().indexOf(self.props.searchParty.toLowerCase()) === -1) {
+			        return false;
+			      } else {
+			        return true;
+			      };
+		}).map(function(party, index){
+	    	return (
+	    		<tr key={index}>
+	    			<td>{party.party.name}</td>
+	    			<td>{party.votes}</td>
+	    			<td>{party.percentOfAllBallots}%</td>
+	    			<td>{party.numOfMandatesWon}</td>
+	    		</tr>
+	    	);
+	    });
+		
 		var ConstituenciesList = this.props.constituencies.filter(function(constituency) {
 	      	if (constituency.constituency.name.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) {
 	        return false;
@@ -26,30 +45,27 @@ var MultiMandateComponent = React.createClass({
 			});
 
 			return (
-			<div>
 					
-			    <div className="container-fluid">
-					
-					<div className="form-group pull-right">
-						<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchTextChange} />
-					</div>
-						<h3>Balsavimo rezultatai daugiamandatėje apygardoje</h3>
-						<table className="table table-striped table-bordered">
-							<thead>
-								<tr className="table-head"> 
-									<th className="text-middle" style={{verticalAlign: 'middle'}} rowSpan="2">Partija, koalicija</th> 
-									<th colSpan="2">Apylinkių skaičius</th> 
-								</tr> 
-								<tr className="table-head"> 
-									<th>iš viso</th> 
-									<th>duomenis atsiuntė</th>
-								</tr>
-								</thead>
-								<tbody> 
-									{ConstituenciesList}
-								</tbody> 
-						</table>
-				</div>			
+			<div className="container-fluid">
+			<div className="form-group pull-right">
+					<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchCandidatesTextChange} />
+			</div>
+				<h3>Balsavimo rezultatai daugiamandatėje apygardoje</h3>
+				<table className="table table-striped table-bordered">
+					<thead>
+						<tr className="table-head"> 
+							<th>Partija</th>
+							<th>Balsai iš viso</th>
+							<th>Balsų skaičius % nuo dalyvavusių rinkėjų apygardoje</th>
+							<th>Mandatų skaičius</th>
+						</tr>
+					</thead>
+					<tbody> 
+						{WinnersPartiesList}
+					</tbody> 
+				</table>
+
+				<div className="make-space"></div>
 
 				<div className="container-fluid">
 					
@@ -73,8 +89,7 @@ var MultiMandateComponent = React.createClass({
 								</tbody> 
 						</table>
 				</div>	
-				
-			</div>
+			</div>	
 			);
 		}
 	});

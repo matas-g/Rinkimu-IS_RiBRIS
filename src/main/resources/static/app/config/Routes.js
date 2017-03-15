@@ -51,7 +51,6 @@ const routes = (
         <Route path="/single-mandate-district-results/:districtId" component={SingleMandateDistrictResultsList} />
         <Route path="/candidate-biography/:candidateId" component={CandidateBiography} />
 
-        <IndexRoute component={MultiMandateList} />
         <Route path="/multi-mandate" component={MultiMandateList} />
         <Route path="/multi-mandate-districts/:constituencyId" component={MultiMandateDistrictsList} />
         
