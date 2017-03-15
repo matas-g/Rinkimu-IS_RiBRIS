@@ -36,11 +36,19 @@ var MultiMandateListContainer = React.createClass({
     });
   },
 
+   handlePartiesSearchTextChange: function(e) {
+      var party = e.target.value;
+      this.setState({
+        searchParty: party
+    });
+  },
+
   render: function() {
     return (
       <MultiMandateListPresentation
         constituencies={this.state.constituencies}
       	parties={this.state.parties}
+        onSearchPartiesTextChange={this.handlePartiesSearchTextChange}
         onSearchTextChange={this.handleSearchTextChange}
         searchText={this.state.searchText}
       	searchParty={this.state.searchParty}

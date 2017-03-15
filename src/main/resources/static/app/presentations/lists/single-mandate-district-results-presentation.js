@@ -32,7 +32,6 @@ var SingleMandateDistrictResultsComponent = React.createClass({
 		return (
 
 			<div className="container-fluid">
-				
 				<div className="form-group pull-right">
 					<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchTextChange} />
 				</div>

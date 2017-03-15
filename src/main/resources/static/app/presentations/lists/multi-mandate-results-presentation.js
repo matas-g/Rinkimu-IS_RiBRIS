@@ -52,7 +52,7 @@ var MultiMandateComponent = React.createClass({
 				<div className="container-fluid">
 					<div className="row">
 						<div className="pull-right">
-								<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchCandidatesTextChange} />
+								<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchPartiesTextChange} />
 						</div>
 						<h3>Balsavimo rezultatai daugiamandatėje apygardoje</h3>
 						<table className="table table-striped table-bordered">
