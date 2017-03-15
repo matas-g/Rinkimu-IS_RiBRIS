@@ -5,7 +5,7 @@ const NavLink = require('../navigation/nav-link');
 var PublicResultsListComponent = React.createClass({
 	render: function() {
 		return (
-			<div>
+			<div className="container-fluid">
 				<div className="col-sm-2">
 		    	<div className="side-menu">
 		    		<nav className="navbar navbar-default" role="navigation">
