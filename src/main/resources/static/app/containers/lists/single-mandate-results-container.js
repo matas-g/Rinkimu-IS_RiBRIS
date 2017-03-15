@@ -7,24 +7,41 @@ var SingleMandateListContainer = React.createClass({
   getInitialState: function() {
     return {
       constituencies: [],
-      searchText: ''
+      candidates: [],
+      searchCandidate: '',
+      searchConstituency: '',
     };
   },
 
-  componentWillMount: function() {
+componentWillMount: function() {
     var self = this;
     axios.get('http://localhost:8090/candidates-results/single-mandate/progress/')
     .then(function (response) {
-      self.setState({
-        constituencies: response.data
-      });
+        constituencies = response.data;
+     axios.get('http://localhost:8090/candidates-results/single-mandate/winner-candidates/')
+    .then(function (response) {
+        candidates = response.data;
+        self.setState({
+            constituencies: constituencies,
+            candidates: candidates
+        });
+    });
+  })
+},
+
+
+
+  handleSearchCandidatesTextChange: function(e) {
+      var candidate = e.target.value;
+      this.setState({
+        searchCandidate: candidate
     });
   },
 
-  handleSearchTextChange: function(e) {
-      var text = e.target.value;
+  handleSearchConstituenciesTextChange: function(e) {
+      var constituency = e.target.value;
       this.setState({
-        searchText: text
+        searchConstituency: constituency
     });
   },
 
@@ -32,8 +49,11 @@ var SingleMandateListContainer = React.createClass({
     return (
       <SingleMandateListPresentation
         constituencies={this.state.constituencies}
-        onSearchTextChange={this.handleSearchTextChange}
-        searchText={this.state.searchText}
+        candidates={this.state.candidates}
+        onSearchCandidatesTextChange={this.handleSearchCandidatesTextChange}
+        searchCandidate={this.state.searchCandidate}
+        onSearchConstituenciesTextChange={this.handleSearchConstituenciesTextChange}
+        searchConstituency={this.state.searchConstituency}
       />
     );
   }
