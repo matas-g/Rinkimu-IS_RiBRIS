@@ -157,8 +157,10 @@ public class CandidatesResultsSingleMandateService {
                 long totalOfCandidates = district.getConstituency().getCandidates().size();
                 long numberOfCandidatesWithSubmittedResults = district.getSingleMandateResults().size();
 
-                if (numberOfCandidatesWithSubmittedResults >= totalOfCandidates) {
-                    districtsWithResults++;
+                if ((totalOfCandidates != 0l) && (numberOfCandidatesWithSubmittedResults != 0l)) {
+                    if (numberOfCandidatesWithSubmittedResults >= totalOfCandidates) {
+                        districtsWithResults++;
+                    }
                 }
             }
             progress = new ConstituencyProgress(constituency, totalNumOfDistricts, districtsWithResults);
@@ -203,19 +205,17 @@ public class CandidatesResultsSingleMandateService {
             List<SingleMandateCandidateResults> candidateResults = getSingleMandateResultsInConstituency(
                     constituencyId);
             Double bestPercentOfAllBallots = 0.0d;
+            SingleMandateCandidateResults bestCandidateResult = null;
 
             if (!candidateResults.isEmpty()) {
-                // find best result
                 for (SingleMandateCandidateResults candidateResult : candidateResults) {
                     if (bestPercentOfAllBallots < candidateResult.getPercentOfAllBallots()) {
                         bestPercentOfAllBallots = candidateResult.getPercentOfAllBallots();
+                        bestCandidateResult = candidateResult;
                     }
                 }
-                // save all candidates with equal best result to list
-                for (SingleMandateCandidateResults candidateResult : candidateResults) {
-                    if (candidateResult.getPercentOfAllBallots() == bestPercentOfAllBallots) {
-                        winnerCandidatesList.add(candidateResult);
-                    }
+                if (bestCandidateResult != null) {
+                    winnerCandidatesList.add(bestCandidateResult);
                 }
             }
         }
