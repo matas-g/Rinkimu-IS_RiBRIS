@@ -14,7 +14,7 @@ var NavigationRep = React.createClass({
     });
 
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div className="navbar-inner nav-collapse">
           <nav className="navbar navbar-default" role="navigation">
             <div className="collapse navbar-collapse">

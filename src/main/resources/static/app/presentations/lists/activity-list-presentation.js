@@ -18,8 +18,8 @@ var ActivityListComponent = React.createClass({
     	return (
         <tr key={index}>
           <td className="candidate-name-decorator"><Link to={link}>{nr++}.{constituency.constituency.name}</Link></td>
-          <td>{constituency.givenBallots}</td>
-          <td>{constituency.percentOfAllVoters}%</td>
+          <td style={{textAlign: 'center'}}>{constituency.givenBallots}</td>
+          <td style={{textAlign: 'center'}}>{constituency.percentOfAllVoters}%</td>
         </tr>
       );
     });
