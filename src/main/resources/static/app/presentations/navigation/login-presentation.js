@@ -15,7 +15,7 @@ var LoginComponent = React.createClass({
 		        <div className="ih-item hop">
 		          <Link to="/admin">
 		            <div className="img">
-		              <img src="img/admin.png" />
+		              <img src="img/admin.jpg" />
 		            </div>
 		            <div className="info">
 		              <p>Administratorius</p>
