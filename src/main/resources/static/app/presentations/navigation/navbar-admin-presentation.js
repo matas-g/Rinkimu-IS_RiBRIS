@@ -9,14 +9,24 @@ var Navigation = React.createClass({
 
     var SideNav = this.props.options.map(function(option, index) {
       return (
+        <div className="container-fluid">
+        <div className="navbar-inner nav-collapse">
+        <nav className="navbar navbar-default" role="navigation">
+        <div className="collapse navbar-collapse">
+        <ul className="nav navbar-nav">
         <li key={index}>
-          <NavLink to={option.pathTo}>{option.text}</NavLink>
+          <NavLink to={option.pathTo}>{option.text}</NavLink>   
         </li>
+        </ul>
+        </div>
+        </nav>
+        </div>
+        </div>
       );
     });
 
     return (
-        <div className="container">
+        <div className="container-fluid">
         <div className="navbar-inner nav-collapse">
           <nav className="navbar navbar-default" role="navigation">
             <div className="collapse navbar-collapse">
