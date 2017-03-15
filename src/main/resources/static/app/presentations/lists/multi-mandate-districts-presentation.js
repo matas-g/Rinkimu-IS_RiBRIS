@@ -7,7 +7,7 @@ const MultiMandateDistrictsComponent = React.createClass({
 
   var nr = 1;
   var self = this;
-
+  var num = 1;
 
   var PartiesList = this.props.parties.filter(function(party) {
 		 if (party.party.name.toLowerCase().indexOf(self.props.searchParty.toLowerCase()) === -1) {
@@ -28,7 +28,7 @@ const MultiMandateDistrictsComponent = React.createClass({
 
 
   var DistrictsList = this.props.districts.filter(function(district) {
-        if (district.district.name.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) {
+        if (district.district.name.toLowerCase().indexOf(self.props.searchDistrict.toLowerCase()) === -1) {
         return false;
       } else {
         return true;
@@ -47,16 +47,15 @@ const MultiMandateDistrictsComponent = React.createClass({
 
     		<div className="container-fluid">
 			<div className="form-group pull-right">
-					<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchCandidatesTextChange} />
+					<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchPartyTextChange} />
 			</div>
-				<h3>Balsavimo rezultatai daugiamandatėje apygardoje</h3>
+				<h3>Balsavimo rezultatai daugiamandatėje {this.props.constituencyName} apygardoje</h3>
 				<table className="table table-striped table-bordered">
 					<thead>
 						<tr className="table-head"> 
 							<th>Partija</th>
 							<th>Balsai iš viso</th>
 							<th>Balsų skaičius % nuo dalyvavusių rinkėjų apygardoje</th>
-							<th>Mandatų skaičius</th>
 						</tr>
 					</thead>
 					<tbody> 
@@ -67,7 +66,7 @@ const MultiMandateDistrictsComponent = React.createClass({
           <div className="make-space"></div>
 
           <div className="form-group pull-right">
-            <input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchTextChange} />
+            <input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchDistrictTextChange} />
           </div>
           <h3>Balsavimo rezultatai rinkimų apylinkėse</h3>
           <table className="table table-striped table-bordered">

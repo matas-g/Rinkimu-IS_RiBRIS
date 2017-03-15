@@ -38,6 +38,8 @@ const SingleMandateDistrictsList = require('../containers/lists/single-mandate-d
 const SingleMandateDistrictResultsList = require('../containers/lists/single-mandate-district-results-container');
 
 const MultiMandateDistrictsList = require('../containers/lists/multi-mandate-districts-container');
+const MultiMandateDistrictResultsList = require('../containers/lists/multi-mandate-district-results-container');
+
 const CandidateBiography = require('../containers/candidate-biography-container');
 
 const routes = (
@@ -54,7 +56,8 @@ const routes = (
 
         <Route path="/multi-mandate" component={MultiMandateList} />
         <Route path="/multi-mandate-districts/:constituencyId" component={MultiMandateDistrictsList} />
-
+        <Route path="/multi-mandate-district-results/:districtId" component={MultiMandateDistrictResultsList} />
+       
         <Route path="/activity" component={ConstituencyActivityList} />
         <Route path="/polling-districts/activity/all/:constituencyId" component={DistrictsActivityList} />
       </Route>

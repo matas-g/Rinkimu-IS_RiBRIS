@@ -78,10 +78,16 @@ public class PollingDistrictController {
         return pollingDistrictService.getVotersActivityInAllDistrictsOfConstituency(constituencyId);
     }
 
-    @RequestMapping(value = "spoiled-ballots/{districtId}", method = RequestMethod.POST)
-    public PollingDistrictEntity postSpoiledBallots(@Valid @PathVariable("districtId") Long districtId,
+    @RequestMapping(value = "single-spoiled-ballots/{districtId}", method = RequestMethod.POST)
+    public PollingDistrictEntity postSingleSpoiledBallots(@Valid @PathVariable("districtId") Long districtId,
             @RequestBody SpoiledResults results) {
-        return pollingDistrictService.postSpoiledBallots(districtId, results);
+        return pollingDistrictService.postSingleSpoiledBallots(districtId, results);
+    }
+    
+    @RequestMapping(value = "multi-spoiled-ballots/{districtId}", method = RequestMethod.POST)
+    public PollingDistrictEntity postMultiSpoiledBallots(@Valid @PathVariable("districtId") Long districtId,
+            @RequestBody SpoiledResults results) {
+        return pollingDistrictService.postMultiSpoiledBallots(districtId, results);
     }
 
     // Get all districts that did not submit results

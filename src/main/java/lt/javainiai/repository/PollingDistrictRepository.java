@@ -35,18 +35,43 @@ public class PollingDistrictRepository implements RepositoryInterface<PollingDis
         return em.createQuery("SELECT p FROM PollingDistrictEntity p").getResultList();
     }
 
+//    @Transactional
+//    public PollingDistrictEntity postSpoiledBallots(Long districtId, Long single, Long multi) {
+//        PollingDistrictEntity oldDistrict = findById(districtId);
+//        PollingDistrictEntity merged;
+//
+//        oldDistrict.setSpoiledSingleMandateBallots(single);
+//        oldDistrict.setSpoiledMultiMandateBallots(multi);
+//
+//        merged = em.merge(oldDistrict);
+//        em.persist(merged);
+//        return merged;
+//    }
+//    
     @Transactional
-    public PollingDistrictEntity postSpoiledBallots(Long districtId, Long single, Long multi) {
-        PollingDistrictEntity oldDistrict = findById(districtId);
+    public PollingDistrictEntity postSingleSpoiledBallots(Long districtId, Long single) {
+    	PollingDistrictEntity oldDistrict = findById(districtId);
         PollingDistrictEntity merged;
 
         oldDistrict.setSpoiledSingleMandateBallots(single);
+        
+        merged = em.merge(oldDistrict);
+        em.persist(merged);
+        return merged;
+    }
+    
+    @Transactional
+    public PollingDistrictEntity postMultiSpoiledBallots(Long districtId, Long multi) {
+    	PollingDistrictEntity oldDistrict = findById(districtId);
+        PollingDistrictEntity merged;
+
         oldDistrict.setSpoiledMultiMandateBallots(multi);
 
         merged = em.merge(oldDistrict);
         em.persist(merged);
         return merged;
     }
+    
 
     @Override
     public PollingDistrictEntity findById(Long id) {
