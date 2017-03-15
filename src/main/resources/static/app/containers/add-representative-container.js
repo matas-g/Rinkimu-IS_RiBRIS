@@ -5,13 +5,16 @@ const AddRepresentative = require('../presentations/add-representative-presentat
 var AddRepresentativeContainer = React.createClass({
   getInitialState: function() {
     return {
+      id: '',
       name: '',
       surname: '',
       pollingDistrict: {
         id: 1
       },
       district: {},
-      districts: []
+      districts: [],
+      isValid: false,
+      text: ''
     };
   },
 
@@ -68,19 +71,32 @@ var AddRepresentativeContainer = React.createClass({
     });
   },
 
+  handleValidStateChange: function(isValid) {
+    this.setState({
+      isValid: isValid
+    });
+  },
+
   handleSaveClick: function(e) {
     e.preventDefault();
     var self = this;
     var elementsList = {
+      id: this.state.id,
       name: this.state.name,
       surname: this.state.surname,
       pollingDistrict: {
         id: this.state.pollingDistrict.id
       }
     };
-    axios.post('http://localhost:8090/representatives/', elementsList).then(function () {
-      self.context.router.push('/admin/representatives');
-    });
+    if(this.state.isValid) {
+      axios.post('http://localhost:8090/representatives/', elementsList).then(function () {
+        self.context.router.push('/admin/representatives');
+      });
+    } else {
+      this.setState({
+        text: "Ištaisykite klaidas"
+      });
+    }
   },
 
   handleCancelClick() {
@@ -90,6 +106,8 @@ var AddRepresentativeContainer = React.createClass({
   render: function() {
     return (
       <AddRepresentative
+        text={this.state.text}
+        handleValidStateChange={this.handleValidStateChange}
         districtName={this.state.districtName}
         representativeId={this.props.params.representativeId}
         onNameChange={this.handleNameChange}

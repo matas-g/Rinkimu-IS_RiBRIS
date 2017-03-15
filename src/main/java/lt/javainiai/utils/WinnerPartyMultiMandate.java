@@ -2,18 +2,21 @@ package lt.javainiai.utils;
 
 import lt.javainiai.model.PartyEntity;
 
-public class WinnerPartyMultiMandate {
+public class WinnerPartyMultiMandate implements Comparable<WinnerPartyMultiMandate> {
 
     private PartyEntity party;
     private Long votes;
     private Double percentOfAllBallots;
     private Long numOfMandatesWon;
+    private Long mandateRemainder;
 
-    public WinnerPartyMultiMandate(PartyEntity party, Long votes, Double percentOfAllBallots, Long numOfMandatesWon) {
+    public WinnerPartyMultiMandate(PartyEntity party, Long votes, Double percentOfAllBallots, Long numOfMandatesWon,
+            Long mandateRemainder) {
         this.party = party;
         this.votes = votes;
         this.percentOfAllBallots = percentOfAllBallots;
         this.numOfMandatesWon = numOfMandatesWon;
+        this.mandateRemainder = mandateRemainder;
     }
 
     public PartyEntity getParty() {
@@ -46,6 +49,19 @@ public class WinnerPartyMultiMandate {
 
     public void setNumOfMandatesWon(Long numOfMandatesWon) {
         this.numOfMandatesWon = numOfMandatesWon;
+    }
+
+    public Long getMandateRemainder() {
+        return mandateRemainder;
+    }
+
+    public void setMandateRemainder(Long mandateRemainder) {
+        this.mandateRemainder = mandateRemainder;
+    }
+
+    @Override
+    public int compareTo(WinnerPartyMultiMandate party) {
+        return this.votes.compareTo(party.getVotes());
     }
 
 }

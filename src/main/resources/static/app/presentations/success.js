@@ -4,7 +4,10 @@ var HomeListComponent = React.createClass({
 	render: function() {
 		return (
 		   <div className="container-fluid">
-	      <h3>Suvedėte apylinkės balsu</h3>
+				 <div className="row-fluid text-center">
+					 <img src="../../img/success.png" />
+		       <h3>Suvedėte apylinkės balsus!</h3>
+				 </div>
 	    </div>
 		);
 	}

@@ -46,7 +46,7 @@ var ResultsReportContainer = React.createClass({
           partiesList={this.state.partiesList}
           onCancelClick={this.handleCancelClick}
           results={this.props.results}
-          onSaveClick={this.props.onSaveClick}
+          onSaveClick={this.props.handleSaveClick}
         />
       );
     }

@@ -17,6 +17,7 @@ import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.PartyResultsRepository;
 import lt.javainiai.utils.ConstituencyProgress;
 import lt.javainiai.utils.DistrictResultSubmitTime;
+import lt.javainiai.utils.MandatesRemainderComparator;
 import lt.javainiai.utils.MultiMandatePartyResults;
 import lt.javainiai.utils.UtilityMethods;
 import lt.javainiai.utils.WinnerPartyMultiMandate;
@@ -193,7 +194,10 @@ public class PartyResultsService {
         List<MultiMandatePartyResults> totalPartyResults = getMultiMandateTotalResults();
         List<MultiMandatePartyResults> partiesWithMandates = new ArrayList<>();
         Long totalVotes = 0L;
+        Long totalOfMandates = 70L;
+        Long remainingMandates = totalOfMandates;
         Double mandateQuote;
+        Long totalOfRemainders = 0L;
 
         for (MultiMandatePartyResults partyResult : totalPartyResults) {
             if (partyResult.getPercentOfAllBallots() >= 5.0d) {
@@ -201,7 +205,7 @@ public class PartyResultsService {
                 totalVotes += partyResult.getVotes();
             }
         }
-        mandateQuote = totalVotes.doubleValue() / 70.0d;
+        mandateQuote = totalVotes.doubleValue() / totalOfMandates.doubleValue();
         mandateQuote = UtilityMethods.roundUp(mandateQuote, 2);
 
         Collections.sort(partiesWithMandates, new Comparator<MultiMandatePartyResults>() {
@@ -211,16 +215,64 @@ public class PartyResultsService {
             }
         });
 
+        // Assign mandates to parties
         for (MultiMandatePartyResults partyResult : partiesWithMandates) {
             PartyEntity party = partyResult.getParty();
             Long votes = partyResult.getVotes();
             Double percentOfAllBallots = partyResult.getPercentOfAllBallots();
-            Long numOfMandatesWon = partyResult.getVotes() / mandateQuote.longValue();
+            WinnerPartyMultiMandate winnerParty;
 
-            WinnerPartyMultiMandate winnerParty = new WinnerPartyMultiMandate(party, votes, percentOfAllBallots,
-                    numOfMandatesWon);
+            Long numOfMandatesWon = partyResult.getVotes() / mandateQuote.longValue();
+            Long mandateRemainder = partyResult.getVotes() % mandateQuote.longValue();
+            remainingMandates -= numOfMandatesWon;
+            totalOfRemainders += mandateRemainder;
+
+            winnerParty = new WinnerPartyMultiMandate(party, votes, percentOfAllBallots, numOfMandatesWon,
+                    mandateRemainder);
             winnerParties.add(winnerParty);
         }
+
+        // Assign mandates to parties by remainder
+        if (remainingMandates > 0) {
+            // Sort by remainder
+            Collections.sort(winnerParties, new MandatesRemainderComparator());
+
+            // Assign mandates to parties
+            Long mandateQuote2 = totalOfRemainders / remainingMandates;
+            if (mandateQuote2 != 0) {
+                for (WinnerPartyMultiMandate winnerParty : winnerParties) {
+                    Long currentMandatesWon = winnerParty.getNumOfMandatesWon();
+                    Long additionalMandates = winnerParty.getMandateRemainder() / mandateQuote2;
+                    winnerParty.setNumOfMandatesWon(currentMandatesWon + additionalMandates);
+                    remainingMandates -= additionalMandates;
+
+                    if (remainingMandates == 0L) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Assign remaining mandates to parties by list order
+        if (remainingMandates > 0) {
+            for (WinnerPartyMultiMandate winnerParty : winnerParties) {
+                Long currentMandatesWon = winnerParty.getNumOfMandatesWon();
+                winnerParty.setNumOfMandatesWon(currentMandatesWon + 1L);
+                remainingMandates -= 1L;
+
+                if (remainingMandates == 0L) {
+                    break;
+                }
+            }
+        }
+
+        // sort list by votes
+        Collections.sort(winnerParties, new Comparator<WinnerPartyMultiMandate>() {
+            @Override
+            public int compare(WinnerPartyMultiMandate o1, WinnerPartyMultiMandate o2) {
+                return o2.getVotes().compareTo(o1.getVotes());
+            }
+        });
         return winnerParties;
     }
 

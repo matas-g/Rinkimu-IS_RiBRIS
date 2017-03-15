@@ -55,7 +55,6 @@ var NavRepContainer = React.createClass({
 	  },
 
 		handleSaveClick() {
-			console.log("siuciama");
 			var results = this.state.results;
 			for (var i = 0; i < candidatesList.length; i++) {
 				var data = {
@@ -82,10 +81,11 @@ var NavRepContainer = React.createClass({
 				axios.post('http://localhost:8090/party-results/', data);
 			}
 			var dataList = {
-				spoiledSingle: this.state.spoiledSingle,
-				spoiledMulti: this.state.spoiledMulti
+				spoiledSingle: this.state.results.spoiledSingle,
+				spoiledMulti: this.state.results.spoiledMulti
 			}
-			axios.post('http://localhost:8090/polling-districts/spoiled-ballots/'+this.state.districtId, dataList)
+			axios.post('http://localhost:8090/polling-districts/spoiled-ballots/'+this.state.districtId, dataList);
+			this.context.router.push('/representative/results/success');
 		},
 
 	  render: function() {
@@ -99,9 +99,9 @@ var NavRepContainer = React.createClass({
 						setIds: self.handleDistrictChange,
 						districtId: self.state.districtId,
 						constituencyId: self.state.constituencyId,
-						onSaveClick: self.handleSaveClick,
 						onSingleChange: self.handleSingleChange,
-						onMultiChange: self.handleMultiChange
+						onMultiChange: self.handleMultiChange,
+						handleSaveClick: self.handleSaveClick
 	        })
 	      }
 	    );
