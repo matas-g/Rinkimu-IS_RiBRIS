@@ -44,7 +44,7 @@ var PartyResultsInputPresentation = React.createClass({
           <div>
             {PartiesRows}
           </div>
-          <h4 className="alert alert-success text-center">Sugadinti daugiamandačiai balsai</h4>
+          <h4 className="alert alert-success text-center">Sugadinti daugiamandačiai biuleteniai</h4>
             <NumberValidator
                handleValidStateChange={self.props.handleValidStateChange}
                >
