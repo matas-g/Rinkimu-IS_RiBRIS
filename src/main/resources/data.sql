@@ -295,3 +295,64 @@ VALUES
 (null, 'Kazliškių', 'Dvarų g. 49', 1082, 0, 0, 19),
 (null, 'Tirkiliškių', 'M. Yčo g. 2', 2423, 0, 0, 19),
 (null, 'Romainių', 'Romainių g. 28', 3374, 0, 0, 19);
+
+
+INSERT INTO PARTIES (id, name, PARTY_NUMBER)
+VALUES
+(null, 'Lietuvos socialdemokratų partija', 1),
+(null, 'Lietuvos humanistų partija', 2),
+(null, 'Lietuvos žalioji partija', 3),
+(null, 'Respublikonų partija', 4),
+(null, 'Tautos pažangos partija', 5),
+(null, 'Partija „Jaunoji Lietuva“', 6),
+(null, 'Kovotojų už Lietuvą sąjunga', 7),
+(null, 'Lietuvos lenkų rinkimų akcija', 8),
+(null, 'Lietuvos politinių kalinių partija', 9),
+(null, 'Lietuvos rusų sąjunga', 10),
+(null, 'Lietuvos socialinio teisingumo sąjunga', 11),
+(null, 'Lietuvos reformų partija', 12),
+(null, 'Tautos vienybės sąjunga', 13),
+(null, 'Lietuvos socialdemokratų sąjunga', 14),
+(null, 'Lietuvos valstiečių ir žaliųjų sąjunga', 15),
+(null, 'Partija Tvarka ir teisingumas', 16),
+(null, 'Respublikonų lyga', 17),
+(null, 'Politinė partija Rusų aljansas', 18),
+(null, 'Lietuvos krikščioniškosios demokratijos partija', 19),
+(null, 'Lietuvos laisvės sąjunga (liberalai)', 20),
+(null, 'Lietuvos centro partija', 21),
+(null, 'Lietuvos Respublikos liberalų sąjūdis', 22),
+(null, 'Smulkaus ir vidutinio verslo partija', 23),
+(null, 'Lietuvos pensininkų partija', 24),
+(null, 'Tėvynės sąjunga – Lietuvos krikščionys demokratai', 25),
+(null, 'Žemaičių partija', 26),
+(null, 'Politinė partija „Profesinių sąjungų centras“', 27),
+(null, 'Žemaitijos partija', 28),
+(null, 'Socialistinis liaudies frontas', 29),
+(null, 'Lietuvos liaudies partija', 30),
+(null, 'Lietuvos žaliųjų partija', 31),
+(null, 'Tautininkų sąjunga', 32),
+(null, '„Drąsos kelias“ politinė partija	', 33),
+(null, 'Lietuvos žmonių partija', 34),
+(null, 'Demokratinė darbo ir vienybės partija', 35),
+(null, 'Emigrantų partija', 36),
+(null, 'Politinė partija „Lietuvos sąrašas“', 37),
+(null, 'Darbo partija', 38);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
