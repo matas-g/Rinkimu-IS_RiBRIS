@@ -10,7 +10,7 @@ const MultiMandateDistrictsComponent = React.createClass({
 
 
   var PartiesList = this.props.parties.filter(function(party) {
-		 if (party.party.name.toLowerCase().indexOf(self.props.searchParty.toLowerCase()) === -1) {
+		 if (party.name.toLowerCase().indexOf(self.props.searchParty.toLowerCase()) === -1) {
 		        return false;
 		      } else {
 		        return true;
