@@ -8,7 +8,8 @@ var SingleMandateDistrictListContainer = React.createClass({
     return {
       districts: [],
       candidates: [],
-      searchText: '',
+      searchCandidate: '',
+      searchDistrict: '',
       constituencyName: ''
     };
   },
@@ -33,12 +34,21 @@ var SingleMandateDistrictListContainer = React.createClass({
     })
 },
 
-    handleSearchTextChange: function(e) {
-      var text = e.target.value;
+    handleSearchCandidatesTextChange: function(e) {
+      var candidate = e.target.value;
       this.setState({
-        searchText: text
+        searchCandidate: candidate
     });
   },
+
+    handleSearchDistrictsTextChange: function(e) {
+      var district = e.target.value;
+      this.setState({
+        searchDistrict: district
+    });
+  },
+
+
 
 
   render: function() {
@@ -46,8 +56,10 @@ var SingleMandateDistrictListContainer = React.createClass({
       <SingleMandateDistrictListComponent
         districts={this.state.districts}
         candidates={this.state.candidates}
-        onSearchTextChange={this.handleSearchTextChange}
-        searchText={this.state.searchText}
+        onSearchCandidatesTextChange={this.handleSearchCandidatesTextChange}
+        searchCandidate={this.state.searchCandidate}
+        onSearchDistrictsTextChange={this.handleSearchDistrictsTextChange}
+        searchDistrict={this.state.searchDistrict}
         constituencyName={this.state.constituencyName}
       />
     );

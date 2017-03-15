@@ -17,7 +17,7 @@ var SingleMandateDistrictResultsComponent = React.createClass({
 			var link = "/candidate-biography/" + candidate.candidate.id;
 			return (
 				<tr key={index}>
-					<td className="candidate-name-decorator"><Link to={link}>{nr++}. {candidate.candidate.name}. {candidate.candidate.surname}</Link></td>
+					<td className="candidate-name-decorator"><Link to={link}>{nr++}. {candidate.candidate.name} {candidate.candidate.surname}</Link></td>
 					<td>{candidate.candidate.partyName}</td>
 					<td>{candidate.votes}</td>
 					<td style={{textAlign: 'center'}}>{candidate.percentOfValidBallots}%</td>
