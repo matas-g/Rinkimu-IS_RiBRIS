@@ -15,10 +15,12 @@ import lt.javainiai.model.PartyEntity;
 import lt.javainiai.model.PartyResultsEntity;
 import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.PartyResultsRepository;
+import lt.javainiai.utils.ConsolidatedParty;
 import lt.javainiai.utils.ConstituencyProgress;
 import lt.javainiai.utils.DistrictResultSubmitTime;
 import lt.javainiai.utils.MandatesRemainderComparator;
 import lt.javainiai.utils.MultiMandatePartyResults;
+import lt.javainiai.utils.SingleMandateCandidateResults;
 import lt.javainiai.utils.UtilityMethods;
 import lt.javainiai.utils.WinnerPartyMultiMandate;
 
@@ -33,6 +35,8 @@ public class PartyResultsService {
     private ConstituencyService constituencyService;
     @Autowired
     private PartyService partyService;
+    @Autowired
+    private CandidatesResultsSingleMandateService candidatesResultsSingleMandateService;
 
     public PartyResultsEntity saveOrUpdate(PartyResultsEntity partyResults) {
         return partyResultsRepository.saveOrUpdate(partyResults);
@@ -194,8 +198,7 @@ public class PartyResultsService {
         List<MultiMandatePartyResults> totalPartyResults = getMultiMandateTotalResults();
         List<MultiMandatePartyResults> partiesWithMandates = new ArrayList<>();
         Long totalVotes = 0L;
-        Long totalOfMandates = 70L;
-        Long remainingMandates = totalOfMandates;
+        Long remainingMandates = 70L;
         Double mandateQuote;
         Long totalOfRemainders = 0L;
 
@@ -205,7 +208,7 @@ public class PartyResultsService {
                 totalVotes += partyResult.getVotes();
             }
         }
-        mandateQuote = totalVotes.doubleValue() / totalOfMandates.doubleValue();
+        mandateQuote = totalVotes.doubleValue() / remainingMandates.doubleValue();
         mandateQuote = UtilityMethods.roundUp(mandateQuote, 2);
 
         Collections.sort(partiesWithMandates, new Comparator<MultiMandatePartyResults>() {
@@ -252,7 +255,6 @@ public class PartyResultsService {
                 }
             }
         }
-
         // Assign remaining mandates to parties by list order
         if (remainingMandates > 0) {
             for (WinnerPartyMultiMandate winnerParty : winnerParties) {
@@ -265,7 +267,6 @@ public class PartyResultsService {
                 }
             }
         }
-
         // sort list by votes
         Collections.sort(winnerParties, new Comparator<WinnerPartyMultiMandate>() {
             @Override
@@ -327,6 +328,52 @@ public class PartyResultsService {
             districtResultsSubmissionTimeList.add(districtResultsSubmissionTime);
         }
         return districtResultsSubmissionTimeList;
+    }
+
+    public List<ConsolidatedParty> getConsolidatedParties() {
+        List<WinnerPartyMultiMandate> parties = getWinnerPartiesMultiMandate();
+        List<ConsolidatedParty> consolidatedParties = new ArrayList<>();
+        Long noPartyCandidatesMandates = 0L;
+
+        // sum all mandates
+        for (WinnerPartyMultiMandate party : parties) {
+            PartyEntity currentParty = party.getParty();
+            ConsolidatedParty consolidatedParty;
+            Long partyMultiMemberMandates = party.getNumOfMandatesWon();
+            Long partySingleMemberMandates = 0L;
+            Long totalPartyMandates = 0L;
+            List<SingleMandateCandidateResults> singleMandateWinners = candidatesResultsSingleMandateService
+                    .getWinnerCandidatesSingleMandate();
+
+            for (SingleMandateCandidateResults singleMandateWinner : singleMandateWinners) {
+                PartyEntity candidatesParty = singleMandateWinner.getCandidate().getParty();
+
+                if (candidatesParty == currentParty) {
+                    partySingleMemberMandates++;
+                } else if (candidatesParty == null) {
+                    noPartyCandidatesMandates++;
+                }
+            }
+            totalPartyMandates = partyMultiMemberMandates + partySingleMemberMandates;
+            consolidatedParty = new ConsolidatedParty(currentParty.getName(), totalPartyMandates);
+            consolidatedParties.add(consolidatedParty);
+        }
+
+        Collections.sort(consolidatedParties, new Comparator<ConsolidatedParty>() {
+            @Override
+            public int compare(ConsolidatedParty o1, ConsolidatedParty o2) {
+                int result = o2.getMandatesWon().compareTo(o1.getMandatesWon());
+
+                if (result != 0) {
+                    return result;
+                } else {
+                    return o1.getPartyName().compareToIgnoreCase(o2.getPartyName());
+                }
+            }
+
+        });
+        consolidatedParties.add(new ConsolidatedParty("Išsikėlę patys", noPartyCandidatesMandates));
+        return consolidatedParties;
     }
 
 }
