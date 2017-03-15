@@ -7,19 +7,28 @@ var SingleMandateListContainer = React.createClass({
   getInitialState: function() {
     return {
       constituencies: [],
+      candidates: [],
       searchText: ''
     };
   },
 
-  componentWillMount: function() {
+componentWillMount: function() {
     var self = this;
     axios.get('http://localhost:8090/candidates-results/single-mandate/progress/')
     .then(function (response) {
-      self.setState({
-        constituencies: response.data
-      });
+        constituencies = response.data;
+     axios.get('http://localhost:8090/candidates-results/single-mandate/winner-candidates/')
+    .then(function (response) {
+        candidates = response.data;
+        self.setState({
+            constituencies: constituencies,
+            candidates: candidates
+        });
     });
-  },
+  })
+},
+
+
 
   handleSearchTextChange: function(e) {
       var text = e.target.value;
@@ -32,6 +41,7 @@ var SingleMandateListContainer = React.createClass({
     return (
       <SingleMandateListPresentation
         constituencies={this.state.constituencies}
+        candidates={this.state.candidates}
         onSearchTextChange={this.handleSearchTextChange}
         searchText={this.state.searchText}
       />
