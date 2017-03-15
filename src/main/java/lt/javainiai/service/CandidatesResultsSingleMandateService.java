@@ -206,14 +206,15 @@ public class CandidatesResultsSingleMandateService {
             SingleMandateCandidateResults bestCandidateResult = null;
 
             if (!candidateResults.isEmpty()) {
-                // find best result
                 for (SingleMandateCandidateResults candidateResult : candidateResults) {
                     if (bestPercentOfAllBallots < candidateResult.getPercentOfAllBallots()) {
                         bestPercentOfAllBallots = candidateResult.getPercentOfAllBallots();
                         bestCandidateResult = candidateResult;
                     }
                 }
-                winnerCandidatesList.add(bestCandidateResult);
+                if (bestCandidateResult != null) {
+                    winnerCandidatesList.add(bestCandidateResult);
+                }
             }
         }
         return winnerCandidatesList;
