@@ -157,8 +157,10 @@ public class CandidatesResultsSingleMandateService {
                 long totalOfCandidates = district.getConstituency().getCandidates().size();
                 long numberOfCandidatesWithSubmittedResults = district.getSingleMandateResults().size();
 
-                if (numberOfCandidatesWithSubmittedResults >= totalOfCandidates) {
-                    districtsWithResults++;
+                if ((totalOfCandidates != 0l) && (numberOfCandidatesWithSubmittedResults != 0l)) {
+                    if (numberOfCandidatesWithSubmittedResults >= totalOfCandidates) {
+                        districtsWithResults++;
+                    }
                 }
             }
             progress = new ConstituencyProgress(constituency, totalNumOfDistricts, districtsWithResults);

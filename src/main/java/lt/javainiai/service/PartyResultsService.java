@@ -290,8 +290,10 @@ public class PartyResultsService {
                 long totalOfParties = partyService.findAll().size();
                 long numberOfPartiesWithSubmittedResults = district.getPartyResults().size();
 
-                if (numberOfPartiesWithSubmittedResults >= totalOfParties) {
-                    districtsWithResults++;
+                if ((totalOfParties != 0l) && (numberOfPartiesWithSubmittedResults != 0l)) {
+                    if (numberOfPartiesWithSubmittedResults >= totalOfParties) {
+                        districtsWithResults++;
+                    }
                 }
             }
             progress = new ConstituencyProgress(constituency, totalNumOfDistricts, districtsWithResults);
