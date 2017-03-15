@@ -91,21 +91,14 @@ public class PollingDistrictService {
     }
 
     public PollingDistrictEntity postSpoiledBallots(Long districtId, SpoiledResults results) {
-        Long single;
-        Long multi;
+        Long single = results.getSpoiledSingle();
+        Long multi = results.getSpoiledMulti();
 
         if (results.getSpoiledSingle() == null) {
-            single = 0L;
+        	return pollingDistrictRepository.postSpoiledBallotsMulti(districtId, multi);
         } else {
-            single = results.getSpoiledSingle();
-        }
-
-        if (results.getSpoiledMulti() == null) {
-            multi = 0L;
-        } else {
-            multi = results.getSpoiledMulti();
-        }
-        return pollingDistrictRepository.postSpoiledBallots(districtId, single, multi);
+            return pollingDistrictRepository.postSpoiledBallotsSingle(districtId, single);
+        }        
     }
 
     public List<PollingDistrictEntity> getDistrictsNotSubmittedSingleResults() {
