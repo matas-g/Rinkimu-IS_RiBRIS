@@ -13,7 +13,8 @@ var AddSingleMandateResults = React.createClass({
       candidatesList: [],
       voteArray: [],
       votesEnteredState: [],
-      text: ''
+      text: '',
+      spoiledSingle: ''
     };
   },
 
@@ -75,7 +76,14 @@ var AddSingleMandateResults = React.createClass({
         votesEnteredState: enteredState
       });
     };
+  },
 
+  handleSingleChange: function(e) {
+    var spoiledSingle = e.target.value;
+    this.setState({
+      spoiledSingle: spoiledSingle
+    });
+    this.props.onSingleChange(spoiledSingle);
   },
 
   handleSaveClick: function(e) {
@@ -85,12 +93,12 @@ var AddSingleMandateResults = React.createClass({
     var sum = this.state.votesEnteredState.reduce(function(acc, val) {
       return acc + val;
     }, 0);
-    if (sum == (candidatesList.length)) {
+    if (sum == (candidatesList.length) && (this.state.spoiledSingle != '')) {
       self.props.handleVotesReport('singleMandateVotes', self.state.voteArray);
-      self.context.router.push('/representative/results/parties');
+      self.context.router.push('/representative/results/single/report');
     } else {
       this.setState({
-        text: "Suveskite balsus visiems kandidatams, jei kandidatas balsų negavo, įveskite 0"
+        text: "Suveskite balsus visiems laukeliams, nepamirškite įrašyti 0"
       });
     }
   },
@@ -108,7 +116,7 @@ var AddSingleMandateResults = React.createClass({
         onDistrictChange={this.handleDistrictChange}
         onResultsChange={this.handleResultsChange}
         onSaveClick={this.handleSaveClick}
-        onSingleChange={this.props.onSingleChange}
+        onSingleChange={this.handleSingleChange}
         results={this.props.results}
       />
     );
