@@ -373,7 +373,9 @@ public class PartyResultsService {
             }
 
         });
-        consolidatedParties.add(new ConsolidatedParty("Išsikėlę patys", noPartyCandidatesMandates));
+        if (noPartyCandidatesMandates != 0) {
+            consolidatedParties.add(new ConsolidatedParty("Išsikėlę patys", noPartyCandidatesMandates));
+        }
         return consolidatedParties;
     }
 
@@ -408,6 +410,18 @@ public class PartyResultsService {
         for (SingleMandateCandidateResults candidate : winnerSingleMandateCandidates) {
             winnerCandidates.add(candidate.getCandidate());
         }
+
+        Collections.sort(winnerCandidates, new Comparator<CandidateEntity>() {
+            @Override
+            public int compare(CandidateEntity o1, CandidateEntity o2) {
+                int result = o1.getSurname().compareToIgnoreCase(o2.getSurname());
+                if (result != 0) {
+                    return result;
+                } else {
+                    return o1.getName().compareToIgnoreCase(o2.getName());
+                }
+            }
+        });
         return winnerCandidates;
     }
 
