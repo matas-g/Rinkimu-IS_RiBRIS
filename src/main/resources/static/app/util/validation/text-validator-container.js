@@ -14,7 +14,7 @@ var ValidatorContainer = React.createClass({
     },
 
     componentWillReceiveProps(newProps) {
-      const exp = new RegExp('^[a-p,r-v,yząčęėįšųūž]*$', 'i');
+      const exp = new RegExp('^[a-p,r-v,yząčęėįšųūž ]*$', 'i');
       var input = newProps.children.props.value;
       const self = this;
       var newState = this.state.errorStates;

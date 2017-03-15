@@ -5,43 +5,12 @@ const BarChart = require("../../util/chart/chart");
 
 var MultiMandateComponent = React.createClass({
 		render: function() {
-			var chartData = {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-        datasets: [{
-            label: '# of Votes',
-            data: [5, 6, 7, 3, 8, 2, 0 ,1],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
-    };
-		var options = {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    };
 
 		var nr = 1;
 		var num = 1;
 		var self = this;
+		var partyNames = [];
+		var mandatesArray = [];
 
 		var WinnersPartiesList = this.props.parties.filter(function(party) {
 			 if (party.party.name.toLowerCase().indexOf(self.props.searchParty.toLowerCase()) === -1) {
@@ -50,6 +19,8 @@ var MultiMandateComponent = React.createClass({
 			        return true;
 			      };
 		}).map(function(party, index){
+			partyNames.push(party.party.name);
+			mandatesArray.push(party.numOfMandatesWon);
 	    	return (
 	    		<tr key={index}>
 	    			<td>{party.party.name}</td>
@@ -97,7 +68,7 @@ var MultiMandateComponent = React.createClass({
 							</tbody>
 						</table>
 
-					 <BarChart chartData={chartData} options={options}/>
+					 <BarChart labels={partyNames} data={mandatesArray} />
 
 					<div className="container-fluid">
 						<div className="form-group pull-right">
