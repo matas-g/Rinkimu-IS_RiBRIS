@@ -50,9 +50,10 @@ var MultiMandateComponent = React.createClass({
 
 			return (
 				<div className="container-fluid">
-					<div className="form-group pull-right">
-							<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchCandidatesTextChange} />
-					</div>
+					<div className="row">
+						<div className="pull-right">
+								<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchCandidatesTextChange} />
+						</div>
 						<h3>Balsavimo rezultatai daugiamandatėje apygardoje</h3>
 						<table className="table table-striped table-bordered">
 							<thead>
@@ -67,10 +68,14 @@ var MultiMandateComponent = React.createClass({
 								{WinnersPartiesList}
 							</tbody>
 						</table>
+					</div>
+					<br/>
 
-					 <BarChart labels={partyNames} data={mandatesArray} />
-
-					<div className="container-fluid">
+					<div className="row">
+					  <BarChart labels={partyNames} data={mandatesArray} />
+					</div>
+					<br/>
+				 <div className="row">
 						<div className="form-group pull-right">
 							<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchTextChange} />
 						</div>
@@ -90,8 +95,8 @@ var MultiMandateComponent = React.createClass({
 										{ConstituenciesList}
 									</tbody>
 							</table>
-						</div>
 					</div>
+				</div>
 			);
 		}
 	});
