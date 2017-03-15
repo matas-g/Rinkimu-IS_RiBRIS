@@ -19,10 +19,10 @@ var DistrictsActivityListComponent = React.createClass({
     }).map(function(district, index) {
     	return (
         <tr key={index}>
-        <td>{nr++}</td>
+        <td style={{textAlign: 'center'}}>{nr++}</td>
           <td>{district.district.name}</td>
-          <td>{district.givenBallots}</td>
-          <td>{district.percentOfAllVoters}%</td>
+          <td style={{textAlign: 'center'}}>{district.givenBallots}</td>
+          <td style={{textAlign: 'center'}}>{district.percentOfAllVoters}%</td>
         </tr>
       );
     });
