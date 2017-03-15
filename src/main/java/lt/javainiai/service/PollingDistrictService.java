@@ -90,15 +90,46 @@ public class PollingDistrictService {
         return activityInDistrictsList;
     }
 
-    public PollingDistrictEntity postSpoiledBallots(Long districtId, SpoiledResults results) {
-        Long single = results.getSpoiledSingle();
-        Long multi = results.getSpoiledMulti();
-
-        if (results.getSpoiledSingle() == null) {
-        	return pollingDistrictRepository.postSpoiledBallotsMulti(districtId, multi);
-        } else {
-            return pollingDistrictRepository.postSpoiledBallotsSingle(districtId, single);
-        }        
+//    public PollingDistrictEntity postSpoiledBallots(Long districtId, SpoiledResults results) {
+//        Long single;
+//        Long multi;
+//
+//        if (results.getSpoiledSingle() == null) {
+//            single = 0L;
+//        } else {
+//            single = results.getSpoiledSingle();
+//        }
+//
+//        if (results.getSpoiledMulti() == null) {
+//            multi = 0L;
+//        } else {
+//            multi = results.getSpoiledMulti();
+//        }
+//        return pollingDistrictRepository.postSpoiledBallots(districtId, single, multi);
+//    }
+    
+    public PollingDistrictEntity postSingleSpoiledBallots(Long districtId, SpoiledResults results){
+    	Long single;
+    	
+    	if (results.getSpoiledSingle() == null) {
+    		single = 0L;
+    	} else {
+    		single = results.getSpoiledSingle();
+    	}
+    	
+    	return pollingDistrictRepository.postSingleSpoiledBallots(districtId, single);
+    }
+    
+    public PollingDistrictEntity postMultiSpoiledBallots(Long districtId, SpoiledResults results){
+    	Long multi;
+    	
+    	if(results.getSpoiledMulti() == null) {
+    		multi = 0L;
+    	} else {
+    		multi = results.getSpoiledMulti();
+    	}
+    	
+    	return pollingDistrictRepository.postMultiSpoiledBallots(districtId, multi);
     }
 
     public List<PollingDistrictEntity> getDistrictsNotSubmittedSingleResults() {
