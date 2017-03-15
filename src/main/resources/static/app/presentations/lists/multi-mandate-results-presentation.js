@@ -1,45 +1,82 @@
 const React = require('react');
 const NavLink = require('../navigation/nav-link');
+const Link = require('react-router').Link;
 
 var MultiMandateComponent = React.createClass({
-	render: function() {
-		return (
+		render: function() {
 
-				<div className="container-fluid col-md-10">
-					<div className="panel panel-default">
-						<div className="panel-heading"><strong>Daugiamandatės rezultatai</strong></div>
-						<table className="table">
-							<thead>
-								<tr>
-									<th>Nr</th>
-									<th>Laukas</th>
-									<th>Laukas</th>
-									<th>Laukas</th>
-									<th>Laukas</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>Lauko duomenys</td>
-									<td>Lauko duomenys</td>
-									<td>Lauko duomenys</td>
-									<td>Lauko duomenys</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>Lauko duomenys</td>
-									<td>Lauko duomenys</td>
-									<td>Lauko duomenys</td>
-									<td>Lauko duomenys</td>
-								</tr>
-							</tbody>
-						</table>
+		var nr = 1;
+		var self = this;
+		var ConstituenciesList = this.props.constituencies.filter(function(constituency) {
+	      	if (constituency.constituency.name.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) {
+	        return false;
+	      } else {
+	        return true;
+	      }
+	    }).map(function(constituency, index) {
+				var link = "/multi-mandate-districts/" + constituency.constituency.id;
+				return (
+					<tr key={index}>
+						<td className="candidate-name-decorator"><Link to={link}>{nr++}. {constituency.constituency.name}</Link></td>
+						<td>{constituency.totalNumOfDistricts}</td>
+						<td>{constituency.districtsWithResults}</td>
+					</tr>
+				);
+				
+			});
+
+			return (
+			<div>
+					
+			    <div className="container-fluid">
+					
+					<div className="form-group pull-right">
+						<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchTextChange} />
 					</div>
-				</div>
-		
-		);
-	}
-});
+						<h3>Balsavimo rezultatai daugiamandatėje apygardoje</h3>
+						<table className="table table-striped table-bordered">
+							<thead>
+								<tr className="table-head"> 
+									<th className="text-middle" style={{verticalAlign: 'middle'}} rowSpan="2">Partija, koalicija</th> 
+									<th colSpan="2">Apylinkių skaičius</th> 
+								</tr> 
+								<tr className="table-head"> 
+									<th>iš viso</th> 
+									<th>duomenis atsiuntė</th>
+								</tr>
+								</thead>
+								<tbody> 
+									{ConstituenciesList}
+								</tbody> 
+						</table>
+				</div>			
+
+				<div className="container-fluid">
+					
+					<div className="form-group pull-right">
+						<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchTextChange} />
+					</div>
+						<h3>Balsavimo rezultatai apygardose</h3>
+						<table className="table table-striped table-bordered">
+							<thead>
+								<tr className="table-head"> 
+									<th className="text-middle" style={{verticalAlign: 'middle'}} rowSpan="2">Apygardos</th> 
+									<th colSpan="2">Apylinkių skaičius</th> 
+								</tr> 
+								<tr className="table-head"> 
+									<th>iš viso</th> 
+									<th>duomenis atsiuntė</th>
+								</tr>
+								</thead>
+								<tbody> 
+									{ConstituenciesList}
+								</tbody> 
+						</table>
+				</div>	
+				
+			</div>
+			);
+		}
+	});
 
 module.exports = MultiMandateComponent;
