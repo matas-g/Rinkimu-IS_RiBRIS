@@ -45,7 +45,7 @@ var SingleMandateResultsInputPresentation = React.createClass({
               {CandidateRows}
             </div>
           <br />
-          <h4 className="alert alert-success text-center">Sugadinti vienmandačiai balsai</h4>
+          <h4 className="alert alert-success text-center">Sugadinti vienmandačiai biuleteniai</h4>
             <br />
             <NumberValidator
                handleValidStateChange={self.props.handleValidStateChange}

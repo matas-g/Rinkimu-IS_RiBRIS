@@ -203,19 +203,17 @@ public class CandidatesResultsSingleMandateService {
             List<SingleMandateCandidateResults> candidateResults = getSingleMandateResultsInConstituency(
                     constituencyId);
             Double bestPercentOfAllBallots = 0.0d;
+            SingleMandateCandidateResults bestCandidateResult = null;
 
             if (!candidateResults.isEmpty()) {
-                // find best result
                 for (SingleMandateCandidateResults candidateResult : candidateResults) {
                     if (bestPercentOfAllBallots < candidateResult.getPercentOfAllBallots()) {
                         bestPercentOfAllBallots = candidateResult.getPercentOfAllBallots();
+                        bestCandidateResult = candidateResult;
                     }
                 }
-                // save all candidates with equal best result to list
-                for (SingleMandateCandidateResults candidateResult : candidateResults) {
-                    if (candidateResult.getPercentOfAllBallots() == bestPercentOfAllBallots) {
-                        winnerCandidatesList.add(candidateResult);
-                    }
+                if (bestCandidateResult != null) {
+                    winnerCandidatesList.add(bestCandidateResult);
                 }
             }
         }
