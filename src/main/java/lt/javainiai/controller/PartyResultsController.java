@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lt.javainiai.model.PartyResultsEntity;
 import lt.javainiai.service.PartyResultsService;
+import lt.javainiai.utils.ConsolidatedParty;
 import lt.javainiai.utils.ConstituencyProgress;
 import lt.javainiai.utils.DistrictResultSubmitTime;
 import lt.javainiai.utils.MultiMandatePartyResults;
@@ -38,7 +39,7 @@ public class PartyResultsController {
         return this.partyResultsService.saveOrUpdate(partyResults);
     }
 
-    @RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<PartyResultsEntity> findAll() {
         return this.partyResultsService.findAll();
@@ -87,6 +88,12 @@ public class PartyResultsController {
     public List<DistrictResultSubmitTime> getDistrictsResultsSubmissionTime(
             @Valid @PathVariable("constituencyId") Long constituencyId) {
         return partyResultsService.getDistrictsResultsSubmissionTime(constituencyId);
+    }
+
+    @RequestMapping(value = "consolidated-results", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<ConsolidatedParty> getConsolidatedParties() {
+        return partyResultsService.getConsolidatedParties();
     }
 
 }
