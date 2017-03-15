@@ -8,7 +8,8 @@ var SingleMandateListContainer = React.createClass({
     return {
       constituencies: [],
       candidates: [],
-      searchText: ''
+      searchCandidate: '',
+      searchConstituency: '',
     };
   },
 
@@ -30,10 +31,17 @@ componentWillMount: function() {
 
 
 
-  handleSearchTextChange: function(e) {
-      var text = e.target.value;
+  handleSearchCandidatesTextChange: function(e) {
+      var candidate = e.target.value;
       this.setState({
-        searchText: text
+        searchCandidate: candidate
+    });
+  },
+
+  handleSearchConstituenciesTextChange: function(e) {
+      var constituency = e.target.value;
+      this.setState({
+        searchConstituency: constituency
     });
   },
 
@@ -42,8 +50,10 @@ componentWillMount: function() {
       <SingleMandateListPresentation
         constituencies={this.state.constituencies}
         candidates={this.state.candidates}
-        onSearchTextChange={this.handleSearchTextChange}
-        searchText={this.state.searchText}
+        onSearchCandidatesTextChange={this.handleSearchCandidatesTextChange}
+        searchCandidate={this.state.searchCandidate}
+        onSearchConstituenciesTextChange={this.handleSearchConstituenciesTextChange}
+        searchConstituency={this.state.searchConstituency}
       />
     );
   }

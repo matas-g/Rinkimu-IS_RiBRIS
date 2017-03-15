@@ -9,19 +9,26 @@ var SingleMandateComponent = React.createClass({
 	var num = 1;
 	var self = this;
 
-	var WinnersList = this.props.candidates.map(function(candidate, index) {
+	var WinnersList = this.props.candidates.filter(function(candidate) {
+        if (candidate.candidate.name.toLowerCase().indexOf(self.props.searchCandidate.toLowerCase()) === -1) {
+        return false;
+      } else {
+        return true;
+      }
+    }).map(function(candidate, index) {
+		var link = "/candidate-biography/" + candidate.candidate.id;
 		return (
 			<tr key={index}>
-				<td>{candidate.candidate.name} {candidate.candidate.surname}</td>
+            	<td className="candidate-name-decorator"><Link to={link}>{nr++}. {candidate.candidate.name} {candidate.candidate.surname}</Link></td>
 				<td>{candidate.candidate.constituencyName}</td>
 				<td>{candidate.candidate.partyName}</td>
-				<td>{candidate.percentOfAllBallots}%</td>
+				<td style={{textAlign: 'center'}}>{candidate.percentOfAllBallots}%</td>
 			</tr>
 		);
 	});
 
 	var ConstituenciesList = this.props.constituencies.filter(function(constituency) {
-      	if (constituency.constituency.name.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) {
+      	if (constituency.constituency.name.toLowerCase().indexOf(self.props.searchConstituency.toLowerCase()) === -1) {
         return false;
       } else {
         return true;
@@ -41,6 +48,9 @@ var SingleMandateComponent = React.createClass({
 		return (
 
 			<div className="container-fluid">
+			<div className="form-group pull-right">
+					<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchCandidatesTextChange} />
+			</div>
 				<h3>Kandidatai laimėję vienmandatėse apygardose</h3>
 				<table className="table table-striped table-bordered">
 					<thead>
@@ -59,7 +69,7 @@ var SingleMandateComponent = React.createClass({
 				<div className="make-space"></div>
 				
 				<div className="form-group pull-right">
-					<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchTextChange} />
+					<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchConstituenciesTextChange} />
 				</div>
 					<h3>Balsavimo rezultatai apygardose</h3>
 				<table className="table table-striped table-bordered">
