@@ -18,20 +18,29 @@ var ResultsReportContainer = React.createClass({
 
     componentWillMount: function() {
       var self = this;
-      axios.get('http://localhost:8090/candidates/by-constituency/' + this.state.constituencyId).then(function(response) {
-        candidatesList = response.data;
+      if(this.props.location.pathname == "representative/results/parties/report") {
         axios.get('http://localhost:8090/polling-districts/' + self.state.district.id).then(function(response) {
           districtName = response.data.name;
           axios.get('http://localhost:8090/parties/').then(function(response) {
             partiesList = response.data;
             self.setState({
               districtName: districtName,
-              candidatesList: candidatesList,
               partiesList: partiesList
             });
           });
         });
-      });
+      } else {
+        axios.get('http://localhost:8090/polling-districts/' + self.state.district.id).then(function(response) {
+          districtName = response.data.name;
+          axios.get('http://localhost:8090/candidates/by-constituency/' + self.state.constituencyId).then(function(response) {
+            candidatesList = response.data;
+            self.setState({
+              districtName: districtName,
+              candidatesList: candidatesList
+            });
+          });
+        });
+      }
     },
 
     handleCancelClick() {

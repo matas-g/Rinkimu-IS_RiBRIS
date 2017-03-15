@@ -12,7 +12,8 @@ var AddPartyResults = React.createClass({
       partiesList: [],
       voteArray: [],
       votesEnteredState: [],
-      text: ''
+      text: '',
+      spoiledMulti: ''
     };
   },
 
@@ -60,6 +61,14 @@ var AddPartyResults = React.createClass({
     }
   },
 
+  handleMultiChange: function(e) {
+    var spoiledMulti = e.target.value;
+    this.setState({
+      spoiledMulti: spoiledMulti
+    });
+    this.props.onMultiChange(spoiledMulti);
+  },
+
   handleValidStateChange: function(isValid) {
     this.setState({
       isValid: isValid
@@ -74,13 +83,13 @@ var AddPartyResults = React.createClass({
       return acc + val;
     }, 0);
 
-    if (sum == partiesList.length) {
+    if (sum == partiesList.length && (this.state.spoiledSingle != '')) {
       var voteArray = this.state.voteArray;
       self.props.handleVotesReport('partyVotes', self.state.voteArray);
-      self.context.router.push('representative/results/report');
+      self.context.router.push('representative/results/parties/report');
     } else {
       this.setState({
-        text: "Suveskite balsus visoms partijoms, jei partija balsų negavo, įveskite 0"
+        text: "Suveskite balsus visiems laukeliams, nepamirškite įrašyti 0"
       });
     }
   },
@@ -97,7 +106,7 @@ var AddPartyResults = React.createClass({
         voteArray={this.state.voteArray}
         onDistrictChange={this.handleDistrictChange}
         onResultsChange={this.handleResultsChange}
-        onMultiChange={this.props.onMultiChange}
+        onMultiChange={this.handleMultiChange}
         onSaveClick={this.handleSaveClick}
         results={this.props.results}
       />

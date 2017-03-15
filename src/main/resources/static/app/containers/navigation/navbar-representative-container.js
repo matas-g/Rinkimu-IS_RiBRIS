@@ -21,8 +21,8 @@ var NavRepContainer = React.createClass({
 	    };
 	  },
 
-		handleSingleChange: function(e) {
-	    var count = e.target.value;
+		handleSingleChange: function(spoiledSingle) {
+	    var count = spoiledSingle;
 			var results = this.state.results;
 			results.spoiledSingle = count;
 	    this.setState({
@@ -30,8 +30,8 @@ var NavRepContainer = React.createClass({
 	    });
 	  },
 
-    handleMultiChange: function(e) {
-      var count = e.target.value;
+    handleMultiChange: function(spoiledSingle) {
+      var count = spoiledSingle;
 			var results = this.state.results;
 			results.spoiledMulti = count;
       this.setState({

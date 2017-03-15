@@ -49,11 +49,12 @@ const routes = (
         <Route path="/single-mandate" component={SingleMandateList} />
         <Route path="/single-mandate-districts/:constituencyId" component={SingleMandateDistrictsList} />
         <Route path="/single-mandate-district-results/:districtId" component={SingleMandateDistrictResultsList} />
+
         <Route path="/candidate-biography/:candidateId" component={CandidateBiography} />
 
         <Route path="/multi-mandate" component={MultiMandateList} />
         <Route path="/multi-mandate-districts/:constituencyId" component={MultiMandateDistrictsList} />
-        
+
         <Route path="/activity" component={ConstituencyActivityList} />
         <Route path="/polling-districts/activity/all/:constituencyId" component={DistrictsActivityList} />
       </Route>
@@ -94,8 +95,9 @@ const routes = (
     <Route path="/representative" component={NavRepresentative}>
 	    <IndexRoute component={AddSingleMandateResults} />
 	    <Route path="/representative/results/single" component={AddSingleMandateResults} />
+      <Route path="/representative/results/single/report" component={ResultsReport} />
       <Route path="/representative/results/parties" component={AddPartyResults} />
-      <Route path="/representative/results/report" component={ResultsReport} />
+      <Route path="/representative/results/parties/report" component={ResultsReport} />
       <Route path="/representative/results/success" component={Success} />
 	  </Route>
   </Router>
