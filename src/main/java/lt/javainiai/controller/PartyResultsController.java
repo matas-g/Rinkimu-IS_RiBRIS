@@ -39,7 +39,7 @@ public class PartyResultsController {
         return this.partyResultsService.saveOrUpdate(partyResults);
     }
 
-    @RequestMapping(method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<PartyResultsEntity> findAll() {
         return this.partyResultsService.findAll();

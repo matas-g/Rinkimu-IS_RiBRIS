@@ -198,8 +198,7 @@ public class PartyResultsService {
         List<MultiMandatePartyResults> totalPartyResults = getMultiMandateTotalResults();
         List<MultiMandatePartyResults> partiesWithMandates = new ArrayList<>();
         Long totalVotes = 0L;
-        Long totalOfMandates = 70L;
-        Long remainingMandates = totalOfMandates;
+        Long remainingMandates = 70L;
         Double mandateQuote;
         Long totalOfRemainders = 0L;
 
@@ -209,7 +208,7 @@ public class PartyResultsService {
                 totalVotes += partyResult.getVotes();
             }
         }
-        mandateQuote = totalVotes.doubleValue() / totalOfMandates.doubleValue();
+        mandateQuote = totalVotes.doubleValue() / remainingMandates.doubleValue();
         mandateQuote = UtilityMethods.roundUp(mandateQuote, 2);
 
         Collections.sort(partiesWithMandates, new Comparator<MultiMandatePartyResults>() {
@@ -247,7 +246,7 @@ public class PartyResultsService {
                 for (WinnerPartyMultiMandate winnerParty : winnerParties) {
                     Long currentMandatesWon = winnerParty.getNumOfMandatesWon();
                     Long additionalMandates = winnerParty.getMandateRemainder() / mandateQuote2;
-                    winnerParty.setNumOfMandatesWon(currentMandatesWon + additionalMandates);                    
+                    winnerParty.setNumOfMandatesWon(currentMandatesWon + additionalMandates);
                     remainingMandates -= additionalMandates;
 
                     if (remainingMandates == 0L) {
@@ -349,9 +348,9 @@ public class PartyResultsService {
             for (SingleMandateCandidateResults singleMandateWinner : singleMandateWinners) {
                 PartyEntity candidatesParty = singleMandateWinner.getCandidate().getParty();
 
-                if (candidatesParty.equals(currentParty)) {
+                if (candidatesParty == currentParty) {
                     partySingleMemberMandates++;
-                } else if (candidatesParty.equals(null)) {
+                } else if (candidatesParty == null) {
                     noPartyCandidatesMandates++;
                 }
             }
