@@ -349,7 +349,6 @@ public class PartyResultsService {
             for (SingleMandateCandidateResults singleMandateWinner : singleMandateWinners) {
                 if (singleMandateWinner != null) {
                     PartyEntity candidatesParty = singleMandateWinner.getCandidate().getParty();
-
                     if (candidatesParty == currentParty) {
                         partySingleMemberMandates++;
                     }
@@ -370,7 +369,6 @@ public class PartyResultsService {
                     return o1.getPartyName().compareToIgnoreCase(o2.getPartyName());
                 }
             }
-
         });
 
         for (SingleMandateCandidateResults singleMandateWinner : singleMandateWinners) {
@@ -395,6 +393,10 @@ public class PartyResultsService {
                 .getWinnerCandidatesSingleMandate();
         int tempMandatesToNextParty = 0;
 
+        for (SingleMandateCandidateResults candidate : winnerSingleMandateCandidates) {
+            winnerCandidates.add(candidate.getCandidate());
+        }
+
         for (WinnerPartyMultiMandate winnerPartyResult : winnerPartiesResults) {
             PartyEntity party = winnerPartyResult.getParty();
             List<CandidateEntity> partyCandidates = party.getCandidates();
@@ -413,11 +415,18 @@ public class PartyResultsService {
             }
 
             for (int i = 0; i < partyMultiMemberMandatesCount; i++) {
-                winnerCandidates.add(partyCandidates.get(i));
+                CandidateEntity candidate = partyCandidates.get(i);
+                if (!winnerCandidates.contains(candidate)) {
+                    winnerCandidates.add(candidate);
+                } else {
+                    int newPartyMandateCount = partyMultiMemberMandatesCount + 1;
+                    if (newPartyMandateCount <= totalOfPartyCandidates) {
+                        partyMultiMemberMandatesCount = newPartyMandateCount;
+                    } else {
+                        tempMandatesToNextParty += (newPartyMandateCount - totalOfPartyCandidates);
+                    }
+                }
             }
-        }
-        for (SingleMandateCandidateResults candidate : winnerSingleMandateCandidates) {
-            winnerCandidates.add(candidate.getCandidate());
         }
 
         Collections.sort(winnerCandidates, new Comparator<CandidateEntity>() {
