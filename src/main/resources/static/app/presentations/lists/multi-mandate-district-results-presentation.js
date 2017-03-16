@@ -10,20 +10,19 @@ var MultiMandateDistrictResultsComponent = React.createClass({
 
     var PartiesList = this.props.parties.filter(function(party) {
 		 if (party.party.name.toLowerCase().indexOf(self.props.searchParty.toLowerCase()) === -1) {
-		        return false;
-		      } else {
-		        return true;
-		      };
-			}).map(function(party, index){
-			return (
-				<tr key={index}>
-					<td>{party.party.name}</td>
-					<td>{party.votes}</td>
-					<td>{party.percentOfAllBallots}%</td>
-					<td>{party.numOfMandatesWon}</td>
-				</tr>
-			);
-		});
+	        return false;
+	      } else {
+	        return true;
+	      };
+				}).map(function(party, index){
+				return (
+					<tr key={index}>
+						<td>{party.party.name}</td>
+						<td>{party.votes}</td>
+						<td>{party.percentOfAllBallots}%</td>
+					</tr>
+				);
+			});
 
 		return (
 			<div className="container-fluid">
