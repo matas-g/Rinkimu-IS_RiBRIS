@@ -23,7 +23,7 @@ var MultiMandateDistrictListContainer = React.createClass({
             constituencyName: response.data[0].district.constituencyName
           });
         }).then(function() {
-          axios.get('http://localhost:8090/party-results/constituency/' + self.props.params.constituencyId)
+          axios.get('http://localhost:8090/party-results/winner-parties/')
             .then(function (response) {
 
             self.setState({

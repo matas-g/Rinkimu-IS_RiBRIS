@@ -7,9 +7,20 @@ var NavigationRep = React.createClass({
 
     var SideNav = this.props.options.map(function(option, index) {
       return (
-        <li key={index}>
-          <NavLink to={option.pathTo}>{option.text}</NavLink>
-        </li>
+
+        <div className="container-fluid">
+          <div className="navbar-inner nav-collapse">
+            <nav className="navbar navbar-default" role="navigation">
+              <div className="collapse navbar-collapse">
+                <ul className="nav navbar-nav">
+                  <li key={index}>
+                    <NavLink to={option.pathTo}>{option.text}</NavLink>
+                  </li>
+               </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
       );
     });
 
@@ -30,12 +41,12 @@ var NavigationRep = React.createClass({
           </nav>
         </div>
         <div id='content' className='row-fluid'>
-          <div className="col-sm-2">
+          <div className="col-sm-3">
             <ul className="nav nav-tabs nav-stacked">
               {SideNav}
             </ul>
           </div>
-          <div className="col-sm-10">
+          <div className="col-sm-9">
             {this.props.childs}
           </div>
         </div>

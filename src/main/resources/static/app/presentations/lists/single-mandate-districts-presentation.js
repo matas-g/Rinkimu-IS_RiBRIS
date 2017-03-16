@@ -8,6 +8,7 @@ const SingleMandateDistrictsComponent = React.createClass({
   var nr = 1;
   var num = 1;
   var self = this;
+  console.log(this.props.name)
   var CandidatesList = this.props.candidates.filter(function(candidate) {
         if ((candidate.candidate.name.toLowerCase().indexOf(self.props.searchCandidate.toLowerCase()) === -1) && 
           (candidate.candidate.surname.toLowerCase().indexOf(self.props.searchCandidate.toLowerCase()) === -1) && 
@@ -22,9 +23,9 @@ const SingleMandateDistrictsComponent = React.createClass({
           <tr key={index}>
             <td className="candidate-name-decorator"><Link to={link}>{nr++}. {candidate.candidate.name} {candidate.candidate.surname}</Link></td>
             <td>{candidate.candidate.partyName}</td>
-            <td style={{textAlign: 'center'}}>{candidate.votes}</td>
-            <td style={{textAlign: 'center'}}>{candidate.percentOfValidBallots}%</td>
-            <td style={{textAlign: 'center'}}>{candidate.percentOfAllBallots}%</td>
+            <td className="text-middle" style={{verticalAlign: 'middle'}}>{candidate.votes}</td>
+            <td className="text-middle" style={{verticalAlign: 'middle'}}>{candidate.percentOfValidBallots}%</td>
+            <td className="text-middle" style={{verticalAlign: 'middle'}}>{candidate.percentOfAllBallots}%</td>
           </tr>
       )
      
@@ -42,7 +43,7 @@ const SingleMandateDistrictsComponent = React.createClass({
       return (
         <tr key={index}>
           <td className="candidate-name-decorator"><Link to={link}>{num++}. {district.district.name}</Link></td>
-          <td style={{textAlign: 'center'}}>{district.resultsDateString}</td>
+          <td className="text-middle" style={{verticalAlign: 'middle'}}>{district.resultsDateString}</td>
         </tr>
       );
       
