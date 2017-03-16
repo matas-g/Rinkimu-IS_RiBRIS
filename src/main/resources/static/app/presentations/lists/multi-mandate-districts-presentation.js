@@ -19,8 +19,8 @@ const MultiMandateDistrictComponent = React.createClass({
  	return (
  		<tr key={index}>
  			<td>{party.party.name}</td>
- 			<td>{party.votes}</td>
- 			<td>{party.percentOfAllBallots}%</td>
+ 			<td className="text-middle" style={{verticalAlign: 'middle'}}>{party.votes}</td>
+ 			<td className="text-middle" style={{verticalAlign: 'middle'}}>{party.percentOfAllBallots}%</td>
  		</tr>
  	);
  });
@@ -37,7 +37,7 @@ const MultiMandateDistrictComponent = React.createClass({
       return (
         <tr key={index}>
           <td className="candidate-name-decorator"><Link to={link}>{nr++}. {district.district.name}</Link></td>
-          <td>{district.resultsDateString}</td>
+          <td className="text-middle" style={{verticalAlign: 'middle'}}>{district.resultsDateString}</td>
         </tr>
       );
       

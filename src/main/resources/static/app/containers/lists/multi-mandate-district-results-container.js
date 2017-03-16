@@ -44,6 +44,7 @@ var MultiMandateDistrictListResultContainer = React.createClass({
         onSearchPartyTextChange={this.handleSearchPartyTextChange}
         searchParty={this.state.searchParty}
         constituencyName={this.state.constituencyName}
+        districtName={this.state.districtName}
       />
     );
   }
