@@ -11,7 +11,6 @@ var CandidateBiographyContainer = React.createClass({
 
 	componentWillMount: function() {
 		var self = this;
-
 		axios.get('http://localhost:8090/candidates/' + this.props.params.candidateId)
 		.then(function(response) {
 			console.log(response.data);
@@ -21,14 +20,19 @@ var CandidateBiographyContainer = React.createClass({
 		});
 	},
 
+	handleGoBack: function() {
+		this.context.router.goBack();
+	},
+
 	render: function() {
 		return (
-			<CandidateBiographyComponent 
+			<CandidateBiographyComponent
 				candidates={this.state.candidates}
+				handleGoBack={this.handleGoBack}
 			/>
 		);
 	}
-	
+
 });
 
 CandidateBiographyContainer.contextTypes = {
