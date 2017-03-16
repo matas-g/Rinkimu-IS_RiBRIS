@@ -5,12 +5,7 @@ const SingleMandateResults = require('../presentations/add-single-mandate-result
 var AddSingleMandateResults = React.createClass({
   getInitialState: function() {
     return {
-      district: {
-        id: 1
-      },
-      constituencyId: 1,
       districts: [],
-      candidatesList: [],
       voteArray: [],
       votesEnteredState: [],
       text: '',
@@ -22,17 +17,7 @@ var AddSingleMandateResults = React.createClass({
     var self = this;
     axios.get('http://localhost:8090/polling-districts/').then(function(response) {
       self.setState({
-        districts: response.data,
-        constituencyId: response.data[0].constituencyId,
-        district: {
-          id: response.data[0].id
-        }
-      });
-      self.props.setIds(response.data[0].id, response.data[0].constituencyId);
-      axios.get('http://localhost:8090/candidates/by-constituency/' + self.state.constituencyId).then(function(response) {
-        self.setState({
-          candidatesList: response.data,
-        });
+        districts: response.data
       });
     });
   },
@@ -40,20 +25,10 @@ var AddSingleMandateResults = React.createClass({
   handleDistrictChange: function(e) {
     var districtId = parseInt(e.target.value);
     var self = this;
-    var constituencyId = 0;
-
+    var constituencyId;
     axios.get('http://localhost:8090/polling-districts/' + districtId).then(function(response) {
       constituencyId = response.data.constituencyId;
-      self.props.setIds(districtId, constituencyId);
-      axios.get('http://localhost:8090/candidates/by-constituency/' + constituencyId).then(function(response) {
-    	 self.setState({
-          constituencyId: constituencyId,
-          candidatesList: response.data,
-          district: {
-            id: districtId
-          }
-        });
-      });
+      self.props.setIds(districtId, constituencyId, self.props.location.pathname);
     });
   },
 
@@ -89,7 +64,7 @@ var AddSingleMandateResults = React.createClass({
   handleSaveClick: function(e) {
     e.preventDefault();
     var self = this;
-    var candidatesList = this.state.candidatesList;
+    var candidatesList = this.props.candidatesList;
     var sum = this.state.votesEnteredState.reduce(function(acc, val) {
       return acc + val;
     }, 0);
@@ -108,10 +83,10 @@ var AddSingleMandateResults = React.createClass({
       <SingleMandateResults
         text={this.state.text}
         handleValidStateChange={this.handleValidStateChange}
-        district={this.state.district}
+        districtId={this.props.districtId}
         constituencyId={this.state.constituencyId}
         districts={this.state.districts}
-        candidatesList={this.state.candidatesList}
+        candidatesList={this.props.candidatesList}
         voteArray={this.state.voteArray}
         onDistrictChange={this.handleDistrictChange}
         onResultsChange={this.handleResultsChange}

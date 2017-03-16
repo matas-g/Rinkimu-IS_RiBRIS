@@ -9,7 +9,7 @@ var AddPartyResults = React.createClass({
         id: this.props.districtId
       },
       districts: [],
-      partiesList: [],
+      partiesList: this.props.partiesList,
       voteArray: [],
       votesEnteredState: [],
       text: '',
@@ -23,27 +23,17 @@ var AddPartyResults = React.createClass({
       self.setState({
         districts: response.data,
       });
-      axios.get('http://localhost:8090/parties/').then(function(response) {
-        self.setState({
-          partiesList: response.data,
-        });
-      });
     });
   },
 
   handleDistrictChange: function(e){
     var districtId = parseInt(e.target.value);
     var self = this;
-    this.props.setIds(districtId, this.props.constituencyId);
-    axios.get('http://localhost:8090/parties/').then(function(response) {
-      self.setState({
-    	district: {
-    	      id: districtId
-    	    },
-        partiesList: response.data
-      });
+    var constituencyId;
+    axios.get('http://localhost:8090/polling-districts/' + districtId).then(function(response) {
+      constituencyId = response.data.constituencyId;
+      self.props.setIds(districtId, constituencyId);
     });
-
   },
 
   handleResultsChange: function(index) {

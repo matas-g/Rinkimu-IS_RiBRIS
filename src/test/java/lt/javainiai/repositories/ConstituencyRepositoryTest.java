@@ -154,7 +154,8 @@ public class ConstituencyRepositoryTest {
     
     
    
-    @Test
+    @SuppressWarnings("deprecation")
+	@Test
     public void getCandidateAssignedToConstituency(){
        CandidateEntity candidate1 = new CandidateEntity();
        candidate1.setName("Andrius");
