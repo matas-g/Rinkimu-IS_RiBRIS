@@ -38,6 +38,11 @@ var NavRepContainer = React.createClass({
 					});
 				});
 	    });
+			axios.get('http://localhost:8090/parties/').then(function(response) {
+	      self.setState({
+	        partiesList: response.data,
+	      });
+	    });
 	  },
 
 		handleSingleChange: function(spoiledSingle) {
@@ -64,6 +69,7 @@ var NavRepContainer = React.createClass({
 				districtId: districtId,
 				constituencyId: constituencyId
 			});
+			console.log(this.state.districtId);
       if(pathname == "representative/results/parties/report") {
         axios.get('http://localhost:8090/polling-districts/' + districtId).then(function(response) {
           districtName = response.data.name;
