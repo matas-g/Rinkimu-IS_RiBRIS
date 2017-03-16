@@ -144,7 +144,7 @@ var NavRepContainer = React.createClass({
 				}
 			}
 			var data = new FormData();
-			data.append( 'single', this.state.results.spoiledMulti );
+			data.append( 'multi', this.state.results.spoiledMulti );
 			axios.post('http://localhost:8090/polling-districts/multi-spoiled-ballots/' + this.state.districtId,
 									data);
 			this.context.router.push('/representative/results/success');

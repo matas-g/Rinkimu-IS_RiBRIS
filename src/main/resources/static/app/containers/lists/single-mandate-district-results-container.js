@@ -8,6 +8,7 @@ var SingleMandateDistrictListResultsContainer = React.createClass({
     return {
       candidates: [],
        searchText: '',
+       districtName: ''
     };
   },
 
@@ -19,6 +20,12 @@ var SingleMandateDistrictListResultsContainer = React.createClass({
             candidates: response.data,
         });
       });
+      axios.get('http://localhost:8090/polling-districts/' + self.props.params.districtId)
+      .then(function (response) {
+        self.setState({
+            districtName: response.data.name,
+        });
+      });
   },
 
   handleSearchTextChange: function(e) {
@@ -27,7 +34,7 @@ var SingleMandateDistrictListResultsContainer = React.createClass({
       searchText: text
   });
 },
-  
+
 
   render: function() {
     return (
@@ -35,6 +42,7 @@ var SingleMandateDistrictListResultsContainer = React.createClass({
         candidates={this.state.candidates}
         onSearchTextChange={this.handleSearchTextChange}
         searchText={this.state.searchText}
+        districtName={this.state.districtName}
       />
     );
   }
