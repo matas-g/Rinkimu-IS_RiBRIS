@@ -7,7 +7,7 @@ var MultiMandateDistrictResultsComponent = React.createClass({
 
 		var self = this;
     var nr = 1;
-
+    console.log(this.props.districtName)
     var PartiesList = this.props.parties.filter(function(party) {
 		 if (party.party.name.toLowerCase().indexOf(self.props.searchParty.toLowerCase()) === -1) {
 	        return false;
@@ -18,8 +18,8 @@ var MultiMandateDistrictResultsComponent = React.createClass({
 				return (
 					<tr key={index}>
 						<td>{party.party.name}</td>
-						<td>{party.votes}</td>
-						<td>{party.percentOfAllBallots}%</td>
+						<td className="text-middle" style={{verticalAlign: 'middle'}}>{party.votes}</td>
+						<td className="text-middle" style={{verticalAlign: 'middle'}}>{party.percentOfAllBallots}%</td>
 					</tr>
 				);
 			});
