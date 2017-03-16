@@ -8,6 +8,7 @@ const SingleMandateDistrictsComponent = React.createClass({
   var nr = 1;
   var num = 1;
   var self = this;
+  console.log(this.props.name)
   var CandidatesList = this.props.candidates.filter(function(candidate) {
         if ((candidate.candidate.name.toLowerCase().indexOf(self.props.searchCandidate.toLowerCase()) === -1) && 
           (candidate.candidate.surname.toLowerCase().indexOf(self.props.searchCandidate.toLowerCase()) === -1) && 
