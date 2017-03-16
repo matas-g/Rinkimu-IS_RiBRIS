@@ -57,6 +57,7 @@ const MultiMandateDistrictsComponent = React.createClass({
                 <th className="text-middle" style={{verticalAlign: 'middle'}}>Partija</th>
                 <th className="text-middle" style={{verticalAlign: 'middle'}}>Balsai iš viso</th>
                 <th className="text-middle" style={{verticalAlign: 'middle'}}>Balsų skaičius % nuo dalyvavusių rinkėjų apygardoje</th>
+                <th className="text-middle" style={{verticalAlign: 'middle'}}>Laimėti mandatai</th>
               </tr>
             </thead>
             <tbody> 
