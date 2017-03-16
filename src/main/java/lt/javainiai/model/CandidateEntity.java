@@ -185,6 +185,20 @@ public class CandidateEntity {
     }
 
     @Override
+    public String toString() {
+        return "CandidateEntity [id=" + id + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate
+                + ", party=" + party + ", biography=" + biography + ", constituency=" + constituency + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
@@ -193,18 +207,12 @@ public class CandidateEntity {
         if (getClass() != obj.getClass())
             return false;
         CandidateEntity other = (CandidateEntity) obj;
-        if (personsId == null) {
-            if (other.personsId != null)
+        if (id == null) {
+            if (other.id != null)
                 return false;
-        } else if (!personsId.equals(other.personsId))
+        } else if (!id.equals(other.id))
             return false;
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "CandidateEntity [id=" + id + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate
-                + ", party=" + party + ", biography=" + biography + ", constituency=" + constituency + "]";
     }
 
 }

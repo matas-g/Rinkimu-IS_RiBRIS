@@ -23,7 +23,7 @@ var MultiMandateComponent = React.createClass({
 			mandatesArray.push(party.numOfMandatesWon);
 	    	return (
 	    		<tr key={index}>
-	    			<td className="text-middle" style={{verticalAlign: 'middle'}}>{party.party.name}</td>
+	    			<td style={{verticalAlign: 'middle'}}>{party.party.name}</td>
 	    			<td className="text-middle" style={{verticalAlign: 'middle'}}>{party.votes}</td>
 	    			<td className="text-middle" style={{verticalAlign: 'middle'}}>{party.percentOfAllBallots}%</td>
 	    			<td className="text-middle" style={{verticalAlign: 'middle'}}>{party.numOfMandatesWon}</td>
