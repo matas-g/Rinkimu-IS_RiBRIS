@@ -35,7 +35,7 @@ var ActivityListComponent = React.createClass({
               <tr className="table-head">
                 <th>Pavadinimas</th>
                 <th>Balsavusių skaičius</th>
-                <th>Balsai procentaliai</th>
+                <th>Rinkėjų aktyvumas procentais</th>
               </tr>
             </thead>
             <tbody>

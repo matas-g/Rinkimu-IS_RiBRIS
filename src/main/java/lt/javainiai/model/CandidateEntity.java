@@ -28,9 +28,9 @@ public class CandidateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     private Long personsId;
-    
+
     private Long listPossition;
 
     @NotNull
@@ -54,25 +54,25 @@ public class CandidateEntity {
     public String getPartyName() {
         return party == null ? "Išsikėlė pats" : party.getName();
     }
-    
+
     @JsonProperty
     public Long getConstituencyId() {
         return constituency == null ? null : constituency.getId();
     }
-    
+
     @JsonProperty
     public String getConstituencyName() {
         return constituency == null ? null : constituency.getName();
     }
-    
-    @OneToMany(mappedBy = "candidate", cascade=CascadeType.ALL)
+
+    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "candidate-ratingResults")
     private List<CandidatesResultsRatingEntity> candidatesResultsRating;
-    
-    @OneToMany(mappedBy = "candidate", cascade=CascadeType.ALL)
+
+    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL)
     @JsonManagedReference(value = "candidate-singleMandateResults")
     private List<CandidatesResultsSingleMandateEntity> candidatesResultsSingleMandate;
-    
+
     private Boolean multiMandate;
 
     private String biography;
@@ -96,14 +96,14 @@ public class CandidateEntity {
     }
 
     public Long getPersonsId() {
-		return personsId;
-	}
+        return personsId;
+    }
 
-	public void setPersonsId(Long personsId) {
-		this.personsId = personsId;
-	}
+    public void setPersonsId(Long personsId) {
+        this.personsId = personsId;
+    }
 
-	public String getName() {
+    public String getName() {
         return name;
     }
 
@@ -143,65 +143,65 @@ public class CandidateEntity {
         this.biography = biography;
     }
 
-	public List<CandidatesResultsRatingEntity> getCandidatesResultsRating() {
-		return candidatesResultsRating;
-	}
+    public List<CandidatesResultsRatingEntity> getCandidatesResultsRating() {
+        return candidatesResultsRating;
+    }
 
-	public void setCandidatesResultsRating(List<CandidatesResultsRatingEntity> candidatesResultsRating) {
-		this.candidatesResultsRating = candidatesResultsRating;
-	}
+    public void setCandidatesResultsRating(List<CandidatesResultsRatingEntity> candidatesResultsRating) {
+        this.candidatesResultsRating = candidatesResultsRating;
+    }
 
-	public List<CandidatesResultsSingleMandateEntity> getCandidatesResultsSingleMandate() {
-		return candidatesResultsSingleMandate;
-	}
+    public List<CandidatesResultsSingleMandateEntity> getCandidatesResultsSingleMandate() {
+        return candidatesResultsSingleMandate;
+    }
 
-	public void setCandidatesResultsSingleMandate(
-			List<CandidatesResultsSingleMandateEntity> candidatesResultsSingleMandate) {
-		this.candidatesResultsSingleMandate = candidatesResultsSingleMandate;
-	}
+    public void setCandidatesResultsSingleMandate(
+            List<CandidatesResultsSingleMandateEntity> candidatesResultsSingleMandate) {
+        this.candidatesResultsSingleMandate = candidatesResultsSingleMandate;
+    }
 
-	public Boolean getMultiMandate() {
-		return multiMandate;
-	}
+    public Boolean getMultiMandate() {
+        return multiMandate;
+    }
 
-	public void setMultiMandate(Boolean multiMandate) {
-		this.multiMandate = multiMandate;
-	}
+    public void setMultiMandate(Boolean multiMandate) {
+        this.multiMandate = multiMandate;
+    }
 
-	public ConstituencyEntity getConstituency() {
+    public ConstituencyEntity getConstituency() {
         return constituency;
     }
 
     public void setConstituency(ConstituencyEntity constituency) {
         this.constituency = constituency;
     }
-    
+
     public Long getListPossition() {
-		return listPossition;
-	}
+        return listPossition;
+    }
 
-	public void setListPossition(Long listPossition) {
-		this.listPossition = listPossition;
-	}
+    public void setListPossition(Long listPossition) {
+        this.listPossition = listPossition;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CandidateEntity other = (CandidateEntity) obj;
-		if (personsId == null) {
-			if (other.personsId != null)
-				return false;
-		} else if (!personsId.equals(other.personsId))
-			return false;
-		return true;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        CandidateEntity other = (CandidateEntity) obj;
+        if (personsId == null) {
+            if (other.personsId != null)
+                return false;
+        } else if (!personsId.equals(other.personsId))
+            return false;
+        return true;
+    }
 
-	@Override
+    @Override
     public String toString() {
         return "CandidateEntity [id=" + id + ", name=" + name + ", surname=" + surname + ", birthDate=" + birthDate
                 + ", party=" + party + ", biography=" + biography + ", constituency=" + constituency + "]";

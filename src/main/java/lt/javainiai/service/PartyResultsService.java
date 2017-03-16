@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lt.javainiai.model.CandidateEntity;
 import lt.javainiai.model.ConstituencyEntity;
 import lt.javainiai.model.PartyEntity;
 import lt.javainiai.model.PartyResultsEntity;
@@ -372,8 +373,56 @@ public class PartyResultsService {
             }
 
         });
-        consolidatedParties.add(new ConsolidatedParty("Išsikėlę patys", noPartyCandidatesMandates));
+        if (noPartyCandidatesMandates != 0) {
+            consolidatedParties.add(new ConsolidatedParty("Išsikėlę patys", noPartyCandidatesMandates));
+        }
         return consolidatedParties;
+    }
+
+    public List<CandidateEntity> getAllWinnerCandidates() {
+        List<CandidateEntity> winnerCandidates = new ArrayList<>();
+        List<WinnerPartyMultiMandate> winnerPartiesResults = getWinnerPartiesMultiMandate();
+        List<SingleMandateCandidateResults> winnerSingleMandateCandidates = candidatesResultsSingleMandateService
+                .getWinnerCandidatesSingleMandate();
+        int tempMandatesToNextParty = 0;
+
+        for (WinnerPartyMultiMandate winnerPartyResult : winnerPartiesResults) {
+            PartyEntity party = winnerPartyResult.getParty();
+            List<CandidateEntity> partyCandidates = party.getCandidates();
+            int partyMultiMemberMandatesCount = winnerPartyResult.getNumOfMandatesWon().intValue();
+            int totalOfPartyCandidates = partyCandidates.size();
+
+            if (tempMandatesToNextParty != 0) {
+                partyMultiMemberMandatesCount += tempMandatesToNextParty;
+                tempMandatesToNextParty = 0;
+            }
+
+            if (totalOfPartyCandidates < partyMultiMemberMandatesCount) {
+                int difference = partyMultiMemberMandatesCount - totalOfPartyCandidates;
+                tempMandatesToNextParty += difference;
+                partyMultiMemberMandatesCount -= difference;
+            }
+
+            for (int i = 0; i < partyMultiMemberMandatesCount; i++) {
+                winnerCandidates.add(partyCandidates.get(i));
+            }
+        }
+        for (SingleMandateCandidateResults candidate : winnerSingleMandateCandidates) {
+            winnerCandidates.add(candidate.getCandidate());
+        }
+
+        Collections.sort(winnerCandidates, new Comparator<CandidateEntity>() {
+            @Override
+            public int compare(CandidateEntity o1, CandidateEntity o2) {
+                int result = o1.getSurname().compareToIgnoreCase(o2.getSurname());
+                if (result != 0) {
+                    return result;
+                } else {
+                    return o1.getName().compareToIgnoreCase(o2.getName());
+                }
+            }
+        });
+        return winnerCandidates;
     }
 
 }
