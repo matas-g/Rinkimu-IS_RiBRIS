@@ -240,9 +240,9 @@ public class PartyResultsService {
         if (remainingMandates > 0) {
             // Sort by remainder
             Collections.sort(winnerParties, new MandatesRemainderComparator());
+            Long mandateQuote2 = (long) (totalOfRemainders.doubleValue() / remainingMandates.doubleValue());
 
             // Assign mandates to parties
-            Long mandateQuote2 = (long) (totalOfRemainders.doubleValue() / remainingMandates.doubleValue());
             if (mandateQuote2 != 0) {
                 for (WinnerPartyMultiMandate winnerParty : winnerParties) {
                     Long currentMandatesWon = winnerParty.getNumOfMandatesWon();
