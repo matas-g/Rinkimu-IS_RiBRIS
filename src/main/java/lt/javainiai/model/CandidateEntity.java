@@ -194,7 +194,7 @@ public class CandidateEntity {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((personsId == null) ? 0 : personsId.hashCode());
         return result;
     }
 
@@ -207,10 +207,10 @@ public class CandidateEntity {
         if (getClass() != obj.getClass())
             return false;
         CandidateEntity other = (CandidateEntity) obj;
-        if (id == null) {
-            if (other.id != null)
+        if (personsId == null) {
+            if (other.personsId != null)
                 return false;
-        } else if (!id.equals(other.id))
+        } else if (!personsId.equals(other.personsId))
             return false;
         return true;
     }
