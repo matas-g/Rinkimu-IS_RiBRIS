@@ -30,6 +30,7 @@ var ResultsReportContainer = React.createClass({
           results={this.props.results}
           onSingleSaveClick={this.props.handleSingleSaveClick}
           onMultiSaveClick={this.props.handleMultiSaveClick}
+          path={this.props.location.pathname}
         />
       );
     }
