@@ -69,7 +69,6 @@ var NavRepContainer = React.createClass({
 				districtId: districtId,
 				constituencyId: constituencyId
 			});
-			console.log(this.state.districtId);
       if(pathname == "representative/results/parties/report") {
         axios.get('http://localhost:8090/polling-districts/' + districtId).then(function(response) {
           districtName = response.data.name;
@@ -135,7 +134,7 @@ var NavRepContainer = React.createClass({
 					var data = {
 						numberOfVotes: results.partyVotes[i],
 						party: {
-							id: partiesList[i].id
+							id: self.state.partiesList[i].id
 						},
 						district: {
 							id: self.state.districtId

@@ -48,12 +48,12 @@ var ResultsReportPresentation = React.createClass({
       return r;
     }, []).map(function(rowContent, index) {
       return (
-        <div key={index} className="row-fluid">
+        <div key={index} className="row">
           {rowContent}
         </div>
       );
     });
-    if (this.props.candidatesList.length == 0) {
+    if (this.props.path == '/representative/results/parties/report') {
       return (
         <div className="container-fluid">
           <div className="row">
