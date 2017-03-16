@@ -209,8 +209,9 @@ public class CandidatesResultsSingleMandateService {
 
             if (!candidateResults.isEmpty()) {
                 for (SingleMandateCandidateResults candidateResult : candidateResults) {
-                    if (bestPercentOfAllBallots < candidateResult.getPercentOfAllBallots()) {
-                        bestPercentOfAllBallots = candidateResult.getPercentOfAllBallots();
+                    Double percentOfAllBallots = candidateResult.getPercentOfAllBallots();
+                    if (bestPercentOfAllBallots < percentOfAllBallots) {
+                        bestPercentOfAllBallots = percentOfAllBallots;
                         bestCandidateResult = candidateResult;
                     }
                 }
