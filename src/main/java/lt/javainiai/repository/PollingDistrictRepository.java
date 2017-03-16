@@ -50,11 +50,11 @@ public class PollingDistrictRepository implements RepositoryInterface<PollingDis
 //    
     @Transactional
     public PollingDistrictEntity postSingleSpoiledBallots(Long districtId, Long single) {
-    	PollingDistrictEntity oldDistrict = findById(districtId);
+        PollingDistrictEntity oldDistrict = findById(districtId);
         PollingDistrictEntity merged;
 
         oldDistrict.setSpoiledSingleMandateBallots(single);
-        
+
         merged = em.merge(oldDistrict);
         em.persist(merged);
         return merged;
@@ -62,7 +62,7 @@ public class PollingDistrictRepository implements RepositoryInterface<PollingDis
     
     @Transactional
     public PollingDistrictEntity postMultiSpoiledBallots(Long districtId, Long multi) {
-    	PollingDistrictEntity oldDistrict = findById(districtId);
+        PollingDistrictEntity oldDistrict = findById(districtId);
         PollingDistrictEntity merged;
 
         oldDistrict.setSpoiledMultiMandateBallots(multi);

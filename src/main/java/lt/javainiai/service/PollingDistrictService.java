@@ -11,7 +11,6 @@ import lt.javainiai.model.PartyResultsEntity;
 import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.repository.PollingDistrictRepository;
 import lt.javainiai.utils.DistrictVotersActivity;
-import lt.javainiai.utils.SpoiledResults;
 import lt.javainiai.utils.UtilityMethods;
 
 @Service
@@ -108,27 +107,11 @@ public class PollingDistrictService {
 //        return pollingDistrictRepository.postSpoiledBallots(districtId, single, multi);
 //    }
     
-    public PollingDistrictEntity postSingleSpoiledBallots(Long districtId, SpoiledResults results){
-    	Long single;
-    	
-    	if (results.getSpoiledSingle() == null) {
-    		single = 0L;
-    	} else {
-    		single = results.getSpoiledSingle();
-    	}
-    	
+    public PollingDistrictEntity postSingleSpoiledBallots(Long districtId, Long single){
     	return pollingDistrictRepository.postSingleSpoiledBallots(districtId, single);
     }
     
-    public PollingDistrictEntity postMultiSpoiledBallots(Long districtId, SpoiledResults results){
-    	Long multi;
-    	
-    	if(results.getSpoiledMulti() == null) {
-    		multi = 0L;
-    	} else {
-    		multi = results.getSpoiledMulti();
-    	}
-    	
+    public PollingDistrictEntity postMultiSpoiledBallots(Long districtId, Long multi){
     	return pollingDistrictRepository.postMultiSpoiledBallots(districtId, multi);
     }
 

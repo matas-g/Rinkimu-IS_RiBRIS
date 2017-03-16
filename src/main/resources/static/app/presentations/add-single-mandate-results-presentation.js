@@ -37,7 +37,7 @@ var SingleMandateResultsInputPresentation = React.createClass({
           <h2 className="alert alert-info text-center">Suveskite kandidatų gautų balsų skaičių</h2>
           <br />
           <h4 className="alert alert-success text-center">Pasirinkite apylinkę</h4>
-            <select className="form-control" value={this.props.district.id} onChange={this.props.onDistrictChange}>
+            <select className="form-control" value={this.props.districtId} onChange={this.props.onDistrictChange}>
               {DistrictsList}
             </select>
             <br />
