@@ -4,12 +4,11 @@ const Link = require('react-router').Link;
 
 var SingleMandateDistrictResultsComponent = React.createClass({
 	render: function() {
-
 	var self = this;
-    var nr = 1;
+  var nr = 1;
 	var CanditateList = this.props.candidates.filter(function(candidate) {
-        if ((candidate.candidate.name.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) && 
-          (candidate.candidate.surname.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) && 
+        if ((candidate.candidate.name.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) &&
+          (candidate.candidate.surname.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1) &&
           (candidate.candidate.partyName.toLowerCase().indexOf(self.props.searchText.toLowerCase()) === -1)) {
         return false;
       } else {
@@ -26,17 +25,17 @@ var SingleMandateDistrictResultsComponent = React.createClass({
 					<td style={{textAlign: 'center'}}>{candidate.percentOfAllBallots}%</td>
 				</tr>
 			);
-			
+
 		});
 
 		return (
 
 			<div className="container-fluid">
-				
+
 				<div className="form-group pull-right">
 					<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchTextChange} />
 				</div>
-					<h3>Balsavimo rezultatai rinkimų  apylinkėje</h3>
+					<h3>Balsavimo rezultatai {this.props.districtName} rinkimų apylinkėje</h3>
 					<table className="table table-striped table-bordered">
 						<thead>
 							<tr className="table-head">
@@ -50,14 +49,13 @@ var SingleMandateDistrictResultsComponent = React.createClass({
 								<th>% nuo dalyvavusių rinkėjų</th>
 							</tr>
 						</thead>
-						<tbody> 
+						<tbody>
 							{CanditateList}
-						</tbody> 
+						</tbody>
 					</table>
-			</div>			
+			</div>
 		);
 	}
 });
 
 module.exports = SingleMandateDistrictResultsComponent;
-
