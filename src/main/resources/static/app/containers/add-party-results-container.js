@@ -64,7 +64,7 @@ var AddPartyResults = React.createClass({
   handleSaveClick: function(e) {
     e.preventDefault();
     var self = this;
-    var partiesList = this.state.partiesList;
+    var partiesList = this.props.partiesList;
     var sum = this.state.votesEnteredState.reduce(function(acc, val) {
       return acc + val;
     }, 0);
@@ -72,7 +72,7 @@ var AddPartyResults = React.createClass({
     if (sum == partiesList.length && (this.state.spoiledSingle != '')) {
       var voteArray = this.state.voteArray;
       self.props.handleVotesReport('partyVotes', self.state.voteArray);
-      self.context.router.push('representative/results/parties/report');
+      self.context.router.push('/representative/results/parties/report');
     } else {
       this.setState({
         text: "Suveskite balsus visiems laukeliams, nepamirškite įrašyti 0"
