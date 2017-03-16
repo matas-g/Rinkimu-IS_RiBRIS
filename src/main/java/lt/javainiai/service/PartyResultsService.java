@@ -226,8 +226,8 @@ public class PartyResultsService {
             Double percentOfAllBallots = partyResult.getPercentOfAllBallots();
             WinnerPartyMultiMandate winnerParty;
 
-            Long numOfMandatesWon = partyResult.getVotes() / mandateQuote.longValue();
-            Long mandateRemainder = partyResult.getVotes() % mandateQuote.longValue();
+            Long numOfMandatesWon = (long) (votes.doubleValue() / mandateQuote.doubleValue());
+            Long mandateRemainder = (long) (votes.doubleValue() % mandateQuote.doubleValue());
             remainingMandates -= numOfMandatesWon;
             totalOfRemainders += mandateRemainder;
 
@@ -242,15 +242,16 @@ public class PartyResultsService {
             Collections.sort(winnerParties, new MandatesRemainderComparator());
 
             // Assign mandates to parties
-            Long mandateQuote2 = totalOfRemainders / remainingMandates;
+            Long mandateQuote2 = (long) (totalOfRemainders.doubleValue() / remainingMandates.doubleValue());
             if (mandateQuote2 != 0) {
                 for (WinnerPartyMultiMandate winnerParty : winnerParties) {
                     Long currentMandatesWon = winnerParty.getNumOfMandatesWon();
-                    Long additionalMandates = winnerParty.getMandateRemainder() / mandateQuote2;
+                    Long additionalMandates = (long) (winnerParty.getMandateRemainder().doubleValue()
+                            / mandateQuote2.doubleValue());
                     winnerParty.setNumOfMandatesWon(currentMandatesWon + additionalMandates);
                     remainingMandates -= additionalMandates;
 
-                    if (remainingMandates == 0L) {
+                    if ((remainingMandates == 0L) || (winnerParty.getMandateRemainder() < mandateQuote2)) {
                         break;
                     }
                 }
