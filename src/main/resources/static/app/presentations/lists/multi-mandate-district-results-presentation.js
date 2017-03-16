@@ -21,7 +21,6 @@ var MultiMandateDistrictResultsComponent = React.createClass({
 			<td>{party.party.name}</td>
 			<td>{party.votes}</td>
 			<td>{party.percentOfAllBallots}%</td>
-			<td>{party.numOfMandatesWon}</td>
 		</tr>
 	);
 });

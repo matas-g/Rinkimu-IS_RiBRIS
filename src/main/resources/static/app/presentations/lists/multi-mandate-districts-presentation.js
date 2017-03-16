@@ -2,7 +2,7 @@ const React = require('react');
 const NavLink = require('../navigation/nav-link');
 const Link = require('react-router').Link;
 
-const MultiMandateDistrictsComponent = React.createClass({
+const MultiMandateDistrictComponent = React.createClass({
   render: function() {
 
   var nr = 1;
@@ -21,7 +21,6 @@ const MultiMandateDistrictsComponent = React.createClass({
  			<td>{party.party.name}</td>
  			<td>{party.votes}</td>
  			<td>{party.percentOfAllBallots}%</td>
- 			<td>{party.numOfMandatesWon}</td>
  		</tr>
  	);
  });
@@ -47,7 +46,7 @@ const MultiMandateDistrictsComponent = React.createClass({
 
     		<div className="container-fluid">
 			<div className="form-group pull-right">
-					<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchPartyTextChange} />
+					<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchPartyChange} />
 			</div>
 				<h3>Balsavimo rezultatai daugiamandatėje {this.props.constituencyName} apygardoje</h3>
 				<table className="table table-striped table-bordered">
@@ -66,7 +65,7 @@ const MultiMandateDistrictsComponent = React.createClass({
           <div className="make-space"></div>
 
           <div className="form-group pull-right">
-            <input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchDistrictTextChange} />
+            <input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchDistrictChange} />
           </div>
           <h3>Balsavimo rezultatai rinkimų apylinkėse</h3>
           <table className="table table-striped table-bordered">
@@ -87,4 +86,4 @@ const MultiMandateDistrictsComponent = React.createClass({
 
 
 
-module.exports = MultiMandateDistrictsComponent;
+module.exports = MultiMandateDistrictComponent;
