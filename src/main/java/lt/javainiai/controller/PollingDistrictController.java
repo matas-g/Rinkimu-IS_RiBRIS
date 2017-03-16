@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import lt.javainiai.model.PollingDistrictEntity;
 import lt.javainiai.service.PollingDistrictService;
 import lt.javainiai.utils.DistrictVotersActivity;
-import lt.javainiai.utils.SpoiledResults;
 
 @RestController
 @RequestMapping("/polling-districts/")
@@ -80,14 +80,14 @@ public class PollingDistrictController {
 
     @RequestMapping(value = "single-spoiled-ballots/{districtId}", method = RequestMethod.POST)
     public PollingDistrictEntity postSingleSpoiledBallots(@Valid @PathVariable("districtId") Long districtId,
-            @RequestBody SpoiledResults results) {
-        return pollingDistrictService.postSingleSpoiledBallots(districtId, results);
+    		@RequestParam(value = "single") Long single) {
+        return pollingDistrictService.postSingleSpoiledBallots(districtId, single);
     }
     
     @RequestMapping(value = "multi-spoiled-ballots/{districtId}", method = RequestMethod.POST)
     public PollingDistrictEntity postMultiSpoiledBallots(@Valid @PathVariable("districtId") Long districtId,
-            @RequestBody SpoiledResults results) {
-        return pollingDistrictService.postMultiSpoiledBallots(districtId, results);
+    		@RequestParam(value = "multi") Long multi) {
+        return pollingDistrictService.postMultiSpoiledBallots(districtId, multi);
     }
 
     // Get all districts that did not submit results

@@ -1,7 +1,6 @@
 const React = require('react');
 const NumberValidator = require('../util/validation/number-validator-container');
 const ReactBsTable = require('react-bootstrap-table');
-const SpoiledBallots = require('./results-report-spoiled-ballots');
 const BootstrapTable = ReactBsTable.BootstrapTable;
 const TableHeaderColumn = ReactBsTable.TableHeaderColumn;
 
@@ -67,15 +66,17 @@ var ResultsReportPresentation = React.createClass({
               {MultiResults}
             </div>
           </div>
+          <hr />
           <div className="row">
-            <h3 className="alert alert-danger text-center">Sugadinti daugiamandačiai biuleteniai:</h3>
-            <br />
-            <div className="col-sm-4 col-sm-offset-4" >
+            <div className="col-sm-9">
+              <h4 className="col-sm-9 alert alert-danger text-center">Sugadinti daugiamandačiai biuleteniai:</h4>
+            </div>
+            <div className="col-sm-3 text-center" >
               <h4 className="alert alert-success">{this.props.results.spoiledMulti}</h4>
             </div>
           </div>
           <div className="row">
-            <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onSaveClick}>Registruoti</button>
+            <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onMultiSaveClick}>Registruoti</button>
             <button className="btn btn-danger btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onCancelClick}>Atšaukti</button>
           </div>
           <br />
@@ -94,15 +95,17 @@ var ResultsReportPresentation = React.createClass({
               {SingleResults}
             </div>
           </div>
+          <hr />
           <div className="row">
-            <h3 className="alert alert-danger text-center">Sugadinti vienmandačiai biuleteniai:</h3>
-            <br />
-            <div className="col-sm-4 col-sm-offset-4" >
+            <div className="col-sm-9">
+              <h4 className="alert alert-danger text-center">Sugadinti vienmandačiai biuleteniai:</h4>
+            </div>
+            <div className="col-sm-3 text-center">
               <h4 className="alert alert-success">{this.props.results.spoiledSingle}</h4>
             </div>
           </div>
           <div className="row">
-            <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onSaveClick}>Registruoti</button>
+            <button className="btn btn-success btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onSingleSaveClick}>Registruoti</button>
             <button className="btn btn-danger btn-sm" style={{ marginRight: '20px' }} onClick={this.props.onCancelClick}>Atšaukti</button>
           </div>
           <br />

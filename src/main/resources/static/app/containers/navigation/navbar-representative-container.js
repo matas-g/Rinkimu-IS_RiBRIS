@@ -11,6 +11,9 @@ var NavRepContainer = React.createClass({
 	      options: ResultsOptions,
 				districtId: 0,
 				constituencyId: 0,
+				candidatesList: [],
+				partiesList: [],
+				districtName: '',
 				results: {
 	        singleMandateVotes: [],
 	        partyVotes: [],
@@ -19,6 +22,27 @@ var NavRepContainer = React.createClass({
 					spoiledMulti: ''
 	      }
 	    };
+	  },
+
+		componentWillMount: function() {
+	    var self = this;
+	    axios.get('http://localhost:8090/polling-districts/').then(function(response) {
+	      self.setState({
+	        constituencyId: response.data[0].constituencyId,
+	        districtId: response.data[0].id
+	      });
+				axios.get('http://localhost:8090/candidates/by-constituency/' + self.state.constituencyId).then(function(response) {
+					candidatesList = response.data;
+					self.setState({
+						candidatesList: candidatesList
+					});
+				});
+	    });
+			axios.get('http://localhost:8090/parties/').then(function(response) {
+	      self.setState({
+	        partiesList: response.data,
+	      });
+	    });
 	  },
 
 		handleSingleChange: function(spoiledSingle) {
@@ -39,11 +63,36 @@ var NavRepContainer = React.createClass({
       });
     },
 
-		handleDistrictChange(districtId, constituencyId) {
+		handleDistrictChange(districtId, constituencyId, pathname) {
+			var self = this;
 			this.setState({
 				districtId: districtId,
 				constituencyId: constituencyId
 			});
+			console.log(this.state.districtId);
+      if(pathname == "representative/results/parties/report") {
+        axios.get('http://localhost:8090/polling-districts/' + districtId).then(function(response) {
+          districtName = response.data.name;
+          axios.get('http://localhost:8090/parties/').then(function(response) {
+            partiesList = response.data;
+            self.setState({
+              districtName: districtName,
+              partiesList: partiesList
+            });
+          });
+        });
+      } else {
+        axios.get('http://localhost:8090/polling-districts/' + districtId).then(function(response) {
+          districtName = response.data.name;
+          axios.get('http://localhost:8090/candidates/by-constituency/' + constituencyId).then(function(response) {
+            candidatesList = response.data;
+            self.setState({
+              districtName: districtName,
+              candidatesList: candidatesList
+            });
+          });
+        });
+      }
 		},
 
 		handleVotesReport(fieldName, votes) {
@@ -54,43 +103,56 @@ var NavRepContainer = React.createClass({
       });
 	  },
 
-		handleSaveClick() {
+		handleSingleResultsSaveClick() {
 			var results = this.state.results;
-			for (var i = 0; i < candidatesList.length; i++) {
-				var data = {
-					district: {
-						id: this.state.districtId
-					},
-					numberOfVotes: results.singleMandateVotes[i],
-					candidate: {
-						id: candidatesList[i].id
+			var self = this;
+			if(this.state.candidatesList.length != 0) {
+				for (var i = 0; i < self.state.candidatesList.length; i++) {
+					var data = {
+						district: {
+							id: self.state.districtId
+						},
+						numberOfVotes: results.singleMandateVotes[i],
+						candidate: {
+							id: candidatesList[i].id
+						}
 					}
+					axios.post('http://localhost:8090/candidates-results/single-mandate/', data);
 				}
-				axios.post('http://localhost:8090/candidates-results/single-mandate/', data);
 			}
-			for (var i = 0; i < partiesList.length; i++) {
-				var data = {
-					numberOfVotes: results.partyVotes[i],
-					party: {
-						id: partiesList[i].id
-					},
-					district: {
-						id: this.state.districtId
+			var data = new FormData();
+			data.append( 'single', this.state.results.spoiledSingle );
+			axios.post('http://localhost:8090/polling-districts/single-spoiled-ballots/' + this.state.districtId,
+									data);
+			this.context.router.push('/representative/results/success');
+		},
+
+		handleMultiResultsSaveClick() {
+			var results = this.state.results;
+			var self = this;
+			if(this.state.partiesList.length != 0) {
+				for (var i = 0; i < self.state.partiesList.length; i++) {
+					var data = {
+						numberOfVotes: results.partyVotes[i],
+						party: {
+							id: partiesList[i].id
+						},
+						district: {
+							id: self.state.districtId
+						}
 					}
+					axios.post('http://localhost:8090/party-results/', data);
 				}
-				axios.post('http://localhost:8090/party-results/', data);
 			}
-			var dataList = {
-				spoiledSingle: this.state.results.spoiledSingle,
-				spoiledMulti: this.state.results.spoiledMulti
-			}
-			axios.post('http://localhost:8090/polling-districts/spoiled-ballots/'+this.state.districtId, dataList);
+			var data = new FormData();
+			data.append( 'single', this.state.results.spoiledMulti );
+			axios.post('http://localhost:8090/polling-districts/multi-spoiled-ballots/' + this.state.districtId,
+									data);
 			this.context.router.push('/representative/results/success');
 		},
 
 	  render: function() {
 			var self = this;
-
 			const childs = React.Children.map(this.props.children,
 	      function(child) {
 	        return React.cloneElement(child, {
@@ -101,7 +163,11 @@ var NavRepContainer = React.createClass({
 						constituencyId: self.state.constituencyId,
 						onSingleChange: self.handleSingleChange,
 						onMultiChange: self.handleMultiChange,
-						handleSaveClick: self.handleSaveClick
+						handleMultiSaveClick: self.handleMultiResultsSaveClick,
+						handleSingleSaveClick: self.handleSingleResultsSaveClick,
+						candidatesList: self.state.candidatesList,
+						partiesList: self.state.partiesList,
+						handleDistrictChange: self.handleDistrictChange
 	        })
 	      }
 	    );
@@ -117,7 +183,7 @@ var NavRepContainer = React.createClass({
 	  }
 	});
 
-NavRepContainer.contextTypes = {
+	NavRepContainer.contextTypes = {
 	  router: React.PropTypes.object.isRequired,
 	};
 

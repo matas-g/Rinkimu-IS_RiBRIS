@@ -5,11 +5,7 @@ const PartyResults = require('../presentations/add-party-results-presentation');
 var AddPartyResults = React.createClass({
   getInitialState: function() {
     return {
-      district: {
-        id: this.props.districtId
-      },
       districts: [],
-      partiesList: [],
       voteArray: [],
       votesEnteredState: [],
       text: '',
@@ -23,27 +19,17 @@ var AddPartyResults = React.createClass({
       self.setState({
         districts: response.data,
       });
-      axios.get('http://localhost:8090/parties/').then(function(response) {
-        self.setState({
-          partiesList: response.data,
-        });
-      });
     });
   },
 
   handleDistrictChange: function(e){
     var districtId = parseInt(e.target.value);
     var self = this;
-    this.props.setIds(districtId, this.props.constituencyId);
-    axios.get('http://localhost:8090/parties/').then(function(response) {
-      self.setState({
-    	district: {
-    	      id: districtId
-    	    },
-        partiesList: response.data
-      });
+    var constituencyId;
+    axios.get('http://localhost:8090/polling-districts/' + districtId).then(function(response) {
+      constituencyId = response.data.constituencyId;
+      self.props.setIds(districtId, constituencyId, self.props.location.pathname);
     });
-
   },
 
   handleResultsChange: function(index) {
@@ -99,10 +85,10 @@ var AddPartyResults = React.createClass({
       <PartyResults
         text={this.state.text}
         handleValidStateChange={this.handleValidStateChange}
-        district={this.state.district}
-        constituencyId={this.state.constituencyId}
+        districtId={this.props.districtId}
+        constituencyId={this.props.constituencyId}
         districts={this.state.districts}
-        partiesList={this.state.partiesList}
+        partiesList={this.props.partiesList}
         voteArray={this.state.voteArray}
         onDistrictChange={this.handleDistrictChange}
         onResultsChange={this.handleResultsChange}
