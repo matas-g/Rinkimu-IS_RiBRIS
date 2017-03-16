@@ -28,23 +28,18 @@ var MultiMandateDistrictResultsComponent = React.createClass({
 
 		return (
 
-			<div className="container-fluid">
 				
+			<div className="container-fluid">
 				<div className="form-group pull-right">
-					<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchPartyChange} />
+						<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onSearchPartyTextChange} />
 				</div>
-					<h3>Balsavimo rezultatai rinkimų {districtName} apylinkėje</h3>
+					<h3>Balsavimo rezultatai daugiamandatėje {this.props.constituencyName} apygardoje</h3>
 					<table className="table table-striped table-bordered">
 						<thead>
-							<tr className="table-head">
-								<th className="text-middle" style={{verticalAlign: 'middle'}} rowSpan="2">Kandidatas</th>
-								<th className="text-middle" style={{verticalAlign: 'middle'}} rowSpan="2">Iškėlė</th>
-								<th colSpan="3">Paduotų balsų skaičius</th>
-							</tr>
-							<tr className="table-head">
-								<th>iš viso</th>
-								<th>% nuo galiojančių biuletenių</th>
-								<th>% nuo dalyvavusių rinkėjų</th>
+							<tr className="table-head"> 
+								<th>Partija</th>
+								<th>Balsai iš viso</th>
+								<th>Balsų skaičius % nuo dalyvavusių rinkėjų apygardoje</th>
 							</tr>
 						</thead>
 						<tbody> 

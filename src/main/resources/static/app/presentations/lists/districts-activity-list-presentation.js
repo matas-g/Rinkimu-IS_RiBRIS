@@ -39,7 +39,7 @@ var DistrictsActivityListComponent = React.createClass({
                 <th>Nr</th>
                 <th>Pavadinimas</th>
                 <th>Balsavusių skaičius</th>
-                <th>Balsai procentaliai</th>
+                <th>Rinkėjų aktyvumas procentais</th>
               </tr>
             </thead>
             <tbody>

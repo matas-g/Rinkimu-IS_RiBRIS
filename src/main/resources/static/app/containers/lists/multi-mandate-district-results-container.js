@@ -1,9 +1,9 @@
 const React = require('react');
 const axios = require('axios');
 const Link = require('react-router').Link;
-const MultiMandateListPresentation = require('../../presentations/lists/multi-mandate-results-presentation');
+const MultiMandateListPresentation = require('../../presentations/lists/multi-mandate-district-results-presentation');
 
-var MultiMandateListContainer = React.createClass({
+var MultiMandateDistrictListResultContainer = React.createClass({
   getInitialState: function() {
     return {
       districts: [],
@@ -39,14 +39,14 @@ componentWillMount: function() {
         parties={this.state.parties}
         onSearchPartyTextChange={this.handleSearchPartyTextChange}
         searchParty={this.state.searchParty}
-      	districtName={this.state.distrcitName}
+      	
       />
     );
   }
 });
 
-MultiMandateListContainer.contextTypes = {
+MultiMandateDistrictListResultContainer.contextTypes = {
   router: React.PropTypes.object.isRequired,
 };
 
-module.exports = MultiMandateListContainer;
+module.exports = MultiMandateDistrictListResultContainer;
