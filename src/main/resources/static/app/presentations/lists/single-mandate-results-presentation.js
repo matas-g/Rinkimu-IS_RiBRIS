@@ -20,9 +20,9 @@ var SingleMandateComponent = React.createClass({
 		return (
 			<tr key={index}>
             	<td className="candidate-name-decorator"><Link to={link}>{nr++}. {candidate.candidate.name} {candidate.candidate.surname}</Link></td>
-				<td>{candidate.candidate.constituencyName}</td>
-				<td>{candidate.candidate.partyName}</td>
-				<td style={{textAlign: 'center'}}>{candidate.percentOfAllBallots}%</td>
+				<td className="text-middle" style={{verticalAlign: 'middle'}}>{candidate.candidate.constituencyName}</td>
+				<td className="text-middle" style={{verticalAlign: 'middle'}}>{candidate.candidate.partyName}</td>
+				<td className="text-middle" style={{verticalAlign: 'middle'}}>{candidate.percentOfAllBallots}%</td>
 			</tr>
 		);
 	});
@@ -38,8 +38,8 @@ var SingleMandateComponent = React.createClass({
 			return (
 				<tr key={index}>
 					<td className="candidate-name-decorator"><Link to={link}>{num++}. {constituency.constituency.name}</Link></td>
-					<td style={{textAlign: 'center'}}>{constituency.totalNumOfDistricts}</td>
-					<td style={{textAlign: 'center'}}>{constituency.districtsWithResults}</td>
+					<td className="text-middle" style={{verticalAlign: 'middle'}} >{constituency.totalNumOfDistricts}</td>
+					<td className="text-middle" style={{verticalAlign: 'middle'}} >{constituency.districtsWithResults}</td>
 				</tr>
 			);
 			
@@ -55,10 +55,10 @@ var SingleMandateComponent = React.createClass({
 				<table className="table table-striped table-bordered">
 					<thead>
 						<tr className="table-head"> 
-							<th>Kandidatas</th>
-							<th>Apygarda</th>
-							<th>Iškėlė</th>
-							<th>Balsų skaičius % nuo dalyvavusių rinkėjų apygardoje</th>
+							<th className="text-middle" style={{verticalAlign: 'middle'}}>Kandidatas</th>
+							<th className="text-middle" style={{verticalAlign: 'middle'}}>Apygarda</th>
+							<th className="text-middle" style={{verticalAlign: 'middle'}}>Iškėlė</th>
+							<th className="text-middle" style={{verticalAlign: 'middle'}}>Balsų skaičius % nuo dalyvavusių rinkėjų apygardoje</th>
 						</tr>
 					</thead>
 					<tbody> 

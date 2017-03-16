@@ -18,7 +18,6 @@ var SingleMandateDistrictListContainer = React.createClass({
     var self = this;
       axios.get('http://localhost:8090/candidates-results/single-mandate/districts-results-time/' + self.props.params.constituencyId)
       .then(function (response) {
-        console.log(response.data[0].district.constituencyName);
         self.setState({
             districts: response.data,
             constituencyName: response.data[0].district.constituencyName

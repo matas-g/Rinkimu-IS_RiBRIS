@@ -14,6 +14,7 @@ var PublicResultsListComponent = React.createClass({
 			      			<ul className="nav navbar-nav">
 			              <li><Link to="/single-mandate"><i className="fa fa-user" aria-hidden="true"></i> Vienmandačių </Link></li>
 			              <li><Link to="/multi-mandate"><i className="fa fa-users" aria-hidden="true"></i> Daugiamandačių </Link></li>
+			              <li><Link to="/consolidate-results"><i className="fa fa-cogs" aria-hidden="true"></i> Konsoliduoti </Link></li>
 			            </ul>
 			          </div>
 			        </div>

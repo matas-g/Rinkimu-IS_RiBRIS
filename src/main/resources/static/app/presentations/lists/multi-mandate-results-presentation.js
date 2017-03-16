@@ -23,10 +23,10 @@ var MultiMandateComponent = React.createClass({
 			mandatesArray.push(party.numOfMandatesWon);
 	    	return (
 	    		<tr key={index}>
-	    			<td>{party.party.name}</td>
-	    			<td>{party.votes}</td>
-	    			<td>{party.percentOfAllBallots}%</td>
-	    			<td>{party.numOfMandatesWon}</td>
+	    			<td className="text-middle" style={{verticalAlign: 'middle'}}>{party.party.name}</td>
+	    			<td className="text-middle" style={{verticalAlign: 'middle'}}>{party.votes}</td>
+	    			<td className="text-middle" style={{verticalAlign: 'middle'}}>{party.percentOfAllBallots}%</td>
+	    			<td className="text-middle" style={{verticalAlign: 'middle'}}>{party.numOfMandatesWon}</td>
 	    		</tr>
 	    	);
 	    });
@@ -42,8 +42,8 @@ var MultiMandateComponent = React.createClass({
 				return (
 					<tr key={index}>
 						<td className="candidate-name-decorator"><Link to={link}>{nr++}. {constituency.constituency.name}</Link></td>
-						<td>{constituency.totalNumOfDistricts}</td>
-						<td>{constituency.districtsWithResults}</td>
+						<td className="text-middle" style={{verticalAlign: 'middle'}}>{constituency.totalNumOfDistricts}</td>
+						<td className="text-middle" style={{verticalAlign: 'middle'}}>{constituency.districtsWithResults}</td>
 					</tr>
 				);
 			});
@@ -58,10 +58,10 @@ var MultiMandateComponent = React.createClass({
 						<table className="table table-striped table-bordered">
 							<thead>
 								<tr className="table-head">
-									<th>Partija</th>
-									<th>Balsai iš viso</th>
-									<th>Balsų skaičius % nuo dalyvavusių rinkėjų apygardoje</th>
-									<th>Mandatų skaičius</th>
+									<th className="text-middle" style={{verticalAlign: 'middle'}}>Partija</th>
+									<th className="text-middle" style={{verticalAlign: 'middle'}}>Balsai iš viso</th>
+									<th className="text-middle" style={{verticalAlign: 'middle'}}>Balsų skaičius % nuo dalyvavusių rinkėjų apygardoje</th>
+									<th className="text-middle" style={{verticalAlign: 'middle'}}>Mandatų skaičius</th>
 								</tr>
 							</thead>
 							<tbody>
