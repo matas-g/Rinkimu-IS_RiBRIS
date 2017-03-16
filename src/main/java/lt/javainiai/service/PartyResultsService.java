@@ -336,24 +336,23 @@ public class PartyResultsService {
         List<WinnerPartyMultiMandate> parties = getWinnerPartiesMultiMandate();
         List<ConsolidatedParty> consolidatedParties = new ArrayList<>();
         Long noPartyCandidatesMandates = 0L;
+        List<SingleMandateCandidateResults> singleMandateWinners = candidatesResultsSingleMandateService
+                .getWinnerCandidatesSingleMandate();
 
-        // sum all mandates
         for (WinnerPartyMultiMandate party : parties) {
             PartyEntity currentParty = party.getParty();
             ConsolidatedParty consolidatedParty;
             Long partyMultiMemberMandates = party.getNumOfMandatesWon();
             Long partySingleMemberMandates = 0L;
             Long totalPartyMandates = 0L;
-            List<SingleMandateCandidateResults> singleMandateWinners = candidatesResultsSingleMandateService
-                    .getWinnerCandidatesSingleMandate();
 
             for (SingleMandateCandidateResults singleMandateWinner : singleMandateWinners) {
-                PartyEntity candidatesParty = singleMandateWinner.getCandidate().getParty();
+                if (singleMandateWinner != null) {
+                    PartyEntity candidatesParty = singleMandateWinner.getCandidate().getParty();
 
-                if (candidatesParty == currentParty) {
-                    partySingleMemberMandates++;
-                } else if (candidatesParty == null) {
-                    noPartyCandidatesMandates++;
+                    if (candidatesParty == currentParty) {
+                        partySingleMemberMandates++;
+                    }
                 }
             }
             totalPartyMandates = partyMultiMemberMandates + partySingleMemberMandates;
@@ -365,7 +364,6 @@ public class PartyResultsService {
             @Override
             public int compare(ConsolidatedParty o1, ConsolidatedParty o2) {
                 int result = o2.getMandatesWon().compareTo(o1.getMandatesWon());
-
                 if (result != 0) {
                     return result;
                 } else {
@@ -374,6 +372,16 @@ public class PartyResultsService {
             }
 
         });
+
+        for (SingleMandateCandidateResults singleMandateWinner : singleMandateWinners) {
+            if (singleMandateWinner != null) {
+                PartyEntity candidatesParty = singleMandateWinner.getCandidate().getParty();
+                if (candidatesParty == null) {
+                    noPartyCandidatesMandates++;
+                }
+            }
+        }
+
         if (noPartyCandidatesMandates != 0) {
             consolidatedParties.add(new ConsolidatedParty("Išsikėlę patys", noPartyCandidatesMandates));
         }
