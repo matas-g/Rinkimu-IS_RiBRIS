@@ -7,24 +7,39 @@ var ConsolidateResultsListContainer = React.createClass({
   getInitialState: function() {
     return {
       parties: [],
+      candidates: [],
       searchText: '',
+      candidateSearch: ''
     };
   },
 
   componentWillMount: function() {
     var self = this;
-      axios.get('http://localhost:8090/party-results/consolidated-results/')
-      .then(function (response) {
+    axios.get('http://localhost:8090/party-results/consolidated-results/')
+    .then(function (response) {
+        parties = response.data;
+     axios.get('http://localhost:8090/party-results/consolidated-candidates/')
+    .then(function (response) {
+        candidates = response.data;
         self.setState({
-            parties: response.data,
+            parties: parties,
+            candidates: candidates
         });
-      });
-  },
+    });
+  })
+},
 
   handleSearchTextChange: function(e) {
     var text = e.target.value;
     this.setState({
       searchText: text
+  });
+},
+
+  handleCandidatesSearchTextChange: function(e) {
+    var candidate = e.target.value;
+    this.setState({
+      candidateSearch: candidate
   });
 },
   
@@ -33,8 +48,11 @@ var ConsolidateResultsListContainer = React.createClass({
     return (
       <ConsolidateResultsComponent
         parties={this.state.parties}
+        candidates={this.state.candidates}
         onSearchTextChange={this.handleSearchTextChange}
         searchText={this.state.searchText}
+        onCandidateSearchTextChange={this.handleCandidatesSearchTextChange}
+        candidateSearch={this.state.candidateSearch}
       />
     );
   }

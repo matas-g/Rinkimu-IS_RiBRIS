@@ -28,6 +28,23 @@ var ConsolidateResultsComponent = React.createClass({
 			);
 		});
 
+		var winersCandidateList = this.props.candidates.filter(function(candidate) {
+        if ((candidate.name.toLowerCase().indexOf(self.props.candidateSearch.toLowerCase()) === -1) && 
+          (candidate.surname.toLowerCase().indexOf(self.props.candidateSearch.toLowerCase()) === -1) && 
+          (candidate.partyName.toLowerCase().indexOf(self.props.candidateSearch.toLowerCase()) === -1)) {
+        return false;
+      } else {
+        return true;
+      }
+    }).map(function(candidate, index) {
+			return (
+				<tr key={index}>
+					<td>{candidate.name} {candidate.surname}</td>
+					<td style={{textAlign: 'center'}}>{candidate.partyName}</td>
+				</tr>
+			);
+		});	
+
 
 		return (
 
@@ -51,6 +68,22 @@ var ConsolidateResultsComponent = React.createClass({
 				<div className="row">
 					  <BarChart labels={partyNames} data={mandatesArray} />
 				</div>
+
+				<div className="form-group pull-right">
+					<input type="text" className="search form-control" placeholder="Ieškoti" onChange={this.props.onCandidateSearchTextChange} />
+				</div>
+					<h3>Išrinkti Lietuvos Respublikos Seimo nariai</h3>
+				<table className="table table-striped table-bordered">
+					<thead>
+						<tr className="table-head">
+							<th>Kandidatas</th>
+							<th>Partijos pavadinimas</th>
+						</tr>
+					</thead>
+					<tbody>
+						{winersCandidateList}
+					</tbody>
+				</table>
 	
 			</div>
 		);
