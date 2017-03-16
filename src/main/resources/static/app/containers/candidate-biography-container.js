@@ -13,7 +13,6 @@ var CandidateBiographyContainer = React.createClass({
 		var self = this;
 		axios.get('http://localhost:8090/candidates/' + this.props.params.candidateId)
 		.then(function(response) {
-			console.log(response.data);
 			self.setState({
 				candidates: response.data
 			});
