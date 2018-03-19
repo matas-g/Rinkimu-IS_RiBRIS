@@ -83,7 +83,7 @@ var ValidatorContainer = React.createClass({
           });
         }
       }
-
+      console.log(this.state.isValid);
     },
 
     shouldComponentUpdate: function(nextProps, nextState) {
